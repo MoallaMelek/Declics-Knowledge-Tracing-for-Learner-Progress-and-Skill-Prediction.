@@ -1,0 +1,13 @@
+{
+  "learners": 186,
+  "groups": 10307,
+  "observations": 10873,
+  "max_groups": 150,
+  "split_counts": {
+    "train": 130,
+    "validation": 14,
+    "calibration": 14,
+    "test": 28
+  },
+  "label_definition": "full_credit_at_least_1_minus_1e-8"
+}

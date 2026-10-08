@@ -1,0 +1,13 @@
+{
+  "learners": 280,
+  "groups": 13440,
+  "observations": 17470,
+  "max_groups": 48,
+  "split_counts": {
+    "train": 196,
+    "validation": 21,
+    "calibration": 21,
+    "test": 42
+  },
+  "label_definition": "simulated Bernoulli outcome"
+}

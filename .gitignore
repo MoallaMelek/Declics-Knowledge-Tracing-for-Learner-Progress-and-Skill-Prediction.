@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+runtime/
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+# Local environments, reports and delivery archives
+venv/
+.node_modules/
+node_modules/
+*.zip
+*.log

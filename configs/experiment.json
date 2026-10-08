@@ -1,0 +1,15 @@
+{
+  "split_seed": 2026,
+  "seeds": [7, 19, 43],
+  "epochs": 35,
+  "batch_size": 24,
+  "hidden": 48,
+  "context": 256,
+  "learning_rate": 0.002,
+  "weight_decay": 0.0001,
+  "patience": 7,
+  "bootstrap_replicates": 300,
+  "models": ["prior", "bkt", "pfa", "dkt", "sakt"],
+  "target": "full_credit_at_least_1_minus_1e-8",
+  "selection_metric": "validation_log_loss"
+}

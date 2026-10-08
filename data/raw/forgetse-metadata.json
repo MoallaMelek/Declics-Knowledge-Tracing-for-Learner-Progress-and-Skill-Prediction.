@@ -1,0 +1,120 @@
+{
+  "files": [
+    {
+      "id": 54819392,
+      "name": "forget_se.csv",
+      "size": 256876,
+      "is_link_only": false,
+      "download_url": "https://ndownloader.figshare.com/files/54819392",
+      "supplied_md5": "f7d297747eda7d5cd0a704a1b710df5d",
+      "computed_md5": "f7d297747eda7d5cd0a704a1b710df5d",
+      "mimetype": "text/csv"
+    }
+  ],
+  "folder_structure": {},
+  "authors": [
+    {
+      "id": 21422456,
+      "full_name": "Alyssa Sha",
+      "first_name": "Alyssa",
+      "last_name": "Sha",
+      "is_active": true,
+      "url_name": "Alyssa_Sha",
+      "orcid_id": "0000-0001-6368-3388"
+    },
+    {
+      "id": 11150770,
+      "full_name": "Bernardo Pereira Nunes",
+      "first_name": "Bernardo",
+      "last_name": "Pereira Nunes",
+      "is_active": false,
+      "url_name": "_",
+      "orcid_id": "0000-0001-9764-9401"
+    }
+  ],
+  "custom_fields": [],
+  "figshare_url": "https://figshare.com/articles/dataset/FORGET-SE_A_Dataset_for_Analysing_Memory_Decay_and_Interference_in_Software_Engineering_Knowledge_Tracing/29146304",
+  "download_disabled": false,
+  "description": "<p dir=\"ltr\">This knowledge tracing dataset contains learning interaction data from 186 university students studying software engineering concepts over a 12-week period. The data was collected through weekly quizzes designed to systematically capture both memory decay and interference effects on knowledge retention—mechanisms that are often overlooked in existing knowledge tracing datasets.</p><p dir=\"ltr\"><b>Dataset Structure:</b></p><ul><li><b>user_id</b>: De-identified student identifier</li><li><b>qid</b>: Question identifier</li><li><b>sequence_id</b>: Knowledge component identifier</li><li><b>log_id</b>: De-identified timestamp</li><li><b>correct</b>: Standardised answer score</li></ul><p dir=\"ltr\">The dataset covers ten core software engineering concepts and was specifically designed to isolate forgetting mechanisms rather than emerging from voluntary practice platforms. This controlled collection approach enables researchers to study how time-based decay and concept interference differentially impact learning retention in software engineering education.</p>",
+  "funding": null,
+  "funding_list": [],
+  "version": 1,
+  "status": "public",
+  "size": 256876,
+  "created_date": "2025-06-11T03:56:57Z",
+  "modified_date": "2025-06-11T03:56:57Z",
+  "is_public": true,
+  "is_confidential": false,
+  "is_metadata_record": false,
+  "confidential_reason": "",
+  "metadata_reason": "",
+  "license": {
+    "value": 1,
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "tags": [
+    "Knowledge Tracing",
+    "learning analyses"
+  ],
+  "keywords": [
+    "Knowledge Tracing",
+    "learning analyses"
+  ],
+  "categories": [
+    {
+      "id": 28933,
+      "title": "Data mining and knowledge discovery",
+      "parent_id": 28927,
+      "path": "/28798/28927/28933",
+      "source_id": "460502",
+      "taxonomy_id": 100
+    },
+    {
+      "id": 29161,
+      "title": "Deep learning",
+      "parent_id": 29152,
+      "path": "/28798/29152/29161",
+      "source_id": "461103",
+      "taxonomy_id": 100
+    },
+    {
+      "id": 29050,
+      "title": "Computing education",
+      "parent_id": 29038,
+      "path": "/28798/29038/29050",
+      "source_id": "460804",
+      "taxonomy_id": 100
+    }
+  ],
+  "references": [],
+  "has_linked_file": false,
+  "citation": "Sha, Alyssa; Pereira Nunes, Bernardo (2025). FORGET-SE: A Dataset for Analysing Memory Decay and Interference in Software Engineering Knowledge Tracing. figshare. Dataset. https://doi.org/10.6084/m9.figshare.29146304.v1",
+  "related_materials": [],
+  "is_embargoed": false,
+  "embargo_date": null,
+  "embargo_type": null,
+  "embargo_title": "",
+  "embargo_reason": "",
+  "embargo_options": [],
+  "id": 29146304,
+  "title": "FORGET-SE: A Dataset for Analysing Memory Decay and Interference in Software Engineering Knowledge Tracing",
+  "doi": "10.6084/m9.figshare.29146304.v1",
+  "handle": "",
+  "url": "https://api.figshare.com/v2/articles/29146304",
+  "published_date": "2025-06-11T03:56:57Z",
+  "thumb": "",
+  "defined_type": 3,
+  "defined_type_name": "dataset",
+  "group_id": null,
+  "url_private_api": "https://api.figshare.com/v2/account/articles/29146304",
+  "url_public_api": "https://api.figshare.com/v2/articles/29146304",
+  "url_private_html": "https://figshare.com/account/articles/29146304",
+  "url_public_html": "https://figshare.com/articles/dataset/FORGET-SE_A_Dataset_for_Analysing_Memory_Decay_and_Interference_in_Software_Engineering_Knowledge_Tracing/29146304",
+  "timeline": {
+    "posted": "2025-06-11T03:56:57",
+    "firstOnline": "2025-06-11"
+  },
+  "resource_title": null,
+  "resource_doi": null
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "file": "Datasets.docx",
+    "sha256": "ba82f9936a531469fe0e9e95f106bee9213d153854adb6b068ae48f0453616f7",
+    "pages": null,
+    "characters": 8377
+  },
+  {
+    "file": "Datasets.pdf",
+    "sha256": "ce972382b0cee2f9a2663ff46c38bdcc1d48463f650e2ee215d21bc711a59951",
+    "pages": 6,
+    "characters": 9974
+  },
+  {
+    "file": "Declic_Axis_1.pdf",
+    "sha256": "854452a70d20f9d2c84f555d4b7c5817563d73eebb1fa63940f87835a66d503a",
+    "pages": 5,
+    "characters": 10540
+  },
+  {
+    "file": "Declic_Axis_2.pdf",
+    "sha256": "46ac4daab39553c27a311d779eee57aaa66772bfff3c0a43148aa3685cdcf306",
+    "pages": 5,
+    "characters": 10155
+  },
+  {
+    "file": "Declic_Axis_3.pdf",
+    "sha256": "31140d294ce7c839feba2860e6d9a10b7526d0e83898396279b17aae3461b7d5",
+    "pages": 5,
+    "characters": 10089
+  },
+  {
+    "file": "Declic_Axis_4.pdf",
+    "sha256": "8e4136b951805633bd22e468999c382362b2551f83a441a7a28a5c8903184001",
+    "pages": 5,
+    "characters": 10584
+  },
+  {
+    "file": "Declic_Axis_5.pdf",
+    "sha256": "e01c83382a6776d8130f9cc49cf9795d9386f7a8332ef0c6e4e4df81c606aa28",
+    "pages": 5,
+    "characters": 10600
+  },
+  {
+    "file": "Declic_Axis_6.pdf",
+    "sha256": "5cab2e70d365a39dc5f37d3df6c770eb697447590621a151a4d3c53645f7ea14",
+    "pages": 5,
+    "characters": 10153
+  },
+  {
+    "file": "Declic_Axis_7.pdf",
+    "sha256": "2da6b7f548ff9d130a2f017a21e938863dcd6a69cafd562f1a518185048d7106",
+    "pages": 5,
+    "characters": 10788
+  },
+  {
+    "file": "Declic_Investigate_Concise_Report.pdf",
+    "sha256": "9aae42998a0acc7c0175d25fb8240b6d65fd0f38891039ae0d973ac50fc99364",
+    "pages": 5,
+    "characters": 15720
+  },
+  {
+    "file": "Declic_Investigate_Phase_Research_Report.pdf",
+    "sha256": "36559b96f32f763c49b83ac2398528bcc583e47fd54e9e89ee7824307623a5d5",
+    "pages": 40,
+    "characters": 114314
+  },
+  {
+    "file": "guiding-questions.pdf",
+    "sha256": "b0f973fa81b2093e01516e2b4d63b67c930fa86e661d18150f5e94925b765303",
+    "pages": 2,
+    "characters": 4871
+  },
+  {
+    "file": "PV-Week.docx",
+    "sha256": "dcc8a08cdf86df025b43f63f429a55f9bbe9f664f7bf62031dcf1f6563a0730e",
+    "pages": null,
+    "characters": 4099
+  },
+  {
+    "file": "Red and Black Grunge Music Presentation.pdf",
+    "sha256": "5a892419e37cf0a42b2cf669822954bee3603437fc529bcd1b495a15c5a47dfa",
+    "pages": 18,
+    "characters": 3934
+  },
+  {
+    "file": "Research.ipynb",
+    "sha256": "400f1082b916a9bf0d6c5145c946609b54201664b46ca23036aa3764d6f5f652",
+    "pages": null,
+    "characters": 6165122
+  }
+]

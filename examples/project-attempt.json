@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "attempt_id": "example:project:0001",
+  "student_id": "pseudonym-0001",
+  "session_id": "example-session:0001",
+  "exercise_id": "partner-exercise-placeholder",
+  "instrument": "piano",
+  "timestamp": "2026-10-01T10:00:00+02:00",
+  "provenance": "project",
+  "rubric_version": "provisional-requires-teacher-validation",
+  "observations": [
+    {
+      "skill_id": "pitch",
+      "outcome": 1,
+      "source_confidence": 0.9,
+      "error_types": [],
+      "evidence_id": "example:project:0001:note:1"
+    },
+    {
+      "skill_id": "rhythm",
+      "outcome": 0,
+      "error_types": ["late_onset"],
+      "evidence_id": "example:project:0001:note:2"
+    }
+  ],
+  "upstream_versions": {}
+}
