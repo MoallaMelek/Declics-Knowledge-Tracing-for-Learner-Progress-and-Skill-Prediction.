@@ -22,8 +22,8 @@ def test_ingest_and_reset_keep_selector_and_state_consistent(tmp_path, monkeypat
     fixtures['learners2'] = client.get('/api/learners?domain=music-mock').json()
     fixture_path = tmp_path / 'fixtures.json'
     fixture_path.write_text(json.dumps(fixtures, ensure_ascii=False), encoding='utf-8')
-    run = subprocess.run(['node', str(ROOT / 'tests/frontend/ui_check.js'), str(ROOT / 'web/app.js'), str(fixture_path)],
+    run = subprocess.run(['node', str(ROOT / 'tests/frontend/ui_check.js'), str(ROOT / 'web/app.js'), str(fixture_path),str(ROOT / 'web/index.html')],
                          capture_output=True, text=True, encoding='utf-8', timeout=120)
     print(run.stdout)
     assert run.returncode == 0, run.stdout + run.stderr
-    assert '9/9 checks passed' in run.stdout
+    assert '16/16 checks passed' in run.stdout

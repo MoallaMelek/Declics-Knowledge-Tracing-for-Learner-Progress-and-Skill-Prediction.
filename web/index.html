@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="fr">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DÉCLIC · Jumeau d’apprentissage</title><meta name="theme-color" content="#18161b"><link rel="stylesheet" href="/web/style.css"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DÉCLIC · Jumeau d’apprentissage</title><meta name="theme-color" content="#18161b"><link rel="stylesheet" href="/web/style.css?v=2.1"></head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z" fill="currentColor" stroke="none"/></symbol>
@@ -23,13 +23,13 @@
 <div id="alert" role="alert" hidden></div>
 <section id="twin-view">
 <div class="intro">
-<div class="intro-text"><h1>Le jumeau de votre apprentissage</h1><p>Explorez les compétences, rejouez le parcours et observez ce qu’une nouvelle séance change dans les prévisions.</p></div>
+<div class="intro-text"><div class="edition">DÉCLIC / LEARNING INTELLIGENCE</div><h1>Votre progression,<br><em>séance après séance.</em></h1><p>Explorez les compétences, rejouez le parcours et observez ce qu’une nouvelle séance change dans les prévisions.</p></div>
 <div class="controls"><label for="domain">Espace d’exploration</label><select id="domain"><option value="music-mock">Atelier musical · simulation</option><option value="forget-se">Étude réelle · génie logiciel</option></select><label for="learner">Apprenant</label><select id="learner"></select></div>
 </div>
 <div class="provenance-strip"><span id="source-badge" class="badge">Chargement</span><span id="source-description">Lecture des modèles et de l’historique…</span><button id="model-toggle" class="text-button" aria-expanded="false">Détail du modèle</button></div>
 <div id="model-controls" hidden><label>Modèle sauvegardé <select id="model"></select></label><p id="model-note"></p></div>
 
-<div class="workspace">
+<div id="journey-summary" class="journey-summary" aria-live="polite"></div><p id="forecast-note" class="fineprint"></p><div class="workspace">
 <section class="constellation panel" aria-labelledby="constellation-title">
 <div class="panel-heading"><h2 id="constellation-title">Constellation de compétences</h2><span class="subtle" id="history-count">…</span></div>
 <div class="next-weakness"><span>À surveiller ensuite</span><strong id="next-weakness">…</strong><button id="focus-weakness" class="text-button">Explorer cette compétence</button></div>
@@ -51,6 +51,7 @@
 </div>
 <div class="ev-b">
 <h3 class="mini-title">Évolution de la prédiction</h3>
+<p id="curve-conditioning" class="fineprint"></p>
 <svg id="curve" viewBox="0 0 330 112" aria-label="Évolution des probabilités"></svg>
 <h3 class="mini-title">Observations disponibles</h3>
 <div id="evidence-list" class="evidence-list"></div>
@@ -59,7 +60,7 @@
 </aside>
 </div>
 
-<div class="lower-grid">
+<section class="trajectory-panel panel"><div class="panel-heading"><h2>Les trajectoires de votre pratique</h2><span class="subtle">Prévisions et observations, séparées</span></div><div id="trajectories" class="trajectories"></div></section><div class="lower-grid">
 <section class="timeline panel" aria-labelledby="timeline-title">
 <div class="panel-heading"><h2 id="timeline-title">Chaque séance, une nouvelle trace.</h2><button id="play" class="icon-button" aria-label="Lire l’évolution des séances"><svg class="icon"><use href="#i-play"/></svg></button></div>
 <div id="session-markers" class="session-markers"></div>
@@ -70,7 +71,7 @@
 <section class="next-action panel" aria-labelledby="next-title">
 <h2 id="next-title">Prochaine étape suggérée</h2>
 <h3 id="recommendation-title">…</h3>
-<p id="recommendation-text"></p>
+<p id="recommendation-text"></p><label class="policy-label" for="policy">Politique de pratique</label><select id="policy"><option value="balanced">Équilibrer prévision et observations</option><option value="weakest">Prioriser la prévision la plus fragile</option></select><p id="policy-details" class="policy-details"></p><ol id="practice-ranking" class="practice-ranking"></ol>
 <div class="heuristic-tag">Priorisation par règle explicite · bénéfice pédagogique non validé</div>
 <button id="open-simulation" class="primary"><svg class="icon"><use href="#i-plus"/></svg>Ajouter une séance simulée</button>
 </section>
@@ -80,21 +81,21 @@
 <div class="panel-heading"><h2 id="simulation-title">Faites évoluer le jumeau</h2><button class="icon-button" id="close-simulation" aria-label="Fermer le panneau de simulation"><svg class="icon"><use href="#i-close"/></svg></button></div>
 <p class="ingestion-lead">Le producteur simulé crée les résultats d’une séance. Le modèle sauvegardé les reçoit ensuite et recalcule ses prédictions.</p>
 <div class="simulate-controls"><label>Compétence <select id="simulation-skill"></select></label><label>Scénario <select id="scenario"><option value="mixed">Résultats mixtes</option><option value="success">Quatre réussites simulées</option><option value="difficulty">Quatre difficultés simulées</option></select></label><button id="simulate" class="primary">Incorporer la séance</button></div>
-<details><summary>Intégration des observations DÉCLIC</summary><p>Coller un événement conforme au schéma v1. Les modules amont restent indépendants. Une observation réelle n’établit pas que ce modèle entraîné sur simulation est valide en musique.</p><label class="sr-only" for="event-json">Événement JSON</label><textarea id="event-json" rows="8" spellcheck="false"></textarea><button id="ingest" class="secondary">Valider et intégrer</button></details>
+<details><summary>Intégration des observations DÉCLIC</summary><p>Exemple simulé conforme au contrat v2, avec identification du producteur et éligibilité explicite. Remplacez les valeurs par des observations réellement produites avant d’indiquer la provenance projet. Les modules amont restent indépendants. Une observation réelle n’établit pas que ce modèle entraîné sur simulation est valide en musique.</p><label class="sr-only" for="event-json">Événement JSON</label><textarea id="event-json" rows="8" spellcheck="false"></textarea><button id="ingest" class="secondary">Valider et intégrer</button></details>
 <div class="session-tools"><button id="export" class="text-button"><svg class="icon"><use href="#i-download"/></svg>Exporter l’historique</button><button id="reset" class="text-button">Réinitialiser les séances ajoutées</button></div>
 </section>
 <footer><span>La réussite prévue n’est pas une mesure psychologique de maîtrise. Taxonomie musicale provisoire. Aucun diagnostic médical.</span><span id="footnote"></span></footer>
 </section>
 
-<section id="study-view" hidden>
+<section id="study-view" hidden><section class="research-v2 panel"><div class="panel-heading"><h2>Recherche comparative v2</h2><span class="badge">Expériences versionnées</span></div><div id="research-v2-content" class="research-content">Lecture des résultats mesurés…</div></section>
 <div class="intro">
 <div class="intro-text"><h1>Ce que le modèle a réellement appris</h1><p>Mesures sur des apprenants distincts, comparaison avant interprétation. FORGET-SE est un corpus de génie logiciel, pas un corpus musical.</p></div>
 <div class="study-badge"><strong>186</strong><span class="what">apprenants</span><span>10 873 observations · FORGET-SE v1 · CC BY 4.0</span></div>
 </div>
-<div class="study-protocol panel"><h2>Protocole</h2><p>70 % des apprenants pour l’entraînement, 7,5 % pour le choix du modèle, 7,5 % pour la calibration, 15 % pour le test. Groupes simultanés atomiques. Cible : obtenir le score complet. Trois initialisations neuronales sur un même partage.</p><p id="study-selection"></p></div>
+<div class="study-protocol panel"><h2>Protocole historique v1</h2><p>70 % des apprenants pour l’entraînement, 7,5 % pour le choix du modèle, 7,5 % pour la calibration, 15 % pour le test. Groupes simultanés atomiques. Cible : obtenir le score complet. Trois initialisations neuronales sur un même partage. Le protocole v2 utilise trois partages et des contrôles d’exercice ; ses résultats sont présentés séparément ci-dessus.</p><p id="study-selection"></p></div>
 <div class="table-wrap panel"><table><caption>Résultats mesurés sur les apprenants de test · probabilités calibrées</caption><thead><tr><th>Modèle</th><th>Initialisation</th><th>ROC-AUC</th><th>Log loss (plus bas = mieux)</th><th>Brier (plus bas = mieux)</th><th>ECE (plus bas = mieux)</th></tr></thead><tbody id="results-body"></tbody></table></div>
 <div class="study-charts"><section class="panel"><h2>Courbes d’apprentissage</h2><img id="learning-img" alt="Pertes d’entraînement et de validation des modèles"></section><section class="panel"><h2>La calibration en test</h2><img id="calibration-img" alt="Probabilité prévue et fréquence de réussite observée"></section></div>
 <div class="study-limits panel"><h2>Une limite fait aussi partie du résultat</h2><p id="bootstrap-text"></p><p>Le partage unique et les 28 apprenants de test limitent les conclusions. La difficulté des exercices et les durées d’oubli ne sont pas modélisées. Les différences entre initialisations ne constituent pas des intervalles de confiance individuels. Ces expériences ne valident ni le transfert musical ni l’efficacité des recommandations.</p><a class="text-button" href="https://doi.org/10.6084/m9.figshare.29146304.v1" target="_blank" rel="noopener">Source originale FORGET-SE<svg class="icon"><use href="#i-external"/></svg></a></div>
 </section>
-</main><div id="toast" role="status" aria-live="polite"></div><script src="/web/app.js" defer></script>
+</main><div id="toast" role="status" aria-live="polite"></div><script src="/web/app.js?v=2.1" defer></script>
 </body></html>
