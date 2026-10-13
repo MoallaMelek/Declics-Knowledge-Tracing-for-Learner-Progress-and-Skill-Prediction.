@@ -1,0 +1,27 @@
+{
+  "schema_version": "3.0",
+  "attempt_id": "team-mock-v3:axis1-direct",
+  "student_id": "team-demo-v3",
+  "session_id": "mock-v3-session",
+  "exercise_id": "mock-v3-exercise",
+  "instrument": "piano-provisional",
+  "timestamp": "2026-06-01T00:00:00Z",
+  "provenance": "synthetic",
+  "rubric_version": "provisional-mock-v1",
+  "observations": [
+    {
+      "skill_id": "pitch",
+      "producer_axis": 1,
+      "producer_version": "mock-omr-pitch-v1",
+      "objective_id": "O01",
+      "assessment_kind": "direct",
+      "outcome": 1,
+      "score": 1.0,
+      "source_confidence": 1.0,
+      "missing": false,
+      "reference_compared": true,
+      "error_types": [],
+      "evidence_id": null
+    }
+  ]
+}
