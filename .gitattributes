@@ -1,3 +1,5 @@
 # Preserve externally checksummed data and immutable research evidence verbatim.
 data/raw/*.csv -text -diff
 artifacts/v2/** -text
+artifacts/phase3/** -text
+scripts/evaluate_phase3_robustness.py -text
