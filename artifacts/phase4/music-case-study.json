@@ -1,0 +1,2607 @@
+{
+  "schema_version": "music-case-study-1.0",
+  "acquisition": {
+    "version": "phase4-acquisition-1",
+    "rach3_commit": "a9519492b086a6c039a9d0994689ca0f279186bd",
+    "pianovam_revision": "1f039ab9d6128626bff708faad6472d220b50eaa",
+    "rights": "CC-BY-NC-SA-4.0",
+    "purpose": "bounded noncommercial research; attribution and share-alike required",
+    "rach3_inventory_midi_count": 3160,
+    "files": [
+      {
+        "path": "Rach3/LICENSE",
+        "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/LICENSE",
+        "bytes": 20849,
+        "sha256": "1349a4b6148492b44f629e64eed676612e234fe9a839e4f3b277c1482c8849f1"
+      },
+      {
+        "path": "Rach3/README.md",
+        "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/README.md",
+        "bytes": 6609,
+        "sha256": "66872b012fea6e7f24a2e69bd6883acfae37f7dac479d869f58e779c87f57af9"
+      },
+      {
+        "path": "PianoVAM/README.md",
+        "url": "https://huggingface.co/datasets/PianoVAM/PianoVAM_v1/resolve/1f039ab9d6128626bff708faad6472d220b50eaa/README.md",
+        "bytes": 12362,
+        "sha256": "48bb30c5d510ba4c67ef884ae03522969bf4a2ce99937d6d4942239d57bd4161"
+      },
+      {
+        "path": "PianoVAM/metadata.json",
+        "url": "https://huggingface.co/datasets/PianoVAM/PianoVAM_v1/resolve/1f039ab9d6128626bff708faad6472d220b50eaa/metadata.json",
+        "bytes": 66823,
+        "sha256": "5b57e36914f18c36e3138c119c6c99dbe0fdaa90f18e79f5d323be0abd6d8dc7"
+      },
+      {
+        "path": "Rach3/rehearsals/p1/p1200811001rachmaop30m1mi.mid",
+        "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p1/p1200811001rachmaop30m1mi.mid",
+        "bytes": 86919,
+        "sha256": "1e64ca9e27c9762da684fbb2073bb6d0e62fe73eaa2d2ba6d1c18b24b04ab6a9"
+      },
+      {
+        "path": "Rach3/rehearsals/p1/p1200812001rachmaop30m1mi.mid",
+        "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p1/p1200812001rachmaop30m1mi.mid",
+        "bytes": 196765,
+        "sha256": "0d37ce3cc5bff5d33c0b497a957e3ebee0823bfafa227473e4bcc64c1df11224"
+      },
+      {
+        "path": "Rach3/rehearsals/p1/p1200813001rachmaop30m1mi.mid",
+        "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p1/p1200813001rachmaop30m1mi.mid",
+        "bytes": 201435,
+        "sha256": "f7d7026ea550cf6a2a2a3cd56d8c156a115d40f987d7fcb832ed320eb22d6f56"
+      },
+      {
+        "path": "Rach3/rehearsals/p2/p2230809001hanoncscalesmi.mid",
+        "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p2/p2230809001hanoncscalesmi.mid",
+        "bytes": 14079,
+        "sha256": "e04dfb7921e44543980e31cd3bbaf42c2f802c4a260359c31173415c8a776e3c"
+      },
+      {
+        "path": "Rach3/rehearsals/p2/p2230810001hanoncscalesmi.mid",
+        "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p2/p2230810001hanoncscalesmi.mid",
+        "bytes": 41219,
+        "sha256": "bb456f9dd7701b99af1a741c393d32ba42df9bc45a5b241f2ad5626298eb5f62"
+      },
+      {
+        "path": "Rach3/rehearsals/p2/p2230814001hanoncscalesmi.mid",
+        "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p2/p2230814001hanoncscalesmi.mid",
+        "bytes": 52696,
+        "sha256": "79a74a3121cae36f145b8c5c0bbde18159c0bb47c3caf2cfdcbb2db46ad9914c"
+      },
+      {
+        "path": "Rach3/rehearsals/p3/p3240606001hanoncexercsmi.mid",
+        "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p3/p3240606001hanoncexercsmi.mid",
+        "bytes": 35745,
+        "sha256": "1c57e84e237a55f116719c031d9f5bb8968f1fbf6b36618424a26d60e07f3226"
+      },
+      {
+        "path": "Rach3/rehearsals/p3/p3240607001hanoncexercsmi.mid",
+        "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p3/p3240607001hanoncexercsmi.mid",
+        "bytes": 41212,
+        "sha256": "f6dd0fb6c5c65faeb717967670bccafee7b548b692fdaea7788abd8510a43c2b"
+      },
+      {
+        "path": "Rach3/rehearsals/p3/p3240611001hanoncexercsmi.mid",
+        "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p3/p3240611001hanoncexercsmi.mid",
+        "bytes": 37125,
+        "sha256": "08049e6a05a9ea10a2c29db4d2237b405c88dae2c9b6c0b1eebe6759528d4179"
+      },
+      {
+        "path": "Rach3/rehearsals/p4/p4250309201beethop10n3fmi.mid",
+        "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p4/p4250309201beethop10n3fmi.mid",
+        "bytes": 134187,
+        "sha256": "0f42e7200b1746f0cc1cd920df3c7bdb553803f720ad6b5cae9d09d282865fd6"
+      },
+      {
+        "path": "Rach3/rehearsals/p4/p4250408003beethop10n3fmi.mid",
+        "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p4/p4250408003beethop10n3fmi.mid",
+        "bytes": 164264,
+        "sha256": "edffd8abd37094f5b8505ab7896c40affa55b908b68a3808e437b747b8af28ba"
+      },
+      {
+        "path": "Rach3/rehearsals/p4/p4250410001beethop10n3fmi.mid",
+        "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p4/p4250410001beethop10n3fmi.mid",
+        "bytes": 162088,
+        "sha256": "d2d99bbe82459c8153125d601171fff282fc9165f5a17f751ff0508d5b9064ed"
+      }
+    ],
+    "correctness_targets_available": false,
+    "selection": "Three earliest distinct-day recordings of the most frequent piece per pianist; deterministic descriptive sample, not representative."
+  },
+  "records": [
+    {
+      "attempt_id": "p1200811001rachmaop30m1mi",
+      "learner_id": "rach3-p1",
+      "calendar_date": "2020-08-11",
+      "daily_session": 0,
+      "piece_order": 1,
+      "exercise_id": "rachmaop30m1mi",
+      "time_precision": "calendar_day_and_source_order",
+      "order_key": [
+        "2020-08-11",
+        0,
+        1
+      ],
+      "duration_seconds": 1998.6458333333333,
+      "note_on_count": 10014,
+      "midi_tracks": 1,
+      "ticks_per_beat": 480,
+      "meaning": "recording descriptors, not accuracy or skill",
+      "source": "Rach3",
+      "instrument": "piano",
+      "source_sha256": "1e64ca9e27c9762da684fbb2073bb6d0e62fe73eaa2d2ba6d1c18b24b04ab6a9",
+      "provenance": "licensed_public_practice_midi",
+      "outcome": null,
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "p1200812001rachmaop30m1mi",
+      "learner_id": "rach3-p1",
+      "calendar_date": "2020-08-12",
+      "daily_session": 0,
+      "piece_order": 1,
+      "exercise_id": "rachmaop30m1mi",
+      "time_precision": "calendar_day_and_source_order",
+      "order_key": [
+        "2020-08-12",
+        0,
+        1
+      ],
+      "duration_seconds": 2572.2927083333334,
+      "note_on_count": 21340,
+      "midi_tracks": 1,
+      "ticks_per_beat": 480,
+      "meaning": "recording descriptors, not accuracy or skill",
+      "source": "Rach3",
+      "instrument": "piano",
+      "source_sha256": "0d37ce3cc5bff5d33c0b497a957e3ebee0823bfafa227473e4bcc64c1df11224",
+      "provenance": "licensed_public_practice_midi",
+      "outcome": null,
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "p1200813001rachmaop30m1mi",
+      "learner_id": "rach3-p1",
+      "calendar_date": "2020-08-13",
+      "daily_session": 0,
+      "piece_order": 1,
+      "exercise_id": "rachmaop30m1mi",
+      "time_precision": "calendar_day_and_source_order",
+      "order_key": [
+        "2020-08-13",
+        0,
+        1
+      ],
+      "duration_seconds": 2632.530208333333,
+      "note_on_count": 22089,
+      "midi_tracks": 1,
+      "ticks_per_beat": 480,
+      "meaning": "recording descriptors, not accuracy or skill",
+      "source": "Rach3",
+      "instrument": "piano",
+      "source_sha256": "f7d7026ea550cf6a2a2a3cd56d8c156a115d40f987d7fcb832ed320eb22d6f56",
+      "provenance": "licensed_public_practice_midi",
+      "outcome": null,
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "p2230809001hanoncscalesmi",
+      "learner_id": "rach3-p2",
+      "calendar_date": "2023-08-09",
+      "daily_session": 0,
+      "piece_order": 1,
+      "exercise_id": "hanoncscalesmi",
+      "time_precision": "calendar_day_and_source_order",
+      "order_key": [
+        "2023-08-09",
+        0,
+        1
+      ],
+      "duration_seconds": 239.77083333333334,
+      "note_on_count": 1917,
+      "midi_tracks": 1,
+      "ticks_per_beat": 480,
+      "meaning": "recording descriptors, not accuracy or skill",
+      "source": "Rach3",
+      "instrument": "piano",
+      "source_sha256": "e04dfb7921e44543980e31cd3bbaf42c2f802c4a260359c31173415c8a776e3c",
+      "provenance": "licensed_public_practice_midi",
+      "outcome": null,
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "p2230810001hanoncscalesmi",
+      "learner_id": "rach3-p2",
+      "calendar_date": "2023-08-10",
+      "daily_session": 0,
+      "piece_order": 1,
+      "exercise_id": "hanoncscalesmi",
+      "time_precision": "calendar_day_and_source_order",
+      "order_key": [
+        "2023-08-10",
+        0,
+        1
+      ],
+      "duration_seconds": 710.0,
+      "note_on_count": 5575,
+      "midi_tracks": 1,
+      "ticks_per_beat": 480,
+      "meaning": "recording descriptors, not accuracy or skill",
+      "source": "Rach3",
+      "instrument": "piano",
+      "source_sha256": "bb456f9dd7701b99af1a741c393d32ba42df9bc45a5b241f2ad5626298eb5f62",
+      "provenance": "licensed_public_practice_midi",
+      "outcome": null,
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "p2230814001hanoncscalesmi",
+      "learner_id": "rach3-p2",
+      "calendar_date": "2023-08-14",
+      "daily_session": 0,
+      "piece_order": 1,
+      "exercise_id": "hanoncscalesmi",
+      "time_precision": "calendar_day_and_source_order",
+      "order_key": [
+        "2023-08-14",
+        0,
+        1
+      ],
+      "duration_seconds": 928.0,
+      "note_on_count": 7122,
+      "midi_tracks": 1,
+      "ticks_per_beat": 480,
+      "meaning": "recording descriptors, not accuracy or skill",
+      "source": "Rach3",
+      "instrument": "piano",
+      "source_sha256": "79a74a3121cae36f145b8c5c0bbde18159c0bb47c3caf2cfdcbb2db46ad9914c",
+      "provenance": "licensed_public_practice_midi",
+      "outcome": null,
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "p3240606001hanoncexercsmi",
+      "learner_id": "rach3-p3",
+      "calendar_date": "2024-06-06",
+      "daily_session": 0,
+      "piece_order": 1,
+      "exercise_id": "hanoncexercsmi",
+      "time_precision": "calendar_day_and_source_order",
+      "order_key": [
+        "2024-06-06",
+        0,
+        1
+      ],
+      "duration_seconds": 855.0864583333333,
+      "note_on_count": 4631,
+      "midi_tracks": 1,
+      "ticks_per_beat": 480,
+      "meaning": "recording descriptors, not accuracy or skill",
+      "source": "Rach3",
+      "instrument": "piano",
+      "source_sha256": "1c57e84e237a55f116719c031d9f5bb8968f1fbf6b36618424a26d60e07f3226",
+      "provenance": "licensed_public_practice_midi",
+      "outcome": null,
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "p3240607001hanoncexercsmi",
+      "learner_id": "rach3-p3",
+      "calendar_date": "2024-06-07",
+      "daily_session": 0,
+      "piece_order": 1,
+      "exercise_id": "hanoncexercsmi",
+      "time_precision": "calendar_day_and_source_order",
+      "order_key": [
+        "2024-06-07",
+        0,
+        1
+      ],
+      "duration_seconds": 892.9010416666666,
+      "note_on_count": 5370,
+      "midi_tracks": 1,
+      "ticks_per_beat": 480,
+      "meaning": "recording descriptors, not accuracy or skill",
+      "source": "Rach3",
+      "instrument": "piano",
+      "source_sha256": "f6dd0fb6c5c65faeb717967670bccafee7b548b692fdaea7788abd8510a43c2b",
+      "provenance": "licensed_public_practice_midi",
+      "outcome": null,
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "p3240611001hanoncexercsmi",
+      "learner_id": "rach3-p3",
+      "calendar_date": "2024-06-11",
+      "daily_session": 0,
+      "piece_order": 1,
+      "exercise_id": "hanoncexercsmi",
+      "time_precision": "calendar_day_and_source_order",
+      "order_key": [
+        "2024-06-11",
+        0,
+        1
+      ],
+      "duration_seconds": 846.2239583333334,
+      "note_on_count": 4791,
+      "midi_tracks": 1,
+      "ticks_per_beat": 480,
+      "meaning": "recording descriptors, not accuracy or skill",
+      "source": "Rach3",
+      "instrument": "piano",
+      "source_sha256": "08049e6a05a9ea10a2c29db4d2237b405c88dae2c9b6c0b1eebe6759528d4179",
+      "provenance": "licensed_public_practice_midi",
+      "outcome": null,
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "p4250309201beethop10n3fmi",
+      "learner_id": "rach3-p4",
+      "calendar_date": "2025-03-09",
+      "daily_session": 2,
+      "piece_order": 1,
+      "exercise_id": "beethop10n3fmi",
+      "time_precision": "calendar_day_and_source_order",
+      "order_key": [
+        "2025-03-09",
+        2,
+        1
+      ],
+      "duration_seconds": 1044.9567708333334,
+      "note_on_count": 6218,
+      "midi_tracks": 1,
+      "ticks_per_beat": 960,
+      "meaning": "recording descriptors, not accuracy or skill",
+      "source": "Rach3",
+      "instrument": "piano",
+      "source_sha256": "0f42e7200b1746f0cc1cd920df3c7bdb553803f720ad6b5cae9d09d282865fd6",
+      "provenance": "licensed_public_practice_midi",
+      "outcome": null,
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "p4250408003beethop10n3fmi",
+      "learner_id": "rach3-p4",
+      "calendar_date": "2025-04-08",
+      "daily_session": 0,
+      "piece_order": 3,
+      "exercise_id": "beethop10n3fmi",
+      "time_precision": "calendar_day_and_source_order",
+      "order_key": [
+        "2025-04-08",
+        0,
+        3
+      ],
+      "duration_seconds": 1250.396875,
+      "note_on_count": 7850,
+      "midi_tracks": 1,
+      "ticks_per_beat": 960,
+      "meaning": "recording descriptors, not accuracy or skill",
+      "source": "Rach3",
+      "instrument": "piano",
+      "source_sha256": "edffd8abd37094f5b8505ab7896c40affa55b908b68a3808e437b747b8af28ba",
+      "provenance": "licensed_public_practice_midi",
+      "outcome": null,
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "p4250410001beethop10n3fmi",
+      "learner_id": "rach3-p4",
+      "calendar_date": "2025-04-10",
+      "daily_session": 0,
+      "piece_order": 1,
+      "exercise_id": "beethop10n3fmi",
+      "time_precision": "calendar_day_and_source_order",
+      "order_key": [
+        "2025-04-10",
+        0,
+        1
+      ],
+      "duration_seconds": 1213.9916666666666,
+      "note_on_count": 8221,
+      "midi_tracks": 1,
+      "ticks_per_beat": 960,
+      "meaning": "recording descriptors, not accuracy or skill",
+      "source": "Rach3",
+      "instrument": "piano",
+      "source_sha256": "d2d99bbe82459c8153125d601171fff282fc9165f5a17f751ff0508d5b9064ed",
+      "provenance": "licensed_public_practice_midi",
+      "outcome": null,
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-29",
+      "learner_id": "pianovam-p01",
+      "exercise_id": "Yiruma / Kiss The Rain",
+      "recorded_local_time": "2024-02-17T21:44:37",
+      "calendar_date": "2024-02-17",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-17T21:44:37"
+      ],
+      "duration_seconds": 177.835,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-8",
+      "learner_id": "pianovam-p02",
+      "exercise_id": "F. Chopin / Grande Valse Brillante, Op.18",
+      "recorded_local_time": "2024-02-15T20:07:54",
+      "calendar_date": "2024-02-15",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-15T20:07:54"
+      ],
+      "duration_seconds": 466.773,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-9",
+      "learner_id": "pianovam-p02",
+      "exercise_id": "R. Schubert / Piano Sonata No.19",
+      "recorded_local_time": "2024-02-15T20:17:26",
+      "calendar_date": "2024-02-15",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-15T20:17:26"
+      ],
+      "duration_seconds": 536.384,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-11",
+      "learner_id": "pianovam-p02",
+      "exercise_id": "T. Badarzewska / The Virgin's Prayer",
+      "recorded_local_time": "2024-02-15T20:38:23",
+      "calendar_date": "2024-02-15",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-15T20:38:23"
+      ],
+      "duration_seconds": 427.968,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-12",
+      "learner_id": "pianovam-p02",
+      "exercise_id": "N. Tsuru / Last Carnival",
+      "recorded_local_time": "2024-02-15T20:47:59",
+      "calendar_date": "2024-02-15",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-15T20:47:59"
+      ],
+      "duration_seconds": 307.499,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-14",
+      "learner_id": "pianovam-p02",
+      "exercise_id": "L. Beethoven / Piano Sonata No.23 Mvt.1",
+      "recorded_local_time": "2024-02-15T21:01:11",
+      "calendar_date": "2024-02-15",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-15T21:01:11"
+      ],
+      "duration_seconds": 932.821,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-15",
+      "learner_id": "pianovam-p02",
+      "exercise_id": "L. Beethoven / Piano Sonata No.23 Mvt.1",
+      "recorded_local_time": "2024-02-15T21:18:14",
+      "calendar_date": "2024-02-15",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-15T21:18:14"
+      ],
+      "duration_seconds": 813.589,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-16",
+      "learner_id": "pianovam-p02",
+      "exercise_id": "L. Beethoven / Piano Sonata No.23 Mvt.3",
+      "recorded_local_time": "2024-02-15T21:33:36",
+      "calendar_date": "2024-02-15",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-15T21:33:36"
+      ],
+      "duration_seconds": 335.979,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-17",
+      "learner_id": "pianovam-p02",
+      "exercise_id": "C. Debussy / Clair de lune",
+      "recorded_local_time": "2024-02-15T21:40:43",
+      "calendar_date": "2024-02-15",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-15T21:40:43"
+      ],
+      "duration_seconds": 916.885,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-21",
+      "learner_id": "pianovam-p02",
+      "exercise_id": "L. Beethoven / Piano Concerto No.3",
+      "recorded_local_time": "2024-02-15T22:18:32",
+      "calendar_date": "2024-02-15",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-15T22:18:32"
+      ],
+      "duration_seconds": 2171.605,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-23",
+      "learner_id": "pianovam-p02",
+      "exercise_id": "L. Beethoven / Piano Concerto No.3",
+      "recorded_local_time": "2024-02-15T23:14:13",
+      "calendar_date": "2024-02-15",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-15T23:14:13"
+      ],
+      "duration_seconds": 2115.733,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-93",
+      "learner_id": "pianovam-p03",
+      "exercise_id": "E. Satie / Gymnopedie No.1",
+      "recorded_local_time": "2024-09-05T13:25:10",
+      "calendar_date": "2024-09-05",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-05T13:25:10"
+      ],
+      "duration_seconds": 189.32,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-94",
+      "learner_id": "pianovam-p03",
+      "exercise_id": "Hyunsung / Improvisation",
+      "recorded_local_time": "2024-09-05T13:36:00",
+      "calendar_date": "2024-09-05",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-05T13:36:00"
+      ],
+      "duration_seconds": 678.54,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-35",
+      "learner_id": "pianovam-p04",
+      "exercise_id": "F. Chopin / Nocturne Op.9 No.3",
+      "recorded_local_time": "2024-02-22T14:11:52",
+      "calendar_date": "2024-02-22",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-22T14:11:52"
+      ],
+      "duration_seconds": 2359.296,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-58",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "J. S. Bach / Italian Concerto Mvt.1",
+      "recorded_local_time": "2024-09-02T12:45:12",
+      "calendar_date": "2024-09-02",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-02T12:45:12"
+      ],
+      "duration_seconds": 322.717,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-59",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "M. Ravel / Jeux D'eau",
+      "recorded_local_time": "2024-09-02T13:19:32",
+      "calendar_date": "2024-09-02",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-02T13:19:32"
+      ],
+      "duration_seconds": 593.395,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-60",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "D. Scarlatti / Sonata K.360",
+      "recorded_local_time": "2024-09-02T14:10:41",
+      "calendar_date": "2024-09-02",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-02T14:10:41"
+      ],
+      "duration_seconds": 291.952,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-64",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "M. Clementi / Sonatine Op.36",
+      "recorded_local_time": "2024-09-02T18:25:31",
+      "calendar_date": "2024-09-02",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-02T18:25:31"
+      ],
+      "duration_seconds": 128.336,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-65",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "W. A. Mozart / Sonata K.545",
+      "recorded_local_time": "2024-09-02T18:29:40",
+      "calendar_date": "2024-09-02",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-02T18:29:40"
+      ],
+      "duration_seconds": 207.783,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-66",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "W. A. Mozart / Sonata K.310",
+      "recorded_local_time": "2024-09-02T18:42:47",
+      "calendar_date": "2024-09-02",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-02T18:42:47"
+      ],
+      "duration_seconds": 1243.173,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-67",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "M. Ravel / Sonatine Mvt.1",
+      "recorded_local_time": "2024-09-02T19:40:55",
+      "calendar_date": "2024-09-02",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-02T19:40:55"
+      ],
+      "duration_seconds": 425.38,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-68",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "S. Rachmaninoff / Prelude Op.3 No.2",
+      "recorded_local_time": "2024-09-02T20:00:16",
+      "calendar_date": "2024-09-02",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-02T20:00:16"
+      ],
+      "duration_seconds": 643.626,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-69",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "S. Rachmaninoff / Prelude Op.32 No.10",
+      "recorded_local_time": "2024-09-02T20:50:18",
+      "calendar_date": "2024-09-02",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-02T20:50:18"
+      ],
+      "duration_seconds": 718.88,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-70",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "Junhyung / Improvisation",
+      "recorded_local_time": "2024-09-02T21:04:45",
+      "calendar_date": "2024-09-02",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-02T21:04:45"
+      ],
+      "duration_seconds": 472.676,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-71",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "Debussy / Images 3. Mouvement",
+      "recorded_local_time": "2024-09-02T23:22:31",
+      "calendar_date": "2024-09-02",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-02T23:22:31"
+      ],
+      "duration_seconds": 389.41,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-72",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "S. Rachmaninoff / Prelude Op.32 No.10",
+      "recorded_local_time": "2024-09-02T23:49:01",
+      "calendar_date": "2024-09-02",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-02T23:49:01"
+      ],
+      "duration_seconds": 795.225,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-73",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "J. S. Bach / Italian Concerto Mvt.3",
+      "recorded_local_time": "2024-09-03T00:07:46",
+      "calendar_date": "2024-09-03",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-03T00:07:46"
+      ],
+      "duration_seconds": 1606.913,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-74",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "Hanon / Hanon Exercises No.1",
+      "recorded_local_time": "2024-09-03T00:44:45",
+      "calendar_date": "2024-09-03",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-03T00:44:45"
+      ],
+      "duration_seconds": 601.964,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-78",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "M. Ravel / Jeux D'eau",
+      "recorded_local_time": "2024-09-04T17:12:33",
+      "calendar_date": "2024-09-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-04T17:12:33"
+      ],
+      "duration_seconds": 422.946,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-79",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "M. Ravel / Jeux D'eau",
+      "recorded_local_time": "2024-09-04T18:11:36",
+      "calendar_date": "2024-09-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-04T18:11:36"
+      ],
+      "duration_seconds": 541.022,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-80",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "S. Rachmaninoff / Etude-Tableaux Op.39 No.8",
+      "recorded_local_time": "2024-09-04T19:09:38",
+      "calendar_date": "2024-09-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-04T19:09:38"
+      ],
+      "duration_seconds": 335.881,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-87",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "L. V. Beethoven / Fur Elise",
+      "recorded_local_time": "2024-09-04T21:44:42",
+      "calendar_date": "2024-09-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-04T21:44:42"
+      ],
+      "duration_seconds": 236.691,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-88",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "J. S. Bach / Prelude I in C",
+      "recorded_local_time": "2024-09-04T21:51:59",
+      "calendar_date": "2024-09-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-04T21:51:59"
+      ],
+      "duration_seconds": 175.72,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-89",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "E. Satie / Gymnopedie No.1",
+      "recorded_local_time": "2024-09-04T22:00:35",
+      "calendar_date": "2024-09-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-04T22:00:35"
+      ],
+      "duration_seconds": 247.166,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-90",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "M. Clementi / Sonatine Op.36",
+      "recorded_local_time": "2024-09-04T22:06:40",
+      "calendar_date": "2024-09-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-04T22:06:40"
+      ],
+      "duration_seconds": 98.253,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-91",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "F. Chopin / Waltz in A, B. 150",
+      "recorded_local_time": "2024-09-04T22:13:22",
+      "calendar_date": "2024-09-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-04T22:13:22"
+      ],
+      "duration_seconds": 234.534,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-92",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "Junhyung / Improvisation",
+      "recorded_local_time": "2024-09-04T22:19:28",
+      "calendar_date": "2024-09-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-04T22:19:28"
+      ],
+      "duration_seconds": 815.635,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-95",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "W. A. Mozart / Sonata no.15 K.545",
+      "recorded_local_time": "2024-09-05T13:50:00",
+      "calendar_date": "2024-09-05",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-05T13:50:00"
+      ],
+      "duration_seconds": 237.305,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-105",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "S. Rachmaninoff / Etude-Tableaux Op.39 No.8",
+      "recorded_local_time": "2024-09-05T21:37:08",
+      "calendar_date": "2024-09-05",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-05T21:37:08"
+      ],
+      "duration_seconds": 841.218,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-106",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "S. Rachmaninoff / Moment Musicaux Op.16 No. 4",
+      "recorded_local_time": "2024-09-05T22:11:07",
+      "calendar_date": "2024-09-05",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-05T22:11:07"
+      ],
+      "duration_seconds": 485.75,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-81",
+      "learner_id": "pianovam-p06",
+      "exercise_id": "M. Ravel / Jeux D'eau",
+      "recorded_local_time": "2024-09-04T19:52:57",
+      "calendar_date": "2024-09-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-04T19:52:57"
+      ],
+      "duration_seconds": 312.715,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-82",
+      "learner_id": "pianovam-p06",
+      "exercise_id": "F. Chopin / Ballade No.1",
+      "recorded_local_time": "2024-09-04T20:09:07",
+      "calendar_date": "2024-09-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-04T20:09:07"
+      ],
+      "duration_seconds": 564.445,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-83",
+      "learner_id": "pianovam-p06",
+      "exercise_id": "A. Scriabin / Sonata No.2",
+      "recorded_local_time": "2024-09-04T20:20:07",
+      "calendar_date": "2024-09-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-04T20:20:07"
+      ],
+      "duration_seconds": 548.535,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-84",
+      "learner_id": "pianovam-p06",
+      "exercise_id": "M. Ravel / Le tombeau de Couperin",
+      "recorded_local_time": "2024-09-04T20:30:34",
+      "calendar_date": "2024-09-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-04T20:30:34"
+      ],
+      "duration_seconds": 1617.026,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-85",
+      "learner_id": "pianovam-p06",
+      "exercise_id": "L.V. Beethoven / Sonata No.28 Mvt.4",
+      "recorded_local_time": "2024-09-04T20:59:20",
+      "calendar_date": "2024-09-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-04T20:59:20"
+      ],
+      "duration_seconds": 443.187,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-86",
+      "learner_id": "pianovam-p06",
+      "exercise_id": "M. Ravel / Gaspard de la Nuit - Ondine",
+      "recorded_local_time": "2024-09-04T21:09:37",
+      "calendar_date": "2024-09-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-04T21:09:37"
+      ],
+      "duration_seconds": 371.258,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-7",
+      "learner_id": "pianovam-p07",
+      "exercise_id": "R. Schumann / Fantasie Op.17",
+      "recorded_local_time": "2024-02-15T15:13:10",
+      "calendar_date": "2024-02-15",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-15T15:13:10"
+      ],
+      "duration_seconds": 1158.869,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-32",
+      "learner_id": "pianovam-p07",
+      "exercise_id": "No Young-Shim / The way to school",
+      "recorded_local_time": "2024-02-20T18:08:35",
+      "calendar_date": "2024-02-20",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-20T18:08:35"
+      ],
+      "duration_seconds": 685.205,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-33",
+      "learner_id": "pianovam-p07",
+      "exercise_id": "R. Schumann / Fantasie Op.17",
+      "recorded_local_time": "2024-02-20T18:23:30",
+      "calendar_date": "2024-02-20",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-20T18:23:30"
+      ],
+      "duration_seconds": 2717.653,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-34",
+      "learner_id": "pianovam-p07",
+      "exercise_id": "R. Schumann / Fantasie Op.17",
+      "recorded_local_time": "2024-02-22T11:58:09",
+      "calendar_date": "2024-02-22",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-22T11:58:09"
+      ],
+      "duration_seconds": 852.949,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-43",
+      "learner_id": "pianovam-p07",
+      "exercise_id": "R. Schumann / Fantasie Op.17",
+      "recorded_local_time": "2024-03-12T15:43:01",
+      "calendar_date": "2024-03-12",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-03-12T15:43:01"
+      ],
+      "duration_seconds": 1142.613,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-47",
+      "learner_id": "pianovam-p07",
+      "exercise_id": "R. Schumann / Fantasie Op.17",
+      "recorded_local_time": "2024-03-17T18:54:44",
+      "calendar_date": "2024-03-17",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-03-17T18:54:44"
+      ],
+      "duration_seconds": 1575.168,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-49",
+      "learner_id": "pianovam-p07",
+      "exercise_id": "R. Schumann / Fantasie Op.17",
+      "recorded_local_time": "2024-03-26T16:33:49",
+      "calendar_date": "2024-03-26",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-03-26T16:33:49"
+      ],
+      "duration_seconds": 2027.968,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-55",
+      "learner_id": "pianovam-p07",
+      "exercise_id": "R. Schumann / Fantasie Op.17",
+      "recorded_local_time": "2024-04-08T23:50:57",
+      "calendar_date": "2024-04-08",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-04-08T23:50:57"
+      ],
+      "duration_seconds": 1075.627,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-0",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "E. Grieg / Piano Concerto",
+      "recorded_local_time": "2024-02-14T19:10:09",
+      "calendar_date": "2024-02-14",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-14T19:10:09"
+      ],
+      "duration_seconds": 745.493,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-1",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "N. Kapustin / Concert Etude No.6",
+      "recorded_local_time": "2024-02-14T19:44:26",
+      "calendar_date": "2024-02-14",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-14T19:44:26"
+      ],
+      "duration_seconds": 493.653,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-2",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "C. Saint-Saens / Piano Concerto No.2",
+      "recorded_local_time": "2024-02-14T19:55:17",
+      "calendar_date": "2024-02-14",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-14T19:55:17"
+      ],
+      "duration_seconds": 755.285,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-3",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "N. Kapustin / Concert Etude No.7",
+      "recorded_local_time": "2024-02-14T20:10:08",
+      "calendar_date": "2024-02-14",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-14T20:10:08"
+      ],
+      "duration_seconds": 1299.84,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-4",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "M. Ravel / Piano Concerto in G Major",
+      "recorded_local_time": "2024-02-14T20:37:55",
+      "calendar_date": "2024-02-14",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-14T20:37:55"
+      ],
+      "duration_seconds": 1101.205,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-5",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "M. Ravel / Piano Concerto for the Left Hand",
+      "recorded_local_time": "2024-02-14T20:58:43",
+      "calendar_date": "2024-02-14",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-14T20:58:43"
+      ],
+      "duration_seconds": 1246.101,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-6",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "S. Rachmaninoff / Piano Concerto No.3",
+      "recorded_local_time": "2024-02-14T21:30:04",
+      "calendar_date": "2024-02-14",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-14T21:30:04"
+      ],
+      "duration_seconds": 2547.413,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-10",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "M. Ravel / Piano Concerto in G Major",
+      "recorded_local_time": "2024-02-15T20:28:13",
+      "calendar_date": "2024-02-15",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-15T20:28:13"
+      ],
+      "duration_seconds": 425.003,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-13",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "M. Ravel / Piano Concerto for the Left Hand",
+      "recorded_local_time": "2024-02-15T20:54:38",
+      "calendar_date": "2024-02-15",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-15T20:54:38"
+      ],
+      "duration_seconds": 298.624,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-18",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "E. Grieg / Piano Concerto",
+      "recorded_local_time": "2024-02-15T21:57:38",
+      "calendar_date": "2024-02-15",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-15T21:57:38"
+      ],
+      "duration_seconds": 213.717,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-19",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "E. Grieg / Piano Concerto",
+      "recorded_local_time": "2024-02-15T22:02:16",
+      "calendar_date": "2024-02-15",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-15T22:02:16"
+      ],
+      "duration_seconds": 512.661,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-22",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "N. Kapustin / Piano Sonata No.2",
+      "recorded_local_time": "2024-02-15T22:57:11",
+      "calendar_date": "2024-02-15",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-15T22:57:11"
+      ],
+      "duration_seconds": 783.125,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-24",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "L. Beethoven / Piano Concerto No.5",
+      "recorded_local_time": "2024-02-16T14:41:07",
+      "calendar_date": "2024-02-16",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-16T14:41:07"
+      ],
+      "duration_seconds": 1054.123,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-25",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "N. Kapustin / Piano Sonata No.2",
+      "recorded_local_time": "2024-02-16T23:19:03",
+      "calendar_date": "2024-02-16",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-16T23:19:03"
+      ],
+      "duration_seconds": 898.56,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-26",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "R. Schumann / Piano Concerto",
+      "recorded_local_time": "2024-02-17T00:12:50",
+      "calendar_date": "2024-02-17",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-17T00:12:50"
+      ],
+      "duration_seconds": 868.608,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-27",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "M. Ravel / Piano Concerto for the Left Hand",
+      "recorded_local_time": "2024-02-17T00:29:10",
+      "calendar_date": "2024-02-17",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-17T00:29:10"
+      ],
+      "duration_seconds": 1025.984,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-28",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "M. Ravel / Piano Concerto in G Major",
+      "recorded_local_time": "2024-02-17T21:37:57",
+      "calendar_date": "2024-02-17",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-17T21:37:57"
+      ],
+      "duration_seconds": 22.4,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-30",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "Yonghyun / Improvisation",
+      "recorded_local_time": "2024-02-17T22:12:41",
+      "calendar_date": "2024-02-17",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-17T22:12:41"
+      ],
+      "duration_seconds": 1051.008,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-31",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "Yonghyun / Improvisation",
+      "recorded_local_time": "2024-02-17T22:33:45",
+      "calendar_date": "2024-02-17",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-02-17T22:33:45"
+      ],
+      "duration_seconds": 311.275,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-36",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "N/A [Mozart] / N/A [Piano Sonata No. 16 in C Major, K.545 (1st Mvt)]",
+      "recorded_local_time": "2024-03-04T03:46:36",
+      "calendar_date": "2024-03-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-03-04T03:46:36"
+      ],
+      "duration_seconds": 22.805,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-37",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "N/A [Yonghyun] / N/A [Improvisation]",
+      "recorded_local_time": "2024-03-04T03:50:34",
+      "calendar_date": "2024-03-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-03-04T03:50:34"
+      ],
+      "duration_seconds": 818.069,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-38",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "N/A [Yonghyun] / N/A [Improvisation]",
+      "recorded_local_time": "2024-03-04T04:14:36",
+      "calendar_date": "2024-03-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-03-04T04:14:36"
+      ],
+      "duration_seconds": 497.685,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-39",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "N/A [Yonghyun] / N/A [Improvisation]",
+      "recorded_local_time": "2024-03-04T04:32:11",
+      "calendar_date": "2024-03-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-03-04T04:32:11"
+      ],
+      "duration_seconds": 178.752,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-40",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "N/A [Yonghyun] / N/A [Improvisation]",
+      "recorded_local_time": "2024-03-04T04:36:26",
+      "calendar_date": "2024-03-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-03-04T04:36:26"
+      ],
+      "duration_seconds": 1087.851,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-41",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "N. Kapustin / Piano Sonata No.2",
+      "recorded_local_time": "2024-03-04T22:38:33",
+      "calendar_date": "2024-03-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-03-04T22:38:33"
+      ],
+      "duration_seconds": 1021.952,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-42",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "N. Kapustin / Concert Etude No.6",
+      "recorded_local_time": "2024-03-11T22:23:29",
+      "calendar_date": "2024-03-11",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-03-11T22:23:29"
+      ],
+      "duration_seconds": 693.525,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-44",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "Beethoven / Piano Concerto No.5",
+      "recorded_local_time": "2024-03-13T11:32:42",
+      "calendar_date": "2024-03-13",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-03-13T11:32:42"
+      ],
+      "duration_seconds": 1118.4,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-45",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "S. Prokofiev / Piano Concerto No.3",
+      "recorded_local_time": "2024-03-13T11:54:57",
+      "calendar_date": "2024-03-13",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-03-13T11:54:57"
+      ],
+      "duration_seconds": 1747.733,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-46",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "Harold Arlen (arr. Rupert Austin) / Over The Rainbow",
+      "recorded_local_time": "2024-03-15T22:54:26",
+      "calendar_date": "2024-03-15",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-03-15T22:54:26"
+      ],
+      "duration_seconds": 1154.859,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-48",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "N. Kapustin / Piano Sonata No.2",
+      "recorded_local_time": "2024-03-18T04:15:06",
+      "calendar_date": "2024-03-18",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-03-18T04:15:06"
+      ],
+      "duration_seconds": 2022.912,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-50",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "N. Kapustin / Piano Sonata No.2",
+      "recorded_local_time": "2024-03-27T11:49:04",
+      "calendar_date": "2024-03-27",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-03-27T11:49:04"
+      ],
+      "duration_seconds": 86.571,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-51",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "N. Kapustin / Piano Sonata No.2",
+      "recorded_local_time": "2024-04-08T22:49:18",
+      "calendar_date": "2024-04-08",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-04-08T22:49:18"
+      ],
+      "duration_seconds": 177.621,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-52",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "Harold Arlen (arr. Rupert Austin) / Over The Rainbow",
+      "recorded_local_time": "2024-04-08T23:10:23",
+      "calendar_date": "2024-04-08",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-04-08T23:10:23"
+      ],
+      "duration_seconds": 664.384,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-53",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "Harold Arlen (arr. Rupert Austin) / Over The Rainbow",
+      "recorded_local_time": "2024-04-08T23:26:19",
+      "calendar_date": "2024-04-08",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-04-08T23:26:19"
+      ],
+      "duration_seconds": 633.557,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-54",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "Harold Arlen (arr. Rupert Austin) / Over The Rainbow",
+      "recorded_local_time": "2024-04-08T23:42:45",
+      "calendar_date": "2024-04-08",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-04-08T23:42:45"
+      ],
+      "duration_seconds": 267.115,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-56",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "Harold Arlen (arr. Rupert Austin) / Over The Rainbow",
+      "recorded_local_time": "2024-04-09T03:42:36",
+      "calendar_date": "2024-04-09",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-04-09T03:42:36"
+      ],
+      "duration_seconds": 1508.949,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-57",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "Harold Arlen (arr. Rupert Austin) / Over The Rainbow",
+      "recorded_local_time": "2024-04-09T04:09:27",
+      "calendar_date": "2024-04-09",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-04-09T04:09:27"
+      ],
+      "duration_seconds": 1757.184,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-61",
+      "learner_id": "pianovam-p09",
+      "exercise_id": "Nam Ku Min / Reminiscence",
+      "recorded_local_time": "2024-09-02T15:05:42",
+      "calendar_date": "2024-09-02",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-02T15:05:42"
+      ],
+      "duration_seconds": 483.961,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-62",
+      "learner_id": "pianovam-p09",
+      "exercise_id": "William Bolcom / Graceful Ghost Rag",
+      "recorded_local_time": "2024-09-02T15:15:09",
+      "calendar_date": "2024-09-02",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-02T15:15:09"
+      ],
+      "duration_seconds": 512.209,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-63",
+      "learner_id": "pianovam-p09",
+      "exercise_id": "Yiruma / Stay in memory",
+      "recorded_local_time": "2024-09-02T15:26:39",
+      "calendar_date": "2024-09-02",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-02T15:26:39"
+      ],
+      "duration_seconds": 863.959,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-96",
+      "learner_id": "pianovam-p09",
+      "exercise_id": "Hisaishi Joe / Summer",
+      "recorded_local_time": "2024-09-05T20:46:25",
+      "calendar_date": "2024-09-05",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-05T20:46:25"
+      ],
+      "duration_seconds": 136.978,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-97",
+      "learner_id": "pianovam-p09",
+      "exercise_id": "Baek Yerin / Antifreeze",
+      "recorded_local_time": "2024-09-05T20:51:00",
+      "calendar_date": "2024-09-05",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-05T20:51:00"
+      ],
+      "duration_seconds": 298.419,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-100",
+      "learner_id": "pianovam-p09",
+      "exercise_id": "Frank Wildhorn / This is the moment",
+      "recorded_local_time": "2024-09-05T21:07:35",
+      "calendar_date": "2024-09-05",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-05T21:07:35"
+      ],
+      "duration_seconds": 261.088,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-101",
+      "learner_id": "pianovam-p09",
+      "exercise_id": "Richard Clayderman / Ballade Pour Adeline",
+      "recorded_local_time": "2024-09-05T21:13:49",
+      "calendar_date": "2024-09-05",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-05T21:13:49"
+      ],
+      "duration_seconds": 186.495,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-102",
+      "learner_id": "pianovam-p09",
+      "exercise_id": "E. Satie / Gymnopedie no.1",
+      "recorded_local_time": "2024-09-05T21:18:58",
+      "calendar_date": "2024-09-05",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-05T21:18:58"
+      ],
+      "duration_seconds": 226.051,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-75",
+      "learner_id": "pianovam-p10",
+      "exercise_id": "J. Strauss II / The Blue Dunabe",
+      "recorded_local_time": "2024-09-04T16:13:44",
+      "calendar_date": "2024-09-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-04T16:13:44"
+      ],
+      "duration_seconds": 328.514,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-76",
+      "learner_id": "pianovam-p10",
+      "exercise_id": "Henry Bishop / Home, Sweet Home",
+      "recorded_local_time": "2024-09-04T17:02:04",
+      "calendar_date": "2024-09-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-04T17:02:04"
+      ],
+      "duration_seconds": 76.305,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-77",
+      "learner_id": "pianovam-p10",
+      "exercise_id": "J. Haydn / Surprise Symphony",
+      "recorded_local_time": "2024-09-04T17:07:59",
+      "calendar_date": "2024-09-04",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-04T17:07:59"
+      ],
+      "duration_seconds": 73.16,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-98",
+      "learner_id": "pianovam-p10",
+      "exercise_id": "J. Pachelbel / Canon in C",
+      "recorded_local_time": "2024-09-05T21:01:27",
+      "calendar_date": "2024-09-05",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-05T21:01:27"
+      ],
+      "duration_seconds": 93.512,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-99",
+      "learner_id": "pianovam-p10",
+      "exercise_id": "Hisaishi Joe / Always with me",
+      "recorded_local_time": "2024-09-05T21:04:38",
+      "calendar_date": "2024-09-05",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-05T21:04:38"
+      ],
+      "duration_seconds": 82.12,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-103",
+      "learner_id": "pianovam-p10",
+      "exercise_id": "Azumi Inoue / Tonari no Totoro ending",
+      "recorded_local_time": "2024-09-05T21:26:38",
+      "calendar_date": "2024-09-05",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-05T21:26:38"
+      ],
+      "duration_seconds": 117.137,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    },
+    {
+      "attempt_id": "pianovam-104",
+      "learner_id": "pianovam-p10",
+      "exercise_id": "An Ik Tae / Korean Anthem",
+      "recorded_local_time": "2024-09-05T21:31:00",
+      "calendar_date": "2024-09-05",
+      "time_precision": "source_wall_clock_timezone_unspecified",
+      "order_key": [
+        "2024-09-05T21:31:00"
+      ],
+      "duration_seconds": 61.422,
+      "outcome": null,
+      "source": "PianoVAM",
+      "instrument": "piano",
+      "provenance": "licensed_public_practice_metadata",
+      "assessment_available": false
+    }
+  ],
+  "summary": {
+    "rach3_recordings": 12,
+    "rach3_learners": 4,
+    "pianovam_solo_recordings": 106,
+    "pianovam_learners": 10,
+    "repeat_groups": 20,
+    "multi_day_repeat_groups": 15,
+    "usable_assessment_targets": 0,
+    "models_trained": 0,
+    "real_music_predictive_validity_established": false
+  },
+  "repeated_groups": [
+    {
+      "source": "Rach3",
+      "learner_id": "rach3-p1",
+      "exercise_id": "rachmaop30m1mi",
+      "recordings": 3,
+      "distinct_days": 3,
+      "first_day": "2020-08-11",
+      "last_day": "2020-08-13",
+      "duration_min_seconds": 1998.6458333333333,
+      "duration_max_seconds": 2632.530208333333,
+      "assessment_available": false
+    },
+    {
+      "source": "Rach3",
+      "learner_id": "rach3-p2",
+      "exercise_id": "hanoncscalesmi",
+      "recordings": 3,
+      "distinct_days": 3,
+      "first_day": "2023-08-09",
+      "last_day": "2023-08-14",
+      "duration_min_seconds": 239.77083333333334,
+      "duration_max_seconds": 928.0,
+      "assessment_available": false
+    },
+    {
+      "source": "Rach3",
+      "learner_id": "rach3-p3",
+      "exercise_id": "hanoncexercsmi",
+      "recordings": 3,
+      "distinct_days": 3,
+      "first_day": "2024-06-06",
+      "last_day": "2024-06-11",
+      "duration_min_seconds": 846.2239583333334,
+      "duration_max_seconds": 892.9010416666666,
+      "assessment_available": false
+    },
+    {
+      "source": "Rach3",
+      "learner_id": "rach3-p4",
+      "exercise_id": "beethop10n3fmi",
+      "recordings": 3,
+      "distinct_days": 3,
+      "first_day": "2025-03-09",
+      "last_day": "2025-04-10",
+      "duration_min_seconds": 1044.9567708333334,
+      "duration_max_seconds": 1250.396875,
+      "assessment_available": false
+    },
+    {
+      "source": "PianoVAM",
+      "learner_id": "pianovam-p02",
+      "exercise_id": "L. Beethoven / Piano Sonata No.23 Mvt.1",
+      "recordings": 2,
+      "distinct_days": 1,
+      "first_day": "2024-02-15",
+      "last_day": "2024-02-15",
+      "duration_min_seconds": 813.589,
+      "duration_max_seconds": 932.821,
+      "assessment_available": false
+    },
+    {
+      "source": "PianoVAM",
+      "learner_id": "pianovam-p02",
+      "exercise_id": "L. Beethoven / Piano Concerto No.3",
+      "recordings": 2,
+      "distinct_days": 1,
+      "first_day": "2024-02-15",
+      "last_day": "2024-02-15",
+      "duration_min_seconds": 2115.733,
+      "duration_max_seconds": 2171.605,
+      "assessment_available": false
+    },
+    {
+      "source": "PianoVAM",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "M. Ravel / Jeux D'eau",
+      "recordings": 3,
+      "distinct_days": 2,
+      "first_day": "2024-09-02",
+      "last_day": "2024-09-04",
+      "duration_min_seconds": 422.946,
+      "duration_max_seconds": 593.395,
+      "assessment_available": false
+    },
+    {
+      "source": "PianoVAM",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "M. Clementi / Sonatine Op.36",
+      "recordings": 2,
+      "distinct_days": 2,
+      "first_day": "2024-09-02",
+      "last_day": "2024-09-04",
+      "duration_min_seconds": 98.253,
+      "duration_max_seconds": 128.336,
+      "assessment_available": false
+    },
+    {
+      "source": "PianoVAM",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "S. Rachmaninoff / Prelude Op.32 No.10",
+      "recordings": 2,
+      "distinct_days": 1,
+      "first_day": "2024-09-02",
+      "last_day": "2024-09-02",
+      "duration_min_seconds": 718.88,
+      "duration_max_seconds": 795.225,
+      "assessment_available": false
+    },
+    {
+      "source": "PianoVAM",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "Junhyung / Improvisation",
+      "recordings": 2,
+      "distinct_days": 2,
+      "first_day": "2024-09-02",
+      "last_day": "2024-09-04",
+      "duration_min_seconds": 472.676,
+      "duration_max_seconds": 815.635,
+      "assessment_available": false
+    },
+    {
+      "source": "PianoVAM",
+      "learner_id": "pianovam-p05",
+      "exercise_id": "S. Rachmaninoff / Etude-Tableaux Op.39 No.8",
+      "recordings": 2,
+      "distinct_days": 2,
+      "first_day": "2024-09-04",
+      "last_day": "2024-09-05",
+      "duration_min_seconds": 335.881,
+      "duration_max_seconds": 841.218,
+      "assessment_available": false
+    },
+    {
+      "source": "PianoVAM",
+      "learner_id": "pianovam-p07",
+      "exercise_id": "R. Schumann / Fantasie Op.17",
+      "recordings": 7,
+      "distinct_days": 7,
+      "first_day": "2024-02-15",
+      "last_day": "2024-04-08",
+      "duration_min_seconds": 852.949,
+      "duration_max_seconds": 2717.653,
+      "assessment_available": false
+    },
+    {
+      "source": "PianoVAM",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "E. Grieg / Piano Concerto",
+      "recordings": 3,
+      "distinct_days": 2,
+      "first_day": "2024-02-14",
+      "last_day": "2024-02-15",
+      "duration_min_seconds": 213.717,
+      "duration_max_seconds": 745.493,
+      "assessment_available": false
+    },
+    {
+      "source": "PianoVAM",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "N. Kapustin / Concert Etude No.6",
+      "recordings": 2,
+      "distinct_days": 2,
+      "first_day": "2024-02-14",
+      "last_day": "2024-03-11",
+      "duration_min_seconds": 493.653,
+      "duration_max_seconds": 693.525,
+      "assessment_available": false
+    },
+    {
+      "source": "PianoVAM",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "M. Ravel / Piano Concerto in G Major",
+      "recordings": 3,
+      "distinct_days": 3,
+      "first_day": "2024-02-14",
+      "last_day": "2024-02-17",
+      "duration_min_seconds": 22.4,
+      "duration_max_seconds": 1101.205,
+      "assessment_available": false
+    },
+    {
+      "source": "PianoVAM",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "M. Ravel / Piano Concerto for the Left Hand",
+      "recordings": 3,
+      "distinct_days": 3,
+      "first_day": "2024-02-14",
+      "last_day": "2024-02-17",
+      "duration_min_seconds": 298.624,
+      "duration_max_seconds": 1246.101,
+      "assessment_available": false
+    },
+    {
+      "source": "PianoVAM",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "N. Kapustin / Piano Sonata No.2",
+      "recordings": 6,
+      "distinct_days": 6,
+      "first_day": "2024-02-15",
+      "last_day": "2024-04-08",
+      "duration_min_seconds": 86.571,
+      "duration_max_seconds": 2022.912,
+      "assessment_available": false
+    },
+    {
+      "source": "PianoVAM",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "Yonghyun / Improvisation",
+      "recordings": 2,
+      "distinct_days": 1,
+      "first_day": "2024-02-17",
+      "last_day": "2024-02-17",
+      "duration_min_seconds": 311.275,
+      "duration_max_seconds": 1051.008,
+      "assessment_available": false
+    },
+    {
+      "source": "PianoVAM",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "N/A [Yonghyun] / N/A [Improvisation]",
+      "recordings": 4,
+      "distinct_days": 1,
+      "first_day": "2024-03-04",
+      "last_day": "2024-03-04",
+      "duration_min_seconds": 178.752,
+      "duration_max_seconds": 1087.851,
+      "assessment_available": false
+    },
+    {
+      "source": "PianoVAM",
+      "learner_id": "pianovam-p08",
+      "exercise_id": "Harold Arlen (arr. Rupert Austin) / Over The Rainbow",
+      "recordings": 6,
+      "distinct_days": 3,
+      "first_day": "2024-03-15",
+      "last_day": "2024-04-09",
+      "duration_min_seconds": 267.115,
+      "duration_max_seconds": 1757.184,
+      "assessment_available": false
+    }
+  ],
+  "partitions": {
+    "earlier": [
+      "p1200811001rachmaop30m1mi",
+      "p1200812001rachmaop30m1mi",
+      "p2230809001hanoncscalesmi",
+      "p2230810001hanoncscalesmi",
+      "p3240606001hanoncexercsmi",
+      "p3240607001hanoncexercsmi",
+      "p4250309201beethop10n3fmi",
+      "p4250408003beethop10n3fmi",
+      "pianovam-59",
+      "pianovam-64",
+      "pianovam-70",
+      "pianovam-80",
+      "pianovam-7",
+      "pianovam-33",
+      "pianovam-34",
+      "pianovam-43",
+      "pianovam-47",
+      "pianovam-49",
+      "pianovam-0",
+      "pianovam-1",
+      "pianovam-4",
+      "pianovam-10",
+      "pianovam-5",
+      "pianovam-13",
+      "pianovam-22",
+      "pianovam-25",
+      "pianovam-41",
+      "pianovam-48",
+      "pianovam-50",
+      "pianovam-46",
+      "pianovam-52",
+      "pianovam-53",
+      "pianovam-54"
+    ],
+    "future": [
+      "p1200813001rachmaop30m1mi",
+      "p2230814001hanoncscalesmi",
+      "p3240611001hanoncexercsmi",
+      "p4250410001beethop10n3fmi",
+      "pianovam-78",
+      "pianovam-79",
+      "pianovam-90",
+      "pianovam-92",
+      "pianovam-105",
+      "pianovam-55",
+      "pianovam-18",
+      "pianovam-19",
+      "pianovam-42",
+      "pianovam-28",
+      "pianovam-27",
+      "pianovam-51",
+      "pianovam-56",
+      "pianovam-57"
+    ],
+    "single_day_excluded": [
+      "pianovam-29",
+      "pianovam-8",
+      "pianovam-9",
+      "pianovam-11",
+      "pianovam-12",
+      "pianovam-14",
+      "pianovam-15",
+      "pianovam-16",
+      "pianovam-17",
+      "pianovam-21",
+      "pianovam-23",
+      "pianovam-93",
+      "pianovam-94",
+      "pianovam-35",
+      "pianovam-58",
+      "pianovam-60",
+      "pianovam-65",
+      "pianovam-66",
+      "pianovam-67",
+      "pianovam-68",
+      "pianovam-69",
+      "pianovam-72",
+      "pianovam-71",
+      "pianovam-73",
+      "pianovam-74",
+      "pianovam-87",
+      "pianovam-88",
+      "pianovam-89",
+      "pianovam-91",
+      "pianovam-95",
+      "pianovam-106",
+      "pianovam-81",
+      "pianovam-82",
+      "pianovam-83",
+      "pianovam-84",
+      "pianovam-85",
+      "pianovam-86",
+      "pianovam-32",
+      "pianovam-2",
+      "pianovam-3",
+      "pianovam-6",
+      "pianovam-24",
+      "pianovam-26",
+      "pianovam-30",
+      "pianovam-31",
+      "pianovam-36",
+      "pianovam-37",
+      "pianovam-38",
+      "pianovam-39",
+      "pianovam-40",
+      "pianovam-44",
+      "pianovam-45",
+      "pianovam-61",
+      "pianovam-62",
+      "pianovam-63",
+      "pianovam-96",
+      "pianovam-97",
+      "pianovam-100",
+      "pianovam-101",
+      "pianovam-102",
+      "pianovam-75",
+      "pianovam-76",
+      "pianovam-77",
+      "pianovam-98",
+      "pianovam-99",
+      "pianovam-103",
+      "pianovam-104"
+    ],
+    "scope": "within-learner same-piece descriptive future-day holdout",
+    "target_available": false,
+    "usable_for_knowledge_tracing": false,
+    "learner_disjoint": false,
+    "warning": "No correctness labels; four Rach3 learners cannot support population-level neural validation."
+  },
+  "limitations": [
+    "Duration and note count do not measure correctness, fluency, improvement or mastery.",
+    "Source skill-level demographic fields are omitted; they are not longitudinal outcomes.",
+    "No timezone invented. Holdouts separate whole calendar days.",
+    "PianoVAM source train/test split is not treated as a learner-disjoint KT split.",
+    "Rach3 sample selected for repeated coverage; no representative sampling claim.",
+    "No assessment, recognition, alignment or other teammate model is implemented."
+  ]
+}
