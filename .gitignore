@@ -3,6 +3,7 @@ __pycache__/
 .pytest_cache/
 *.pyc
 runtime/
+data/music-phase4/raw/
 
 # Local configuration and credentials
 .env

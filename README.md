@@ -1,5 +1,22 @@
 # DÉCLIC · Axis 7 — Musical Learning Intelligence
 
+## Phase 4: real piano histories and guarded forecasting
+
+The latest development adds a licensed descriptive piano study, source-comparable progress
+feedback and an additive v4 forecast policy that abstains unless a clearly labeled synthetic
+research query is eligible. It does **not** establish real-music predictive validity.
+
+See [Phase 4 implementation](docs/PHASE4_IMPLEMENTATION.md),
+[musical data investigation](docs/MUSIC_DATA_PHASE4.md),
+[teammate package](docs/TEAM_PHASE4.md) and
+[dataset attribution](data/music-phase4/README.md).
+
+Reproduce acquired-data analysis with `python scripts/acquire_phase4_music.py` followed by
+`python scripts/analyze_phase4_music.py`. The research interface links the real piano
+case study at `/web/case-study.html`; the familiar musician notebook remains the default.
+Historical studies and models are preserved. No other axis's recognition/scoring model is implemented.
+
+
 A musician-first local piano practice notebook, with separate research and team-integration modes. The default guided flow collects clearly sourced self/teacher assessments; it does not pretend to listen to audio or infer mastery. Research-mode probabilities come from saved checkpoints. No LLM produces learner predictions and no video is generated.
 
 Axis 7 is the longitudinal intelligence component of a seven-person ESPRIT music-learning project. The other six axes own pitch, rhythm, alignment, performance quality, technique and instrument recognition. This repository consumes their observations through versioned contracts; it does not implement their perception models.

@@ -1,0 +1,108 @@
+{
+  "version": "phase4-acquisition-1",
+  "rach3_commit": "a9519492b086a6c039a9d0994689ca0f279186bd",
+  "pianovam_revision": "1f039ab9d6128626bff708faad6472d220b50eaa",
+  "rights": "CC-BY-NC-SA-4.0",
+  "purpose": "bounded noncommercial research; attribution and share-alike required",
+  "rach3_inventory_midi_count": 3160,
+  "files": [
+    {
+      "path": "Rach3/LICENSE",
+      "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/LICENSE",
+      "bytes": 20849,
+      "sha256": "1349a4b6148492b44f629e64eed676612e234fe9a839e4f3b277c1482c8849f1"
+    },
+    {
+      "path": "Rach3/README.md",
+      "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/README.md",
+      "bytes": 6609,
+      "sha256": "66872b012fea6e7f24a2e69bd6883acfae37f7dac479d869f58e779c87f57af9"
+    },
+    {
+      "path": "PianoVAM/README.md",
+      "url": "https://huggingface.co/datasets/PianoVAM/PianoVAM_v1/resolve/1f039ab9d6128626bff708faad6472d220b50eaa/README.md",
+      "bytes": 12362,
+      "sha256": "48bb30c5d510ba4c67ef884ae03522969bf4a2ce99937d6d4942239d57bd4161"
+    },
+    {
+      "path": "PianoVAM/metadata.json",
+      "url": "https://huggingface.co/datasets/PianoVAM/PianoVAM_v1/resolve/1f039ab9d6128626bff708faad6472d220b50eaa/metadata.json",
+      "bytes": 66823,
+      "sha256": "5b57e36914f18c36e3138c119c6c99dbe0fdaa90f18e79f5d323be0abd6d8dc7"
+    },
+    {
+      "path": "Rach3/rehearsals/p1/p1200811001rachmaop30m1mi.mid",
+      "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p1/p1200811001rachmaop30m1mi.mid",
+      "bytes": 86919,
+      "sha256": "1e64ca9e27c9762da684fbb2073bb6d0e62fe73eaa2d2ba6d1c18b24b04ab6a9"
+    },
+    {
+      "path": "Rach3/rehearsals/p1/p1200812001rachmaop30m1mi.mid",
+      "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p1/p1200812001rachmaop30m1mi.mid",
+      "bytes": 196765,
+      "sha256": "0d37ce3cc5bff5d33c0b497a957e3ebee0823bfafa227473e4bcc64c1df11224"
+    },
+    {
+      "path": "Rach3/rehearsals/p1/p1200813001rachmaop30m1mi.mid",
+      "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p1/p1200813001rachmaop30m1mi.mid",
+      "bytes": 201435,
+      "sha256": "f7d7026ea550cf6a2a2a3cd56d8c156a115d40f987d7fcb832ed320eb22d6f56"
+    },
+    {
+      "path": "Rach3/rehearsals/p2/p2230809001hanoncscalesmi.mid",
+      "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p2/p2230809001hanoncscalesmi.mid",
+      "bytes": 14079,
+      "sha256": "e04dfb7921e44543980e31cd3bbaf42c2f802c4a260359c31173415c8a776e3c"
+    },
+    {
+      "path": "Rach3/rehearsals/p2/p2230810001hanoncscalesmi.mid",
+      "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p2/p2230810001hanoncscalesmi.mid",
+      "bytes": 41219,
+      "sha256": "bb456f9dd7701b99af1a741c393d32ba42df9bc45a5b241f2ad5626298eb5f62"
+    },
+    {
+      "path": "Rach3/rehearsals/p2/p2230814001hanoncscalesmi.mid",
+      "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p2/p2230814001hanoncscalesmi.mid",
+      "bytes": 52696,
+      "sha256": "79a74a3121cae36f145b8c5c0bbde18159c0bb47c3caf2cfdcbb2db46ad9914c"
+    },
+    {
+      "path": "Rach3/rehearsals/p3/p3240606001hanoncexercsmi.mid",
+      "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p3/p3240606001hanoncexercsmi.mid",
+      "bytes": 35745,
+      "sha256": "1c57e84e237a55f116719c031d9f5bb8968f1fbf6b36618424a26d60e07f3226"
+    },
+    {
+      "path": "Rach3/rehearsals/p3/p3240607001hanoncexercsmi.mid",
+      "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p3/p3240607001hanoncexercsmi.mid",
+      "bytes": 41212,
+      "sha256": "f6dd0fb6c5c65faeb717967670bccafee7b548b692fdaea7788abd8510a43c2b"
+    },
+    {
+      "path": "Rach3/rehearsals/p3/p3240611001hanoncexercsmi.mid",
+      "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p3/p3240611001hanoncexercsmi.mid",
+      "bytes": 37125,
+      "sha256": "08049e6a05a9ea10a2c29db4d2237b405c88dae2c9b6c0b1eebe6759528d4179"
+    },
+    {
+      "path": "Rach3/rehearsals/p4/p4250309201beethop10n3fmi.mid",
+      "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p4/p4250309201beethop10n3fmi.mid",
+      "bytes": 134187,
+      "sha256": "0f42e7200b1746f0cc1cd920df3c7bdb553803f720ad6b5cae9d09d282865fd6"
+    },
+    {
+      "path": "Rach3/rehearsals/p4/p4250408003beethop10n3fmi.mid",
+      "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p4/p4250408003beethop10n3fmi.mid",
+      "bytes": 164264,
+      "sha256": "edffd8abd37094f5b8505ab7896c40affa55b908b68a3808e437b747b8af28ba"
+    },
+    {
+      "path": "Rach3/rehearsals/p4/p4250410001beethop10n3fmi.mid",
+      "url": "https://raw.githubusercontent.com/Rach3Project/rach3_midi_dataset/a9519492b086a6c039a9d0994689ca0f279186bd/rehearsals/p4/p4250410001beethop10n3fmi.mid",
+      "bytes": 162088,
+      "sha256": "d2d99bbe82459c8153125d601171fff282fc9165f5a17f751ff0508d5b9064ed"
+    }
+  ],
+  "correctness_targets_available": false,
+  "selection": "Three earliest distinct-day recordings of the most frequent piece per pianist; deterministic descriptive sample, not representative."
+}
