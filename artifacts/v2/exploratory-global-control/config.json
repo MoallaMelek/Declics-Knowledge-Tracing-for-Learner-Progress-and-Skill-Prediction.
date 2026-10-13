@@ -1,0 +1,18 @@
+{
+  "status": "exploratory_posthoc",
+  "estimator": "L2 logistic C1 max_iter2000",
+  "features": [
+    "skill",
+    "target_KC_log_success_failure_counts",
+    "all_KC_log_success_failure_counts",
+    "known_atomic_item_onehot",
+    "train_only_item_difficulty",
+    "log_sequence_position",
+    "smoothed_global_success_fraction",
+    "smoothed_target_KC_success_fraction"
+  ],
+  "selection": "no tuning; compare to existing validation-selected neural; never replace mainstudy selections",
+  "retraining": "no neural retraining",
+  "threads": 2,
+  "bootstrap_replicates": 300
+}

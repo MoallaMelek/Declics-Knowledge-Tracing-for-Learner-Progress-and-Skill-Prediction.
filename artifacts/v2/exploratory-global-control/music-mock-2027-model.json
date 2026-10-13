@@ -1,0 +1,89 @@
+{
+  "coef": [
+    [
+      -0.05767044523662819,
+      -0.25157580851554645,
+      -0.055262285350891824,
+      0.03373916850976818,
+      -0.06658431694897514,
+      -0.09444003361960895,
+      0.794567296404532,
+      0.9299239266778836,
+      0.7792221078783054,
+      0.7436168802060695,
+      0.8067450401470643,
+      0.8986644682678444,
+      0.0020761776258228885,
+      -0.0742627066923126,
+      -0.04482333813074463,
+      0.0036290402789620124,
+      -0.1092137207419151,
+      -0.09036692685817922,
+      -0.049929748848104125,
+      -0.07372919513896585,
+      0.03477127424362331,
+      -0.005740918484019855,
+      -0.03191729556632923,
+      -0.046390186646346546,
+      -0.06287628199512392,
+      -0.00019391101428710872,
+      0.020525270642265173,
+      0.02848883129420169,
+      0.07169402133369727,
+      0.04513787014622943,
+      0.0,
+      -0.14208692381608717,
+      0.0005355939146609308,
+      -0.06634936731947459,
+      -0.17423666772713142,
+      -0.00612055417740149,
+      -0.10353580203644507,
+      -0.20365190804555738,
+      -0.08161848968121439,
+      0.37989853816562286,
+      0.758107188842197
+    ]
+  ],
+  "intercept": [
+    -0.5674649225437962
+  ],
+  "items": {
+    "vocabulary": {
+      "mock-exercise-0": 1,
+      "mock-exercise-1": 2,
+      "mock-exercise-2": 3,
+      "mock-exercise-3": 4,
+      "mock-exercise-4": 5,
+      "mock-exercise-5": 6
+    },
+    "difficulty": {
+      "mock-exercise-1": 0.4267002518891687,
+      "mock-exercise-2": 0.40533980582524276,
+      "mock-exercise-3": 0.41604754829123325,
+      "mock-exercise-5": 0.41435185185185186,
+      "mock-exercise-4": 0.4046997389033943,
+      "mock-exercise-0": 0.41607227769852595
+    },
+    "unknown_difficulty": 0.4138325703073904,
+    "fit_unit": "training learners only; atomic exercise bundle"
+  },
+  "K": 6,
+  "config": {
+    "status": "exploratory_posthoc",
+    "estimator": "L2 logistic C1 max_iter2000",
+    "features": [
+      "skill",
+      "target_KC_log_success_failure_counts",
+      "all_KC_log_success_failure_counts",
+      "known_atomic_item_onehot",
+      "train_only_item_difficulty",
+      "log_sequence_position",
+      "smoothed_global_success_fraction",
+      "smoothed_target_KC_success_fraction"
+    ],
+    "selection": "no tuning; compare to existing validation-selected neural; never replace mainstudy selections",
+    "retraining": "no neural retraining",
+    "threads": 2,
+    "bootstrap_replicates": 300
+  }
+}

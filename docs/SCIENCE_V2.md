@@ -58,6 +58,54 @@ raw = p.probabilities(rows, exercise_id=None)
 secondary = p.probabilities(rows, exercise_id='known-exercise', calibrated=True)
 ```
 
+### axis7-science-v2.2: no-op/excluded-row serving correction
+
+`ResearchPredictor.serving_implementation_version` is `'axis7-science-v2.2'`, distinct
+from and independent of the immutable checkpoint's own training-time
+`config['implementation_version']` (`'axis7-science-v2.1'`, written once by
+`save_checkpoint` and never rewritten). Checkpoints, predictions and metrics from the
+102-run study are unchanged; only the live serving computation in
+`research_neural_predict` and `StatisticalControl.probabilities` (`item_pfa`) was
+corrected.
+
+**Defect (v2.1 serving):** an observation-only or explicitly excluded original row
+(no eligible observation) is dropped by `compact_history` before encoding, and
+`expand_forecasts` then mapped that position to the **next eligible row's** own
+forecast — which was conditioned on that later row's known exercise/item. Changing a
+later exercise therefore silently changed an earlier no-op's displayed
+`probability_before` (CLI-reproduced difference: `0.06048` on a small `enhanced_gru`
+example; the same expansion path affected `item_pfa`).
+
+**Fix (v2.2 serving):** at every no-op/excluded original position, the forecast is now
+a generic forecast conditioned only on the causal prefix up to that point, with the
+current query forced to the unknown/UNK item (current-item embedding zeroed,
+difficulty set to the fitted `unknown_difficulty`) — never the next eligible row's
+real item. Eligible/benchmark rows and the trailing next-query slot are completely
+unaffected (bit-identical to v2.1 serving); `dkt`, `sakt` and the `*_no_item` ablation
+never used item identity in the first place, so the correction is a verified no-op
+for them. See `tests/test_research_v2.py::test_noop_forecast_is_unk_conditioned_not_future_item_leakage`
+and `::test_item_pfa_noop_forecast_is_unk_conditioned_not_future_item_leakage` for the
+regression, and `work/science-v2-result.md` for the exhaustive proof that this
+correction changes **zero** rows of the predeclared 102-run study (every primary
+observation in both domains is eligible/binary, so no no-op position exists there at
+all; the defect only ever affected live/generic serving of observation-only events).
+
+### Posthoc exploratory control: does EGRU's gain survive a cross-KC-matched baseline?
+
+`scripts/global_history_control.py` (output: `artifacts/v2/exploratory-global-control/`,
+status `exploratory_posthoc`, **not** part of this predeclared study, no neural
+retraining, no test-set selection) fits a plain L2 logistic regression with the same
+cross-KC causal success/failure counts `EnhancedGRU` sees — `item_pfa` here only sees
+target-KC counts — on the same 3 fixed splits, and compares it against the main
+study's own validation-selected neural model with the same paired-bootstrap method.
+On forget-se (the only domain where `enhanced_gru` is actually validation-selected),
+all 3 splits' paired 95% intervals against this stronger control include zero: EGRU's
+measured advantage over the main study's `item_pfa` baseline does not fully survive
+once that one feature-visibility confound (cross-KC vs. target-KC counts) is removed.
+This does not show EGRU performs worse than a logistic model; it shows that
+recurrence/architecture alone should not be credited with the full gain. Full detail:
+`work/science-v2-result.md` §5.
+
 ## Limits
 
 FORGET-SE is software engineering; music-mock is synthetic. No musical transfer or learning-gain effect is established. Known items/curriculum can explain forecast gains without proving a cognitive learning model. Eligibility comes from the versioned integration boundary, not a newly trained confidence estimator. More complex candidates may lose and all measured outcomes remain available. Forecasts are not psychological mastery and practice rules remain heuristics.

@@ -1,0 +1,23 @@
+{
+  "domain": "music-mock",
+  "name": "Atelier musical · simulation",
+  "skills": [
+    "pitch",
+    "rhythm",
+    "timing",
+    "articulation",
+    "fingering",
+    "score_navigation"
+  ],
+  "labels": [
+    "Justesse",
+    "Rythme",
+    "Placement temporel",
+    "Articulation",
+    "Doigté",
+    "Lecture de partition"
+  ],
+  "provenance": "synthetic",
+  "target": "issue binaire simulée",
+  "order_note": "Sessions synthétiques ; taxonomie provisoire, sans graphe de prérequis validé"
+}

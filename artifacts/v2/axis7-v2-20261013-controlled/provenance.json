@@ -1,0 +1,23 @@
+{
+  "source_sha256": {
+    "axis7/models_v2.py": "b86930c0f17f32a244424219f191666e3b678cf4f19a8ca89258f06551766dd2",
+    "axis7/research_v2.py": "bae21236b2ee7b229fdb6a20f5bd022b377a3b36bd7c56f0dc8abab43e0c12fd",
+    "axis7/models.py": "5149efbe2a856e2f1c435f241cae549ba53b0d62582d10549ddb885ec417bb71",
+    "axis7/data.py": "f3ed1ba2e40078a0500f8de7fa62b92739afe0116802915e59d1f14c92869040",
+    "axis7/metrics.py": "494de5e0f5dd32104038380fba780552184f2142bfada950f4e8335bf4d6f6d4",
+    "axis7/eligibility.py": "4be0bbc8d0ee4dcc210124d1bac8554a922862ab19b169d46b30b68c40fc7b7a"
+  },
+  "source_snapshot": "source/",
+  "git_head": "1100273ec173ecb92ba3d90a72408f4725610ea6",
+  "uncommitted_worktree": true,
+  "python": "3.12.14",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "dependencies": {
+    "torch": "2.14.1+cpu",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1"
+  },
+  "data_sha256": "7aefdfeb3f68614b07b6953bd101d2252b675ba8bc19d159c6664174bf3ec9a3",
+  "started_at_utc": "2026-10-13T01:20:21.404921+00:00"
+}

@@ -1,0 +1,91 @@
+{
+  "name": "item_pfa",
+  "K": 6,
+  "hidden": 48,
+  "context": 256,
+  "split_seed": 2026,
+  "seed": 0,
+  "domain": "music-mock",
+  "metadata": {
+    "domain": "music-mock",
+    "name": "Atelier musical · simulation",
+    "skills": [
+      "pitch",
+      "rhythm",
+      "timing",
+      "articulation",
+      "fingering",
+      "score_navigation"
+    ],
+    "labels": [
+      "Justesse",
+      "Rythme",
+      "Placement temporel",
+      "Articulation",
+      "Doigté",
+      "Lecture de partition"
+    ],
+    "provenance": "synthetic",
+    "target": "issue binaire simulée",
+    "order_note": "Sessions synthétiques ; taxonomie provisoire, sans graphe de prérequis validé"
+  },
+  "output": "raw_primary",
+  "applicability": "known exercise bundle conditions forecast; omitted exercise uses train-only UNK",
+  "items": {
+    "vocabulary": {
+      "mock-exercise-0": 1,
+      "mock-exercise-1": 2,
+      "mock-exercise-2": 3,
+      "mock-exercise-3": 4,
+      "mock-exercise-4": 5,
+      "mock-exercise-5": 6
+    },
+    "difficulty": {
+      "mock-exercise-5": 0.42296650717703355,
+      "mock-exercise-4": 0.4000989119683481,
+      "mock-exercise-2": 0.4016045304388862,
+      "mock-exercise-1": 0.4228395061728395,
+      "mock-exercise-0": 0.42789148024750123,
+      "mock-exercise-3": 0.4422979156075242
+    },
+    "unknown_difficulty": 0.4193574756805363,
+    "fit_unit": "training learners only; atomic exercise bundle"
+  },
+  "temperature": 0.9930694246397075,
+  "implementation_version": "axis7-science-v2.1",
+  "statistical": {
+    "coef": [
+      [
+        -0.0764925194977098,
+        -0.032855218150319866,
+        0.02397281075135913,
+        0.006803314931018756,
+        -0.18305202315988855,
+        -0.006382130206381763,
+        1.0019962581986892,
+        0.896025538969373,
+        0.9106944273871406,
+        0.9026221645346097,
+        0.9416688998947104,
+        0.9673084394113051,
+        -0.2605486478936065,
+        -0.24137849610034245,
+        -0.3788445819622864,
+        -0.2757092895704524,
+        -0.2634854250847699,
+        -0.3476440928824382,
+        0.0,
+        -0.13489343407167026,
+        -0.04914707184858548,
+        0.035098182627482634,
+        -0.14145301493950574,
+        0.09672056653158446,
+        -0.07433099363122915,
+        -0.11971158557816142
+      ]
+    ],
+    "intercept": [
+      -0.2745988810533836
+    ]
+  }
+}

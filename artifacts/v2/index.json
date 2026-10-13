@@ -1,0 +1,905 @@
+{
+  "experiment_id": "axis7-v2-20261013-controlled",
+  "latest": "axis7-v2-20261013-controlled",
+  "summary": "artifacts/v2/axis7-v2-20261013-controlled/summary.json",
+  "serving": [
+    {
+      "id": "forget-se:2026:prior-0",
+      "domain": "forget-se",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/forget-se/split-2026",
+      "run_id": "prior-0",
+      "name": "prior",
+      "split_seed": 2026,
+      "seed": 0,
+      "validation_log_loss": 0.6798320954007044,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "rubric": "full-credit-v1",
+        "provenance": "public",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "forget-se:2026:bkt-0",
+      "domain": "forget-se",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/forget-se/split-2026",
+      "run_id": "bkt-0",
+      "name": "bkt",
+      "split_seed": 2026,
+      "seed": 0,
+      "validation_log_loss": 0.6659325066151702,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "rubric": "full-credit-v1",
+        "provenance": "public",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "forget-se:2026:pfa-0",
+      "domain": "forget-se",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/forget-se/split-2026",
+      "run_id": "pfa-0",
+      "name": "pfa",
+      "split_seed": 2026,
+      "seed": 0,
+      "validation_log_loss": 0.6670437189046442,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "rubric": "full-credit-v1",
+        "provenance": "public",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "forget-se:2026:exposure-0",
+      "domain": "forget-se",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/forget-se/split-2026",
+      "run_id": "exposure-0",
+      "name": "exposure",
+      "split_seed": 2026,
+      "seed": 0,
+      "validation_log_loss": 0.67873672118701,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "rubric": "full-credit-v1",
+        "provenance": "public",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "forget-se:2026:item_pfa-0",
+      "domain": "forget-se",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/forget-se/split-2026",
+      "run_id": "item_pfa-0",
+      "name": "item_pfa",
+      "split_seed": 2026,
+      "seed": 0,
+      "validation_log_loss": 0.6023286966854123,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "rubric": "full-credit-v1",
+        "provenance": "public",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "forget-se:2026:dkt-7",
+      "domain": "forget-se",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/forget-se/split-2026",
+      "run_id": "dkt-7",
+      "name": "dkt",
+      "split_seed": 2026,
+      "seed": 7,
+      "validation_log_loss": 0.6171178073763329,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "rubric": "full-credit-v1",
+        "provenance": "public",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "forget-se:2026:dkt-19",
+      "domain": "forget-se",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/forget-se/split-2026",
+      "run_id": "dkt-19",
+      "name": "dkt",
+      "split_seed": 2026,
+      "seed": 19,
+      "validation_log_loss": 0.6184184775987619,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "rubric": "full-credit-v1",
+        "provenance": "public",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "forget-se:2026:sakt-7",
+      "domain": "forget-se",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/forget-se/split-2026",
+      "run_id": "sakt-7",
+      "name": "sakt",
+      "split_seed": 2026,
+      "seed": 7,
+      "validation_log_loss": 0.6495719667654367,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "rubric": "full-credit-v1",
+        "provenance": "public",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "forget-se:2026:sakt-19",
+      "domain": "forget-se",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/forget-se/split-2026",
+      "run_id": "sakt-19",
+      "name": "sakt",
+      "split_seed": 2026,
+      "seed": 19,
+      "validation_log_loss": 0.6500575718102188,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "rubric": "full-credit-v1",
+        "provenance": "public",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "forget-se:2026:enhanced_gru-7",
+      "domain": "forget-se",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/forget-se/split-2026",
+      "run_id": "enhanced_gru-7",
+      "name": "enhanced_gru",
+      "split_seed": 2026,
+      "seed": 7,
+      "validation_log_loss": 0.5840538926672201,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "rubric": "full-credit-v1",
+        "provenance": "public",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "forget-se:2026:enhanced_gru-19",
+      "domain": "forget-se",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/forget-se/split-2026",
+      "run_id": "enhanced_gru-19",
+      "name": "enhanced_gru",
+      "split_seed": 2026,
+      "seed": 19,
+      "validation_log_loss": 0.5873522150360199,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "rubric": "full-credit-v1",
+        "provenance": "public",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "forget-se:2026:item_attention-7",
+      "domain": "forget-se",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/forget-se/split-2026",
+      "run_id": "item_attention-7",
+      "name": "item_attention",
+      "split_seed": 2026,
+      "seed": 7,
+      "validation_log_loss": 0.6195108519119014,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "rubric": "full-credit-v1",
+        "provenance": "public",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "forget-se:2026:item_attention-19",
+      "domain": "forget-se",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/forget-se/split-2026",
+      "run_id": "item_attention-19",
+      "name": "item_attention",
+      "split_seed": 2026,
+      "seed": 19,
+      "validation_log_loss": 0.6182482936006812,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "rubric": "full-credit-v1",
+        "provenance": "public",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "forget-se:2026:enhanced_gru_no_outcome-7",
+      "domain": "forget-se",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/forget-se/split-2026",
+      "run_id": "enhanced_gru_no_outcome-7",
+      "name": "enhanced_gru_no_outcome",
+      "split_seed": 2026,
+      "seed": 7,
+      "validation_log_loss": 0.6157452768199002,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "rubric": "full-credit-v1",
+        "provenance": "public",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "forget-se:2026:enhanced_gru_no_outcome-19",
+      "domain": "forget-se",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/forget-se/split-2026",
+      "run_id": "enhanced_gru_no_outcome-19",
+      "name": "enhanced_gru_no_outcome",
+      "split_seed": 2026,
+      "seed": 19,
+      "validation_log_loss": 0.6168355941369332,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "rubric": "full-credit-v1",
+        "provenance": "public",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "forget-se:2026:item_attention_no_item-7",
+      "domain": "forget-se",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/forget-se/split-2026",
+      "run_id": "item_attention_no_item-7",
+      "name": "item_attention_no_item",
+      "split_seed": 2026,
+      "seed": 7,
+      "validation_log_loss": 0.6544610715460221,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "rubric": "full-credit-v1",
+        "provenance": "public",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "forget-se:2026:item_attention_no_item-19",
+      "domain": "forget-se",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/forget-se/split-2026",
+      "run_id": "item_attention_no_item-19",
+      "name": "item_attention_no_item",
+      "split_seed": 2026,
+      "seed": 19,
+      "validation_log_loss": 0.6538342414561725,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "rubric": "full-credit-v1",
+        "provenance": "public",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "music-mock:2026:prior-0",
+      "domain": "music-mock",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/music-mock/split-2026",
+      "run_id": "prior-0",
+      "name": "prior",
+      "split_seed": 2026,
+      "seed": 0,
+      "validation_log_loss": 0.6707283662895077,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "pitch",
+          "rhythm",
+          "timing",
+          "articulation",
+          "fingering",
+          "score_navigation"
+        ],
+        "rubric": "provisional-mock-v1",
+        "provenance": "synthetic",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "music-mock:2026:bkt-0",
+      "domain": "music-mock",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/music-mock/split-2026",
+      "run_id": "bkt-0",
+      "name": "bkt",
+      "split_seed": 2026,
+      "seed": 0,
+      "validation_log_loss": 0.6285273795482811,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "pitch",
+          "rhythm",
+          "timing",
+          "articulation",
+          "fingering",
+          "score_navigation"
+        ],
+        "rubric": "provisional-mock-v1",
+        "provenance": "synthetic",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "music-mock:2026:pfa-0",
+      "domain": "music-mock",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/music-mock/split-2026",
+      "run_id": "pfa-0",
+      "name": "pfa",
+      "split_seed": 2026,
+      "seed": 0,
+      "validation_log_loss": 0.6249365438631088,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "pitch",
+          "rhythm",
+          "timing",
+          "articulation",
+          "fingering",
+          "score_navigation"
+        ],
+        "rubric": "provisional-mock-v1",
+        "provenance": "synthetic",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "music-mock:2026:exposure-0",
+      "domain": "music-mock",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/music-mock/split-2026",
+      "run_id": "exposure-0",
+      "name": "exposure",
+      "split_seed": 2026,
+      "seed": 0,
+      "validation_log_loss": 0.6592666596873412,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "pitch",
+          "rhythm",
+          "timing",
+          "articulation",
+          "fingering",
+          "score_navigation"
+        ],
+        "rubric": "provisional-mock-v1",
+        "provenance": "synthetic",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "music-mock:2026:item_pfa-0",
+      "domain": "music-mock",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/music-mock/split-2026",
+      "run_id": "item_pfa-0",
+      "name": "item_pfa",
+      "split_seed": 2026,
+      "seed": 0,
+      "validation_log_loss": 0.6241985415502769,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "pitch",
+          "rhythm",
+          "timing",
+          "articulation",
+          "fingering",
+          "score_navigation"
+        ],
+        "rubric": "provisional-mock-v1",
+        "provenance": "synthetic",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "music-mock:2026:dkt-7",
+      "domain": "music-mock",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/music-mock/split-2026",
+      "run_id": "dkt-7",
+      "name": "dkt",
+      "split_seed": 2026,
+      "seed": 7,
+      "validation_log_loss": 0.62677340424467,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "pitch",
+          "rhythm",
+          "timing",
+          "articulation",
+          "fingering",
+          "score_navigation"
+        ],
+        "rubric": "provisional-mock-v1",
+        "provenance": "synthetic",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "music-mock:2026:dkt-19",
+      "domain": "music-mock",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/music-mock/split-2026",
+      "run_id": "dkt-19",
+      "name": "dkt",
+      "split_seed": 2026,
+      "seed": 19,
+      "validation_log_loss": 0.6339563290591153,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "pitch",
+          "rhythm",
+          "timing",
+          "articulation",
+          "fingering",
+          "score_navigation"
+        ],
+        "rubric": "provisional-mock-v1",
+        "provenance": "synthetic",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "music-mock:2026:sakt-7",
+      "domain": "music-mock",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/music-mock/split-2026",
+      "run_id": "sakt-7",
+      "name": "sakt",
+      "split_seed": 2026,
+      "seed": 7,
+      "validation_log_loss": 0.6516631004444079,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "pitch",
+          "rhythm",
+          "timing",
+          "articulation",
+          "fingering",
+          "score_navigation"
+        ],
+        "rubric": "provisional-mock-v1",
+        "provenance": "synthetic",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "music-mock:2026:sakt-19",
+      "domain": "music-mock",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/music-mock/split-2026",
+      "run_id": "sakt-19",
+      "name": "sakt",
+      "split_seed": 2026,
+      "seed": 19,
+      "validation_log_loss": 0.6515571687214358,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "pitch",
+          "rhythm",
+          "timing",
+          "articulation",
+          "fingering",
+          "score_navigation"
+        ],
+        "rubric": "provisional-mock-v1",
+        "provenance": "synthetic",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "music-mock:2026:enhanced_gru-7",
+      "domain": "music-mock",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/music-mock/split-2026",
+      "run_id": "enhanced_gru-7",
+      "name": "enhanced_gru",
+      "split_seed": 2026,
+      "seed": 7,
+      "validation_log_loss": 0.6275851567923184,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "pitch",
+          "rhythm",
+          "timing",
+          "articulation",
+          "fingering",
+          "score_navigation"
+        ],
+        "rubric": "provisional-mock-v1",
+        "provenance": "synthetic",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "music-mock:2026:enhanced_gru-19",
+      "domain": "music-mock",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/music-mock/split-2026",
+      "run_id": "enhanced_gru-19",
+      "name": "enhanced_gru",
+      "split_seed": 2026,
+      "seed": 19,
+      "validation_log_loss": 0.629683673967915,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "pitch",
+          "rhythm",
+          "timing",
+          "articulation",
+          "fingering",
+          "score_navigation"
+        ],
+        "rubric": "provisional-mock-v1",
+        "provenance": "synthetic",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "music-mock:2026:item_attention-7",
+      "domain": "music-mock",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/music-mock/split-2026",
+      "run_id": "item_attention-7",
+      "name": "item_attention",
+      "split_seed": 2026,
+      "seed": 7,
+      "validation_log_loss": 0.6367586466272351,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "pitch",
+          "rhythm",
+          "timing",
+          "articulation",
+          "fingering",
+          "score_navigation"
+        ],
+        "rubric": "provisional-mock-v1",
+        "provenance": "synthetic",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "music-mock:2026:item_attention-19",
+      "domain": "music-mock",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/music-mock/split-2026",
+      "run_id": "item_attention-19",
+      "name": "item_attention",
+      "split_seed": 2026,
+      "seed": 19,
+      "validation_log_loss": 0.6410945684098988,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "pitch",
+          "rhythm",
+          "timing",
+          "articulation",
+          "fingering",
+          "score_navigation"
+        ],
+        "rubric": "provisional-mock-v1",
+        "provenance": "synthetic",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "music-mock:2026:enhanced_gru_no_outcome-7",
+      "domain": "music-mock",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/music-mock/split-2026",
+      "run_id": "enhanced_gru_no_outcome-7",
+      "name": "enhanced_gru_no_outcome",
+      "split_seed": 2026,
+      "seed": 7,
+      "validation_log_loss": 0.6390769414490157,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "pitch",
+          "rhythm",
+          "timing",
+          "articulation",
+          "fingering",
+          "score_navigation"
+        ],
+        "rubric": "provisional-mock-v1",
+        "provenance": "synthetic",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "music-mock:2026:enhanced_gru_no_outcome-19",
+      "domain": "music-mock",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/music-mock/split-2026",
+      "run_id": "enhanced_gru_no_outcome-19",
+      "name": "enhanced_gru_no_outcome",
+      "split_seed": 2026,
+      "seed": 19,
+      "validation_log_loss": 0.6457988957841151,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "pitch",
+          "rhythm",
+          "timing",
+          "articulation",
+          "fingering",
+          "score_navigation"
+        ],
+        "rubric": "provisional-mock-v1",
+        "provenance": "synthetic",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "music-mock:2026:item_attention_no_item-7",
+      "domain": "music-mock",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/music-mock/split-2026",
+      "run_id": "item_attention_no_item-7",
+      "name": "item_attention_no_item",
+      "split_seed": 2026,
+      "seed": 7,
+      "validation_log_loss": 0.6287811204666395,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "pitch",
+          "rhythm",
+          "timing",
+          "articulation",
+          "fingering",
+          "score_navigation"
+        ],
+        "rubric": "provisional-mock-v1",
+        "provenance": "synthetic",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    },
+    {
+      "id": "music-mock:2026:item_attention_no_item-19",
+      "domain": "music-mock",
+      "directory": "artifacts/v2/axis7-v2-20261013-controlled/music-mock/split-2026",
+      "run_id": "item_attention_no_item-19",
+      "name": "item_attention_no_item",
+      "split_seed": 2026,
+      "seed": 19,
+      "validation_log_loss": 0.6281395447588659,
+      "model_profile": {
+        "schema_version": "1.0",
+        "skills": [
+          "pitch",
+          "rhythm",
+          "timing",
+          "articulation",
+          "fingering",
+          "score_navigation"
+        ],
+        "rubric": "provisional-mock-v1",
+        "provenance": "synthetic",
+        "forecast": "raw; UNK exercise when no item supplied; not psychological mastery"
+      }
+    }
+  ],
+  "serving_defaults": {
+    "forget-se": {
+      "overall": "enhanced_gru-7",
+      "neural": "enhanced_gru-7",
+      "baseline": "item_pfa-0"
+    },
+    "music-mock": {
+      "overall": "item_pfa-0",
+      "neural": "dkt-7",
+      "baseline": "item_pfa-0"
+    }
+  },
+  "primary": "raw",
+  "completed_at_utc": "2026-10-13T02:09:14.167406+00:00"
+}

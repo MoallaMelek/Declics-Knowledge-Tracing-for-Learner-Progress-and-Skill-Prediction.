@@ -14,6 +14,24 @@ Axis 7 is the longitudinal intelligence component of a seven-person ESPRIT music
 
 The controlled study configuration is [research-v2.json](configs/research-v2.json). Completed results are published atomically under `artifacts/v2/index.json`; the interface does not report incomplete runs as final evidence. Full methods and model-selection rationale are in [SCIENCE_V2.md](docs/SCIENCE_V2.md).
 
+## Completed controlled study
+
+The fixed-budget v2 study completed **102 runs**: two domains, three learner splits, two neural initialization seeds, five statistical controls and six neural variants. These descriptive means average initializations within each split, then splits; overlapping learner splits are not independent population replications.
+
+| Real FORGET-SE model | Mean ROC-AUC | Mean raw log loss |
+|---|---:|---:|
+| DKT GRU | 0.7203 | 0.6066 |
+| Exercise-aware PFA control | 0.7266 | 0.5980 |
+| Enhanced GRU | **0.7610** | **0.5689** |
+| Enhanced GRU without learner outcomes | 0.7237 | 0.6045 |
+| Item attention adaptation | 0.7263 | 0.6004 |
+
+Validation selected enhanced GRU on each real-data split. Its paired learner-bootstrap raw-loss difference against the validation-selected strongest statistical control was negative on all three splits. The exercise-aware attention adaptation did not clearly improve the comparison; its negative result is retained. This does not isolate recurrence from the enhanced model's cross-skill features, and no psychological mastery or musical transfer is established.
+
+On **synthetic music**, plain PFA and exercise-aware PFA had similar mean raw losses (0.6191 and 0.6196), compared with enhanced GRU (0.6270), DKT (0.6353) and item attention (0.6461). That small descriptive gap does not establish a statistical winner. The default musical neural demonstrator remains DKT-7, selected on the representative split's validation loss, with the validation-selected overall statistical winner disclosed. Architecture complexity is not treated as success.
+
+Full [results](artifacts/v2/axis7-v2-20261013-controlled/RESULTS.md), [machine summary](artifacts/v2/axis7-v2-20261013-controlled/summary.json), per-split predictions, calibration, skill/history slices, intervals, checkpoints and source snapshots remain available. Historical v1 outputs below retain their original calibrated semantics and are not silently pooled with v2 raw results.
+
 ## Open the demonstration
 
 Run `Launch.ps1` from PowerShell in this folder. On this delivery machine it finds the prepared environment automatically. Open **http://127.0.0.1:8767/**. Keep the server window running; press Ctrl+C to stop it.
@@ -85,4 +103,9 @@ The musical taxonomy and rubric are provisional. No DÉCLIC learner study has be
 
 Music data decisions: [rights investigation](docs/MUSIC_DATA_V2.md) and [teacher data-collection protocol](docs/MUSIC_COLLECTION_PROTOCOL.md). A paper's open license is not assumed to grant rights to an undistributed raw dataset. Until rights and longitudinal suitability are established, music results remain explicitly synthetic.
 
-The user's original `declic` source folder was preserved. The requested global AI_TEAM/AGENTS templates and Codex CLI executable were unavailable; no protocol was fabricated. Claude CLI consultation worked under the user's explicit authorization.
+The user's original `declic` source folder was preserved. The requested global AI_TEAM/AGENTS templates were unavailable; no protocol was fabricated. Read-only Codex CLI reviews and Claude CLI consultation worked under the user's explicit authorization.
+
+
+The separate [exploratory global-history control](artifacts/v2/exploratory-global-control/RESULTS.md) uses a plain logistic model with cross-skill history features. Its paired intervals against the validation-selected neural models on FORGET-SE all include zero. EGRU retains a small numerical advantage, but this experiment does not establish an architecture-specific advantage over the stronger control. This posthoc diagnostic is separate from the fixed 102-run study. Reproduce it with `python scripts/global_history_control.py --output artifacts/new-global-control`.
+
+Final local verification: 92 tests passed (81.18 seconds), including 19 frontend checks. All 102 saved checkpoint predictions were reconstructed exactly; see [verification](artifacts/v2/checkpoint-verification.json).

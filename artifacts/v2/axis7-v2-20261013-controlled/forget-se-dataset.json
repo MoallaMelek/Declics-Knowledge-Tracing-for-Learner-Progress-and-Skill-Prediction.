@@ -1,0 +1,37 @@
+{
+  "metadata": {
+    "domain": "forget-se",
+    "name": "FORGET-SE · génie logiciel",
+    "skills": [
+      "se_1",
+      "se_2",
+      "se_3",
+      "se_4",
+      "se_5",
+      "se_6",
+      "se_7",
+      "se_8",
+      "se_9",
+      "se_10"
+    ],
+    "labels": [
+      "Concept SE 1",
+      "Concept SE 2",
+      "Concept SE 3",
+      "Concept SE 4",
+      "Concept SE 5",
+      "Concept SE 6",
+      "Concept SE 7",
+      "Concept SE 8",
+      "Concept SE 9",
+      "Concept SE 10"
+    ],
+    "provenance": "public",
+    "target": "score complet ≥ 1 − 10⁻⁸",
+    "order_note": "log_id trié ; ex æquo regroupés ; unités temporelles inconnues"
+  },
+  "learners": 186,
+  "groups": 10307,
+  "observations": 10873,
+  "generated_seed": null
+}
