@@ -30,8 +30,16 @@
       ],
       "properties": {
         "skill_id": {
-          "maxLength": 80,
-          "minLength": 1,
+          "enum": [
+            "pitch",
+            "rhythm",
+            "timing",
+            "score_navigation",
+            "quality",
+            "articulation",
+            "technique",
+            "fingering"
+          ],
           "title": "Skill Id",
           "type": "string"
         },

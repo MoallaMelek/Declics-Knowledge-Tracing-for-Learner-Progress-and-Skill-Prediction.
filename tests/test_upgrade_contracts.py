@@ -182,3 +182,28 @@ def test_boolean_is_not_a_producer_axis():
     p=event(producer_axis=True)
     assert list(Draft202012Validator(AttemptV2.model_json_schema()).iter_errors(p))
     with pytest.raises(ValueError):AttemptV2.model_validate(p)
+
+def test_mutation_acknowledgments_preserve_selected_model_and_policy(client):
+    ack=client.post('/api/v2/events?model_id=pfa-0&policy=weakest',json=event()).json()
+    assert ack['twin']['model_id']=='pfa-0'
+    assert ack['twin']['recommendation']['policy']=='weakest'
+    result=client.post('/api/simulate',json={'student_id':'v2-learner','skill_id':'pitch','model_id':'pfa-0','policy':'weakest'}).json()
+    assert result['twin']['model_id']=='pfa-0'
+    assert result['twin']['recommendation']['policy']=='weakest'
+
+def test_instrument_producer_cannot_create_learner_updates(client):
+    result=client.post('/api/v2/events',json=event(producer_axis=6)).json()
+    assert result['eligible_observations']==0
+    assert result['record']['obs'][0]['eligibility_reason']=='instrument_context_only'
+    assert result['twin']['model_update_events']==0
+
+def test_unknown_canonical_skill_is_rejected_by_schema_and_runtime(client):
+    p=event();p['observations'][0]['skill_id']='unknown-musical-construct'
+    assert list(Draft202012Validator(AttemptV2.model_json_schema()).iter_errors(p))
+    with pytest.raises(ValueError):AttemptV2.model_validate(p)
+    assert client.post('/api/v2/events',json=p).status_code==422
+
+def test_wrong_producer_is_retained_without_skill_update(client):
+    response=client.post('/api/v2/events',json=event(producer_axis=4)).json()
+    assert response['eligible_observations']==0
+    assert response['record']['obs'][0]['eligibility_reason']=='producer_skill_mismatch'

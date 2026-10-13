@@ -17,6 +17,7 @@ SUPPORTED_RUBRICS={'provisional-mock-v1','provisional-piano-v1'}
 MIN_CONFIDENCE=.6
 
 class ObservationV2(SkillObservation):
+    skill_id:Literal['pitch','rhythm','timing','score_navigation','quality','articulation','technique','fingering']
     model_update_requested: StrictBool = True
 
 class AttemptV2(Attempt):
@@ -53,7 +54,9 @@ def resolve_event(event,vocabulary):
         record=to_record(mapped,vocabulary)
         record['obs']=[]
         for o in event.observations:
-            reason=('observation_only' if not o.model_update_requested else
+            reason=('instrument_context_only' if event.producer_axis==6 else
+                    'producer_skill_mismatch' if SKILL_VOCABULARY[o.skill_id]['axis']!=event.producer_axis else
+                    'observation_only' if not o.model_update_requested else
                     'missing_binary_outcome' if o.outcome is None else
                     'unmapped_to_saved_model' if o.skill_id not in vocabulary else
                     'unsupported_rubric' if event.rubric_version not in SUPPORTED_RUBRICS else

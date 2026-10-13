@@ -153,34 +153,77 @@ def neural_logits(model, name, inputs):
     return model(x[:, :, :2*model.K]) if name in ('dkt', 'sakt') else model(x, previous, current, difficulty)
 
 
+def _noop_mask(positions):
+    """True at each original position whose row contributed no eligible observation.
+
+    The trailing next-query slot (index len(positions)-1) is never a no-op: it keeps
+    whatever explicit/UNK query the caller asked for.
+    """
+    n = len(positions) - 1
+    mask = np.zeros(len(positions), dtype=bool)
+    mask[:n] = positions[1:n + 1] == positions[:n]
+    return mask
+
+
+def _merge_noop_forecasts(known, unk, positions):
+    """At no-op/excluded original positions, use the prefix-only UNK forecast instead
+    of the next eligible row's known-item forecast that `expand_forecasts` repeats.
+    """
+    merged = known.copy()
+    mask = _noop_mask(positions)
+    merged[mask] = unk[mask]
+    return merged
+
+
+def _unk_query_inputs(inputs, unknown_difficulty):
+    """Same prefix (x, previous item/difficulty) with a generic unknown current query."""
+    x, previous_item, current_item, difficulty = inputs
+    current_item = torch.zeros_like(current_item)
+    difficulty = difficulty.clone(); difficulty[..., 1] = unknown_difficulty
+    return [x, previous_item, current_item, difficulty]
+
+
 def research_neural_predict(model, name, rows, items, exercise_id=None):
     compact, positions = compact_history(rows)
+    no_item = name.endswith('no_item')
     encoded = encode_sequence(compact, model.K, items, True, exercise_id,
-                              no_outcome=name.endswith('no_outcome'), no_item=name.endswith('no_item'))
+                              no_outcome=name.endswith('no_outcome'), no_item=no_item)
+    # Observation-only/excluded original rows never had a known item of their own;
+    # 0./no_item models already force this, item-aware models get it explicitly.
+    unknown_difficulty = 0. if no_item else items.state['unknown_difficulty']
     T = len(encoded[0]); model.eval()
     with torch.no_grad():
         if T <= model.context:
             inp = [torch.from_numpy(v)[None] for v in encoded[:4]]
             p = torch.sigmoid(neural_logits(model, name, inp)).numpy()[0]
+            p_unk = torch.sigmoid(neural_logits(model, name, _unk_query_inputs(inp, unknown_difficulty))).numpy()[0]
         else:
             # Every target survives; global causal counts remain available, recurrent memory is bounded.
-            parts = []
+            parts = []; parts_unk = []
             for end in range(1, T+1):
                 start = max(0, end-model.context)
                 inp = [torch.from_numpy(v[start:end])[None] for v in encoded[:4]]
                 parts.append(torch.sigmoid(neural_logits(model, name, inp)).numpy()[0, -1])
-            p = np.asarray(parts)
-    return expand_forecasts(p, positions, True)
+                parts_unk.append(torch.sigmoid(neural_logits(model, name, _unk_query_inputs(inp, unknown_difficulty))).numpy()[0, -1])
+            p = np.asarray(parts); p_unk = np.asarray(parts_unk)
+    known = expand_forecasts(p, positions, True)
+    unk = expand_forecasts(p_unk, positions, True)
+    return _merge_noop_forecasts(known, unk, positions)
 
 
 class StatisticalControl:
     def __init__(self, name, K, items):
         self.name = name; self.K = K; self.items = items
 
-    def features(self, rows, query=True, exercise_id=None):
+    def features(self, rows, query=True, exercise_id=None, force_unk=False):
         compact, positions = compact_history(rows)
         x, _, ids, diff, _, _ = encode_sequence(compact, self.K, self.items, query, exercise_id,
                                                no_outcome=self.name == 'exposure')
+        if force_unk:
+            # Observation-only/excluded original rows never had a known item of their
+            # own; never let their forecast borrow the next eligible row's real item.
+            ids = np.zeros_like(ids)
+            diff = diff.copy(); diff[:, 1] = self.items.state['unknown_difficulty']
         result = []
         for t in range(len(x)):
             features = []
@@ -210,7 +253,11 @@ class StatisticalControl:
     def probabilities(self, rows, exercise_id=None):
         features, positions = self.features(rows, True, exercise_id)
         p = self.reg.predict_proba(features.reshape(-1, features.shape[-1]))[:, 1].reshape(-1, self.K)
-        return expand_forecasts(p, positions, True)
+        known = expand_forecasts(p, positions, True)
+        features_unk, _ = self.features(rows, True, exercise_id, force_unk=True)
+        p_unk = self.reg.predict_proba(features_unk.reshape(-1, features_unk.shape[-1]))[:, 1].reshape(-1, self.K)
+        unk = expand_forecasts(p_unk, positions, True)
+        return _merge_noop_forecasts(known, unk, positions)
 
 
 class CoherentGroupedBKT(Baseline):
@@ -277,6 +324,11 @@ def restore_regression(state):
 
 
 class ResearchPredictor:
+    # Serving-side forecast correction (no-op/excluded rows use a generic UNK query
+    # instead of borrowing the next eligible row's item); the immutable checkpoint's
+    # training-time `config['implementation_version']` ('axis7-science-v2.1') is unchanged.
+    serving_implementation_version = 'axis7-science-v2.2'
+
     def __init__(self, directory, run_id):
         self.directory = Path(directory); self.run_id = run_id
         self.config = json.loads((self.directory / f'{run_id}.json').read_text(encoding='utf-8'))

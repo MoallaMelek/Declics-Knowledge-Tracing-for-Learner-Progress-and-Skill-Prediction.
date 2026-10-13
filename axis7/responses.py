@@ -9,6 +9,9 @@ class ForecastV2(BaseModel):
     student_id:str
     domain:Literal['music-mock','forget-se']
     model_id:str
+    implementation_version:str
+    training_implementation_version:str
+    model_profile:Literal['provisional-piano-v1','forget-se-full-credit-v1']
     exercise_id:str|None
     conditioning:Literal['exercise','generic_skill']
     item_supported:bool|None

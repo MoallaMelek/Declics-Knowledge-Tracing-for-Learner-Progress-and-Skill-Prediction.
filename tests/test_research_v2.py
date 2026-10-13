@@ -46,8 +46,64 @@ def test_long_histories_all_targets_and_noops_survive(fixture,name):
     np.testing.assert_allclose(base[:18],research_neural_predict(m,name,changed,items)[:18],atol=1e-7)
     extra=copy.deepcopy(rows);extra.insert(3,{'obs':[{'k':0,'y':None,'score':.8}],'exercise':'unseen'})
     noops=research_neural_predict(m,name,extra,items)
-    np.testing.assert_allclose(noops[:4],base[:4],atol=1e-7)
+    # Rows before the no-op are untouched by its insertion.
+    np.testing.assert_allclose(noops[:3],base[:3],atol=1e-7)
+    # The no-op's own forecast is the generic UNK-query prefix forecast (axis7-science-v2.2),
+    # not the next eligible row's own-item forecast that `expand_forecasts` would repeat.
+    np.testing.assert_allclose(noops[3],research_neural_predict(m,name,rows[:3],items)[-1],atol=1e-7)
+    # Everything from the next eligible row onward is unaffected by the no-op, just shifted.
     np.testing.assert_allclose(noops[4:],base[3:],atol=1e-7)
+
+
+@pytest.mark.parametrize('name',['enhanced_gru','item_attention'])
+def test_noop_forecast_is_unk_conditioned_not_future_item_leakage(fixture,name):
+    """Regression for the axis7-science-v2.2 serving fix: an observation-only/excluded
+    row's forecast must depend only on its causal prefix, never on a later eligible
+    row's exercise identity or labels (the historical 0.06048 CLI-reproduced defect)."""
+    learners,items=fixture;rows=[copy.deepcopy(r) for r in next(iter(learners.values()))]
+    assert len(rows)>=4
+    with_noop=copy.deepcopy(rows)
+    with_noop.insert(2,{'obs':[{'k':0,'y':None,'score':.7}],'exercise':'excluded-unseen'})
+    m=make_neural(name,6,items,16,256);m.eval()
+    base=research_neural_predict(m,name,with_noop,items)
+    changed=copy.deepcopy(with_noop)
+    for row in changed[3:]:
+        row['exercise']='future-unseen-item'
+        for o in row['obs']:o['y']=1-o['y']
+    changed_forecast=research_neural_predict(m,name,changed,items)
+    # Changing a later exercise/label must not move the earlier no-op's forecast.
+    np.testing.assert_allclose(base[2],changed_forecast[2],atol=1e-7)
+    # It must equal the explicit prefix-only, UNK-query forecast...
+    expected_unk=research_neural_predict(m,name,rows[:2],items)[-1]
+    np.testing.assert_allclose(base[2],expected_unk,atol=1e-7)
+    # ...and must differ from naively borrowing the next eligible row's own-item forecast
+    # (the historical defect being regressed against).
+    borrowed=research_neural_predict(m,name,rows[:3],items,rows[2]['exercise'])[-1]
+    assert np.max(np.abs(base[2]-borrowed))>1e-4
+    # Neutrality at the next (trailing) query: a no-op appended at the very end still
+    # contributes nothing, so the next-query forecast is unchanged by its presence.
+    trailing_without_noop=research_neural_predict(m,name,rows,items)[-1]
+    trailing_with_noop=research_neural_predict(m,name,rows+[{'obs':[{'k':0,'y':None,'score':.7}],'exercise':'trailing-unseen'}],items)[-1]
+    np.testing.assert_allclose(trailing_without_noop,trailing_with_noop,atol=1e-7)
+
+
+def test_item_pfa_noop_forecast_is_unk_conditioned_not_future_item_leakage(fixture):
+    """Same axis7-science-v2.2 regression for the `item_pfa` statistical control."""
+    learners,items=fixture;rows=[copy.deepcopy(r) for r in next(iter(learners.values()))]
+    assert len(rows)>=4
+    model=StatisticalControl('item_pfa',6,items).fit(learners)
+    with_noop=copy.deepcopy(rows)
+    with_noop.insert(2,{'obs':[{'k':0,'y':None,'score':.7}],'exercise':'excluded-unseen'})
+    base=model.probabilities(with_noop)
+    changed=copy.deepcopy(with_noop)
+    for row in changed[3:]:
+        row['exercise']='future-unseen-item'
+        for o in row['obs']:o['y']=1-o['y']
+    np.testing.assert_allclose(base[2],model.probabilities(changed)[2],atol=1e-7)
+    expected_unk=model.probabilities(rows[:2])[-1]
+    np.testing.assert_allclose(base[2],expected_unk,atol=1e-7)
+    borrowed=model.probabilities(rows[:3],rows[2]['exercise'])[-1]
+    assert np.max(np.abs(base[2]-borrowed))>1e-4
 
 
 def test_no_outcome_ablation_erases_direction_not_just_shifted_label(fixture):

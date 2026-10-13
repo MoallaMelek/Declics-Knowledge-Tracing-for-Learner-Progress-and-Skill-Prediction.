@@ -12,11 +12,15 @@ Each observation requires a strict integer binary outcome or a finite score in [
 
 Use timezone-aware ISO timestamps. A later event must be strictly later than the learner's last stored event; simultaneous measurements belong in one atomic attempt. Storage enforces this inside a SQLite transaction, including concurrent retries. Original fixture histories are immutable.
 
+The current v2 envelope identifies one producer. A skill attributed to a different axis is retained as `producer_skill_mismatch` and cannot update the model; axis 6 always remains context-only. An axis may bundle its own simultaneous targets (for example rhythm and timing). A future team collector needs an agreed per-observation source-attribution contract to fuse simultaneous outputs across axes. Do not invent timestamp offsets to bypass this boundary. That cross-axis fusion policy is an explicit remaining integration task, while each individual mock producer and the KT atomic-group interface are implemented.
+
 ## Retry and acknowledgment
 
 An identical v2 event ID and canonical payload returns the stored event with `idempotent_replay: true`; it adds no second observation. Reusing an ID with a changed payload returns HTTP 409. Invalid chronology or observations return HTTP 422. V1 duplicate submissions still return HTTP 422. Check the response before inventing a new ID after a network failure.
 
 Successful persistence returns `status: accepted`, the record, eligible observation count and `forecast_status`. If forecasting fails after storage, acceptance remains successful, `twin` is null, and `forecast_error` contains `INFERENCE_UNAVAILABLE` and `retryable: true`. Retry the same event or request the forecast; do not assume a missing forecast means the event was lost. Logs contain acceptance metadata, not raw event bodies.
+
+Optional POST query parameters `model_id` and `policy=balanced|weakest` control the returned twin, without changing event identity or retry fingerprints. `/api/simulate` accepts the same policy in its body. The dashboard preserves both selections after saving an event.
 
 ## Forecast contract
 

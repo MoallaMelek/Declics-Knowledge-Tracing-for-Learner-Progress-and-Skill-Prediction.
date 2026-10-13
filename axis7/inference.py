@@ -66,9 +66,9 @@ class TwinEngine:
             for a in observed:
                 for b in observed:
                     if a<b:co[(a,b)]+=1
-        version=p.config.get('implementation_version','legacy-v1')
+        version=getattr(p,'serving_implementation_version',p.config.get('implementation_version','legacy-v1'))
         members=[v for key,v in self.predictors.items() if v.name==p.name and
-                 v.config.get('implementation_version','legacy-v1')==version] if hasattr(p.model,'parameters') else []
+                 getattr(v,'serving_implementation_version',v.config.get('implementation_version','legacy-v1'))==version] if hasattr(p.model,'parameters') else []
         spread=np.array([member.probabilities(prefix)[-1] for member in members]) if members else None
         nodes=[]
         for k,label in enumerate(self.meta['labels']):
@@ -88,10 +88,14 @@ class TwinEngine:
             else:sessions[-1]['end']=t+1;sessions[-1]['observations']+=len(r['obs'])
         return {'student':student,'domain':self.domain,'metadata':self.meta,'model_id':rid,'model_name':p.name,
             'response_version':'2.0','forecast_semantics':'next_binary_outcome_not_psychological_mastery',
+            'training_implementation_version':p.config.get('implementation_version','legacy-v1'),
             'model_provenance':'synthetic' if self.domain=='music-mock' else 'public_software_engineering',
             'model_update_events':sum(any(eligible(o) for o in r['obs']) for r in prefix),
             'observation_only_events':sum(not any(eligible(o) for o in r['obs']) for r in prefix),
             'unmodeled_observations':sum(o.get('k') is None for r in prefix for o in r['obs']),
+            'unmodeled_evidence':[{'attempt':r['id'],'timestamp':r.get('timestamp'),'provenance':r['provenance'],
+                'skill_id':o.get('skill_id'),'outcome':o.get('y'),'score':o.get('score'),
+                'eligibility_reason':o.get('eligibility_reason')} for r in prefix for o in r['obs'] if o.get('k') is None],
             'default_model':self.default,'selected_overall':getattr(self,'v2_selected_overall',None) or self.results['selected']['overall'],
             'curve_conditioning':'known_attempted_exercise_then_generic_next_query' if uses_items(p) else 'skill_only','implementation_version':version,'forecast_conditioning':'unknown_exercise_skill_forecast' if uses_items(p) else 'skill_only',
             'position':position,'total_groups':len(rows),'sessions':sessions,'nodes':nodes,

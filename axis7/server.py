@@ -3,6 +3,7 @@ import hashlib,json,logging,math,sqlite3,threading
 from contextlib import contextmanager
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
+from typing import Literal
 import numpy as np
 from fastapi import FastAPI,HTTPException,Query
 from fastapi.encoders import jsonable_encoder
@@ -108,6 +109,7 @@ class Simulate(BaseModel):
     skill_id:str
     scenario:str=Field(pattern='^(mixed|success|difficulty)$',default='mixed')
     model_id:str|None=None
+    policy:Literal['balanced','weakest']='balanced'
 
 def known_attempt_ids(e):
     # Attempt IDs are global: a repeated ID under another learner would otherwise fail later as a raw SQLite error.
@@ -123,9 +125,11 @@ def insert_attempt(a,idempotent=False):
     fixture_ids={r['id'] for v in e.learners.values() for r in v}
     return append_event(DB,record,e.learners.get(a.student_id,[]),fixture_ids)
 
-def acknowledge(a,idempotent=False):
+def acknowledge(a,idempotent=False,model_id=None,policy='balanced'):
     if a.provenance=='public':raise HTTPException(422,'Do not mix benchmark observations into the music stream')
     with lock:
+        e=engine('music-mock')
+        if model_id is not None and model_id not in e.predictors:raise HTTPException(422,'Unknown saved model')
         try:record,replayed=insert_attempt(a,idempotent)
         except EventConflict as err:raise HTTPException(409,str(err)) from err
         except (ValueError,sqlite3.IntegrityError) as err:raise HTTPException(422,str(err)) from err
@@ -134,7 +138,7 @@ def acknowledge(a,idempotent=False):
             'eligible_observations':sum(o.get('eligible',False) for o in record['obs']),
             'forecast_status':'ready','twin':None}
         try:
-            e=engine('music-mock');result['twin']=e.snapshot(a.student_id,history(e,a.student_id))
+            result['twin']=e.snapshot(a.student_id,history(e,a.student_id),model_id=model_id,policy=policy)
         except Exception:
             log.exception('forecast_failed_after_acceptance attempt=%s',a.attempt_id)
             result.update(forecast_status='unavailable',forecast_error={'code':'INFERENCE_UNAVAILABLE','retryable':True})
@@ -144,12 +148,12 @@ def acknowledge(a,idempotent=False):
         return result
 
 @app.post('/api/attempts')
-def ingest(a:Attempt):
-    return acknowledge(a)
+def ingest(a:Attempt,model_id:str|None=None,policy:Literal['balanced','weakest']='balanced'):
+    return acknowledge(a,model_id=model_id,policy=policy)
 
 @app.post('/api/v2/events')
-def ingest_v2(a:AttemptV2):
-    return acknowledge(a,idempotent=True)
+def ingest_v2(a:AttemptV2,model_id:str|None=None,policy:Literal['balanced','weakest']='balanced'):
+    return acknowledge(a,idempotent=True,model_id=model_id,policy=policy)
 
 @app.get('/api/v2/registry')
 def contract_registry():return registry()
@@ -174,6 +178,9 @@ def forecast(student:str,domain:str='music-mock',model_id:str|None=None,exercise
         if rid.startswith('v2:'):probabilities=predictor.probabilities(rows,exercise_id=exercise_id)[-1]
         else:probabilities=predictor.probabilities(rows)[-1]
     return {'response_version':'2.0','student_id':student,'domain':domain,'model_id':rid,
+        'implementation_version':getattr(predictor,'serving_implementation_version',predictor.config.get('implementation_version','legacy-v1')),
+        'training_implementation_version':predictor.config.get('implementation_version','legacy-v1'),
+        'model_profile':'provisional-piano-v1' if domain=='music-mock' else 'forget-se-full-credit-v1',
         'exercise_id':exercise_id,'conditioning':'exercise' if exercise_id and uses_items(predictor) else 'generic_skill',
         'item_supported':item_supported(predictor,exercise_id),
         'training_provenance':'synthetic' if domain=='music-mock' else 'public_software_engineering',
@@ -210,13 +217,7 @@ def simulate(s:Simulate):
         a=Attempt.model_validate({'attempt_id':aid,'student_id':s.student_id,'session_id':sid,'exercise_id':f'mock-focus-{s.skill_id}',
             'instrument':'piano-provisional','timestamp':time.isoformat(),'provenance':'synthetic','rubric_version':'provisional-mock-v1','observations':obs,
             'upstream_versions':{'producer':'independent-mock-v1'}})
-        result=acknowledge(a)
-        if result['twin'] is not None and s.model_id is not None:
-            try:result['twin']=e.snapshot(s.student_id,history(e,s.student_id),model_id=s.model_id)
-            except Exception:
-                log.exception('selected_model_forecast_failed attempt=%s',a.attempt_id)
-                result.update(twin=None,forecast_status='unavailable',forecast_error={'code':'INFERENCE_UNAVAILABLE','retryable':True})
-        return result
+        return acknowledge(a,model_id=s.model_id,policy=s.policy)
 
 @app.post('/api/reset/{student}')
 def reset(student:str):
