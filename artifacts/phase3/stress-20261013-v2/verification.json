@@ -1,0 +1,7 @@
+{
+  "runs": 40,
+  "max_clean_metric_reconstruction_error": 0.0,
+  "source_snapshot_sha256": "386f426155587833f2b0830734a0343e81d07494666566e533fcd4c9f1b257c4",
+  "primary_study_summary_unchanged_sha256": "785d6517b9ef8bf465108769caf1e52dac94a3d22c2cfa351d6153627482b47a",
+  "evaluation": "frozen diagnostic, no new real musical validation"
+}

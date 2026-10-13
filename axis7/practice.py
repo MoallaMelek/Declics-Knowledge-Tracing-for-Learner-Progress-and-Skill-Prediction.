@@ -203,9 +203,11 @@ def _skill_status(skill_id,touches):
             'observations':observations,'recent_count':len(recent),
             'recent_comfortable':recent_comfortable,'recent_needs_work':recent_needs_work}
     # A change from self-report to teacher rating must not become improvement.
-    comparable=Counter((t['exercise_id'],t['source']) for t in touches)
-    (best_exercise,best_source),count=comparable.most_common(1)[0]
+    # Current feedback must follow the latest comparable source/exercise cohort,
+    # rather than an older majority cohort that may no longer describe practice.
+    best_exercise,best_source=touches[-1]['exercise_id'],touches[-1]['source']
     same_exercise=[t for t in touches if (t['exercise_id'],t['source'])==(best_exercise,best_source)]
+    count=len(same_exercise)
     recent_difficulty=len({t['attempt_id'] for t in touches[-MIN_EVIDENCE:] if t['rating']=='needs_work'})>=2
     if count>=2*MIN_EVIDENCE:
         last=[LEVEL_SCORE[t['rating']] for t in same_exercise[-MIN_EVIDENCE:]]
@@ -213,13 +215,13 @@ def _skill_status(skill_id,touches):
         improved=sum(last)/len(last)>sum(prior)/len(prior)+1/3
     else:
         improved=False
-    if improved:
+    if recent_difficulty:
+        status='recent_difficulty'
+        explanation=f'At least 2 of the last {MIN_EVIDENCE} recorded attempts were rated "needs_work".'
+    elif improved:
         status='improving'
         explanation=(f'The last {MIN_EVIDENCE} ratings on "{best_exercise}" average higher than the '
                      f'{MIN_EVIDENCE} before them.')
-    elif recent_difficulty:
-        status='recent_difficulty'
-        explanation=f'At least 2 of the last {MIN_EVIDENCE} recorded attempts were rated "needs_work".'
     else:
         status='steady'
         explanation=(f'{recent_comfortable} of the last {len(recent)} recorded attempts were rated "comfortable"; '

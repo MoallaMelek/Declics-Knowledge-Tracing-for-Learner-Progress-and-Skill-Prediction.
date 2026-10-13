@@ -11,8 +11,8 @@ The old default asked the learner to interpret a skill constellation, forecast p
 | Practice needed developer JSON | Release blocking | Guided choose/play/assess/save flow; native radio controls and clear acknowledgments. |
 | Score-reading exercise lacked a supplied reference | High | An original four-quarter-note treble-clef motif is rendered locally; no copyrighted score or fake audio analysis. |
 | Repeated difficulty explanation lacked exact evidence | High | After three demo attempts, browser showed two difficulties out of three and dated assessments in Why this exercise. |
-| Changing rater category could imitate improvement | High | Comparison requires the same exercise and self/teacher source category, with three recent and three earlier ratings. This still does not prove causal improvement or identify a specific teacher. |
-| Retry could duplicate or lose an assessment | High | Stable attempt payload retained after network failure; editing and navigation blocked until acknowledgment. Server enforces idempotency. |
+| Changing rater category could imitate improvement | High | Comparison follows the latest exercise and self/teacher source cohort, with three recent and three earlier ratings. This still does not prove causal improvement or identify a specific teacher. |
+| Retry could duplicate or lose an assessment | High | Stable payload retained only for uncertain network/server failures; explicit 422/409 rejection releases the draft for correction. Missing saved profiles offer a new-notebook action while preserving the unavailable reference. Server enforces idempotency. |
 | Coverage strategy had no evidence for an unpracticed skill | Moderate | Explanation explicitly shows zero observations rather than inventing a weakness. |
 | Layout or font might hide actions on phone | High | Measured desktop 1706x960, tablet 768x1024 and phone 375x812 CSS pixels; all had document widths below viewport width. Radio choices stack; actions remain readable. |
 

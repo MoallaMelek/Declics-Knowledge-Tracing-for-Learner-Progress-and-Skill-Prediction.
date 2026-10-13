@@ -49,3 +49,16 @@ def test_two_producer_versions_cannot_duplicate_evidence_in_one_attempt():
     payload['observations'].append(repeated)
     with pytest.raises(ValueError,match='one producer version'):AttemptV3.model_validate(payload)
 
+def test_recent_difficulties_override_improvement_from_an_obsolete_source():
+    touches=[{'attempt_id':str(i),'exercise_id':'same','rating':'needs_work' if i<3 or i>=6 else 'comfortable',
+              'source':'self' if i<6 else 'teacher'} for i in range(9)]
+    assert _skill_status('pitch',touches[:6])['status']=='improving'
+    assert _skill_status('pitch',touches)['status']=='recent_difficulty'
+
+@pytest.mark.parametrize('value',[[],{},['unexpected'],{'id':'unexpected'}])
+def test_imported_attempt_id_types_are_rejected_without_crashing(value):
+    from axis7.pilot_data import manifest,ExportValidationError
+    exported=good_export();exported['sessions'][0]['attempt_id']=value
+    assert validate_export(exported)
+    with pytest.raises(ExportValidationError):manifest([exported])
+

@@ -32,9 +32,12 @@ def validate_export(export):
     if not isinstance(rubric,dict):return errors+['rubric must be an object']
     if rubric.get('teacher_approved') is not False:
         errors.append('rubric.teacher_approved must be false until an actual teacher review happens')
+    if not isinstance(rubric.get('rubric_version'),str) or not rubric['rubric_version']:
+        errors.append('rubric_version must be a nonempty string')
     profile=export.get('profile') or {}
     if not isinstance(profile,dict):return errors+['profile must be an object']
-    if not profile.get('student_id'):errors.append('profile.student_id is missing')
+    if not isinstance(profile.get('student_id'),str) or not profile['student_id']:
+        errors.append('profile.student_id must be a nonempty string')
     if profile.get('mode') not in ('demo','local'):errors.append('profile.mode must be demo or local')
     sessions=export.get('sessions')
     if not isinstance(sessions,list):
@@ -44,7 +47,7 @@ def validate_export(export):
         if not isinstance(s,dict):
             errors.append('each session must be an object');continue
         attempt_id=s.get('attempt_id')
-        if not attempt_id:errors.append('session missing attempt_id')
+        if not isinstance(attempt_id,str) or not attempt_id:errors.append('session attempt_id must be a nonempty string')
         elif attempt_id in seen_ids:errors.append(f'duplicate attempt_id in export: {attempt_id}')
         else:seen_ids.add(attempt_id)
         sequence=s.get('attempt_sequence')

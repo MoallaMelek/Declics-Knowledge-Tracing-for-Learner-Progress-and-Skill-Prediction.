@@ -13,7 +13,7 @@ Open the local app, select a short piano exercise, read its instructions, play, 
 - Three explainable observed-history practice policies, with evidence and insufficient-data states. The local rubric is not connected to the synthetic-trained predictor.
 - Atomic v3 evidence supports per-observation producer attribution across axes, explicit missingness, source versions and observation-only context.
 - Verified dataset investigation plus a new **40-run frozen-checkpoint stress diagnostic**. No suitable, ready and rights-verified musical KT table was acquired; real musical validation remains outstanding.
-- **157 regression tests passed**; the final musician UI change was separately rechecked. Existing research UI retains its 19 checks and the new practice UI has 16 API-fed checks.
+- **162 regression tests passed**; the final musician UI change was separately rechecked. Existing research UI retains its 19 checks and the new practice UI has 20 API-fed checks.
 
 Start with [collection documentation](docs/PRACTICE_COLLECTION.md), [teacher review materials](docs/PIANO_RUBRIC_REVIEW.md), [team v3 guide](docs/TEAM_PHASE3.md), [dataset investigation](docs/MUSIC_DATA_PHASE3.md), [UX review](docs/PHASE3_UX_REVIEW.md) and [verification](docs/PHASE3_VALIDATION.md). Stress results and cold-start slices are in [RESULTS.md](artifacts/phase3/stress-20261013-v2/RESULTS.md) and its adjacent immutable summary/predictions/source snapshot. Reproduce in a new directory with `python scripts/evaluate_phase3_robustness.py --output artifacts/phase3/YOUR-NEW-ID`.
 
