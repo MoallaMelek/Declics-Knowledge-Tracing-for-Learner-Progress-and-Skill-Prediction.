@@ -13,16 +13,44 @@ from pydantic import BaseModel,Field
 from .data import ROOT
 from .schema import Attempt,to_record,MUSIC_SKILLS
 from .inference import TwinEngine
+from .contracts import AttemptV2,resolve_event,registry
+from .storage import append_event,EventConflict
+from .recommendations import EXERCISES
+from .responses import ForecastV2
 
-log=logging.getLogger('axis7.api');app=FastAPI(title='DÉCLIC Axis 7',version='0.1.0')
+log=logging.getLogger('axis7.api');app=FastAPI(title='DÉCLIC Axis 7',version='2.0.0')
 engines={};lock=threading.RLock();DB=ROOT/'runtime/events.sqlite'
 
 def engine(domain):
+    with lock:return _engine_locked(domain)
+
+def _engine_locked(domain):
     if domain not in ('music-mock','forget-se'):raise HTTPException(404,'Unknown domain')
     if domain not in engines:
         try:engines[domain]=TwinEngine(domain)
         except FileNotFoundError as e:raise HTTPException(503,str(e)) from e
-    return engines[domain]
+    e=engines[domain]
+    index=ROOT/'artifacts/v2/index.json'
+    if index.exists():
+        stamp=index.stat().st_mtime_ns
+        if getattr(e,'research_stamp',None)!=stamp:
+            from .models_v2 import ResearchPredictor
+            manifest=json.loads(index.read_text(encoding='utf-8'))
+            extras=[]
+            for rid in [r for r in e.predictors if r.startswith('v2:')]:del e.predictors[rid]
+            for entry in manifest.get('serving',[]):
+                if entry['domain']!=domain:continue
+                directory=(ROOT/entry['directory']).resolve()
+                if not directory.is_relative_to((ROOT/'artifacts/v2').resolve()):
+                    raise HTTPException(503,'Research checkpoint outside the versioned registry')
+                rid='v2:'+entry['id'];e.predictors[rid]=ResearchPredictor(directory,entry['run_id'])
+                extras.append({'id':rid,'name':entry['name'],'version':'v2','seed':entry['seed']})
+            defaults=manifest.get('serving_defaults',{}).get(domain,{})
+            match=lambda selected:next((x['id'] for x in extras if x['id'].endswith(':'+str(selected))),None)
+            e.v2_selected_overall=match(defaults.get('overall'))
+            if match(defaults.get('neural')):e.default=match(defaults['neural'])
+            e.v2_models=extras;e.research_stamp=stamp
+    return e
 
 @contextmanager
 def connection():
@@ -60,16 +88,16 @@ def learners(domain:str='music-mock'):
         with connection() as c:
             for (u,) in c.execute('SELECT DISTINCT student FROM events'):
                 profiles[u]=history(e,u)
-    return {'metadata':e.meta,'models':[{'id':r['id'],'name':r['name']} for r in e.results['runs']],
+    return {'metadata':e.meta,'models':[{'id':r['id'],'name':r['name'],'version':'v1'} for r in e.results['runs']]+getattr(e,'v2_models',[]),
         'default_model':e.default,'learners':[{'id':u,'label':(f"Profil simulé {i+1:02}" if u in e.learners else f"Profil intégré {i+1:02}") if domain=='music-mock' else f"Apprenant SE {i+1:02}",
             'groups':len(v),'provenance':sorted({r['provenance'] for r in v})} for i,(u,v) in enumerate(sorted(profiles.items()))]}
 
 @app.get('/api/twin/{student}')
-def twin(student:str,domain:str='music-mock',position:int|None=None,model_id:str|None=None):
+def twin(student:str,domain:str='music-mock',position:int|None=None,model_id:str|None=None,policy:str='balanced'):
     e=engine(domain)
     with lock:
         rows=history(e,student)
-        try:return e.snapshot(student,rows,position,model_id)
+        try:return e.snapshot(student,rows,position,model_id,policy)
         except ValueError as err:raise HTTPException(422,str(err)) from err
 
 @app.get('/api/experiments')
@@ -86,24 +114,82 @@ def known_attempt_ids(e):
     with connection() as c:stored={v[0] for v in c.execute('SELECT id FROM events')}
     return stored|{r['id'] for rows in e.learners.values() for r in rows}
 
-def insert_attempt(a):
+def insert_attempt(a,idempotent=False):
     e=engine('music-mock');rows=history(e,a.student_id,allow_new=True)
-    record=to_record(a,e.meta['skills'])
+    record=resolve_event(a,e.meta['skills'])
     if a.instrument not in ('piano','piano-provisional'):raise ValueError('This provisional demo is scoped to piano only')
-    if a.attempt_id in known_attempt_ids(e):raise ValueError('attempt_id already exists; use a unique identifier')
-    if rows and record['order']<=rows[-1]['order']:raise ValueError('Timestamp must be strictly later; combine simultaneous observations into one attempt')
-    # A real project observation does not validate the synthetic-trained model.
-    with connection() as c:c.execute('INSERT INTO events(id,student,data) VALUES(?,?,?)',(a.attempt_id,a.student_id,json.dumps(record,ensure_ascii=False)))
-    return record
+    if not idempotent and a.attempt_id in known_attempt_ids(e):
+        raise ValueError('attempt_id already exists; use a unique identifier')
+    fixture_ids={r['id'] for v in e.learners.values() for r in v}
+    return append_event(DB,record,e.learners.get(a.student_id,[]),fixture_ids)
+
+def acknowledge(a,idempotent=False):
+    if a.provenance=='public':raise HTTPException(422,'Do not mix benchmark observations into the music stream')
+    with lock:
+        try:record,replayed=insert_attempt(a,idempotent)
+        except EventConflict as err:raise HTTPException(409,str(err)) from err
+        except (ValueError,sqlite3.IntegrityError) as err:raise HTTPException(422,str(err)) from err
+        result={'status':'accepted','attempt_id':a.attempt_id,'idempotent_replay':replayed,
+            'record':record,'warning':'Synthetic-trained model; musical transfer remains unvalidated.',
+            'eligible_observations':sum(o.get('eligible',False) for o in record['obs']),
+            'forecast_status':'ready','twin':None}
+        try:
+            e=engine('music-mock');result['twin']=e.snapshot(a.student_id,history(e,a.student_id))
+        except Exception:
+            log.exception('forecast_failed_after_acceptance attempt=%s',a.attempt_id)
+            result.update(forecast_status='unavailable',forecast_error={'code':'INFERENCE_UNAVAILABLE','retryable':True})
+        log.info(json.dumps({'event':'event_accepted','attempt_id':a.attempt_id,
+            'idempotent_replay':replayed,'eligible_observations':result['eligible_observations'],
+            'forecast_status':result['forecast_status']},sort_keys=True))
+        return result
 
 @app.post('/api/attempts')
 def ingest(a:Attempt):
-    if a.provenance=='public':raise HTTPException(422,'Do not mix benchmark observations into the music stream')
+    return acknowledge(a)
+
+@app.post('/api/v2/events')
+def ingest_v2(a:AttemptV2):
+    return acknowledge(a,idempotent=True)
+
+@app.get('/api/v2/registry')
+def contract_registry():return registry()
+
+@app.get('/api/v2/exercises')
+def exercise_registry():return {'exercises':EXERCISES,'teacher_approved':False,'prerequisites':[]}
+
+@app.get('/api/v2/schemas')
+def schemas():return {'attempt_v1':Attempt.model_json_schema(),'attempt_v2':AttemptV2.model_json_schema(),'forecast_v2':ForecastV2.model_json_schema()}
+
+def item_supported(predictor,exercise_id):
+    if not exercise_id or not hasattr(predictor,'items'):return None
+    from .models_v2 import item_key
+    return item_key({'exercise':exercise_id}) in predictor.items.state['vocabulary']
+
+@app.get('/api/v2/forecast/{student}',response_model=ForecastV2)
+def forecast(student:str,domain:str='music-mock',model_id:str|None=None,exercise_id:str|None=None):
+    e=engine(domain);rid=model_id or e.default
+    if rid not in e.predictors:raise HTTPException(422,'Unknown model identifier')
     with lock:
-        try:record=insert_attempt(a)
-        except (ValueError,sqlite3.IntegrityError) as err:raise HTTPException(422,str(err)) from err
-        e=engine('music-mock');return {'record':record,'warning':'Model trained on synthetic music only; musical transfer unvalidated.',
-            'twin':e.snapshot(a.student_id,history(e,a.student_id))}
+        rows=history(e,student);predictor=e.predictors[rid]
+        if rid.startswith('v2:'):probabilities=predictor.probabilities(rows,exercise_id=exercise_id)[-1]
+        else:probabilities=predictor.probabilities(rows)[-1]
+    return {'response_version':'2.0','student_id':student,'domain':domain,'model_id':rid,
+        'exercise_id':exercise_id,'conditioning':'exercise' if exercise_id and rid.startswith('v2:') else 'generic_skill',
+        'item_supported':item_supported(predictor,exercise_id),
+        'training_provenance':'synthetic' if domain=='music-mock' else 'public_software_engineering',
+        'probabilities':dict(zip(e.meta['skills'],map(float,probabilities))),
+        'warning':'Forecast correctness is not mastery or a validated learning benefit.'}
+
+@app.get('/api/research')
+def research():
+    index=ROOT/'artifacts/v2/index.json'
+    if not index.exists():return {'status':'not_run','historical_results_preserved':True}
+    pointer=json.loads(index.read_text(encoding='utf-8'))
+    experiment=pointer.get('experiment_id',pointer.get('latest'))
+    if not experiment or Path(experiment).name!=experiment:raise HTTPException(503,'Invalid research manifest')
+    summary=ROOT/'artifacts/v2'/experiment/'summary.json'
+    if not summary.exists():return {'status':'running','manifest':pointer}
+    return {'status':'complete','manifest':pointer,'summary':json.loads(summary.read_text(encoding='utf-8'))}
 
 @app.post('/api/simulate')
 def simulate(s:Simulate):
@@ -122,10 +208,13 @@ def simulate(s:Simulate):
         a=Attempt.model_validate({'attempt_id':aid,'student_id':s.student_id,'session_id':sid,'exercise_id':f'mock-focus-{s.skill_id}',
             'instrument':'piano-provisional','timestamp':time.isoformat(),'provenance':'synthetic','rubric_version':'provisional-mock-v1','observations':obs,
             'upstream_versions':{'producer':'independent-mock-v1'}})
-        try:record=insert_attempt(a)
-        except (ValueError,sqlite3.IntegrityError) as err:raise HTTPException(422,str(err)) from err
-        updated=history(e,s.student_id)
-        return {'record':record,'twin':e.snapshot(s.student_id,updated,model_id=s.model_id)}
+        result=acknowledge(a)
+        if result['twin'] is not None and s.model_id is not None:
+            try:result['twin']=e.snapshot(s.student_id,history(e,s.student_id),model_id=s.model_id)
+            except Exception:
+                log.exception('selected_model_forecast_failed attempt=%s',a.attempt_id)
+                result.update(twin=None,forecast_status='unavailable',forecast_error={'code':'INFERENCE_UNAVAILABLE','retryable':True})
+        return result
 
 @app.post('/api/reset/{student}')
 def reset(student:str):
@@ -135,7 +224,10 @@ def reset(student:str):
 
 @app.get('/api/export/{student}')
 def export(student:str):
-    e=engine('music-mock');return {'warning':'synthetic/provisional demo stream','observations':history(e,student)}
+    e=engine('music-mock');rows=history(e,student)
+    return {'warning':'Synthetic-trained forecast model; record provenance is preserved independently.',
+            'provenance_counts':{p:sum(r['provenance']==p for r in rows) for p in {r['provenance'] for r in rows}},
+            'observations':rows}
 
 @app.get('/')
 def index():return FileResponse(ROOT/'web/index.html')

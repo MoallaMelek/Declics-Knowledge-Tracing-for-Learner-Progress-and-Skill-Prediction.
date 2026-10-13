@@ -1,0 +1,25 @@
+{
+  "schema_version": "2.0",
+  "attempt_id": "team-mock:6",
+  "student_id": "team-demo",
+  "session_id": "mock-axis-6-session",
+  "exercise_id": "mock-axis-6-exercise",
+  "instrument": "piano-provisional",
+  "timestamp": "2026-01-01T00:06:00Z",
+  "provenance": "synthetic",
+  "rubric_version": "provisional-mock-v1",
+  "observations": [],
+  "note_accuracy": null,
+  "rhythm_score": null,
+  "timing_mae_ms": null,
+  "gesture_metrics": {},
+  "upstream_versions": {
+    "axis-6": "simulated-only"
+  },
+  "model_profile": "provisional-piano-v1",
+  "producer_axis": 6,
+  "producer_version": "mock-adapter-v2",
+  "quality_score": null,
+  "alignment_score": null,
+  "instrument_confidence": 1.0
+}

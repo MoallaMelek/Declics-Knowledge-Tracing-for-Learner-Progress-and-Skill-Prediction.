@@ -2,6 +2,32 @@
   "$defs": {
     "SkillObservation": {
       "additionalProperties": false,
+      "anyOf": [
+        {
+          "properties": {
+            "outcome": {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "outcome"
+          ]
+        },
+        {
+          "properties": {
+            "score": {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            }
+          },
+          "required": [
+            "score"
+          ]
+        }
+      ],
       "properties": {
         "skill_id": {
           "maxLength": 80,
@@ -12,6 +38,8 @@
         "outcome": {
           "anyOf": [
             {
+              "maximum": 1,
+              "minimum": 0,
               "type": "integer"
             },
             {

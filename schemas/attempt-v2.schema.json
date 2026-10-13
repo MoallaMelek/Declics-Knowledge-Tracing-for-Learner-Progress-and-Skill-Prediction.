@@ -1,0 +1,332 @@
+{
+  "$defs": {
+    "ObservationV2": {
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "properties": {
+            "outcome": {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "outcome"
+          ]
+        },
+        {
+          "properties": {
+            "score": {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            }
+          },
+          "required": [
+            "score"
+          ]
+        }
+      ],
+      "properties": {
+        "skill_id": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Skill Id",
+          "type": "string"
+        },
+        "outcome": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Outcome"
+        },
+        "score": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Score"
+        },
+        "source_confidence": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Confidence"
+        },
+        "error_types": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Error Types",
+          "type": "array"
+        },
+        "evidence_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidence Id"
+        },
+        "model_update_requested": {
+          "default": true,
+          "title": "Model Update Requested",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "skill_id"
+      ],
+      "title": "ObservationV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "else": {
+    "properties": {
+      "observations": {
+        "minItems": 1
+      }
+    },
+    "required": [
+      "observations"
+    ]
+  },
+  "if": {
+    "properties": {
+      "producer_axis": {
+        "const": 6
+      }
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "const": "2.0",
+      "default": "2.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "attempt_id": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Attempt Id",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "session_id": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Session Id",
+      "type": "string"
+    },
+    "exercise_id": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Exercise Id",
+      "type": "string"
+    },
+    "instrument": {
+      "maxLength": 50,
+      "minLength": 1,
+      "title": "Instrument",
+      "type": "string"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "title": "Timestamp",
+      "type": "string"
+    },
+    "provenance": {
+      "enum": [
+        "synthetic",
+        "project",
+        "public"
+      ],
+      "title": "Provenance",
+      "type": "string"
+    },
+    "rubric_version": {
+      "maxLength": 80,
+      "minLength": 1,
+      "title": "Rubric Version",
+      "type": "string"
+    },
+    "observations": {
+      "items": {
+        "$ref": "#/$defs/ObservationV2"
+      },
+      "maxItems": 500,
+      "title": "Observations",
+      "type": "array"
+    },
+    "note_accuracy": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Note Accuracy"
+    },
+    "rhythm_score": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Rhythm Score"
+    },
+    "timing_mae_ms": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Timing Mae Ms"
+    },
+    "gesture_metrics": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Gesture Metrics",
+      "type": "object"
+    },
+    "upstream_versions": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Upstream Versions",
+      "type": "object"
+    },
+    "model_profile": {
+      "const": "provisional-piano-v1",
+      "default": "provisional-piano-v1",
+      "title": "Model Profile",
+      "type": "string"
+    },
+    "producer_axis": {
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "title": "Producer Axis",
+      "type": "integer"
+    },
+    "producer_version": {
+      "maxLength": 80,
+      "minLength": 1,
+      "title": "Producer Version",
+      "type": "string"
+    },
+    "quality_score": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Quality Score"
+    },
+    "alignment_score": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Alignment Score"
+    },
+    "instrument_confidence": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Instrument Confidence"
+    }
+  },
+  "required": [
+    "attempt_id",
+    "student_id",
+    "session_id",
+    "exercise_id",
+    "instrument",
+    "timestamp",
+    "provenance",
+    "rubric_version",
+    "producer_axis",
+    "producer_version"
+  ],
+  "title": "AttemptV2",
+  "type": "object"
+}

@@ -1,0 +1,35 @@
+{
+  "schema_version": "2.0",
+  "attempt_id": "team-mock:2",
+  "student_id": "team-demo",
+  "session_id": "mock-axis-2-session",
+  "exercise_id": "mock-axis-2-exercise",
+  "instrument": "piano-provisional",
+  "timestamp": "2026-01-01T00:02:00Z",
+  "provenance": "synthetic",
+  "rubric_version": "provisional-mock-v1",
+  "observations": [
+    {
+      "skill_id": "rhythm",
+      "outcome": 1,
+      "score": 1.0,
+      "source_confidence": 1.0,
+      "error_types": [],
+      "evidence_id": null,
+      "model_update_requested": true
+    }
+  ],
+  "note_accuracy": null,
+  "rhythm_score": null,
+  "timing_mae_ms": null,
+  "gesture_metrics": {},
+  "upstream_versions": {
+    "axis-2": "simulated-only"
+  },
+  "model_profile": "provisional-piano-v1",
+  "producer_axis": 2,
+  "producer_version": "mock-adapter-v2",
+  "quality_score": null,
+  "alignment_score": null,
+  "instrument_confidence": null
+}
