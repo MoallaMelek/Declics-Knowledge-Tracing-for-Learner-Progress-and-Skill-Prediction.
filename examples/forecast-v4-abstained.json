@@ -1,0 +1,45 @@
+{
+  "response_version": "4.0",
+  "student_id": "phase4-explicit-simulation",
+  "instrument": "piano",
+  "exercise_id": null,
+  "model_id": "v2:music-mock:2026:enhanced_gru-7",
+  "as_of": "2026-06-06T00:00:00Z",
+  "evidence_source": "team_v3",
+  "status": "abstained",
+  "reason_code": "model_not_validated_for_real_music",
+  "user_message": "Ce modèle est entraîné sur des données simulées et n'est pas validé pour de la musique réelle ; aucune prévision n'est affichée par défaut.",
+  "policy_version": "phase4-gate-v1",
+  "model_profile": "provisional-piano-v1",
+  "model_version": "axis7-science-v2.2",
+  "training_provenance": "synthetic",
+  "conditioning": "generic_skill",
+  "evaluated_scope": "abstained_not_evaluated",
+  "probabilities": null,
+  "prefix_count": 5,
+  "eligible_attempt_count": 5,
+  "excluded_future_count": 0,
+  "evidence_ids": [
+    "phase4-explicit-simulation:0",
+    "phase4-explicit-simulation:1",
+    "phase4-explicit-simulation:2",
+    "phase4-explicit-simulation:3",
+    "phase4-explicit-simulation:4"
+  ],
+  "evidence_provenance_counts": {
+    "synthetic": 5
+  },
+  "assessment_source_counts": {},
+  "known_confidence_count": 5,
+  "unknown_confidence_count": 0,
+  "calibrated_uncertainty_available": false,
+  "accepted_observations": 5,
+  "omitted_observations": 0,
+  "omitted_reasons": {},
+  "never_validated_for_real_music": true,
+  "limitations": [
+    "La prévision ne mesure pas une maîtrise psychologique ni un bénéfice pédagogique.",
+    "Les modèles sont entraînés uniquement sur des données simulées ; aucune validité prédictive sur de la musique réelle n'a été établie.",
+    "Le mode recherche démontre le modèle gelé sur des données explicitement synthétiques ; ce n'est jamais une validation sur de la musique réelle."
+  ]
+}

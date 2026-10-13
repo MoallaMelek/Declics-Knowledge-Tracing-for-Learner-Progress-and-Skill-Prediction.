@@ -1,0 +1,321 @@
+{
+  "request": {
+    "additionalProperties": false,
+    "properties": {
+      "student_id": {
+        "maxLength": 100,
+        "minLength": 1,
+        "title": "Student Id",
+        "type": "string"
+      },
+      "instrument": {
+        "default": "piano",
+        "maxLength": 50,
+        "minLength": 1,
+        "title": "Instrument",
+        "type": "string"
+      },
+      "exercise_id": {
+        "anyOf": [
+          {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Exercise Id"
+      },
+      "model_id": {
+        "anyOf": [
+          {
+            "maxLength": 120,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Model Id"
+      },
+      "as_of": {
+        "format": "date-time",
+        "title": "As Of",
+        "type": "string"
+      },
+      "evidence_source": {
+        "enum": [
+          "team_v3",
+          "practice"
+        ],
+        "title": "Evidence Source",
+        "type": "string"
+      },
+      "include_research_predictions": {
+        "default": false,
+        "title": "Include Research Predictions",
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "student_id",
+      "as_of",
+      "evidence_source"
+    ],
+    "title": "ForecastV4Request",
+    "type": "object"
+  },
+  "response": {
+    "additionalProperties": false,
+    "properties": {
+      "response_version": {
+        "const": "4.0",
+        "default": "4.0",
+        "title": "Response Version",
+        "type": "string"
+      },
+      "student_id": {
+        "title": "Student Id",
+        "type": "string"
+      },
+      "instrument": {
+        "title": "Instrument",
+        "type": "string"
+      },
+      "exercise_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Exercise Id"
+      },
+      "model_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Model Id"
+      },
+      "as_of": {
+        "format": "date-time",
+        "title": "As Of",
+        "type": "string"
+      },
+      "evidence_source": {
+        "enum": [
+          "team_v3",
+          "practice"
+        ],
+        "title": "Evidence Source",
+        "type": "string"
+      },
+      "status": {
+        "enum": [
+          "abstained",
+          "research_only"
+        ],
+        "title": "Status",
+        "type": "string"
+      },
+      "reason_code": {
+        "title": "Reason Code",
+        "type": "string"
+      },
+      "user_message": {
+        "title": "User Message",
+        "type": "string"
+      },
+      "policy_version": {
+        "const": "phase4-gate-v1",
+        "title": "Policy Version",
+        "type": "string"
+      },
+      "model_profile": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Model Profile"
+      },
+      "model_version": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Model Version"
+      },
+      "training_provenance": {
+        "anyOf": [
+          {
+            "const": "synthetic",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Training Provenance"
+      },
+      "conditioning": {
+        "anyOf": [
+          {
+            "enum": [
+              "exercise",
+              "generic_skill"
+            ],
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Conditioning"
+      },
+      "evaluated_scope": {
+        "title": "Evaluated Scope",
+        "type": "string"
+      },
+      "probabilities": {
+        "anyOf": [
+          {
+            "additionalProperties": {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            "type": "object"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Probabilities"
+      },
+      "prefix_count": {
+        "title": "Prefix Count",
+        "type": "integer"
+      },
+      "eligible_attempt_count": {
+        "default": 0,
+        "title": "Eligible Attempt Count",
+        "type": "integer"
+      },
+      "excluded_future_count": {
+        "title": "Excluded Future Count",
+        "type": "integer"
+      },
+      "evidence_ids": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Evidence Ids",
+        "type": "array"
+      },
+      "evidence_provenance_counts": {
+        "additionalProperties": {
+          "type": "integer"
+        },
+        "title": "Evidence Provenance Counts",
+        "type": "object"
+      },
+      "assessment_source_counts": {
+        "additionalProperties": {
+          "type": "integer"
+        },
+        "title": "Assessment Source Counts",
+        "type": "object"
+      },
+      "known_confidence_count": {
+        "default": 0,
+        "title": "Known Confidence Count",
+        "type": "integer"
+      },
+      "unknown_confidence_count": {
+        "default": 0,
+        "title": "Unknown Confidence Count",
+        "type": "integer"
+      },
+      "calibrated_uncertainty_available": {
+        "default": false,
+        "title": "Calibrated Uncertainty Available",
+        "type": "boolean"
+      },
+      "accepted_observations": {
+        "title": "Accepted Observations",
+        "type": "integer"
+      },
+      "omitted_observations": {
+        "title": "Omitted Observations",
+        "type": "integer"
+      },
+      "omitted_reasons": {
+        "additionalProperties": {
+          "type": "integer"
+        },
+        "title": "Omitted Reasons",
+        "type": "object"
+      },
+      "never_validated_for_real_music": {
+        "title": "Never Validated For Real Music",
+        "type": "boolean"
+      },
+      "limitations": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Limitations",
+        "type": "array"
+      }
+    },
+    "required": [
+      "student_id",
+      "instrument",
+      "exercise_id",
+      "model_id",
+      "as_of",
+      "evidence_source",
+      "status",
+      "reason_code",
+      "user_message",
+      "policy_version",
+      "model_profile",
+      "model_version",
+      "training_provenance",
+      "conditioning",
+      "evaluated_scope",
+      "probabilities",
+      "prefix_count",
+      "excluded_future_count",
+      "evidence_ids",
+      "evidence_provenance_counts",
+      "accepted_observations",
+      "omitted_observations",
+      "omitted_reasons",
+      "never_validated_for_real_music",
+      "limitations"
+    ],
+    "title": "ForecastV4Response",
+    "type": "object"
+  }
+}
