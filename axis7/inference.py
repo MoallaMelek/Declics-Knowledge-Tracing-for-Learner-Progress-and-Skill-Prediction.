@@ -10,6 +10,9 @@ from .metrics import calibrate
 from .eligibility import eligible
 from .recommendations import recommend
 
+def uses_items(predictor):
+    return predictor.name in ('enhanced_gru','enhanced_gru_no_outcome','item_attention','item_pfa')
+
 class Predictor:
     def __init__(self,directory,rid):
         self.directory=Path(directory);self.rid=rid
@@ -90,7 +93,7 @@ class TwinEngine:
             'observation_only_events':sum(not any(eligible(o) for o in r['obs']) for r in prefix),
             'unmodeled_observations':sum(o.get('k') is None for r in prefix for o in r['obs']),
             'default_model':self.default,'selected_overall':getattr(self,'v2_selected_overall',None) or self.results['selected']['overall'],
-            'curve_conditioning':'known_attempted_exercise_then_generic_next_query' if rid.startswith('v2:') else 'skill_only','implementation_version':version,'forecast_conditioning':'unknown_exercise_skill_forecast' if rid.startswith('v2:') else 'skill_only',
+            'curve_conditioning':'known_attempted_exercise_then_generic_next_query' if uses_items(p) else 'skill_only','implementation_version':version,'forecast_conditioning':'unknown_exercise_skill_forecast' if uses_items(p) else 'skill_only',
             'position':position,'total_groups':len(rows),'sessions':sessions,'nodes':nodes,
             'edges':[{'a':a,'b':b,'n':n,'meaning':'co-observed in same attempt, not a prerequisite'} for (a,b),n in co.items()],
             'recommendation':recommendation,'uncertainty_note':'Variation entre initialisations, sans garantie de couverture ; aucune estimation psychologique de maîtrise.',

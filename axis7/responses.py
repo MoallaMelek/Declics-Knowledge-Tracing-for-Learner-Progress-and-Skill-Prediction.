@@ -13,5 +13,7 @@ class ForecastV2(BaseModel):
     conditioning:Literal['exercise','generic_skill']
     item_supported:bool|None
     training_provenance:Literal['synthetic','public_software_engineering']
+    evaluated_scope:Literal['observed_skill_given_attempted_exercise','skill_only_forecast']
+    query_validity:Literal['generic_unknown_item_extrapolation','exercise_skill_applicability_not_validated','skill_only_forecast']
     probabilities:dict[str,UnitFloat]
     warning:str

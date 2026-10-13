@@ -171,3 +171,14 @@ def test_forecast_envelope_is_documented_and_validated(client):
 @pytest.mark.parametrize('invalid',[1234567890,'2026-06-01T12:00:00'])
 def test_timestamps_reject_numeric_or_missing_timezone(invalid):
     with pytest.raises(ValueError):AttemptV2.model_validate(event(timestamp=invalid))
+
+@pytest.mark.parametrize('field,value',[('score','0.7'),('source_confidence',True),('model_update_requested','true')])
+def test_v2_observation_types_match_json_schema(field,value):
+    p=event();p['observations'][0][field]=value
+    assert list(Draft202012Validator(AttemptV2.model_json_schema()).iter_errors(p))
+    with pytest.raises(ValueError):AttemptV2.model_validate(p)
+
+def test_boolean_is_not_a_producer_axis():
+    p=event(producer_axis=True)
+    assert list(Draft202012Validator(AttemptV2.model_json_schema()).iter_errors(p))
+    with pytest.raises(ValueError):AttemptV2.model_validate(p)

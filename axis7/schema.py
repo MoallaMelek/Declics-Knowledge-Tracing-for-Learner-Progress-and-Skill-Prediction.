@@ -7,9 +7,9 @@ MUSIC_SKILLS = ["pitch", "rhythm", "timing", "articulation", "fingering", "score
 MUSIC_LABELS = ["Justesse", "Rythme", "Placement temporel", "Articulation", "Doigté", "Lecture de partition"]
 
 # NaN and infinities are not valid measurements; they would also break strict JSON storage.
-UnitFloat = Annotated[float, Field(ge=0, le=1, allow_inf_nan=False)]
-NonNegativeFloat = Annotated[float, Field(ge=0, allow_inf_nan=False)]
-FiniteFloat = Annotated[float, Field(allow_inf_nan=False)]
+UnitFloat = Annotated[float, Field(ge=0, le=1, allow_inf_nan=False,strict=True)]
+NonNegativeFloat = Annotated[float, Field(ge=0, allow_inf_nan=False,strict=True)]
+FiniteFloat = Annotated[float, Field(allow_inf_nan=False,strict=True)]
 
 class SkillObservation(BaseModel):
     # Unknown keys are rejected: a misspelled field must not be silently dropped.

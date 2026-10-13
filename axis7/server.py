@@ -12,7 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel,Field
 from .data import ROOT
 from .schema import Attempt,to_record,MUSIC_SKILLS
-from .inference import TwinEngine
+from .inference import TwinEngine,uses_items
 from .contracts import AttemptV2,resolve_event,registry
 from .storage import append_event,EventConflict
 from .recommendations import EXERCISES
@@ -161,7 +161,7 @@ def exercise_registry():return {'exercises':EXERCISES,'teacher_approved':False,'
 def schemas():return {'attempt_v1':Attempt.model_json_schema(),'attempt_v2':AttemptV2.model_json_schema(),'forecast_v2':ForecastV2.model_json_schema()}
 
 def item_supported(predictor,exercise_id):
-    if not exercise_id or not hasattr(predictor,'items'):return None
+    if not exercise_id or not uses_items(predictor):return None
     from .models_v2 import item_key
     return item_key({'exercise':exercise_id}) in predictor.items.state['vocabulary']
 
@@ -174,11 +174,13 @@ def forecast(student:str,domain:str='music-mock',model_id:str|None=None,exercise
         if rid.startswith('v2:'):probabilities=predictor.probabilities(rows,exercise_id=exercise_id)[-1]
         else:probabilities=predictor.probabilities(rows)[-1]
     return {'response_version':'2.0','student_id':student,'domain':domain,'model_id':rid,
-        'exercise_id':exercise_id,'conditioning':'exercise' if exercise_id and rid.startswith('v2:') else 'generic_skill',
+        'exercise_id':exercise_id,'conditioning':'exercise' if exercise_id and uses_items(predictor) else 'generic_skill',
         'item_supported':item_supported(predictor,exercise_id),
         'training_provenance':'synthetic' if domain=='music-mock' else 'public_software_engineering',
+        'evaluated_scope':'observed_skill_given_attempted_exercise' if uses_items(predictor) else 'skill_only_forecast',
+        'query_validity':('exercise_skill_applicability_not_validated' if exercise_id else 'generic_unknown_item_extrapolation') if uses_items(predictor) else 'skill_only_forecast',
         'probabilities':dict(zip(e.meta['skills'],map(float,probabilities))),
-        'warning':'Forecast correctness is not mastery or a validated learning benefit.'}
+        'warning':'Correctness is not mastery or learning benefit. V2 benchmarks evaluate observed skills with known attempted exercises; generic UNK forecasts and unobserved exercise-skill combinations are extrapolations.'}
 
 @app.get('/api/research')
 def research():

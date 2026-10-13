@@ -1,6 +1,6 @@
 """V2 team boundary. Provisional labels are not teacher-validated constructs."""
 from typing import Literal
-from pydantic import Field,ConfigDict,model_validator
+from pydantic import Field,ConfigDict,model_validator,field_validator,StrictBool
 from .schema import Attempt,SkillObservation,UnitFloat,MUSIC_SKILLS
 
 SKILL_VOCABULARY = {
@@ -17,7 +17,7 @@ SUPPORTED_RUBRICS={'provisional-mock-v1','provisional-piano-v1'}
 MIN_CONFIDENCE=.6
 
 class ObservationV2(SkillObservation):
-    model_update_requested: bool = True
+    model_update_requested: StrictBool = True
 
 class AttemptV2(Attempt):
     model_config = ConfigDict(extra='forbid',json_schema_extra={
@@ -31,6 +31,12 @@ class AttemptV2(Attempt):
     quality_score: UnitFloat | None = None
     alignment_score: UnitFloat | None = None
     instrument_confidence: UnitFloat | None = None
+
+    @field_validator('producer_axis',mode='before')
+    @classmethod
+    def axis_integer(cls,value):
+        if type(value) is not int:raise ValueError('producer_axis must be an integer from 1 to 6')
+        return value
 
     @model_validator(mode='after')
     def producer_payload(self):
