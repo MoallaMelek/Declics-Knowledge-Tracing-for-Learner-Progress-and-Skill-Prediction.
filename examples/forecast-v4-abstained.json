@@ -29,6 +29,9 @@
   "evidence_provenance_counts": {
     "synthetic": 5
   },
+  "history_instrument_counts": {
+    "piano-provisional": 5
+  },
   "assessment_source_counts": {},
   "known_confidence_count": 5,
   "unknown_confidence_count": 0,

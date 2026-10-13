@@ -239,6 +239,13 @@
         "title": "Evidence Provenance Counts",
         "type": "object"
       },
+      "history_instrument_counts": {
+        "additionalProperties": {
+          "type": "integer"
+        },
+        "title": "History Instrument Counts",
+        "type": "object"
+      },
       "assessment_source_counts": {
         "additionalProperties": {
           "type": "integer"

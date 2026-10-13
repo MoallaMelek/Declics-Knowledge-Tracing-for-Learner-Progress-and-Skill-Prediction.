@@ -1,14 +1,14 @@
 # Phase 4 release validation
 
 Baseline: commit 6a416871f195bb94de5bc7b82b1ca723e95492f5, 162 tests passed in 21.21 seconds.
-After implementation: 216 tests passed, zero failures/skips, 24.72 seconds. One pre-existing
+After implementation: 217 tests passed, zero failures/skips, 34.47 seconds. One pre-existing
 Starlette/httpx deprecation warning remains. Command:
 
     python -B -m pytest -q -p no:cacheprovider
 
 The original tests are unchanged. New coverage: 21 forecast-policy checks, 18 forecast API
 integration checks, six musical acquisition/partition checks, five descriptive progression
-checks, three end-to-end source/provenance checks and one assessed-attempt safeguard check.
+checks, three end-to-end source/provenance checks and two assessed-attempt/instrument safeguard checks.
 Existing research and musician frontend harnesses retain their actual API-fed checks.
 
 Independent source verification: every acquired object SHA256 verified, every bundled source
@@ -34,3 +34,7 @@ Historical data/raw, artifacts/v2, artifacts/phase3 and original model directori
 unchanged.102trainingruns+40stressdiagnostics are preserved with original provenance.
 Read-only independent review, final GitHub checks and exact release hashes are recorded in
 the final Phase 4 report. No merge into main is performed.
+
+The independent Codex CLI review found two P2 gaps: conditioning-history instrument scope and
+the MIDI dependency in the documented lock installation. Both were fixed, with an actual
+unsupported-history regression, source schema/example regeneration and the full 217-test run.

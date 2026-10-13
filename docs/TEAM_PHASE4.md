@@ -165,6 +165,7 @@ v4 performs no writes, so it has no idempotency/conflict semantics of its own; i
 |---|---|
 | `evidence_source` | which store was read: `team_v3` (v1/v2/v3 event history) or `practice` (notebook) |
 | `evidence_provenance_counts` | per-provenance counts in the visible prefix; practice distinguishes demo and local_real |
+| `history_instrument_counts` | instruments in conditioning records, checked independently of the request's default piano; unsupported or unknown history instruments force abstention |
 | `assessment_source_counts` | practice prefix counts by self/teacher; a teacher-entered rating is not teacher-confirmed development |
 | `known_confidence_count` / `unknown_confidence_count` | source confidence availability; unknown confidence is never represented as certainty |
 | `calibrated_uncertainty_available` | false: no validated real-musical uncertainty interval exists |

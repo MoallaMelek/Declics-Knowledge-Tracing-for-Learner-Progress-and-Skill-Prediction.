@@ -54,6 +54,7 @@ class PolicyInputs:
     recent_confidences: tuple
     provenance_counts: dict = field(default_factory=dict)
     eligible_attempts: int | None = None
+    history_instruments: frozenset = field(default_factory=frozenset)
 
 
 @dataclass(frozen=True)
@@ -70,7 +71,7 @@ def _decision(reason_code, research_eligible):
 
 
 def evaluate(inputs: PolicyInputs) -> PolicyDecision:
-    if inputs.instrument not in SUPPORTED_INSTRUMENTS:
+    if inputs.instrument not in SUPPORTED_INSTRUMENTS or not inputs.history_instruments <= SUPPORTED_INSTRUMENTS:
         return _decision('unsupported_instrument', False)
     if inputs.rubrics and not inputs.rubrics <= inputs.supported_rubrics:
         return _decision('unsupported_rubric', False)

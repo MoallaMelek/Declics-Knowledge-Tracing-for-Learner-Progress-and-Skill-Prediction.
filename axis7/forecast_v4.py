@@ -91,6 +91,7 @@ class ForecastV4Response(BaseModel):
     excluded_future_count: int
     evidence_ids: list[str]
     evidence_provenance_counts: dict[str, int]
+    history_instrument_counts: dict[str, int] = Field(default_factory=dict)
     assessment_source_counts: dict[str, int] = Field(default_factory=dict)
     known_confidence_count: int = 0
     unknown_confidence_count: int = 0
@@ -131,7 +132,8 @@ def _team_v3_forecast(body: ForecastV4Request) -> ForecastV4Response:
             supported_rubrics=frozenset(SUPPORTED_RUBRICS), requires_item_check=requires_item_check,
             item_known=item_known, prefix_count=len(prefix), eligible_observations=len(eligible_obs),
             recent_confidences=recent_confidences, provenance_counts=provenance_counts,
-            eligible_attempts=eligible_attempts))
+            eligible_attempts=eligible_attempts,
+            history_instruments=frozenset(r.get('instrument','unknown') for r in prefix)))
 
         conditioning = 'exercise' if (body.exercise_id and uses_items(predictor)) else 'generic_skill'
         status = 'abstained'
@@ -161,6 +163,7 @@ def _team_v3_forecast(body: ForecastV4Request) -> ForecastV4Response:
             probabilities=probabilities, prefix_count=len(prefix), excluded_future_count=excluded_future_count,
             eligible_attempt_count=eligible_attempts,
             evidence_ids=[r['id'] for r in prefix], evidence_provenance_counts=provenance_counts,
+            history_instrument_counts=dict(Counter(r.get('instrument','unknown') for r in prefix)),
             known_confidence_count=sum(o.get('confidence') is not None for o in all_obs),
             unknown_confidence_count=sum(o.get('confidence') is None for o in all_obs),
             accepted_observations=len(eligible_obs), omitted_observations=len(omitted),
@@ -192,6 +195,7 @@ def _practice_forecast(body: ForecastV4Request) -> ForecastV4Response:
         conditioning=None, evaluated_scope='practice_notebook_no_validated_model', probabilities=None,
         prefix_count=len(prefix), excluded_future_count=excluded_future_count,
         evidence_ids=[s['attempt_id'] for s in prefix],
+        history_instrument_counts={'piano':len(prefix)} if prefix else {},
         evidence_provenance_counts=dict(Counter(s['provenance'] for s in prefix)),
         assessment_source_counts=dict(Counter(s['source'] for s in prefix)),
         known_confidence_count=sum(s.get('confidence') is not None for s in prefix),
