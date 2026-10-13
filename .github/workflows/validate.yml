@@ -19,5 +19,6 @@ jobs:
         run: |
           node --check web/app.js
           node --check web/musician.js
+          node --check web/case-study.js
       - name: Validate contracts and models
         run: python -B -m pytest -q -p no:cacheprovider

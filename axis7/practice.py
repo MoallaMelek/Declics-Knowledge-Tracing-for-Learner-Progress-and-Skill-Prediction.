@@ -16,6 +16,13 @@ from .storage import fingerprint
 
 router=APIRouter()
 
+@router.get('/api/research/music-case-study')
+def musical_case_study():
+    from .data import ROOT
+    path=ROOT/'artifacts/phase4/music-case-study.json'
+    if not path.exists():raise HTTPException(503,'Licensed musical case study has not been prepared')
+    return json.loads(path.read_text(encoding='utf8'))
+
 INSTRUMENT='piano'
 RUBRIC_VERSION='piano-pilot-v1'
 PRIVACY_NOTICE_VERSION='local-pilot-v1'
@@ -266,11 +273,39 @@ def build_summary(conn,student_id,policy):
         touches=_skill_touches(sessions,skill['id'])
         status=_skill_status(skill['id'],touches)
         skills.append({'id':skill['id'],'label':skill['label'],**status})
-    recommendation=_recommend(skills,sessions,policy)
+    from .progression import describe,notebook_forecast
+    progression=describe(sessions,PIANO_SKILLS)
+    # Rank only the latest comparable cohort with usable confidence. The legacy
+    # descriptive skill fields stay stable for earlier API clients.
+    recommendation_skills=[]
+    for original,comparison in zip(skills,progression):
+        current=dict(original)
+        cohort=[t for t in _skill_touches(sessions,current['id'])
+            if t['attempt_id'] in comparison['evidence_ids']]
+        current.update(observations=comparison['comparable_observations'],recent_count=len(cohort[-5:]),
+            recent_needs_work=sum(t['rating']=='needs_work' for t in cohort[-5:]),
+            recent_comfortable=sum(t['rating']=='comfortable' for t in cohort[-5:]),
+            status='recent_difficulty' if comparison['recurring_difficulty'] else 'steady')
+        recommendation_skills.append(current)
+    recommendation=_recommend(recommendation_skills,sessions,policy)
+    comparison=next((p for p in progression if p['skill_id'] in EXERCISE_BY_ID[recommendation['exercise_id']]['skill_ids']),None)
+    if comparison:
+        target_id=comparison['skill_id']
+        if recommendation['evidence']:
+            recommendation['evidence']=[{'attempt_id':t['attempt_id'],'skill_id':target_id,'rating':t['rating']}
+                for t in _skill_touches(sessions,target_id) if t['attempt_id'] in comparison['evidence_ids']][-3:]
+        recommendation['assessment_source']=comparison['assessment_source']
+        recommendation['comparable_evidence_count']=comparison['comparable_observations']
+    recommended_exercise=EXERCISE_BY_ID[recommendation['exercise_id']]
+    recommendation['exercise_difficulty']=recommended_exercise['difficulty']
+    recommendation['difficulty_status']='demonstration_catalogue_not_empirically_estimated'
+    recommendation['prerequisites_status']='not_teacher_approved'
+    recommendation['prediction_informed']=False
     return {'student_id':student_id,'mode':profile['mode'],'instrument':profile['instrument'],
         'session_count':len(sessions),'attempt_count':len(sessions),
         'latest':sessions[-1] if sessions else None,'sessions':sessions,'skills':skills,
-        'recommendation':recommendation,
+        'recommendation':recommendation,'descriptive_progression':progression,
+        'prediction':notebook_forecast(sessions),
         'forecast':{'status':'unavailable','reason':'No validated model for this provisional local collection rubric.'},
         'rubric_version':RUBRIC_VERSION,'taxonomy_status':'provisional',
         'collection_status':'local_notebook_not_validated_dataset'}
