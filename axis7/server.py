@@ -232,7 +232,7 @@ def export(student:str):
             'observations':rows}
 
 @app.get('/')
-def index():return FileResponse(ROOT/'web/index.html')
+def index():return FileResponse(ROOT/'web/index.html',headers={'Cache-Control':'no-store'})
 
 @app.get('/api/figures/{domain}/{name}')
 def figure(domain:str,name:str):

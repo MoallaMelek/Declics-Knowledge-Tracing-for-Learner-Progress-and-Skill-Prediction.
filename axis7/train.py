@@ -76,11 +76,11 @@ def plot_artifacts(results,out):
     fig,ax=plt.subplots(figsize=(9,4));sk=winner['test']['per_skill'];ax.bar(list(sk),[v['log_loss'] for v in sk.values()],color='#547d78');ax.set(xlabel='Skill index (see manifest)',ylabel='Log loss',title=f"Per-skill error · {winner['id']}");fig.tight_layout();fig.savefig(out/'per_skill.png',dpi=160);plt.close(fig)
 
 def run(domain,config,output_root=None):
-    start=time.time();learners,meta=load_forget() if domain=='forget-se' else generate_music()
-    K=len(meta['skills']);splits=split_students(learners,config['split_seed']);parts={n:{u:learners[u] for u in ids} for n,ids in splits.items()}
     out=Path(output_root)/domain if output_root else ROOT/'artifacts'/domain
     if (out/'results.json').exists():
         raise FileExistsError('Historical results are immutable. Supply a new --output-root directory.')
+    start=time.time();learners,meta=load_forget() if domain=='forget-se' else generate_music()
+    K=len(meta['skills']);splits=split_students(learners,config['split_seed']);parts={n:{u:learners[u] for u in ids} for n,ids in splits.items()}
     out.mkdir(parents=True,exist_ok=True)
     write_json(out/'splits.json',splits);write_json(out/'metadata.json',meta)
     # Test data serialized for demo and audit, never used to fit any artifact.

@@ -1,0 +1,3 @@
+# Preserve externally checksummed data and immutable research evidence verbatim.
+data/raw/*.csv -text
+artifacts/v2/** -text
