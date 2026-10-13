@@ -1,8 +1,23 @@
 # DÉCLIC · Axis 7 — Musical Learning Intelligence
 
-A working local research prototype: independently trainable knowledge tracing, a held-out public benchmark, an explicit observation interface, and an interactive musical learning twin. Probabilities come from trained checkpoints. No LLM produces learner predictions. No video generation is used.
+A musician-first local piano practice notebook, with separate research and team-integration modes. The default guided flow collects clearly sourced self/teacher assessments; it does not pretend to listen to audio or infer mastery. Research-mode probabilities come from saved checkpoints. No LLM produces learner predictions and no video is generated.
 
 Axis 7 is the longitudinal intelligence component of a seven-person ESPRIT music-learning project. The other six axes own pitch, rhythm, alignment, performance quality, technique and instrument recognition. This repository consumes their observations through versioned contracts; it does not implement their perception models.
+
+## Phase 3: practice first
+
+Open the local app, select a short piano exercise, read its instructions, play, and enter your own assessment or one actually received from a teacher. Demo profiles keep fictional ratings separate from a consenting personal local notebook. The home, feedback, progress and notebook views use ordinary music language; models, probabilities, JSON and experiments are in **Research & integration** at `/web/research.html`.
+
+- Six provisional piano exercises and qualitative, teacher-reviewable descriptors; no teacher approval has been invented.
+- Local pseudonymous collection, sequential attempts, strict quality checks, safe retries and scoped JSON export. No identity or raw-media fields.
+- Three explainable observed-history practice policies, with evidence and insufficient-data states. The local rubric is not connected to the synthetic-trained predictor.
+- Atomic v3 evidence supports per-observation producer attribution across axes, explicit missingness, source versions and observation-only context.
+- Verified dataset investigation plus a new **40-run frozen-checkpoint stress diagnostic**. No suitable, ready and rights-verified musical KT table was acquired; real musical validation remains outstanding.
+- **162 regression tests passed**; the final musician UI change was separately rechecked. Existing research UI retains its 19 checks and the new practice UI has 20 API-fed checks.
+
+Start with [collection documentation](docs/PRACTICE_COLLECTION.md), [teacher review materials](docs/PIANO_RUBRIC_REVIEW.md), [team v3 guide](docs/TEAM_PHASE3.md), [dataset investigation](docs/MUSIC_DATA_PHASE3.md), [UX review](docs/PHASE3_UX_REVIEW.md) and [verification](docs/PHASE3_VALIDATION.md). Stress results and cold-start slices are in [RESULTS.md](artifacts/phase3/stress-20261013-v2/RESULTS.md) and its adjacent immutable summary/predictions/source snapshot. Reproduce in a new directory with `python scripts/evaluate_phase3_robustness.py --output artifacts/phase3/YOUR-NEW-ID`.
+
+This remains a single-user loopback application. Institutional/minor research, production authorization, approved labels and empirical musical outcomes require a separate reviewed process. The requested objectives revision 1-2 was unavailable; v3 explicitly records the available cached 1-1 mapping rather than claiming it was read. Axis 7 corresponds to learner/future-performance prediction (O09 in that version).
 
 ## Version 2 upgrade
 
