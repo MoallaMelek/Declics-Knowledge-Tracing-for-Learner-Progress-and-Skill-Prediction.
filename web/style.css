@@ -230,3 +230,4 @@ tr.selected td{background:var(--green-50);color:var(--green);font-weight:600}
 #research-table{overflow-x:auto} .research-limit{font-size:.84rem;color:var(--muted)}
 @media(max-width:480px){.controls{grid-template-columns:1fr}.controls label[for=learner]{grid-column:1;grid-row:3}.controls #learner{grid-column:1;grid-row:4}}
 .fineprint{font-size:12px;line-height:1.5;color:var(--ink-2);margin:6px 0 8px}
+.unmodeled{padding:18px 22px;margin:16px 0}.unmodeled summary{font-weight:600;cursor:pointer}.unmodeled p{font-size:14px;margin:10px 0}.unmodeled ul{list-style:none;padding:0}.unmodeled li{padding:8px 0;border-top:1px solid var(--rule)}.unmodeled small{display:block;color:var(--ink-2);font-size:12px;overflow-wrap:anywhere}
