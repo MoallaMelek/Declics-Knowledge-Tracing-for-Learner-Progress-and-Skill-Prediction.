@@ -141,3 +141,9 @@ The user's original `declic` source folder was preserved. The requested global A
 The separate [exploratory global-history control](artifacts/v2/exploratory-global-control/RESULTS.md) uses a plain logistic model with cross-skill history features. Its paired intervals against the validation-selected neural models on FORGET-SE all include zero. EGRU retains a small numerical advantage, but this experiment does not establish an architecture-specific advantage over the stronger control. This posthoc diagnostic is separate from the fixed 102-run study. Reproduce it with `python scripts/global_history_control.py --output artifacts/new-global-control`.
 
 Final local verification: 92 tests passed (81.18 seconds), including 19 frontend checks. All 102 saved checkpoint predictions were reconstructed exactly; see [verification](artifacts/v2/checkpoint-verification.json).
+# Phase 5 — entraînement cloud musical
+
+Trois notebooks Google Colab et un pipeline PyTorch reprenable sont disponibles :
+[guide Colab](docs/PHASE5_COLAB.md). Les modèles réellement évalués sont exposés
+dans `/web/musical-cloud.html` et `/api/v5/musical/models`, dans leur domaine source.
+Les Phases 1–4 et l'abstention du carnet piano restent compatibles.

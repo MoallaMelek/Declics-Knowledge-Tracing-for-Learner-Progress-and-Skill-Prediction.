@@ -1,0 +1,294 @@
+{
+  "version": "musical-cloud-v1",
+  "source": "singpad",
+  "sha256": "9e87e3ccb4bbc6e90a571a28a989168f0c7e49a332c633de328e5c5660773b64",
+  "seed": 42,
+  "model": "enhanced_gru",
+  "hidden": 48,
+  "context": 64,
+  "K": 270,
+  "items": {
+    "250": 1,
+    "250|251": 2,
+    "250|251|252|253|254|255|272|273|276|279": 3,
+    "250|251|252|253|254|272": 4,
+    "250|251|252|253|254|272|273|274|275": 5,
+    "250|251|253|256|257": 6,
+    "250|251|253|272|273": 7,
+    "250|252": 8,
+    "250|270": 9,
+    "251": 10,
+    "251|253": 11,
+    "252": 12,
+    "252|253": 13,
+    "253": 14,
+    "253|256": 15,
+    "254": 16,
+    "254|256": 17,
+    "254|271": 18,
+    "255": 19,
+    "255|256": 20,
+    "256": 21,
+    "256|257": 22,
+    "256|258": 23,
+    "256|259": 24,
+    "257": 25,
+    "257|258": 26,
+    "257|271": 27,
+    "258": 28,
+    "258|259": 29,
+    "258|263": 30,
+    "259": 31,
+    "259|260": 32,
+    "260": 33,
+    "260|261": 34,
+    "261": 35,
+    "261|262": 36,
+    "262": 37,
+    "262|263": 38,
+    "262|264": 39,
+    "262|265": 40,
+    "263": 41,
+    "263|264": 42,
+    "264": 43,
+    "264|266": 44,
+    "265": 45,
+    "266": 46,
+    "267": 47,
+    "268": 48,
+    "268|269": 49,
+    "269": 50,
+    "270": 51,
+    "270|273": 52,
+    "271": 53,
+    "272": 54,
+    "272|273": 55,
+    "273": 56,
+    "273|274": 57,
+    "273|279": 58,
+    "274": 59,
+    "274|281": 60,
+    "275": 61,
+    "276": 62,
+    "276|279": 63,
+    "279": 64,
+    "279|286": 65,
+    "280": 66,
+    "280|284": 67,
+    "281": 68,
+    "281|282": 69,
+    "282": 70,
+    "282|284": 71,
+    "283": 72,
+    "283|284": 73,
+    "284": 74,
+    "284|285": 75,
+    "284|286": 76,
+    "285": 77,
+    "286": 78,
+    "286|287": 79,
+    "287": 80,
+    "287|289": 81,
+    "288": 82,
+    "289": 83,
+    "290": 84,
+    "291": 85,
+    "292": 86,
+    "293": 87,
+    "294": 88
+  },
+  "batch_size": 16,
+  "protocol": "learner_disjoint_70_15_15",
+  "splits": {
+    "train": {
+      "count": 729,
+      "sha256": "7c762850c62891f62330e4d894377d919a0938a1b1781a68939e455e4bac26c9"
+    },
+    "validation": {
+      "count": 156,
+      "sha256": "561750436d8071e07378413a391b650e39ff6a36dff476098478c51b9a64c7cf"
+    },
+    "test": {
+      "count": 157,
+      "sha256": "f354dc9bfb467823a0b7d72b4285cb14850ea8fb3ccf347211bae32dd425cd3a"
+    }
+  },
+  "instrument": "voice",
+  "target": "next_recording_note_success_by_source_concept",
+  "citation": "Zhang et al. (2024), SingPAD, doi:10.5281/zenodo.12729828",
+  "binary": true,
+  "device": "cpu",
+  "epochs_completed": 10,
+  "audit": {
+    "recordings": 19892,
+    "exact_duplicates_excluded": 0,
+    "note_labels": 1081876,
+    "unit": "entire recording; equal timestamps hidden together",
+    "timezone": "source local time, unspecified; never converted to UTC"
+  },
+  "validation": {
+    "observed_targets": 55414,
+    "label_weight": 132014.0,
+    "mae": 0.24243667670028746,
+    "rmse": 0.3087135655086241,
+    "log_loss": 0.5105009234603715,
+    "brier": 0.1671554693732194,
+    "roc_auc": 0.6749085805072043,
+    "pr_auc": 0.8613655401457401,
+    "calibration_bins": [
+      {
+        "lower": 0.30000000000000004,
+        "weight": 134.0,
+        "prediction": 0.3780284448346095,
+        "observed": 0.30597014925373134
+      },
+      {
+        "lower": 0.4,
+        "weight": 2105.0,
+        "prediction": 0.4688578790412096,
+        "observed": 0.4589073652184774
+      },
+      {
+        "lower": 0.5,
+        "weight": 10955.0,
+        "prediction": 0.5575751422747582,
+        "observed": 0.549885899652117
+      },
+      {
+        "lower": 0.6000000000000001,
+        "weight": 19338.0,
+        "prediction": 0.6550799472210683,
+        "observed": 0.6495501110321555
+      },
+      {
+        "lower": 0.7000000000000001,
+        "weight": 35814.0,
+        "prediction": 0.7542599613405442,
+        "observed": 0.7491483798030767
+      },
+      {
+        "lower": 0.8,
+        "weight": 48292.0,
+        "prediction": 0.849332950842032,
+        "observed": 0.8387724691337756
+      },
+      {
+        "lower": 0.9,
+        "weight": 15376.0,
+        "prediction": 0.9240277834763823,
+        "observed": 0.9143470355079865
+      }
+    ]
+  },
+  "test": {
+    "observed_targets": 62119,
+    "label_weight": 149278.0,
+    "mae": 0.25248870833665876,
+    "rmse": 0.3184039899337158,
+    "log_loss": 0.5216429624240952,
+    "brier": 0.17262009966420652,
+    "roc_auc": 0.6970038454094427,
+    "pr_auc": 0.8606579239925617,
+    "calibration_bins": [
+      {
+        "lower": 0.2,
+        "weight": 1.0,
+        "prediction": 0.2805371582508087,
+        "observed": 1.0
+      },
+      {
+        "lower": 0.30000000000000004,
+        "weight": 103.0,
+        "prediction": 0.38333905698026266,
+        "observed": 0.2427184484103351
+      },
+      {
+        "lower": 0.4,
+        "weight": 4078.0,
+        "prediction": 0.4715999019838771,
+        "observed": 0.41098577922914414
+      },
+      {
+        "lower": 0.5,
+        "weight": 17653.0,
+        "prediction": 0.5547931035881927,
+        "observed": 0.5313544466932023
+      },
+      {
+        "lower": 0.6000000000000001,
+        "weight": 26200.0,
+        "prediction": 0.6523409959810381,
+        "observed": 0.6451526742567885
+      },
+      {
+        "lower": 0.7000000000000001,
+        "weight": 36905.0,
+        "prediction": 0.7532215006628297,
+        "observed": 0.7463758316638508
+      },
+      {
+        "lower": 0.8,
+        "weight": 47798.0,
+        "prediction": 0.8500543318025148,
+        "observed": 0.8448679877745242
+      },
+      {
+        "lower": 0.9,
+        "weight": 16540.0,
+        "prediction": 0.9267873366589702,
+        "observed": 0.9198307143490505
+      }
+    ]
+  },
+  "constant_train_mean_reference": {
+    "mean": 0.7499527994575261,
+    "validation": {
+      "observed_targets": 55414,
+      "label_weight": 132014.0,
+      "mae": 0.2749376646595098,
+      "rmse": 0.32888305266155726,
+      "log_loss": 0.5458906072428839,
+      "brier": 0.1800154661721565,
+      "roc_auc": 0.5,
+      "pr_auc": 0.7649718988384575,
+      "calibration_bins": [
+        {
+          "lower": 0.7000000000000001,
+          "weight": 132014.0,
+          "prediction": 0.749952799457526,
+          "observed": 0.7649718988384575
+        }
+      ]
+    },
+    "test": {
+      "observed_targets": 62119,
+      "label_weight": 149278.0,
+      "mae": 0.2877421210207819,
+      "rmse": 0.3450297794971833,
+      "log_loss": 0.5684531753267608,
+      "brier": 0.19028454759837163,
+      "roc_auc": 0.5,
+      "pr_auc": 0.7444298576040681,
+      "calibration_bins": [
+        {
+          "lower": 0.7000000000000001,
+          "weight": 149278.0,
+          "prediction": 0.7499527994575261,
+          "observed": 0.7444298576040681
+        }
+      ]
+    }
+  },
+  "validation_gate": {
+    "accepted": true,
+    "rule": "validation improves train-only mean; >=30 validation/test targets",
+    "scope": "source benchmark only; not validation for DEClic piano practice"
+  },
+  "limitations": [
+    "Learner-disjoint benchmark, not a randomized educational experiment.",
+    "No generic mastery interpretation or cross-instrument validation.",
+    "Windowed recurrent memory; counts retain the strictly earlier full prefix.",
+    "Single fixed split/seed; estimates have no confidence interval."
+  ],
+  "model_sha256": "c1eba7ef8d407250f67ab6f3a6a7288e887d31db190954f5e0b76a4375f99603"
+}

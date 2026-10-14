@@ -247,5 +247,7 @@ from .forecast_v4 import router as _forecast_v4_router
 app.include_router(_practice_router)
 app.include_router(_team_v3_router)
 app.include_router(_forecast_v4_router)
+from .musical_api import router as _musical_router
+app.include_router(_musical_router)
 
 app.mount('/web',StaticFiles(directory=ROOT/'web'),name='web')
