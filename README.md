@@ -37,6 +37,16 @@ flowchart LR
 
 La page distingue les **observations**, les **prévisions** et les **interprétations descriptives**. Une compétence peu documentée reste indéterminée. Les suggestions utilisent uniquement le catalogue historique disponible et s'abstiennent si aucun exercice adapté n'est connu. Leur efficacité éducative n'a pas été évaluée.
 
+## Phase 8 · Le parcours vivant
+
+[La nouvelle page](http://127.0.0.1:8773/web/living.html) rejoue un vrai parcours de test pas à pas. À chaque
+point de coupure, elle ne reçoit que le passé : la **constellation** des concepts source s’allume, l’**empreinte
+musicale** ajoute un sillon, et l’**observatoire** montre l’entrée réelle du GRU, ses activations enregistrées,
+sa prévision et, à la demande, le résultat révélé par le serveur. Les poids ne changent pas pendant le rejeu ;
+aucun modèle classique ne produit de prévision. [Rapport Phase 8](docs/PHASE8_LIVING_LEARNER.md).
+
+![Le parcours vivant : constellation, inspection d’un concept et machine à remonter le parcours](docs/assets/phase8/overview.png)
+
 ## Ce qui a réellement été entraîné
 
 | Base | Données longitudinales utilisables | Ce que le modèle cherche à prévoir | Utilisation actuelle |

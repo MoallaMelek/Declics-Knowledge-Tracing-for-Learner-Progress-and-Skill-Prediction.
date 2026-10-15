@@ -23,5 +23,6 @@ jobs:
           node --check web/musical-cloud.js
           node --check web/musical-demo.js
           node --check web/o08.js
+          for f in web/living/*.js; do node --check "$f"; done
       - name: Validate contracts and models
         run: python -B -m pytest -q -p no:cacheprovider

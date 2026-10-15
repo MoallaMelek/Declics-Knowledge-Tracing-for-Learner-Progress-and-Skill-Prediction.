@@ -7,7 +7,7 @@ class O08BodyLimit:
         self.app=app;self.max_bytes=max_bytes
 
     async def __call__(self,scope,receive,send):
-        if scope['type']!='http' or not scope.get('path','').startswith('/api/v6/o08'):
+        if scope['type']!='http' or not scope.get('path','').startswith(('/api/v6/o08','/api/v7/o08')):
             return await self.app(scope,receive,send)
         lengths=[v for k,v in scope.get('headers',[]) if k==b'content-length']
         try: length=int(lengths[0]) if lengths else 0
