@@ -146,7 +146,7 @@ def test_bundle_rejects_paths_and_missing_files(tmp_path):
 
 def test_notebook_code_compiles_and_required_cloud_steps():
     root = Path(__file__).resolve().parents[1]
-    for source in cloud.SOURCES:
+    for source in [*cloud.SOURCES, 'all']:
         nb = json.loads((root/'notebooks'/f'DECLIC_{source}.ipynb').read_text(encoding='utf-8'))
         assert nb['nbformat'] == 4
         code = '\n'.join(''.join(c['source']) for c in nb['cells'] if c['cell_type']=='code')
@@ -177,6 +177,8 @@ def test_registered_real_model_roundtrip_domain_and_future_exclusion(tmp_path,mo
             z.write(folder/name,name)
     destination = tmp_path/'registry'
     identifier = registry.import_bundle(bundle,destination)
+    assert json.loads((destination/'active.json').read_text()) == {'yousician':identifier}
+    assert [entry['id'] for entry in registry.entries(destination)] == [identifier]
     monkeypatch.setattr(musical_api,'REGISTRY_ROOT',destination)
     app = FastAPI(); app.include_router(musical_api.router); client = TestClient(app)
     body = {'source':'yousician','model_id':identifier,'instrument':'ukulele','query_time':4,
@@ -189,6 +191,13 @@ def test_registered_real_model_roundtrip_domain_and_future_exclusion(tmp_path,mo
     body['instrument'] = 'piano'
     assert client.post('/api/v5/musical/forecast',json=body).json()['status'] == 'abstained'
     meta = json.loads((destination/identifier/'metrics.json').read_text())
+    payload = torch.load(destination/identifier/'model.pt',weights_only=True)
+    next(iter(payload['state_dict'].values())).fill_(float('nan'))
+    torch.save(payload,destination/identifier/'model.pt')
+    meta['model_sha256'] = cloud.digest(destination/identifier/'model.pt')
+    (destination/identifier/'metrics.json').write_text(json.dumps(meta))
+    with pytest.raises(ValueError,match='Non-finite'):
+        registry.validate(destination/identifier)
     meta['splits']['test']['sha256'] = meta['splits']['train']['sha256']
     (destination/identifier/'metrics.json').write_text(json.dumps(meta))
     with pytest.raises(ValueError,match='leakage'):

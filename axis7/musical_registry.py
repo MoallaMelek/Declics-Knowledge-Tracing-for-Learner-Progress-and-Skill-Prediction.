@@ -14,7 +14,7 @@ from .data import ROOT
 REGISTRY_ROOT = ROOT / 'artifacts/models/musical-cloud'
 
 
-def validate(folder):
+def validate(folder, *, require_gate=True):
     folder = Path(folder)
     meta = json.loads((folder/'metrics.json').read_text(encoding='utf-8'))
     source = meta.get('source')
@@ -40,11 +40,14 @@ def validate(folder):
             and len(cfg['items']) < 10000):
         raise ValueError('Unsupported model dimensions')
     model = model_for(cfg['model'], cfg['K'], cfg['items'], cfg['hidden'], cfg['context'])
+    if any(not isinstance(value, torch.Tensor) or not torch.isfinite(value).all()
+           for value in payload['state_dict'].values()):
+        raise ValueError('Non-finite or invalid model tensors')
     model.load_state_dict(payload['state_dict'], strict=True); model.eval()
     metric = 'log_loss' if SOURCES[source]['binary'] else 'mae'
     val = meta['validation']; test = meta['test']
     baseline = meta['constant_train_mean_reference']['validation']
-    if not (meta['validation_gate']['accepted'] and val[metric] < baseline[metric]
+    if require_gate and not (meta['validation_gate']['accepted'] and val[metric] < baseline[metric]
             and val['observed_targets'] >= 30 and test['observed_targets'] >= 30):
         raise ValueError('Benchmark validation gate failed; research metrics retained only')
     for report in (val, test):
@@ -54,7 +57,7 @@ def validate(folder):
     return meta, model
 
 
-def install(folder, destination=REGISTRY_ROOT):
+def install(folder, destination=REGISTRY_ROOT, *, activate=True):
     meta, _ = validate(folder)
     identifier = f"{meta['source']}-{meta['model']}-s{meta['seed']}-{meta['model_sha256'][:12]}"
     target = Path(destination) / identifier
@@ -63,6 +66,11 @@ def install(folder, destination=REGISTRY_ROOT):
         src = Path(folder)/name
         if src.exists():
             shutil.copyfile(src, target/name)
+    if activate:
+        manifest_path = Path(destination) / 'active.json'
+        manifest = json.loads(manifest_path.read_text(encoding='utf-8')) if manifest_path.exists() else {}
+        manifest[meta['source']] = identifier
+        atomic_json(manifest_path, manifest)
     return identifier
 
 
@@ -84,11 +92,20 @@ def import_bundle(bundle, destination=REGISTRY_ROOT):
 
 def entries(root=REGISTRY_ROOT):
     result = []
+    manifest_path = Path(root) / 'active.json'
+    try:
+        active = json.loads(manifest_path.read_text(encoding='utf-8')) if manifest_path.exists() else None
+        if active is not None and not isinstance(active, dict):
+            return []
+    except (ValueError, OSError):
+        return []
     for folder in sorted(Path(root).glob('*')):
         if not folder.is_dir():
             continue
         try:
             meta, _ = validate(folder)
+            if active is not None and active.get(meta['source']) != folder.name:
+                continue
             result.append({'id': folder.name, 'source': meta['source'], 'instrument': meta['instrument'],
                            'target': meta['target'], 'model': meta['model'], 'test': meta['test'],
                            'validation': meta['validation'], 'scope': 'source_benchmark_only',

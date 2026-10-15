@@ -7,6 +7,12 @@ Colab ne sont pas garanties et une session peut être interrompue.
 
 ## Lancer
 
+Pour éviter la limite de sessions gratuites, le [notebook des trois bases](https://colab.research.google.com/github/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./blob/phase5/colab-musical-training/notebooks/DECLIC_all.ipynb)
+enchaîne SingPAD, AMME et Yousician sur un seul GPU. Les sorties restent séparées
+par base et architecture. Les écritures Drive sont transférées avant la fin.
+Le montage Drive dispose d'un délai de dix minutes et d'une reprise après une
+erreur temporaire. Un montage déjà actif est conservé.
+
 1. Ouvrir [AMME](https://colab.research.google.com/github/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./blob/phase5/colab-musical-training/notebooks/DECLIC_amme.ipynb),
    [SingPAD](https://colab.research.google.com/github/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./blob/phase5/colab-musical-training/notebooks/DECLIC_singpad.ipynb) ou
    [Yousician](https://colab.research.google.com/github/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./blob/phase5/colab-musical-training/notebooks/DECLIC_yousician.ipynb).
@@ -55,6 +61,8 @@ python -m axis7.musical_registry list
 L'import refuse les chemins d'archive inattendus, doublons, fichiers trop grands,
 checksums incohérents, configurations incompatibles, empreintes de découpage incohérentes et
 modèles qui n'ont pas passé le seuil de validation.
+Un import accepté devient le modèle actif de sa base. Les anciennes versions
+restent archivées ; l'interface affiche seulement la version active par base.
 
 ## Cibles et protocoles
 

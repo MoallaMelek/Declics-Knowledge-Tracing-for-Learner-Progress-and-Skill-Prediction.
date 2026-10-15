@@ -1,31 +1,44 @@
 # Vérification cloud — 15 octobre 2026
 
-Le notebook AMME a été importé dans Google Colab depuis le navigateur et son
-exécution a été lancée. La première cellule s'est terminée en 24 secondes :
+Les trois bases ont été entraînées et évaluées dans Google Colab sur un **Tesla T4**,
+avec **PyTorch 2.11.0+cu130**, à partir du code `63085813d84ae30c393f7d5a61be06cc49e30c21`.
+SingPAD a comparé DKT GRU, EnhancedGRU et l'attention causale existante. AMME et
+Yousician ont utilisé EnhancedGRU avec une sortie continue. Aucun nouveau modèle
+classique n'a été entraîné.
 
-```text
-PyTorch 2.11.0+cu130 | GPU: True
-Tesla T4
-Code revision: 9d970da55dc3f1d1ea696a65e9ad01f9acdc0081
-```
+Les entraînements ont réutilisé le même GPU pour respecter la limite gratuite de
+sessions. Les trois archives sont dans `Mon Drive/DECLIC/datasets/`. Leurs tailles
+sur Drive correspondent aux fichiers locaux. Les checksums des archives contenus
+dans les rapports cloud ont également été comparés aux rapports locaux.
 
-Cela confirme le clonage de la branche, l'installation des dépendances et l'accès
-à un GPU réel. Ce résultat n'est pas une mesure d'entraînement du modèle.
-La cellule suivante attend le montage Google Drive. L'utilisateur a explicitement
-autorisé cette permission ; le navigateur a validé le bouton de connexion, mais
-aucune confirmation de montage n'a encore été observée.
+Les checkpoints ont été sauvegardés pendant l'apprentissage. Après les exports,
+`drive.flush_and_unmount` a confirmé le transfert des écritures Drive. Les paquets
+ont ensuite été téléchargés et vérifiés localement : checksum des poids, configuration,
+tenseurs finis, provenance du découpage et seuil de validation.
 
-Les modèles publiés à cette date proviennent des entraînements **locaux CPU**
-documentés dans [PHASE5_RESULTS.md](PHASE5_RESULTS.md). Aucun modèle ni score
-GPU n'est revendiqué avant la fin effective d'un entraînement et de son évaluation.
-Les notebooks SingPAD et Yousician sont préparés et testés ; leur exécution cloud
-n'est pas encore confirmée.
+| Base | Modèle retenu sur validation | Résultat test réel | Utilisation |
+|---|---|---|---|
+| AMME | EnhancedGRU | MAE 0,1857 ; 23 cibles test | Recherche seulement : effectif sous le seuil de 30 |
+| SingPAD | Attention causale | ROC-AUC 0,6996 ; PR-AUC 0,8599 ; log-loss 0,5198 ; Brier 0,1717 | Modèle actif du benchmark de chant |
+| Yousician | EnhancedGRU | MAE 0,0905 ; RMSE 0,1341 ; 1 740 jours test | Modèle actif du benchmark d'ukulélé |
 
-Validation locale : **232 tests passent**. La
-[validation GitHub Actions](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/runs/38649780082)
-du commit ci-dessus est également terminée avec succès.
+Pour Yousician, une MAE de 0,0905 représente un écart moyen de **9,1 points sur 100**
+entre le score prévu et observé. La ROC-AUC SingPAD n'est pas un pourcentage de notes
+réussies. Ces résultats ne démontrent ni maîtrise générale, ni bénéfice pédagogique,
+ni transfert au piano personnel. Un seul découpage et une seule graine ont été utilisés.
 
-Si l'autorisation Google ne se termine pas dans le navigateur intégré, ouvrir le
-notebook dans son navigateur habituel, interrompre la cellule de montage puis la
-relancer et terminer la connexion Google. Fournir l'archive demandée au premier
-lancement seulement. Les fichiers de données et de reprise restent dans Drive.
+Les rapports complets sont dans `artifacts/phase5/cloud-report.json`. Les poids et
+métriques sont archivés dans `artifacts/models/phase5-cloud/`. Les expériences CPU
+restent conservées. `artifacts/models/musical-cloud/active.json` désigne les deux modèles
+GPU activés. L'interface affiche une version active par base et conserve l'abstention
+du carnet piano.
+
+Le [notebook commun](https://colab.research.google.com/github/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./blob/phase5/colab-musical-training/notebooks/DECLIC_all.ipynb)
+enchaîne les trois bases dans une session. Les notebooks individuels restent disponibles.
+Un montage Drive déjà valide est conservé ; sinon un délai de dix minutes et une reprise
+après `mount failed` sont prévus. Les ressources et l'autorisation Google restent externes.
+
+La reprise au milieu d'une époque est testée sur CPU et reproduit exactement les poids
+et métriques d'une exécution continue. Les checkpoints GPU ont été sauvegardés sur Drive ;
+une interruption volontaire du GPU en cours d'apprentissage n'est pas revendiquée comme
+test. Des différences numériques entre CPU et GPU sont attendues.

@@ -8,6 +8,40 @@ BRANCH = 'phase5/colab-musical-training'
 ARCHIVES = {'amme': '2gvty-osfstorage-archive.zip', 'singpad': 'singKT-dataset-main.zip',
             'yousician': 'yousician_ukulele.json.zip'}
 
+MOUNT_CODE = '''if not Path('/content/drive/MyDrive').is_dir():
+    try:
+        drive.mount('/content/drive', timeout_ms=600000)
+    except ValueError as error:
+        if not str(error).startswith('mount failed'):
+            raise
+        print('Reprise du montage Drive après une erreur temporaire.')
+        drive.mount('/content/drive', force_remount=True, timeout_ms=600000)
+'''
+
+REMAINING_CODE = '''# Reuse this GPU for the other sources: no additional Colab session required.
+from axis7.cloud_training import train, atomic_json
+import zipfile, json, shutil
+REMAINING = {'amme': '2gvty-osfstorage-archive.zip',
+             'yousician': 'yousician_ukulele.json.zip'}
+for next_source, archive_name in REMAINING.items():
+    local_archive = Path('/content') / archive_name
+    shutil.copyfile(DATA_DIR / archive_name, local_archive)
+    source_root = DRIVE_ROOT / 'phase5' / next_source / f'seed-{SEED}'
+    model_folder = source_root / 'enhanced_gru'
+    result = train(next_source, local_archive, model_folder, model_name='enhanced_gru',
+                   epochs=EPOCHS, batch_size=BATCH_SIZE, seed=SEED)
+    atomic_json(source_root / 'selection.json', {'selected': 'enhanced_gru', 'criterion': 'validation_mae'})
+    export_path = source_root / f'{next_source}-benchmark-bundle.zip'
+    with zipfile.ZipFile(export_path, 'w', zipfile.ZIP_DEFLATED) as z:
+        for name in ('model.pt', 'metrics.json', 'metrics.csv', 'history.json'):
+            z.write(model_folder / name, name)
+    print(json.dumps({'source': next_source, 'test': result['test'],
+                      'validation_gate': result['validation_gate']}, ensure_ascii=False))
+    print('Export sauvegardé :', export_path)
+drive.flush_and_unmount(timeout_ms=300000)
+print('Les trois bases sont terminées ; les écritures Drive ont été transférées.')
+'''
+
 
 def cell(kind, text):
     result = {'cell_type': kind, 'metadata': {}, 'source': text.strip().splitlines(keepends=True)}
@@ -62,7 +96,7 @@ else:
 print('Code revision:', subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip())
 '''), cell('code', f'''
 from google.colab import drive, files
-drive.mount('/content/drive')
+{MOUNT_CODE}
 DRIVE_ROOT = Path('/content/drive/MyDrive/DECLIC')
 DATA_DIR = DRIVE_ROOT / 'datasets'
 DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -128,10 +162,24 @@ Les endpoints de recherche exposent uniquement le domaine et la cible réellemen
             'language_info': {'name': 'python'}}, 'cells': cells}
 
 
+def build_all():
+    notebook = build('singpad')
+    notebook['metadata']['colab']['name'] = 'DECLIC_all.ipynb'
+    notebook['cells'][0]['source'] = ('# DÉCLIC Phase 5 — les trois bases sur un seul GPU\n\n'
+        'Ce notebook entraîne SingPAD, puis AMME et Yousician dans la même session.\n'
+        'Les checkpoints restent séparés par base et architecture sur Drive.\n'
+        'Déposer les trois archives dans `Mon Drive/DECLIC/datasets/`, puis tout exécuter.\n'
+        'La reprise est automatique après une déconnexion. Aucun abonnement payant nécessaire.\n').splitlines(keepends=True)
+    notebook['cells'].insert(6, cell('markdown', '## AMME et Yousician, sur le même GPU\n'
+        'Les sorties de chaque base restent séparées. Les écritures Drive sont transférées avant la fin.'))
+    notebook['cells'].insert(7, cell('code', REMAINING_CODE))
+    return notebook
+
+
 if __name__ == '__main__':
     destination = ROOT / 'notebooks'; destination.mkdir(exist_ok=True)
-    for source in ARCHIVES:
-        notebook = build(source)
+    for source in [*ARCHIVES, 'all']:
+        notebook = build_all() if source == 'all' else build(source)
         for i, c in enumerate(notebook['cells']):
             c['id'] = f'{source}-{i:02d}'
         (destination / f'DECLIC_{source}.ipynb').write_text(json.dumps(notebook, ensure_ascii=False, indent=1), encoding='utf-8')

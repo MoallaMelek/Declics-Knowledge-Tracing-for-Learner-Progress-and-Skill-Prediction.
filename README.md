@@ -147,3 +147,6 @@ Trois notebooks Google Colab et un pipeline PyTorch reprenable sont disponibles 
 [guide Colab](docs/PHASE5_COLAB.md). Les modèles réellement évalués sont exposés
 dans `/web/musical-cloud.html` et `/api/v5/musical/models`, dans leur domaine source.
 Les Phases 1–4 et l'abstention du carnet piano restent compatibles.
+Les trois bases ont aussi été entraînées sur un Tesla T4 dans Colab :
+[résultats GPU et vérifications d'importation](docs/PHASE5_CLOUD_VERIFICATION.md).
+Un notebook commun permet d'enchaîner les trois bases sur une seule session gratuite.
