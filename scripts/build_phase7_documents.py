@@ -59,9 +59,11 @@ def report(output,revision,ci_url,screenshots):
         Paragraph('Branche : phase7/personalized-musical-learning',ST['small']),
         Paragraph('Révision livrée : '+escape(revision),ST['small']),
         Paragraph('CI vérifiée : '+markup(ci_url),ST['small']),
-        Paragraph('Lecture : bilan et méthode ; figures ; résultats détaillés ; reproduction ; guide de démonstration ; oral ; Q&A ; résumé anglais ; vérifications.',ST['small'])]
+        Paragraph('Lecture : bilan et méthode ; figures ; résultats détaillés ; reproduction ; guide de démonstration ; oral ; Q&amp;A ; résumé anglais ; vérifications.',ST['small'])]
     for name in ['PHASE7_REPORT.md']:
-        story.append(PageBreak());story.extend(md_document(ROOT/'docs'/name))
+        story.append(PageBreak())
+        body=ST['body'].clone('report-body',leading=14,spaceAfter=7)
+        story.extend(Paragraph(p.text,body) if isinstance(p,Paragraph) and p.style.name=='body' else p for p in md_document(ROOT/'docs'/name))
     story.append(PageBreak());story.append(Paragraph('Figures issues des résultats exécutés',ST['h1']))
     captions=[('representations-singpad.png','Chaque point est un score de test réellement mesuré. La moyenne est descriptive ; aucun intervalle individuel n’est ajouté.'),
         ('calibration-singpad.png','GRU graine 42 : fréquences de test comparées aux probabilités. Le recalibrage est ajusté sur validation uniquement.'),
