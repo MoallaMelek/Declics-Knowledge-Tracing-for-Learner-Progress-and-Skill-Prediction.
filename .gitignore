@@ -9,6 +9,10 @@ data/music-phase5/raw/
 artifacts/models/phase5/**/checkpoint-*.pt
 artifacts/models/phase5/**/resume.json
 artifacts/models/phase5/**/prepared.json.gz
+artifacts/models/phase6/**/checkpoint-*.pt
+artifacts/models/phase6/**/resume.json
+artifacts/models/phase6/**/prepared.json.gz
+artifacts/phase6/private/
 
 # Local configuration and credentials
 .env

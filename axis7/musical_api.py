@@ -8,7 +8,7 @@ import numpy as np
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 import torch
 
-from .cloud_training import SOURCES, encode, forward
+from .cloud_training import SOURCES, encode, forward, apply_feature_mode
 from .musical_registry import REGISTRY_ROOT, entries, validate
 
 router = APIRouter()
@@ -114,7 +114,7 @@ def musical_forecast(body: BenchmarkQuery):
     for t in sorted(grouped):
         r = grouped[t]; r['exercise'] = '|'.join(sorted(r['exercise'])); rows.append(r)
     rows.append({'time': body.query_time, 'exercise': body.exercise, 'obs': []})
-    values = encode(rows, K, meta['items'])
+    values = apply_feature_mode(encode(rows, K, meta['items']), K, meta.get('feature_mode', 'full'))
     # Same window as training, while counts reflect full earlier history.
     context = meta['context']; length = len(rows)
     left = 0 if length <= context-1 else ((length-1)//(context-1))*(context-1)-1

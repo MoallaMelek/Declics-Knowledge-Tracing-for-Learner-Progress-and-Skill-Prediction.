@@ -1,0 +1,23 @@
+{
+  "version": "phase6-preregistered-v1",
+  "seeds": [42, 17, 83],
+  "epochs": 12,
+  "batch_size": 16,
+  "hidden": 48,
+  "context": 64,
+  "bootstrap_repeats": 1000,
+  "singpad_architectures": ["dkt", "enhanced_gru", "item_attention"],
+  "continuous_architectures": ["enhanced_gru"],
+  "controls": ["train_mean", "previous", "rolling3", "ewma", "frequency"],
+  "ewma_alpha": 0.5,
+  "rolling_groups": 3,
+  "prior_pseudocount": 2,
+  "ablations_seed_42": [
+    {"model": "enhanced_gru", "feature_mode": "no_counts", "context": 64},
+    {"model": "enhanced_gru", "feature_mode": "no_recent", "context": 64},
+    {"model": "item_attention", "feature_mode": "no_items", "context": 64},
+    {"model": "enhanced_gru", "feature_mode": "full", "context": 16}
+  ],
+  "selection": "architecture and historical control on validation only; test never selects",
+  "scope": "new learners; source-specific targets; no educational efficacy claim"
+}

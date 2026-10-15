@@ -334,10 +334,18 @@ def encode(rows, K, items):
     return x, pi, ci, diff, y, w
 
 
-def windows(learners, ids, K, items, context):
+def apply_feature_mode(values, K, mode='full'):
+    if mode == 'no_counts': values[0][:, 2*K:] = 0
+    elif mode == 'no_recent': values[0][:, :2*K] = 0
+    elif mode == 'no_items': values[1][:] = 0; values[2][:] = 0
+    elif mode != 'full': raise ValueError('Unknown controlled ablation')
+    return values
+
+
+def windows(learners, ids, K, items, context, feature_mode='full'):
     samples = []
     for p in ids:
-        encoded = encode(learners[p], K, items)
+        encoded = apply_feature_mode(encode(learners[p], K, items), K, feature_mode)
         # Nonoverlapping target chunks; full past counts, one warm-up before chunks.
         for start in range(0, len(learners[p]), context - 1):
             stop = min(start + context - 1, len(learners[p]))
@@ -442,6 +450,8 @@ def load_resume(directory):
     if not path.exists():
         return None
     for entry in json.loads(path.read_text())['files']:
+        if not re.fullmatch(r'checkpoint-\d+\.pt', entry['name']):
+            raise ValueError('Unsafe checkpoint path')
         candidate = path.parent / entry['name']
         if candidate.exists() and digest(candidate) == entry['sha256']:
             return torch.load(candidate, map_location='cpu', weights_only=True)
@@ -449,7 +459,8 @@ def load_resume(directory):
 
 
 def train(source, archive, output, *, model_name='enhanced_gru', epochs=12,
-          batch_size=16, hidden=48, context=64, seed=42, checkpoint_batches=25, resume=True):
+          batch_size=16, hidden=48, context=64, seed=42, checkpoint_batches=25, resume=True,
+          feature_mode='full'):
     output = Path(output); output.mkdir(parents=True, exist_ok=True)
     torch.set_num_threads(min(4, torch.get_num_threads()))
     random.seed(seed); np.random.seed(seed); torch.manual_seed(seed)
@@ -464,8 +475,9 @@ def train(source, archive, output, *, model_name='enhanced_gru', epochs=12,
     cfg = {'version': VERSION, 'preprocessing': PREPROCESSING[source],
            'source': source, 'sha256': prepared['sha256'], 'seed': seed,
            'model': model_name, 'hidden': hidden, 'context': context, 'K': K, 'items': items,
-           'batch_size': batch_size, 'protocol': 'learner_disjoint_70_15_15', 'splits': splits}
-    sets = {key: windows(learners, ids, K, items, context) for key, ids in splits.items()}
+           'batch_size': batch_size, 'feature_mode': feature_mode,
+           'protocol': 'learner_disjoint_70_15_15', 'splits': splits}
+    sets = {key: windows(learners, ids, K, items, context, feature_mode) for key, ids in splits.items()}
     model = model_for(model_name, K, items, hidden, context).to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=.001, weight_decay=.001)
     binary = SOURCES[source]['binary']; criterion = nn.BCEWithLogitsLoss(reduction='none') if binary else None
