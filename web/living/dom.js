@@ -54,12 +54,19 @@
     const c = x >= 0 ? pos : neg;
     return `rgb(${base.map((b, j) => Math.round(b + (c[j] - b) * t)).join(',')})`;
   }
+  // Eased animation; the timer guarantees the final state when frames are paused (background tab, throttling).
   function tween(duration, step) {
     if (reducedMotion() || duration <= 0) { step(1); return () => {}; }
-    let raf = 0; const start = performance.now();
-    const frame = now => { const t = Math.min(1, (now - start) / duration); step(1 - Math.pow(1 - t, 3)); if (t < 1) raf = requestAnimationFrame(frame); };
+    let raf = 0, done = false; const start = performance.now();
+    const finish = () => { if (!done) { done = true; cancelAnimationFrame(raf); step(1); } };
+    const frame = now => {
+      if (done) return;
+      const t = Math.min(1, (now - start) / duration); step(1 - Math.pow(1 - t, 3));
+      if (t < 1) raf = requestAnimationFrame(frame); else done = true;
+    };
     raf = requestAnimationFrame(frame);
-    return () => cancelAnimationFrame(raf);
+    const timer = setTimeout(finish, duration + 120);
+    return () => { done = true; cancelAnimationFrame(raf); clearTimeout(timer); };
   }
   L.dom = {h, s, put, table, reducedMotion, ramp, activation, tween, NS};
 })(window.Living = window.Living || {});

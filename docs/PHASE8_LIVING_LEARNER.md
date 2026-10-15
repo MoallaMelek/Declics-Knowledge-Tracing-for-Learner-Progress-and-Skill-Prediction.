@@ -71,11 +71,18 @@ Demo links open a prepared view: `?source=singpad&learner=01&cutoff=20&concept=3
 ## Verification performed
 
 * `pytest`: **329 passed** (315 inherited + 14 Phase 8), including the Node harness
-  `tests/frontend/living_check.js` (31 checks on real API payloads) and a real-data test
+  `tests/frontend/living_check.js` (32 checks on real API payloads) and a real-data test
   (skipped when the private archive is absent) reproducing the Phase 7 demo forecast at cutoff 3.
 * Browser QA in the app's browser and headless Edge at 1440×900, mobile 375×812: no console errors, no
-  horizontal overflow, keyboard navigation of the sky, playback ×2 stopping at the end, 5 cutoffs fetched
-  for 5 visited (no prefetch), reveal round-trip, research mode, Yousician view.
+  horizontal overflow, keyboard navigation of the sky, mouse selection of a star, playback ×2 stopping at the
+  end, 5 cutoffs fetched for 5 visited (no prefetch), reveal round-trip, expired-receipt recovery, research
+  mode, Yousician view.
+* Live synchronisation check (script run in the browser): moving 12 → 20 → 4, timeline, slider, readout,
+  constellation, fingerprint rings, observatory and URL agreed at every step; back at 4 the sky contracted
+  from 72 to 45 stars and showed no concept that only appears later. This check is manual, not in CI.
+* Independent review: a fresh read-only Codex session (`codex exec review --base phase7/…`) found two P2 bugs,
+  both fixed and re-verified in the browser: pointer capture prevented mouse selection of stars; a cached
+  cutoff kept an expired reveal receipt (the client now refetches that cutoff once and retries).
 * Latency on CPU: 20–190 ms for a first visit of a cutoff (all earlier forecasts are cached after); visited
   cutoffs are instant.
 

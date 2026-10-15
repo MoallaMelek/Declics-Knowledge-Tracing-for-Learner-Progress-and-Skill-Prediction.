@@ -70,7 +70,15 @@
     const snap = store.get().snapshot; if (!snap || !snap.reveal_receipt) return;
     status('Demande du résultat réel au serveur, avec le reçu de la prévision…');
     try {
-      const rv = await client.reveal(snap.reveal_receipt);
+      let rv;
+      try { rv = await client.reveal(snap.reveal_receipt); }
+      catch (e) {
+        if (e.status !== 409) throw e;
+        // Receipt expired while the cutoff sat in the cache: fetch the same cutoff again and retry once.
+        const fresh = A.assertCausal(await client.state(snap.source, snap.learner, snap.cutoff, {fresh: true}));
+        if (!fresh.reveal_receipt || JSON.stringify(fresh.forecast.predictions) !== JSON.stringify(snap.forecast.predictions)) throw e;
+        rv = await client.reveal(fresh.reveal_receipt);
+      }
       const now = store.get().snapshot;
       if (!now || A.revealKey(now) !== A.revealKey(snap)) return;
       if (!A.acceptReveal(snap, rv)) throw new Error('Révélation incohérente avec la prévision affichée ; elle est ignorée.');

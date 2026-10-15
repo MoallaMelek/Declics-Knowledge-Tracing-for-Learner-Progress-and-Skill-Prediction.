@@ -162,7 +162,12 @@
 
     // Pointer: click selects, drag pans, ctrl/cmd + wheel zooms (plain wheel keeps scrolling the page).
     let drag = null;
-    svg.addEventListener('pointerdown', e => { drag = {x: e.clientX, y: e.clientY, vx: view.x, vy: view.y, moved: false}; svg.setPointerCapture(e.pointerId); });
+    svg.addEventListener('pointerdown', e => {
+      // Pointer capture retargets pointerup to the SVG, so the star under the press is remembered here.
+      const node = e.target.closest && e.target.closest('.node');
+      drag = {x: e.clientX, y: e.clientY, vx: view.x, vy: view.y, moved: false, k: node ? Number(node.dataset.k) : null};
+      svg.setPointerCapture(e.pointerId);
+    });
     svg.addEventListener('pointermove', e => {
       if (drag) {
         const box = svg.getBoundingClientRect(), scale = 1040 / Math.min(box.width, box.height) / view.k;
@@ -184,8 +189,7 @@
     }
     svg.addEventListener('pointerup', e => {
       if (drag && !drag.moved) {
-        const g = e.target.closest && e.target.closest('.node');
-        if (g) select(Number(g.dataset.k)); else if (store.get().selected !== null) select(null, {reset: false});
+        if (drag.k !== null) select(drag.k); else if (store.get().selected !== null) select(null, {reset: false});
       }
       drag = null;
     });

@@ -70,6 +70,8 @@ const throws = fn => { try { fn(); return false; } catch (e) { return true; } };
   await client.state('yousician', '01', 3); await client.state('yousician', '01', 4); await client.state('yousician', '01', 3);
   check('visited cutoffs are served from cache', log.length === 2 && client.visitedCount() === 2);
   check('no cutoff is requested ahead of the user', log.every(u => /cutoff=(3|4)$/.test(u)));
+  await client.state('yousician', '01', 3, {fresh: true});
+  check('an expired receipt can be refreshed by refetching the same cutoff', log.length === 3 && /cutoff=3$/.test(log[2]));
   const slow = client.state('yousician', '01', 6); const fast = client.state('yousician', '01', 7);
   await fast; await slow.catch(() => null);
   check('a superseded request is aborted', signals.length >= 4 && signals[signals.length - 2].aborted);

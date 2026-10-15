@@ -27,8 +27,9 @@
     return {
       learners: source => call(`${BASE}/learners?source=${encodeURIComponent(source)}`),
       cached: (source, learner, cutoff) => visited.get(key(source, learner, cutoff)) || null,
-      async state(source, learner, cutoff) {
+      async state(source, learner, cutoff, {fresh = false} = {}) {
         const k = key(source, learner, cutoff);
+        if (fresh) visited.delete(k);   // e.g. a reveal receipt older than its 30-minute validity
         if (visited.has(k)) return visited.get(k);
         if (controller) controller.abort();
         controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
