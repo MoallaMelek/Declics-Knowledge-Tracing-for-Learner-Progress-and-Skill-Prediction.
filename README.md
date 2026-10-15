@@ -15,7 +15,7 @@
 
 </div>
 
-![Démonstration DÉCLIC : historique musical réel et résultat futur masqué](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./blob/phase7/personalized-musical-learning/docs/assets/phase7/overview.png)
+![Démonstration DÉCLIC : historique musical réel et résultat futur masqué](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./blob/phase7/personalized-musical-learning/docs/assets/phase7/overview.png?raw=true)
 
 DÉCLIC aide à lire un parcours d'apprentissage musical : les résultats déjà observés, la prévision d'un réseau entraîné, puis la comparaison avec le résultat réellement obtenu. L'axe 7 reçoit les mesures des autres axes du projet ; l'analyse du son, du rythme ou de la technique reste leur responsabilité.
 
@@ -61,7 +61,7 @@ Moyennes sur les trois séparations ; **plus bas = meilleur**. Le modèle neuron
 
 L'extension Yousician enrichie par le contexte historique n'améliore pas clairement la moyenne. Le recalibrage des probabilités n'aide pas systématiquement. Les séparations réutilisent la cohorte Phase 6 : elles ne remplacent pas une confirmation sur une nouvelle cohorte.
 
-![Comparaison des représentations sur SingPAD : résultats mesurés sur trois séparations](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./blob/phase7/personalized-musical-learning/artifacts/phase7/figures/representations-singpad.png)
+![Comparaison des représentations sur SingPAD : résultats mesurés sur trois séparations](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./blob/phase7/personalized-musical-learning/artifacts/phase7/figures/representations-singpad.png?raw=true)
 
 [Tableaux complets et limites](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./blob/phase7/personalized-musical-learning/docs/PHASE7_RESULTS.md) · [Résumé vérifiable en JSON](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./blob/phase7/personalized-musical-learning/artifacts/phase7/summary.json) · [Provenance des exécutions](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./blob/phase7/personalized-musical-learning/artifacts/phase7/execution-provenance.json)
 
