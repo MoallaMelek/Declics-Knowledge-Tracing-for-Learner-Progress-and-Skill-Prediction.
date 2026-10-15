@@ -4,7 +4,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REPO = 'https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction..git'
-BRANCH = 'phase5/colab-musical-training'
+BRANCH = 'phase6/scientific-validation'
 ARCHIVES = {'amme': '2gvty-osfstorage-archive.zip', 'singpad': 'singKT-dataset-main.zip',
             'yousician': 'yousician_ukulele.json.zip'}
 
@@ -26,7 +26,7 @@ REMAINING = {'amme': '2gvty-osfstorage-archive.zip',
 for next_source, archive_name in REMAINING.items():
     local_archive = Path('/content') / archive_name
     shutil.copyfile(DATA_DIR / archive_name, local_archive)
-    source_root = DRIVE_ROOT / 'phase5' / next_source / f'seed-{SEED}'
+    source_root = DRIVE_ROOT / 'phase6' / next_source / f'seed-{SEED}'
     model_folder = source_root / 'enhanced_gru'
     result = train(next_source, local_archive, model_folder, model_name='enhanced_gru',
                    epochs=EPOCHS, batch_size=BATCH_SIZE, seed=SEED)
@@ -51,7 +51,9 @@ def cell(kind, text):
 
 
 def build(source):
-    cells = [cell('markdown', f'''# DÉCLIC Phase 5 — {source.upper()}
+    cells = [cell('markdown', f'''# DÉCLIC Phase 6 — {source.upper()}
+Les anciens résultats SingPAD sont invalides : le tri de dates est corrigé et
+les sorties sont séparées dans phase6. Ne pas reprendre les checkpoints Phase 5.
 Entraînement PyTorch réel. Ouvrir ce notebook, choisir **Exécution → Modifier le type
 d'exécution → GPU** si disponible, puis **Tout exécuter**. Le CPU fonctionne aussi.
 Autoriser Google Drive quand Google le demande. Aucun abonnement payant nécessaire.
@@ -111,7 +113,7 @@ if not drive_archive.is_file():
     del uploaded
 LOCAL_ARCHIVE = Path('/content') / ARCHIVE_NAME
 shutil.copyfile(drive_archive, LOCAL_ARCHIVE)
-RUN_ROOT = DRIVE_ROOT / 'phase5' / SOURCE / f'seed-{{SEED}}'
+RUN_ROOT = DRIVE_ROOT / 'phase6' / SOURCE / f'seed-{{SEED}}'
 RUN_ROOT.mkdir(parents=True, exist_ok=True)
 print('Données prêtes. Checkpoints et métriques :', RUN_ROOT)
 '''), cell('markdown', '''## Entraîner et reprendre
@@ -165,11 +167,12 @@ Les endpoints de recherche exposent uniquement le domaine et la cible réellemen
 def build_all():
     notebook = build('singpad')
     notebook['metadata']['colab']['name'] = 'DECLIC_all.ipynb'
-    notebook['cells'][0]['source'] = ('# DÉCLIC Phase 5 — les trois bases sur un seul GPU\n\n'
+    notebook['cells'][0]['source'] = ('# DÉCLIC Phase 6 — les trois bases sur un seul GPU\n\n'
         'Ce notebook entraîne SingPAD, puis AMME et Yousician dans la même session.\n'
         'Les checkpoints restent séparés par base et architecture sur Drive.\n'
         'Déposer les trois archives dans `Mon Drive/DECLIC/datasets/`, puis tout exécuter.\n'
-        'La reprise est automatique après une déconnexion. Aucun abonnement payant nécessaire.\n').splitlines(keepends=True)
+        'La reprise est automatique après une déconnexion. Aucun abonnement payant nécessaire.\n'
+        'Les anciennes sorties SingPAD Phase 5 sont invalidées et ne sont pas réutilisées.\n').splitlines(keepends=True)
     notebook['cells'].insert(6, cell('markdown', '## AMME et Yousician, sur le même GPU\n'
         'Les sorties de chaque base restent séparées. Les écritures Drive sont transférées avant la fin.'))
     notebook['cells'].insert(7, cell('code', REMAINING_CODE))

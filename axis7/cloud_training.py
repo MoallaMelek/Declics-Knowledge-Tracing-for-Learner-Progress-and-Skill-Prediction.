@@ -15,6 +15,10 @@ import json
 import math
 from pathlib import Path
 import random
+import re
+import subprocess
+import platform
+from datetime import datetime
 import time
 import zipfile
 
@@ -26,7 +30,34 @@ from sklearn.metrics import average_precision_score, roc_auc_score
 from .models import DKT
 from .models_v2 import EnhancedGRU, SimpleKTStyleAttention
 
-VERSION = 'musical-cloud-v1'
+VERSION = 'musical-cloud-v2'
+PREPROCESSING = {'singpad': 'singpad-datetime-v2', 'amme': 'amme-block-v1',
+                 'yousician': 'yousician-active-day-v1'}
+
+
+def parse_singpad_time(value):
+    """Explicit local calendar formats; no timezone or locale inference."""
+    if not isinstance(value, str):
+        raise ValueError('SingPAD timestamp must be a string')
+    match = re.fullmatch(r'(\d{4})([/\-])(\d{1,2})\2(\d{1,2})[ T](\d{1,2}):(\d{2})(?::(\d{2}))?', value)
+    if match is None:
+        raise ValueError('Unsupported SingPAD local timestamp format')
+    year, _, month, day, hour, minute, second = match.groups()
+    try:
+        return datetime(int(year), int(month), int(day), int(hour), int(minute), int(second or 0))
+    except ValueError as error:
+        raise ValueError('Invalid SingPAD calendar timestamp') from error
+
+
+def chronological_audit(learners):
+    """Check parsed local times, strictly increasing atomic groups, no raw IDs."""
+    inversions = duplicates = 0
+    for rows in learners.values():
+        times = [parse_singpad_time(r['time']) for r in rows]
+        inversions += sum(a > b for a, b in zip(times, times[1:]))
+        duplicates += len(times) - len(set(times))
+    return {'learners': len(learners), 'time_groups': sum(map(len, learners.values())),
+            'chronological_inversions': inversions, 'duplicate_time_groups': duplicates}
 SOURCES = {
     'amme': {'instrument': 'keyboard', 'target': 'next_block_pitch_dtw_coverage_adjusted_score',
              'citation': 'Chmiel et al. (2025), doi:10.1371/journal.pone.0320055; OSF 2GVTY',
@@ -155,15 +186,21 @@ def load_singpad(path):
             if len(questions) != len(outcomes):
                 raise ValueError('Invalid recording arrays')
             # Timestamp precision is a minute, with no timezone. Ties form one unit.
-            key = (str(r['user_id']), str(r['create_time']))
-            g = grouped.setdefault(key, {'exercises': set(), 'obs': []})
+            parsed_time = parse_singpad_time(r['create_time'])
+            key = (str(r['user_id']), parsed_time)
+            g = grouped.setdefault(key, {'exercises': set(), 'obs': [], 'original_timestamps': set(),
+                                         'recording_count': 0})
             g['exercises'].add(str(r['opern_id']))
+            g['original_timestamps'].add(r['create_time'])
+            g['recording_count'] += 1
             for q, y in zip(questions, outcomes):
                 if y not in (0, 1):
                     raise ValueError('Invalid note outcome')
                 g['obs'].append([mapping[(str(r['opern_id']), str(q))], int(y), 1.])
-    rows = [{'learner': p, 'time': t, 'exercise': '|'.join(sorted(g['exercises'])),
-             'difficulty': 0., 'obs': g['obs']} for (p, t), g in grouped.items()]
+    rows = [{'learner': p, 'time': t.isoformat(), 'exercise': '|'.join(sorted(g['exercises'])),
+             'original_timestamps': sorted(g['original_timestamps']),
+             'recording_count': g['recording_count'],
+             'difficulty': 0., 'obs': g['obs']} for (p, t), g in sorted(grouped.items())]
     return rows, {'recordings': len(seen), 'exact_duplicates_excluded': duplicate,
                   'note_labels': sum(len(r['obs']) for r in rows),
                   'unit': 'entire recording; equal timestamps hidden together',
@@ -224,14 +261,25 @@ def prepare(source, archive, cache):
     if cache.exists():
         with gzip.open(cache, 'rt', encoding='utf-8') as f:
             result = json.load(f)
-        if result['sha256'] == fingerprint and result['version'] == VERSION and result['source'] == source:
+        if (result['sha256'] == fingerprint and result['version'] == VERSION
+                and result.get('preprocessing') == PREPROCESSING[source] and result['source'] == source):
+            if source == 'singpad':
+                audit = chronological_audit(result['learners'])
+                if audit['chronological_inversions'] or audit['duplicate_time_groups']:
+                    raise ValueError('Corrupt chronological cache')
             return result
     rows, audit = {'amme': load_amme, 'singpad': load_singpad, 'yousician': load_yousician}[source](archive)
     learners = defaultdict(list)
     for row in rows:
         learners[row.pop('learner')].append(row)
-    learners = {p: sorted(rs, key=lambda r: r['time']) for p, rs in learners.items() if len(rs) >= 2}
-    result = {'version': VERSION, 'source': source, 'sha256': fingerprint,
+    audit['single_group_learners_excluded'] = sum(len(rs) < 2 for rs in learners.values())
+    order = (lambda r: parse_singpad_time(r['time'])) if source == 'singpad' else (lambda r: r['time'])
+    learners = {p: sorted(rs, key=order) for p, rs in learners.items() if len(rs) >= 2}
+    if source == 'singpad':
+        audit['chronology'] = chronological_audit(learners)
+        if audit['chronology']['chronological_inversions'] or audit['chronology']['duplicate_time_groups']:
+            raise ValueError('SingPAD chronological integrity failed')
+    result = {'version': VERSION, 'preprocessing': PREPROCESSING[source], 'source': source, 'sha256': fingerprint,
               'learners': learners, 'audit': audit}
     cache.parent.mkdir(parents=True, exist_ok=True)
     temp = cache.with_suffix('.tmp')
@@ -347,15 +395,19 @@ def measure(model, name, samples, device, binary, batch_size, constant=None):
               'mae': avg(abs(y-p)), 'rmse': math.sqrt(avg((y-p)**2))}
     if binary:
         result.update(log_loss=avg(-y*np.log(p)-(1-y)*np.log1p(-p)),
-                      brier=avg(y*(1-p)**2+(1-y)*p**2))
+                      brier=avg(y*(1-p)**2+(1-y)*p**2),
+                      mae_note=avg(y*(1-p)+(1-y)*p),
+                      rmse_note=math.sqrt(avg(y*(1-p)**2+(1-y)*p**2)))
         # Exact weighted binary metrics from concept-level success/failure counts.
         labels = np.concatenate((np.ones(len(y)), np.zeros(len(y))))
         scores = np.tile(p, 2); counts = np.concatenate((w*y, w*(1-y)))
         result['roc_auc'] = float(roc_auc_score(labels, scores, sample_weight=counts)) if min(counts[:len(y)].sum(), counts[len(y):].sum()) > 0 else None
         result['pr_auc'] = float(average_precision_score(labels, scores, sample_weight=counts)) if counts[:len(y)].sum() > 0 else None
         bins = []
-        for lo in np.linspace(0, .9, 10):
-            keep = (p >= lo) & (p < lo + .10000001)
+        assignments = np.minimum((p*10).astype(int), 9)
+        for bin_index in range(10):
+            lo = bin_index / 10
+            keep = assignments == bin_index
             if keep.any():
                 bins.append({'lower': float(lo), 'weight': float(w[keep].sum()),
                              'prediction': float(np.average(p[keep], weights=w[keep])),
@@ -409,7 +461,8 @@ def train(source, archive, output, *, model_name='enhanced_gru', epochs=12,
     learners = prepared['learners']; splits = split_learners(learners, seed)
     K = max(o[0] for rs in learners.values() for r in rs for o in r['obs']) + 1
     items = fit_items(learners, splits['train'])
-    cfg = {'version': VERSION, 'source': source, 'sha256': prepared['sha256'], 'seed': seed,
+    cfg = {'version': VERSION, 'preprocessing': PREPROCESSING[source],
+           'source': source, 'sha256': prepared['sha256'], 'seed': seed,
            'model': model_name, 'hidden': hidden, 'context': context, 'K': K, 'items': items,
            'batch_size': batch_size, 'protocol': 'learner_disjoint_70_15_15', 'splits': splits}
     sets = {key: windows(learners, ids, K, items, context) for key, ids in splits.items()}
@@ -471,7 +524,17 @@ def train(source, archive, output, *, model_name='enhanced_gru', epochs=12,
     key = 'log_loss' if binary else 'mae'
     accepted = validation[key] < base_val[key] and validation['observed_targets'] >= 30 and test['observed_targets'] >= 30
     public_cfg = {**cfg, 'splits': public_split_provenance(splits)}
+    try:
+        revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True,
+                                          cwd=Path(__file__).resolve().parents[1]).strip()
+        dirty = bool(subprocess.check_output(['git', 'status', '--porcelain', '--untracked-files=no'],
+                                            text=True, cwd=Path(__file__).resolve().parents[1]).strip())
+    except (OSError, subprocess.SubprocessError):
+        revision, dirty = None, None
     metadata = {**public_cfg, **SOURCES[source], 'device': str(device), 'epochs_completed': epoch,
+        'execution': {'code_revision': revision, 'tracked_worktree_dirty': dirty,
+                      'python': platform.python_version(), 'torch': torch.__version__,
+                      'numpy': np.__version__},
         'audit': prepared['audit'], 'validation': validation, 'test': test,
         'constant_train_mean_reference': {'mean': prior, 'validation': base_val, 'test': base_test},
         'validation_gate': {'accepted': bool(accepted), 'rule': 'validation improves train-only mean; >=30 validation/test targets',

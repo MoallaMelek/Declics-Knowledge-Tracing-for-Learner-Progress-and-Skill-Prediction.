@@ -1,0 +1,19 @@
+{
+  "version": "musical-cloud-v2",
+  "preprocessing": "singpad-datetime-v2",
+  "archive_sha256": "9e87e3ccb4bbc6e90a571a28a989168f0c7e49a332c633de328e5c5660773b64",
+  "audit": {
+    "recordings": 19892,
+    "exact_duplicates_excluded": 0,
+    "note_labels": 1081876,
+    "unit": "entire recording; equal timestamps hidden together",
+    "timezone": "source local time, unspecified; never converted to UTC",
+    "single_group_learners_excluded": 32,
+    "chronology": {
+      "learners": 1042,
+      "time_groups": 18328,
+      "chronological_inversions": 0,
+      "duplicate_time_groups": 0
+    }
+  }
+}

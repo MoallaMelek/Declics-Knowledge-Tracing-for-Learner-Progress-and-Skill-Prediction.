@@ -8,7 +8,7 @@ import zipfile
 
 import torch
 
-from .cloud_training import SOURCES, VERSION, atomic_json, digest, model_for
+from .cloud_training import SOURCES, VERSION, PREPROCESSING, atomic_json, digest, model_for
 from .data import ROOT
 
 REGISTRY_ROOT = ROOT / 'artifacts/models/musical-cloud'
@@ -18,8 +18,15 @@ def validate(folder, *, require_gate=True):
     folder = Path(folder)
     meta = json.loads((folder/'metrics.json').read_text(encoding='utf-8'))
     source = meta.get('source')
-    if source not in SOURCES or meta.get('version') != VERSION:
+    if source not in SOURCES or meta.get('version') not in (VERSION, 'musical-cloud-v1'):
         raise ValueError('Unknown dataset/implementation')
+    if source == 'singpad':
+        if meta.get('version') != VERSION or meta.get('preprocessing') != PREPROCESSING['singpad']:
+            raise ValueError('Invalid historical SingPAD chronology; retraining required')
+        chronology = meta.get('audit', {}).get('chronology', {})
+        if (chronology.get('chronological_inversions') != 0 or chronology.get('duplicate_time_groups') != 0
+                or chronology.get('learners', 0) < 10):
+            raise ValueError('Missing or failed SingPAD chronological audit')
     if meta.get('instrument') != SOURCES[source]['instrument'] or meta.get('target') != SOURCES[source]['target']:
         raise ValueError('Incompatible source domain/target')
     if digest(folder/'model.pt') != meta.get('model_sha256'):

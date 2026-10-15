@@ -1,6 +1,7 @@
 """Explicit real-source research forecasts, separate from personal piano practice."""
 from typing import Literal
 import math
+import json
 
 from fastapi import APIRouter, HTTPException
 import numpy as np
@@ -73,6 +74,14 @@ def musical_forecast(body: BenchmarkQuery):
     folder = REGISTRY_ROOT / body.model_id
     if not folder.is_dir():
         raise HTTPException(404, 'Unknown registered musical model')
+    manifest = REGISTRY_ROOT / 'active.json'
+    if manifest.exists():
+        try:
+            active = json.loads(manifest.read_text(encoding='utf-8'))
+        except (ValueError, OSError):
+            raise HTTPException(503, 'Model registry temporarily unavailable')
+        if not isinstance(active, dict) or active.get(body.source) != body.model_id:
+            return {'status': 'abstained', 'reason': 'inactive_model', 'predictions': None}
     try:
         meta, model = validate(folder)
     except (ValueError, OSError, KeyError, RuntimeError):

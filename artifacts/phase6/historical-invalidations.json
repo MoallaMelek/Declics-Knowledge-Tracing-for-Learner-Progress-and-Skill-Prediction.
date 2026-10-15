@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-15",
+  "source": "singpad",
+  "affected_schema": "musical-cloud-v1",
+  "status": "historically_executed_methodologically_invalid",
+  "reason": "Raw unpadded date strings were sorted lexicographically; future evidence could enter prefixes.",
+  "audit": {"learners": 1042, "affected_histories": 340, "adjacent_inversions": 478, "time_groups": 18328},
+  "archives_preserved": ["artifacts/models/phase5/singpad", "artifacts/models/phase5-cloud/singpad"],
+  "new_preprocessing": "singpad-datetime-v2",
+  "promotion_requires": "Fresh weights/checkpoints, zero parsed chronology inversions and independent corrected evaluation"
+}
