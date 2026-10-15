@@ -202,6 +202,29 @@ def test_frontend_adapters_and_network_layer_with_real_payloads(env, tmp_path):
     assert 'checks passed' in run.stdout
 
 
+@pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is not installed')
+def test_living_page_keeps_its_four_views_synchronised_and_causal(env, tmp_path):
+    """Runs web/living.html's real scripts in Node against served payloads while the cutoff moves (manual check in Phase 8)."""
+    client, _, data = env
+    learners = client.get('/api/v7/o08/living/learners?source=yousician').json()
+    longest = max(learners['learners'], key=lambda l: l['steps']); token, steps = longest['token'], longest['steps']
+    assert steps >= 8
+    q = f'source=yousician&learner={token}'
+    fixtures = tmp_path/'living-sync-fixtures.json'
+    fixtures.write_text(json.dumps({
+        'source': 'yousician', 'token': token, 'learners': learners,
+        # Server side of the stub: the page may only receive the cutoffs it asks for.
+        'states': {c: state(client, c, token) for c in range(1, steps+1)},
+        'inspections': {c: client.get(f'/api/v7/o08/living/inspect?{q}&cutoff={c}').json() for c in range(1, steps)},
+        # Test-only ground truth, used to prove that no outcome at or after the cutoff reaches the page state.
+        'outcomes': [row['obs'][0][1] for row in rows_of(client, data, token)]}), encoding='utf-8')
+    run = subprocess.run(['node', str(ROOT/'tests/frontend/living_sync_check.js'), str(ROOT/'web'), str(fixtures)],
+                         capture_output=True, text=True, encoding='utf-8', timeout=120)
+    print(run.stdout)
+    assert run.returncode == 0, run.stdout+run.stderr
+    assert 'checks passed' in run.stdout
+
+
 @pytest.mark.skipif(not (ROOT/'runtime/musical-demo/singpad-prepared.json.gz').exists(), reason='private held-out data not installed')
 def test_real_learner_01_reproduces_the_phase7_demo_forecast():
     from axis7 import o08_demo, server

@@ -79,7 +79,15 @@ Demo links open a prepared view: `?source=singpad&learner=01&cutoff=20&concept=3
   mode, Yousician view.
 * Live synchronisation check (script run in the browser): moving 12 → 20 → 4, timeline, slider, readout,
   constellation, fingerprint rings, observatory and URL agreed at every step; back at 4 the sky contracted
-  from 72 to 45 stars and showed no concept that only appears later. This check is manual, not in CI.
+  from 72 to 45 stars and showed no concept that only appears later. The same check now runs in CI:
+  `tests/frontend/living_sync_check.js` (from `test_living_page_keeps_its_four_views_synchronised_and_causal`)
+  loads the scripts listed by `living.html` in Node with a minimal DOM parsed from the page, a virtual clock and
+  served payloads from the fake Yousician fixture. It moves 2 → 6 → 9 → 4 (slider drag, End key), checks store,
+  slider, readout, track, constellation, fingerprint rings, observatory heading, URL and status at every stop,
+  then a slow aborted request, a late answer losing to a cached cutoff, playback ×2 stopping at the last step,
+  lazy GRU inspection, one request per cutoff the user is on and no later outcome in the page state
+  (131 checks; each of 10 deliberate regressions of the page scripts makes it fail). The fixture has a single
+  Yousician indicator (K = 1): the many-concept SingPAD sky is still checked only in the browser.
 * Independent review: a fresh read-only Codex session (`codex exec review --base phase7/…`) found two P2 bugs,
   both fixed and re-verified in the browser: pointer capture prevented mouse selection of stars; a cached
   cutoff kept an expired reveal receipt (the client now refetches that cutoff once and retries).
