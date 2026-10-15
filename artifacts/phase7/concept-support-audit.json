@@ -1,0 +1,20 @@
+{
+  "42": {
+    "vocabulary_capacity": 270,
+    "train_observed_concepts": 270,
+    "test_only_concepts": [],
+    "unobserved_training_indices": []
+  },
+  "17": {
+    "vocabulary_capacity": 270,
+    "train_observed_concepts": 270,
+    "test_only_concepts": [],
+    "unobserved_training_indices": []
+  },
+  "83": {
+    "vocabulary_capacity": 270,
+    "train_observed_concepts": 270,
+    "test_only_concepts": [],
+    "unobserved_training_indices": []
+  }
+}

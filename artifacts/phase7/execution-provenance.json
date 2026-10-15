@@ -1,0 +1,36 @@
+{
+  "baseline_commit": "40351233d5652be9c6c8e1af5f6ea79d0cee8361",
+  "protocol_commit": "9641219fa55364eda069e2823cd98fdde788daa5",
+  "dense_experiment_source_commit": "63a8e4b7c208f3ce4c9e388351fa5c5d2494b662",
+  "sparse_source_commit": "2e587cf81e32e2a493d39867d7432f99acf13f72",
+  "context_protocol_commit": "4be1ec2e32485b43668b2542e21f68d4f583fccb",
+  "core_completed_runs": 33,
+  "additional_context_runs": 3,
+  "interrupted_dense_runs_not_in_tables": 1,
+  "actual_core_source_fingerprints": {
+    "1cab88ce972e9209f01ae4ce56e279ef9fbab15094a748763ec02ddc74fe1205": 18,
+    "c5ae8027542c3af645d495ec65c162d5456a4e0a459d54d623395f6e5180ce21": 15
+  },
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Windows",
+    "machine": "AMD64",
+    "packages": {
+      "torch": "2.14.1+cpu",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "scikit-learn": "1.9.1",
+      "pandas": "3.0.6",
+      "threadpoolctl": "3.7.0",
+      "fastapi": "0.142.2",
+      "pydantic": "2.13.5",
+      "pytest": "9.1.1",
+      "uvicorn": "0.54.0"
+    }
+  },
+  "device": "CPU; no Phase7 cloud training claimed",
+  "private_resume": "local two-generation state, optimizer, cursor and RNG; not published",
+  "fingerprint_caveat": "Historical core runs stored file fingerprint at run start; future code captures normalized fingerprint at module import. Explicit compatibility list preserves dense/sparse distinction.",
+  "active_models_changed": false,
+  "private_data_published": false
+}

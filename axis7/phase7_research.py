@@ -28,6 +28,7 @@ from .models_v2 import EnhancedGRU, SimpleKTStyleAttention
 from .scientific_validation import metrics, train_priors, historical_predictions
 
 CONDITIONS = ('gru', 'unordered', 'recent3', 'attention', 'no_concept_embedding', 'past_gaps')
+LOADED_SOURCE_SHA256 = hashlib.sha256(Path(__file__).read_text(encoding='utf-8').replace('\r\n','\n').encode()).hexdigest()
 
 
 class RepresentationModel(nn.Module):
@@ -167,7 +168,7 @@ def train_representation(prepared, seed, condition, folder, epochs=8):
     config = {'protocol': 'phase7-exploratory-v1', 'condition': condition, 'seed': seed,
               'dataset_sha256': prepared['sha256'], 'splits': c.public_split_provenance(split),
               'epochs': epochs, 'K': K, 'hidden': 48, 'context': 64,
-              'source_sha256': c.digest(Path(__file__)), 'core_sha256': c.SOURCE_HASHES,
+              'source_sha256': LOADED_SOURCE_SHA256, 'core_sha256': c.SOURCE_HASHES,
               'device': 'cpu', 'torch': torch.__version__, 'numpy': np.__version__}
     random.seed(seed); np.random.seed(seed); torch.manual_seed(seed); torch.set_num_threads(2)
     model = RepresentationModel(condition, K, len(items)+1)

@@ -1,0 +1,54 @@
+{
+  "config": {
+    "protocol": "phase7-exploratory-v1",
+    "condition": "unordered",
+    "seed": 42,
+    "dataset_sha256": "9e4b6fe3d11381de02d197fe6dbd84676d6e48e25d9d0d364bb43d0a400dc52e",
+    "splits": {
+      "train": {
+        "count": 699,
+        "sha256": "871c03733ae388058cd5b1e77ecef06d57f49b594726b6bc7fb2fd38bb0b7ed0"
+      },
+      "validation": {
+        "count": 150,
+        "sha256": "c5cdcb53be06705ba92654668186211a1e8fbe93c7bb10d83bdbfe30f4c45c90"
+      },
+      "test": {
+        "count": 150,
+        "sha256": "bae48dfccf98a21d6cdb472ca052159b383f58a24ed67d20828e293e682d7fe1"
+      }
+    },
+    "epochs": 8,
+    "K": 1,
+    "hidden": 48,
+    "context": 64,
+    "source_sha256": "1cab88ce972e9209f01ae4ce56e279ef9fbab15094a748763ec02ddc74fe1205",
+    "core_sha256": {
+      "cloud_training.py": "05df4f7d63fe61a06759623ce5e2fb655f30bb6d5e87f6192f853522f6dd88e0",
+      "models.py": "5149efbe2a856e2f1c435f241cae549ba53b0d62582d10549ddb885ec417bb71",
+      "models_v2.py": "c5cb91565789c08631173dea532c97658378093734a5fbb343a19705bff7a0f0"
+    },
+    "device": "cpu",
+    "torch": "2.14.1+cpu",
+    "numpy": "2.5.3"
+  },
+  "source": "yousician",
+  "epochs_completed": 8,
+  "trainable_parameters": 781,
+  "validation": {
+    "concept_group_targets": 1709,
+    "label_weight": 1709.0,
+    "mae": 0.10494010725029733,
+    "rmse": 0.15164331639754172
+  },
+  "test": {
+    "concept_group_targets": 1740,
+    "label_weight": 1740.0,
+    "mae": 0.10114290363465746,
+    "rmse": 0.14299366214030107
+  },
+  "selection": "minimum validation loss; test never used",
+  "status": "exploratory_research_only",
+  "individual_uncertainty": "not validated",
+  "model_sha256": "ef4be6342ea27c4f6d7bbc5b6ac83454c08c310373fc7f789a1d69f517e565e5"
+}

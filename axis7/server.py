@@ -70,6 +70,9 @@ def _json_safe(value):
 
 @app.exception_handler(RequestValidationError)
 async def invalid_request(request,exc:RequestValidationError):
+    if request.url.path.startswith('/api/v6/o08'):
+        return JSONResponse(status_code=422,content={'detail':[{'loc':e['loc'],'type':e['type'],
+            'msg':'Invalid O08 field'} for e in exc.errors()]})
     return JSONResponse(status_code=422,content={'detail':_json_safe(jsonable_encoder(exc.errors()))})
 
 def history(e,student,allow_new=False):
@@ -249,5 +252,11 @@ app.include_router(_team_v3_router)
 app.include_router(_forecast_v4_router)
 from .musical_api import router as _musical_router
 app.include_router(_musical_router)
+from .prospective import router as _prospective_router
+from .o08_demo import router as _o08_demo_router
+app.include_router(_prospective_router)
+app.include_router(_o08_demo_router)
+from .o08_security import O08BodyLimit
+app.add_middleware(O08BodyLimit)
 
 app.mount('/web',StaticFiles(directory=ROOT/'web'),name='web')

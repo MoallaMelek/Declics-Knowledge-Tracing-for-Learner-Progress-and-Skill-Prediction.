@@ -13,6 +13,10 @@ artifacts/models/phase6/**/checkpoint-*.pt
 artifacts/models/phase6/**/resume.json
 artifacts/models/phase6/**/prepared.json.gz
 artifacts/phase6/private/
+tmp/phase7-private/
+artifacts/models/phase7/**/checkpoint-*.pt
+artifacts/models/phase7/**/resume.json
+artifacts/models/phase7/**/prepared.json.gz
 
 # Local configuration and credentials
 .env

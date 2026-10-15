@@ -1,0 +1,10 @@
+{
+  "version": "musical-taxonomy-proposal-v1",
+  "status": "pending_qualified_review",
+  "candidate_categories": ["rhythm", "pitch_accuracy", "timing", "melodic_reproduction", "coordination", "technical_execution", "consistency"],
+  "proposed_mappings": [],
+  "approved_mappings": [],
+  "workflow": ["Document source concept meaning with official source evidence", "Submit a MappingReview record with proposed or pending_review status", "Qualified reviewer checks source definition, target meaning, instrument and measurement compatibility", "Record reviewer, qualification, evidence, date and version for approval or rejection", "Keep source benchmark and field predictive validation separate"],
+  "production_activation": "No automatic activation. An approved semantic mapping does not validate a piano model.",
+  "review_attestation": "Review identity must be verified by the project owner; a JSON field alone is not external expert approval."
+}

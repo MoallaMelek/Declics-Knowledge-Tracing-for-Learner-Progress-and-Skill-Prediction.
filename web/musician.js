@@ -3,7 +3,8 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const levels={needs_work:'À retravailler',developing:'En cours',comfortable:'À l’aise',not_assessed:'Non évalué'};
 const skillIcons={pitch:'♪',rhythm:'♩',timing:'♩',tempo:'♩',duration:'𝅗𝅥',articulation:'♫',fingering:'✋',score_navigation:'𝄞',technique:'✋'};
-const m={page:'home',catalog:null,profile:null,summary:null,exercise:null,stage:'choose',busy:false,request:0,policy:'balanced',pending:null,feedback:null};
+const requestedPage=new URLSearchParams(location.search).get('page');
+const m={page:['home','practice','progress','notebook'].includes(requestedPage)?requestedPage:'home',catalog:null,profile:null,summary:null,exercise:null,stage:'choose',busy:false,request:0,policy:'balanced',pending:null,feedback:null};
 function recall(){try{return JSON.parse(localStorage.getItem('declic-practice-profile'));}catch{return null;}}
 function remember(profile){m.profile=profile;try{localStorage.setItem('declic-practice-profile',JSON.stringify(profile));}catch{toast('Carnet ouvert. Ce navigateur ne mémorisera pas son accès après fermeture.');}}
 function toast(text){$('toast').hidden=false;$('toast').textContent=text;clearTimeout(m.toast);m.toast=setTimeout(()=>$('toast').hidden=true,4500);}

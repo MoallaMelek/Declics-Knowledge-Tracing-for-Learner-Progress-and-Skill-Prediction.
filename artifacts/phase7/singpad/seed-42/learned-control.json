@@ -1,0 +1,303 @@
+{
+  "kind": "regularized_logistic",
+  "seed": 42,
+  "selection": "validation_log_loss",
+  "selected_regularization": "100.0",
+  "validation_candidates": {
+    "0.01": {
+      "concept_group_targets": 55506,
+      "label_weight": 132333.0,
+      "mae": 0.24913329492771902,
+      "rmse": 0.3094427280777963,
+      "log_loss": 0.5126489393665109,
+      "brier": 0.16740350301656082,
+      "mae_note": 0.33875317482787887,
+      "roc_auc": 0.6636432323455201,
+      "pr_auc": 0.8518254669396061,
+      "calibration": [
+        {
+          "lower": 0.1,
+          "label_weight": 2.0,
+          "prediction": 0.19076846599501093,
+          "observed": 0.5
+        },
+        {
+          "lower": 0.2,
+          "label_weight": 124.0,
+          "prediction": 0.2632735011071733,
+          "observed": 0.1693548387096774
+        },
+        {
+          "lower": 0.3,
+          "label_weight": 1023.0,
+          "prediction": 0.36426086954083287,
+          "observed": 0.3421309872922776
+        },
+        {
+          "lower": 0.4,
+          "label_weight": 3655.0,
+          "prediction": 0.45715116171856873,
+          "observed": 0.46292749658002735
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 8245.0,
+          "prediction": 0.5559036796196535,
+          "observed": 0.571497877501516
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 18064.0,
+          "prediction": 0.6568538311677624,
+          "observed": 0.662699291408326
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 44588.0,
+          "prediction": 0.7546645538504395,
+          "observed": 0.7673365030950031
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 54101.0,
+          "prediction": 0.8463801158432993,
+          "observed": 0.8498364170717732
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 2531.0,
+          "prediction": 0.908133482091117,
+          "observed": 0.9312524693796919
+        }
+      ]
+    },
+    "1.0": {
+      "concept_group_targets": 55506,
+      "label_weight": 132333.0,
+      "mae": 0.2491216514437025,
+      "rmse": 0.30944063885433026,
+      "log_loss": 0.5126447167122123,
+      "brier": 0.16740221003090783,
+      "mae_note": 0.338741466811132,
+      "roc_auc": 0.6636455488256132,
+      "pr_auc": 0.8518296408431553,
+      "calibration": [
+        {
+          "lower": 0.1,
+          "label_weight": 2.0,
+          "prediction": 0.19053531358024903,
+          "observed": 0.5
+        },
+        {
+          "lower": 0.2,
+          "label_weight": 124.0,
+          "prediction": 0.26293314371627335,
+          "observed": 0.1693548387096774
+        },
+        {
+          "lower": 0.3,
+          "label_weight": 1018.0,
+          "prediction": 0.36416275045865515,
+          "observed": 0.33988212180746563
+        },
+        {
+          "lower": 0.4,
+          "label_weight": 3650.0,
+          "prediction": 0.45713072509329716,
+          "observed": 0.46356164383561643
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 8262.0,
+          "prediction": 0.5559338288277635,
+          "observed": 0.5716533526991043
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 18110.0,
+          "prediction": 0.6569381899579455,
+          "observed": 0.6623412479293208
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 44553.0,
+          "prediction": 0.7546126113168955,
+          "observed": 0.767602630574821
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 53990.0,
+          "prediction": 0.8463954845156664,
+          "observed": 0.8497869975921467
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 2624.0,
+          "prediction": 0.9083287282795647,
+          "observed": 0.9291158536585366
+        }
+      ]
+    },
+    "100.0": {
+      "concept_group_targets": 55506,
+      "label_weight": 132333.0,
+      "mae": 0.24912153314500254,
+      "rmse": 0.30944061812209606,
+      "log_loss": 0.5126446749077815,
+      "brier": 0.16740219720011668,
+      "mae_note": 0.3387413491098378,
+      "roc_auc": 0.6636454575404578,
+      "pr_auc": 0.8518300397576353,
+      "calibration": [
+        {
+          "lower": 0.1,
+          "label_weight": 2.0,
+          "prediction": 0.19053295835835704,
+          "observed": 0.5
+        },
+        {
+          "lower": 0.2,
+          "label_weight": 124.0,
+          "prediction": 0.2629296955754952,
+          "observed": 0.1693548387096774
+        },
+        {
+          "lower": 0.3,
+          "label_weight": 1018.0,
+          "prediction": 0.36416360084949656,
+          "observed": 0.33988212180746563
+        },
+        {
+          "lower": 0.4,
+          "label_weight": 3650.0,
+          "prediction": 0.457132568605297,
+          "observed": 0.46356164383561643
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 8262.0,
+          "prediction": 0.5559344683210695,
+          "observed": 0.5716533526991043
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 18110.0,
+          "prediction": 0.6569375383635213,
+          "observed": 0.6623412479293208
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 44553.0,
+          "prediction": 0.7546112101537165,
+          "observed": 0.767602630574821
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 53987.0,
+          "prediction": 0.8463934477389302,
+          "observed": 0.8497786504158409
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 2627.0,
+          "prediction": 0.9083242677290411,
+          "observed": 0.929196802436239
+        }
+      ]
+    }
+  },
+  "test": {
+    "concept_group_targets": 62152,
+    "label_weight": 148076.0,
+    "mae": 0.25880268364839176,
+    "rmse": 0.32107887089964054,
+    "log_loss": 0.524929799791048,
+    "brier": 0.17299549981759219,
+    "mae_note": 0.34672504007425187,
+    "roc_auc": 0.6769795094337838,
+    "pr_auc": 0.8483232439713574,
+    "calibration": [
+      {
+        "lower": 0.1,
+        "label_weight": 82.0,
+        "prediction": 0.18975453784986923,
+        "observed": 0.06097560975609756
+      },
+      {
+        "lower": 0.2,
+        "label_weight": 408.0,
+        "prediction": 0.2487010109030752,
+        "observed": 0.17647058823529413
+      },
+      {
+        "lower": 0.3,
+        "label_weight": 1976.0,
+        "prediction": 0.3615995386509845,
+        "observed": 0.2930161943319838
+      },
+      {
+        "lower": 0.4,
+        "label_weight": 5016.0,
+        "prediction": 0.45638359568920367,
+        "observed": 0.45215311004784686
+      },
+      {
+        "lower": 0.5,
+        "label_weight": 10063.0,
+        "prediction": 0.5545648717771323,
+        "observed": 0.5662327337772036
+      },
+      {
+        "lower": 0.6,
+        "label_weight": 21330.0,
+        "prediction": 0.6571668272243687,
+        "observed": 0.6541490857946554
+      },
+      {
+        "lower": 0.7,
+        "label_weight": 49340.0,
+        "prediction": 0.7538058895026055,
+        "observed": 0.7487434130522902
+      },
+      {
+        "lower": 0.8,
+        "label_weight": 56422.0,
+        "prediction": 0.8469156540546293,
+        "observed": 0.84961539824891
+      },
+      {
+        "lower": 0.9,
+        "label_weight": 3439.0,
+        "prediction": 0.9082630989031143,
+        "observed": 0.9299214888048851
+      }
+    ]
+  },
+  "features": [
+    "concept_ordinal",
+    "train_concept_prior",
+    "past_log_successes",
+    "past_log_failures",
+    "smoothed_past_fraction",
+    "previous_score",
+    "rolling3",
+    "past_groups",
+    "past_gap"
+  ],
+  "limitation": "Ordinal concept ID is a simple control, not a validated musical geometry.",
+  "scope": "research only; not deployed",
+  "splits": {
+    "train": {
+      "count": 729,
+      "sha256": "7c762850c62891f62330e4d894377d919a0938a1b1781a68939e455e4bac26c9"
+    },
+    "validation": {
+      "count": 156,
+      "sha256": "561750436d8071e07378413a391b650e39ff6a36dff476098478c51b9a64c7cf"
+    },
+    "test": {
+      "count": 157,
+      "sha256": "f354dc9bfb467823a0b7d72b4285cb14850ea8fb3ccf347211bae32dd425cd3a"
+    }
+  }
+}

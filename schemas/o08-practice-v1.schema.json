@@ -1,0 +1,167 @@
+{
+  "$defs": {
+    "Result": {
+      "additionalProperties": false,
+      "properties": {
+        "concept": {
+          "maximum": 1023,
+          "minimum": 0,
+          "title": "Concept",
+          "type": "integer"
+        },
+        "value": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Value",
+          "type": "number"
+        },
+        "evaluated_count": {
+          "default": 1,
+          "maximum": 100000,
+          "minimum": 1,
+          "title": "Evaluated Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "concept",
+        "value"
+      ],
+      "title": "Result",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "o08-practice-v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "event_id": {
+      "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+      "title": "Event Id",
+      "type": "string"
+    },
+    "learner_id": {
+      "pattern": "^learner_[a-f0-9]{16}$",
+      "title": "Learner Id",
+      "type": "string"
+    },
+    "instrument": {
+      "enum": [
+        "voice",
+        "ukulele",
+        "keyboard",
+        "piano",
+        "other"
+      ],
+      "title": "Instrument",
+      "type": "string"
+    },
+    "exercise_id": {
+      "pattern": "^[a-zA-Z0-9_|.-]{1,1000}$",
+      "title": "Exercise Id",
+      "type": "string"
+    },
+    "exercise_version": {
+      "pattern": "^[a-zA-Z0-9_.-]{1,40}$",
+      "title": "Exercise Version",
+      "type": "string"
+    },
+    "attempt_id": {
+      "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+      "title": "Attempt Id",
+      "type": "string"
+    },
+    "session_id": {
+      "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+      "title": "Session Id",
+      "type": "string"
+    },
+    "occurred_at": {
+      "format": "date-time",
+      "title": "Occurred At",
+      "type": "string"
+    },
+    "available_at": {
+      "format": "date-time",
+      "title": "Available At",
+      "type": "string"
+    },
+    "assessment_source": {
+      "enum": [
+        "teacher_assessment",
+        "axis_adapter",
+        "dataset_import"
+      ],
+      "title": "Assessment Source",
+      "type": "string"
+    },
+    "producer_version": {
+      "pattern": "^[a-zA-Z0-9_.-]{1,40}$",
+      "title": "Producer Version",
+      "type": "string"
+    },
+    "score_definition": {
+      "enum": [
+        "singpad_note_binary",
+        "yousician_active_day_fraction",
+        "amme_scoretype7_block_mean",
+        "custom_unvalidated"
+      ],
+      "title": "Score Definition",
+      "type": "string"
+    },
+    "scale": {
+      "enum": [
+        "binary_notes",
+        "continuous_unit_interval"
+      ],
+      "title": "Scale",
+      "type": "string"
+    },
+    "outcomes": {
+      "items": {
+        "$ref": "#/$defs/Result"
+      },
+      "maxItems": 1024,
+      "minItems": 1,
+      "title": "Outcomes",
+      "type": "array"
+    },
+    "evaluation_confidence": {
+      "default": null,
+      "title": "Evaluation Confidence",
+      "type": "null"
+    },
+    "provenance": {
+      "enum": [
+        "real_observation",
+        "retrospective_dataset"
+      ],
+      "title": "Provenance",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "event_id",
+    "learner_id",
+    "instrument",
+    "exercise_id",
+    "exercise_version",
+    "attempt_id",
+    "session_id",
+    "occurred_at",
+    "available_at",
+    "assessment_source",
+    "producer_version",
+    "score_definition",
+    "scale",
+    "outcomes",
+    "provenance"
+  ],
+  "title": "PracticeEvent",
+  "type": "object"
+}
