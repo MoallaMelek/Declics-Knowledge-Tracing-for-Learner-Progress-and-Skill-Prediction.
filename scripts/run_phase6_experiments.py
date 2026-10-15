@@ -41,7 +41,7 @@ def run(source, archive, output, seeds, ablations=False):
             analysis['validation_controls'] = {c: metrics(val['y'], val[c], val['w'], binary) for c in CONTROLS}
             cloud.atomic_json(folders[name]/'analysis.json', analysis)
         index['splits'][str(seed)] = {'selected': selected, 'criterion': 'validation_'+key,
-                                     'models': {n: str(folders[n].relative_to(output)) for n in models}}
+                                     'models': {n: folders[n].relative_to(output).as_posix() for n in models}}
         cloud.atomic_json(index_path, index)
     if ablations and binary:
         seed = 42; split = cloud.split_learners(prepared['learners'], seed)

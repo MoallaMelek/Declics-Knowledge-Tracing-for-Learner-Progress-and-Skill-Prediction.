@@ -33,6 +33,13 @@ from .models_v2 import EnhancedGRU, SimpleKTStyleAttention
 VERSION = 'musical-cloud-v2'
 PREPROCESSING = {'singpad': 'singpad-datetime-v2', 'amme': 'amme-block-v1',
                  'yousician': 'yousician-active-day-v1'}
+SOURCE_HASHES = {name: hashlib.sha256((Path(__file__).parent/name).read_text(encoding='utf-8').replace('\r\n', '\n').encode('utf-8')).hexdigest()
+                 for name in ('cloud_training.py', 'models.py', 'models_v2.py')}
+try:
+    LOADED_REVISION = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True,
+                                             cwd=Path(__file__).resolve().parents[1]).strip()
+except (OSError, subprocess.SubprocessError):
+    LOADED_REVISION = None
 
 
 def parse_singpad_time(value):
@@ -436,13 +443,20 @@ def save_resume(directory, state):
     directory = Path(directory); directory.mkdir(parents=True, exist_ok=True)
     manifest_path = directory / 'resume.json'
     old = json.loads(manifest_path.read_text()) if manifest_path.exists() else {'files': []}
+    for entry in old['files']:
+        if not re.fullmatch(r'checkpoint-\d+\.pt', entry['name']):
+            raise ValueError('Unsafe checkpoint path')
+    intact = [entry for entry in old['files']
+              if (directory/entry['name']).is_file() and digest(directory/entry['name']) == entry['sha256']]
     filename = f'checkpoint-{time.time_ns()}.pt'
     path = directory / filename; temp = path.with_suffix('.tmp')
     torch.save(state, temp); temp.replace(path)
     entry = {'name': filename, 'sha256': digest(path)}
-    atomic_json(manifest_path, {'files': [entry] + old['files'][:1]})
-    for entry in old['files'][1:]:
-        (directory / entry['name']).unlink(missing_ok=True)
+    retained = intact[:1]
+    atomic_json(manifest_path, {'files': [entry] + retained})
+    for previous in old['files']:
+        if previous not in retained:
+            (directory / previous['name']).unlink(missing_ok=True)
 
 
 def load_resume(directory):
@@ -473,6 +487,7 @@ def train(source, archive, output, *, model_name='enhanced_gru', epochs=12,
     K = max(o[0] for rs in learners.values() for r in rs for o in r['obs']) + 1
     items = fit_items(learners, splits['train'])
     cfg = {'version': VERSION, 'preprocessing': PREPROCESSING[source],
+           'implementation_sha256': SOURCE_HASHES,
            'source': source, 'sha256': prepared['sha256'], 'seed': seed,
            'model': model_name, 'hidden': hidden, 'context': context, 'K': K, 'items': items,
            'batch_size': batch_size, 'feature_mode': feature_mode,
@@ -545,6 +560,7 @@ def train(source, archive, output, *, model_name='enhanced_gru', epochs=12,
         revision, dirty = None, None
     metadata = {**public_cfg, **SOURCES[source], 'device': str(device), 'epochs_completed': epoch,
         'execution': {'code_revision': revision, 'tracked_worktree_dirty': dirty,
+                      'loaded_code_revision': LOADED_REVISION, 'loaded_source_sha256': SOURCE_HASHES,
                       'python': platform.python_version(), 'torch': torch.__version__,
                       'numpy': np.__version__},
         'audit': prepared['audit'], 'validation': validation, 'test': test,

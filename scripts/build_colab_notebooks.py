@@ -26,7 +26,7 @@ REMAINING = {'amme': '2gvty-osfstorage-archive.zip',
 for next_source, archive_name in REMAINING.items():
     local_archive = Path('/content') / archive_name
     shutil.copyfile(DATA_DIR / archive_name, local_archive)
-    source_root = DRIVE_ROOT / 'phase6' / next_source / f'seed-{SEED}'
+    source_root = DRIVE_ROOT / RUN_NAMESPACE / next_source / f'seed-{SEED}'
     model_folder = source_root / 'enhanced_gru'
     result = train(next_source, local_archive, model_folder, model_name='enhanced_gru',
                    epochs=EPOCHS, batch_size=BATCH_SIZE, seed=SEED)
@@ -38,8 +38,26 @@ for next_source, archive_name in REMAINING.items():
     print(json.dumps({'source': next_source, 'test': result['test'],
                       'validation_gate': result['validation_gate']}, ensure_ascii=False))
     print('Export sauvegardé :', export_path)
+print('AMME et Yousician terminés ; l’analyse et le transfert Drive suivent.')
+'''
+
+ANALYSIS_CODE = '''# Matched controls, learner bootstrap, and reproducible execution environment.
+import importlib.util, zipfile
+spec = importlib.util.spec_from_file_location('phase6_runner', REPO_DIR / 'scripts/run_phase6_experiments.py')
+runner = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(runner)
+runner.run(SOURCE, LOCAL_ARCHIVE, RUN_ROOT.parent, [SEED], False)
+for name in MODELS:
+    folder = RUN_ROOT / name
+    export = RUN_ROOT / f'{SOURCE}-{name}-phase6-bundle.zip'
+    with zipfile.ZipFile(export, 'w', zipfile.ZIP_DEFLATED) as z:
+        for filename in ('model.pt', 'metrics.json', 'metrics.csv', 'history.json', 'analysis.json'):
+            z.write(folder / filename, filename)
+    print('Export avec comparaisons :', export)
+freeze = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'], text=True)
+(RUN_ROOT / 'execution-requirements.txt').write_text(freeze)
 drive.flush_and_unmount(timeout_ms=300000)
-print('Les trois bases sont terminées ; les écritures Drive ont été transférées.')
+print('PHASE6_EXPORTS_COMPLETED : modèles, analyses et écritures Drive transférées.')
 '''
 
 
@@ -70,7 +88,7 @@ concepts et son instrument ; il ne valide pas automatiquement les prévisions du
 personnel de DÉCLIC. [Guide](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./blob/{BRANCH}/docs/PHASE5_COLAB.md)
 '''), cell('code', f'''
 from pathlib import Path
-import subprocess, sys, os, json, shutil
+import subprocess, sys, os, json, shutil, hashlib
 os.environ.setdefault('CUBLAS_WORKSPACE_CONFIG', ':4096:8')
 SOURCE = {source!r}
 EPOCHS = 12
@@ -85,11 +103,14 @@ if not REPO_DIR.exists():
     subprocess.run(['git', 'clone', '--depth', '1', '--branch', REF, REPO_URL, str(REPO_DIR)], check=True)
 else:
     print('Existing checkout retained for reproducible resume.')
-subprocess.run([sys.executable, '-m', 'pip', 'install', '-q', '-e', str(REPO_DIR)], check=True)
+subprocess.run([sys.executable, '-m', 'pip', 'install', '-q', '-c',
+                str(REPO_DIR / 'configs/colab-constraints.txt'), '-e', str(REPO_DIR)], check=True)
 os.chdir(REPO_DIR)
 if str(REPO_DIR) not in sys.path:
     sys.path.insert(0, str(REPO_DIR))
 import torch
+from axis7.cloud_training import SOURCE_HASHES
+RUN_NAMESPACE = 'phase6-' + hashlib.sha256(json.dumps(SOURCE_HASHES, sort_keys=True).encode()).hexdigest()[:12]
 print('PyTorch', torch.__version__, '| GPU:', torch.cuda.is_available())
 if torch.cuda.is_available():
     print(torch.cuda.get_device_name(0))
@@ -113,7 +134,7 @@ if not drive_archive.is_file():
     del uploaded
 LOCAL_ARCHIVE = Path('/content') / ARCHIVE_NAME
 shutil.copyfile(drive_archive, LOCAL_ARCHIVE)
-RUN_ROOT = DRIVE_ROOT / 'phase6' / SOURCE / f'seed-{{SEED}}'
+RUN_ROOT = DRIVE_ROOT / RUN_NAMESPACE / SOURCE / f'seed-{{SEED}}'
 RUN_ROOT.mkdir(parents=True, exist_ok=True)
 print('Données prêtes. Checkpoints et métriques :', RUN_ROOT)
 '''), cell('markdown', '''## Entraîner et reprendre
@@ -136,7 +157,8 @@ key = 'log_loss' if SOURCE == 'singpad' else 'mae'
 selected = min(reports, key=lambda name: reports[name]['validation'][key])
 atomic_json(RUN_ROOT / 'selection.json', {'selected': selected, 'criterion': 'validation_' + key})
 print('Architecture sélectionnée sur validation :', selected)
-print('Éligible au benchmark :', reports[selected]['validation_gate']['accepted'])
+print('Contrôle initial sur la moyenne constante :', reports[selected]['validation_gate']['accepted'])
+print('La comparaison historique ci-dessous reste obligatoire pour promouvoir SingPAD.')
 '''), cell('code', '''
 # Small portable package: weights, exact config, actual metrics and history.
 # No raw observations, prepared cache or optimizer checkpoints exported.
@@ -151,7 +173,7 @@ print('Export sauvegardé :', EXPORT)
 print('Rapport :', folder / 'metrics.json')
 # Optional download to this computer. Drive already holds the persistent copy.
 # files.download(str(EXPORT))
-'''), cell('markdown', '''## Retour dans DÉCLIC
+'''), cell('code', ANALYSIS_CODE), cell('markdown', '''## Retour dans DÉCLIC
 Le fichier exporté peut être téléchargé puis importé avec
 `python -m axis7.musical_registry import --bundle CHEMIN.zip`.
 L'import vérifie le checksum, le découpage, les paramètres et le seuil de validation.

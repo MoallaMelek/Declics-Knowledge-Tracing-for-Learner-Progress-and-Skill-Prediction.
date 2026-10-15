@@ -1,0 +1,38 @@
+{
+  "source": "singpad",
+  "splits": {
+    "42": {
+      "selected": "enhanced_gru",
+      "criterion": "validation_log_loss",
+      "models": {
+        "dkt": "seed-42/dkt",
+        "enhanced_gru": "seed-42/enhanced_gru",
+        "item_attention": "seed-42/item_attention"
+      }
+    },
+    "17": {
+      "selected": "enhanced_gru",
+      "criterion": "validation_log_loss",
+      "models": {
+        "dkt": "seed-17/dkt",
+        "enhanced_gru": "seed-17/enhanced_gru",
+        "item_attention": "seed-17/item_attention"
+      }
+    },
+    "83": {
+      "selected": "dkt",
+      "criterion": "validation_log_loss",
+      "models": {
+        "dkt": "seed-83/dkt",
+        "enhanced_gru": "seed-83/enhanced_gru",
+        "item_attention": "seed-83/item_attention"
+      }
+    }
+  },
+  "ablations": [
+    "enhanced_gru-no_counts-c64",
+    "enhanced_gru-no_recent-c64",
+    "item_attention-no_items-c64",
+    "enhanced_gru-full-c16"
+  ]
+}

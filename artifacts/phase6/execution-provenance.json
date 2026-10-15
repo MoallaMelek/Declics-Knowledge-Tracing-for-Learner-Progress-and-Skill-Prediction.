@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-15",
+  "experiment_definition_commit": "ba93a013003d6435b66c5f0b40dd4b1816eff924",
+  "cloud_source_commit": "ba93a013003d6435b66c5f0b40dd4b1816eff924",
+  "local_source_snapshot": "CPU grid started after ba93a01; training and evaluation modules were loaded once by that process before later API/UI edits.",
+  "metadata_caveat": "Original CPU execution.code_revision records Git HEAD at report write time; some runs therefore show a later HEAD or a dirty worktree. It is not an immutable source snapshot by itself.",
+  "repair_for_future_runs": "Training now records source hashes at module import and includes them in checkpoint config, rejecting code-incompatible resume.",
+  "numerical_changes_after_experiments": "No model architecture, feature values or loss formula changed. Subsequent changes concern checkpoint generation retention and provenance recording.",
+  "no_reexecution_claim": "Existing runs are preserved as executed; the new provenance fields are not retroactively asserted to have existed in their original checkpoints."
+}

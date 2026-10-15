@@ -1,0 +1,312 @@
+{
+  "version": "musical-cloud-v2",
+  "preprocessing": "singpad-datetime-v2",
+  "source": "singpad",
+  "sha256": "9e87e3ccb4bbc6e90a571a28a989168f0c7e49a332c633de328e5c5660773b64",
+  "seed": 42,
+  "model": "enhanced_gru",
+  "hidden": 48,
+  "context": 64,
+  "K": 270,
+  "items": {
+    "250": 1,
+    "250|251": 2,
+    "250|251|252|253|254|255|272|273|276|279": 3,
+    "250|251|252|253|254|272": 4,
+    "250|251|252|253|254|272|273|274|275": 5,
+    "250|251|253|256|257": 6,
+    "250|251|253|272|273": 7,
+    "250|252": 8,
+    "250|270": 9,
+    "251": 10,
+    "251|253": 11,
+    "252": 12,
+    "252|253": 13,
+    "253": 14,
+    "253|256": 15,
+    "254": 16,
+    "254|256": 17,
+    "254|271": 18,
+    "255": 19,
+    "255|256": 20,
+    "256": 21,
+    "256|257": 22,
+    "256|258": 23,
+    "256|259": 24,
+    "257": 25,
+    "257|258": 26,
+    "257|271": 27,
+    "258": 28,
+    "258|259": 29,
+    "258|263": 30,
+    "259": 31,
+    "259|260": 32,
+    "260": 33,
+    "260|261": 34,
+    "261": 35,
+    "261|262": 36,
+    "262": 37,
+    "262|263": 38,
+    "262|264": 39,
+    "262|265": 40,
+    "263": 41,
+    "263|264": 42,
+    "264": 43,
+    "264|266": 44,
+    "265": 45,
+    "266": 46,
+    "267": 47,
+    "268": 48,
+    "268|269": 49,
+    "269": 50,
+    "270": 51,
+    "270|273": 52,
+    "271": 53,
+    "272": 54,
+    "272|273": 55,
+    "273": 56,
+    "273|274": 57,
+    "273|279": 58,
+    "274": 59,
+    "274|281": 60,
+    "275": 61,
+    "276": 62,
+    "276|279": 63,
+    "279": 64,
+    "279|286": 65,
+    "280": 66,
+    "280|284": 67,
+    "281": 68,
+    "281|282": 69,
+    "282": 70,
+    "282|284": 71,
+    "283": 72,
+    "283|284": 73,
+    "284": 74,
+    "284|285": 75,
+    "284|286": 76,
+    "285": 77,
+    "286": 78,
+    "286|287": 79,
+    "287": 80,
+    "287|289": 81,
+    "288": 82,
+    "289": 83,
+    "290": 84,
+    "291": 85,
+    "292": 86,
+    "293": 87,
+    "294": 88
+  },
+  "batch_size": 16,
+  "feature_mode": "full",
+  "protocol": "learner_disjoint_70_15_15",
+  "splits": {
+    "train": {
+      "count": 729,
+      "sha256": "7c762850c62891f62330e4d894377d919a0938a1b1781a68939e455e4bac26c9"
+    },
+    "validation": {
+      "count": 156,
+      "sha256": "561750436d8071e07378413a391b650e39ff6a36dff476098478c51b9a64c7cf"
+    },
+    "test": {
+      "count": 157,
+      "sha256": "f354dc9bfb467823a0b7d72b4285cb14850ea8fb3ccf347211bae32dd425cd3a"
+    }
+  },
+  "instrument": "voice",
+  "target": "next_recording_note_success_by_source_concept",
+  "citation": "Zhang et al. (2024), SingPAD, doi:10.5281/zenodo.12729828",
+  "binary": true,
+  "device": "cpu",
+  "epochs_completed": 12,
+  "execution": {
+    "code_revision": "ba93a013003d6435b66c5f0b40dd4b1816eff924",
+    "tracked_worktree_dirty": true,
+    "python": "3.12.14",
+    "torch": "2.14.1+cpu",
+    "numpy": "2.5.3"
+  },
+  "audit": {
+    "recordings": 19892,
+    "exact_duplicates_excluded": 0,
+    "note_labels": 1081876,
+    "unit": "entire recording; equal timestamps hidden together",
+    "timezone": "source local time, unspecified; never converted to UTC",
+    "single_group_learners_excluded": 32,
+    "chronology": {
+      "learners": 1042,
+      "time_groups": 18328,
+      "chronological_inversions": 0,
+      "duplicate_time_groups": 0
+    }
+  },
+  "validation": {
+    "observed_targets": 55506,
+    "label_weight": 132333.0,
+    "mae": 0.24334509677817168,
+    "rmse": 0.3083451067100638,
+    "log_loss": 0.5092385947081931,
+    "brier": 0.16672540554811627,
+    "mae_note": 0.33123716987058555,
+    "rmse_note": 0.40832022427026105,
+    "roc_auc": 0.6770377330702024,
+    "pr_auc": 0.8629532591291206,
+    "calibration_bins": [
+      {
+        "lower": 0.3,
+        "weight": 304.0,
+        "prediction": 0.3759985056362654,
+        "observed": 0.45723684235034806
+      },
+      {
+        "lower": 0.4,
+        "weight": 3813.0,
+        "prediction": 0.4685356995736149,
+        "observed": 0.4927878335427025
+      },
+      {
+        "lower": 0.5,
+        "weight": 11944.0,
+        "prediction": 0.5542350294990421,
+        "observed": 0.5668117908482694
+      },
+      {
+        "lower": 0.6,
+        "weight": 20255.0,
+        "prediction": 0.6551632485546262,
+        "observed": 0.6643791682633816
+      },
+      {
+        "lower": 0.7,
+        "weight": 34217.0,
+        "prediction": 0.7538769417479806,
+        "observed": 0.7547125717839556
+      },
+      {
+        "lower": 0.8,
+        "weight": 46465.0,
+        "prediction": 0.8502544807987528,
+        "observed": 0.8445281410361919
+      },
+      {
+        "lower": 0.9,
+        "weight": 15335.0,
+        "prediction": 0.9255605550126373,
+        "observed": 0.911966091806915
+      }
+    ]
+  },
+  "test": {
+    "observed_targets": 62152,
+    "label_weight": 148076.0,
+    "mae": 0.2526696648046883,
+    "rmse": 0.31775995928809353,
+    "log_loss": 0.5174627649330944,
+    "brier": 0.1708752498865557,
+    "mae_note": 0.34119228524131484,
+    "rmse_note": 0.4133705963013766,
+    "roc_auc": 0.6992340697052475,
+    "pr_auc": 0.8633957362946151,
+    "calibration_bins": [
+      {
+        "lower": 0.3,
+        "weight": 676.0,
+        "prediction": 0.37591573948690876,
+        "observed": 0.34467455781114525
+      },
+      {
+        "lower": 0.4,
+        "weight": 7110.0,
+        "prediction": 0.46173367281503314,
+        "observed": 0.43600562858472564
+      },
+      {
+        "lower": 0.5,
+        "weight": 16429.0,
+        "prediction": 0.5540981716512945,
+        "observed": 0.5665591358453701
+      },
+      {
+        "lower": 0.6,
+        "weight": 26434.0,
+        "prediction": 0.6537127709676451,
+        "observed": 0.656162520147183
+      },
+      {
+        "lower": 0.7,
+        "weight": 35128.0,
+        "prediction": 0.751738246773783,
+        "observed": 0.754184698009623
+      },
+      {
+        "lower": 0.8,
+        "weight": 44044.0,
+        "prediction": 0.851369507313749,
+        "observed": 0.8494006010411346
+      },
+      {
+        "lower": 0.9,
+        "weight": 18255.0,
+        "prediction": 0.9270262323024011,
+        "observed": 0.9182689683587869
+      }
+    ]
+  },
+  "constant_train_mean_reference": {
+    "mean": 0.7499527994575261,
+    "validation": {
+      "observed_targets": 55506,
+      "label_weight": 132333.0,
+      "mae": 0.27502879081825793,
+      "rmse": 0.3288238057944919,
+      "log_loss": 0.5453596249582591,
+      "brier": 0.17977379597324933,
+      "mae_note": 0.36729739401659506,
+      "rmse_note": 0.4239974009038845,
+      "roc_auc": 0.5,
+      "pr_auc": 0.7654553305092203,
+      "calibration_bins": [
+        {
+          "lower": 0.7,
+          "weight": 132333.0,
+          "prediction": 0.7499527994575261,
+          "observed": 0.7654553305092203
+        }
+      ]
+    },
+    "test": {
+      "observed_targets": 62152,
+      "label_weight": 148076.0,
+      "mae": 0.2873229407981289,
+      "rmse": 0.3449058565853232,
+      "log_loss": 0.5653318371245426,
+      "brier": 0.18886390806664033,
+      "mae_note": 0.37638750610998606,
+      "rmse_note": 0.43458475360583043,
+      "roc_auc": 0.5,
+      "pr_auc": 0.7472716732084833,
+      "calibration_bins": [
+        {
+          "lower": 0.7,
+          "weight": 148076.0,
+          "prediction": 0.7499527994575261,
+          "observed": 0.7472716732084833
+        }
+      ]
+    }
+  },
+  "validation_gate": {
+    "accepted": true,
+    "rule": "validation improves train-only mean; >=30 validation/test targets",
+    "scope": "source benchmark only; not validation for DEClic piano practice"
+  },
+  "limitations": [
+    "Learner-disjoint benchmark, not a randomized educational experiment.",
+    "No generic mastery interpretation or cross-instrument validation.",
+    "Windowed recurrent memory; counts retain the strictly earlier full prefix.",
+    "Single fixed split/seed; estimates have no confidence interval."
+  ],
+  "model_sha256": "669aa38323aa05ebdda362a3de37013b6d27047fcfc0ff198a77c1e1b39cf8b5"
+}

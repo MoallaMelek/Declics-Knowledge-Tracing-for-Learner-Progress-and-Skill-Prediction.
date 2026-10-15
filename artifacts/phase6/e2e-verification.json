@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-15",
+  "server": "local FastAPI v5",
+  "results": [
+    {
+      "source": "singpad",
+      "real_held_out_demo": true,
+      "model_id": "singpad-enhanced_gru-s42-8576d5ba1d6a",
+      "valid_probabilities": true,
+      "piano_domain_abstention": true,
+      "historical_groups": 3,
+      "future_targets_not_in_query": true
+    },
+    {
+      "source": "yousician",
+      "real_held_out_demo": true,
+      "model_id": "yousician-enhanced_gru-s42-77455ae03f05",
+      "valid_probabilities": true,
+      "piano_domain_abstention": true,
+      "historical_groups": 3,
+      "future_targets_not_in_query": true
+    }
+  ]
+}

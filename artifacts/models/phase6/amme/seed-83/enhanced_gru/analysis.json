@@ -1,0 +1,218 @@
+{
+  "metrics": {
+    "neural": {
+      "concept_group_targets": 22,
+      "label_weight": 22.0,
+      "mae": 0.1965998336672783,
+      "rmse": 0.23957455587995413
+    },
+    "train_mean": {
+      "concept_group_targets": 22,
+      "label_weight": 22.0,
+      "mae": 0.20398042147995318,
+      "rmse": 0.2483611944690532
+    },
+    "previous": {
+      "concept_group_targets": 22,
+      "label_weight": 22.0,
+      "mae": 0.18068072559983517,
+      "rmse": 0.22805727574682452
+    },
+    "rolling3": {
+      "concept_group_targets": 22,
+      "label_weight": 22.0,
+      "mae": 0.17241869976075938,
+      "rmse": 0.20731066058098702
+    },
+    "ewma": {
+      "concept_group_targets": 22,
+      "label_weight": 22.0,
+      "mae": 0.17100751607182776,
+      "rmse": 0.2071535332061352
+    },
+    "frequency": {
+      "concept_group_targets": 22,
+      "label_weight": 22.0,
+      "mae": 0.1835239604881134,
+      "rmse": 0.21056542239520717
+    }
+  },
+  "validation_selected_control": "frequency",
+  "bootstrap": {
+    "unit": "whole held-out learner; note/day-weighted statistic",
+    "metric": "mae",
+    "repeats": 1000,
+    "seed": 20261015,
+    "learners": 9,
+    "intervals_95_percent": {
+      "neural": [
+        0.12830859360595542,
+        0.28288986876606936
+      ],
+      "train_mean": [
+        0.13327766548940367,
+        0.2942137308035264
+      ],
+      "previous": [
+        0.12958954202404682,
+        0.23157846891474498
+      ],
+      "rolling3": [
+        0.13657273319238047,
+        0.2083771271114216
+      ],
+      "ewma": [
+        0.1367080469320149,
+        0.2065966776688064
+      ],
+      "frequency": [
+        0.1426686182992619,
+        0.23244313388725454
+      ]
+    },
+    "paired_neural_minus_control": {
+      "train_mean": [
+        -0.013136348777345387,
+        -0.0020460748521068453
+      ],
+      "previous": [
+        -0.08225468298413048,
+        0.12719555557233125
+      ],
+      "rolling3": [
+        -0.0523260714351306,
+        0.11764769725110287
+      ],
+      "ewma": [
+        -0.05343882567240309,
+        0.12062034843064755
+      ],
+      "frequency": [
+        -0.020635503192404727,
+        0.05461001873802744
+      ]
+    },
+    "limitation": "Conditional on fitted weights and split; not a confidence interval for an individual prediction."
+  },
+  "slices": {
+    "history_1_2_groups": {
+      "neural": {
+        "concept_group_targets": 16,
+        "label_weight": 16.0,
+        "mae": 0.22002035286277533,
+        "rmse": 0.25397952079129377
+      },
+      "control": {
+        "concept_group_targets": 16,
+        "label_weight": 16.0,
+        "mae": 0.21342509596062323,
+        "rmse": 0.2354749686409208
+      },
+      "learners": 9
+    },
+    "history_3_9_groups": {
+      "neural": {
+        "concept_group_targets": 6,
+        "label_weight": 6.0,
+        "mae": 0.13414511581261954,
+        "rmse": 0.196053453786502
+      },
+      "control": {
+        "concept_group_targets": 6,
+        "label_weight": 6.0,
+        "mae": 0.10378759922808715,
+        "rmse": 0.12128215222041977
+      },
+      "learners": 6
+    },
+    "unseen_exercise": {
+      "neural": {
+        "concept_group_targets": 22,
+        "label_weight": 22.0,
+        "mae": 0.1965998336672783,
+        "rmse": 0.23957455587995413
+      },
+      "control": {
+        "concept_group_targets": 22,
+        "label_weight": 22.0,
+        "mae": 0.1835239604881134,
+        "rmse": 0.21056542239520717
+      },
+      "learners": 9
+    },
+    "low_observed_score_under_0_5": {
+      "neural": {
+        "concept_group_targets": 6,
+        "label_weight": 6.0,
+        "mae": 0.19808942327896753,
+        "rmse": 0.24078879497443864
+      },
+      "control": {
+        "concept_group_targets": 6,
+        "label_weight": 6.0,
+        "mae": 0.18219849378963496,
+        "rmse": 0.22018579518048995
+      },
+      "learners": 6
+    },
+    "high_observed_score_at_least_0_8": {
+      "neural": {
+        "concept_group_targets": 5,
+        "label_weight": 5.0,
+        "mae": 0.3491795778274536,
+        "rmse": 0.3533863352678028
+      },
+      "control": {
+        "concept_group_targets": 5,
+        "label_weight": 5.0,
+        "mae": 0.24313963186105153,
+        "rmse": 0.25053799819249606
+      },
+      "learners": 2
+    }
+  },
+  "per_concept_min_10_learners_100_notes": {},
+  "group_fraction_absolute_error_quantiles": {
+    "0.5": 0.21332624554634094,
+    "0.9": 0.37372860312461853,
+    "0.95": 0.40398988127708435
+  },
+  "weighting": "one equal-weight target per active day/block",
+  "limitations": [
+    "history length is not a validated expertise measure",
+    "subgroup comparisons are descriptive, not causal",
+    "unseen exercise slice uses UNK in offline evaluation; serving abstains"
+  ],
+  "validation_controls": {
+    "train_mean": {
+      "concept_group_targets": 24,
+      "label_weight": 24.0,
+      "mae": 0.18632237592561765,
+      "rmse": 0.21052606715897995
+    },
+    "previous": {
+      "concept_group_targets": 24,
+      "label_weight": 24.0,
+      "mae": 0.20346030862626882,
+      "rmse": 0.24667969312480886
+    },
+    "rolling3": {
+      "concept_group_targets": 24,
+      "label_weight": 24.0,
+      "mae": 0.18498472973693939,
+      "rmse": 0.2166033837440788
+    },
+    "ewma": {
+      "concept_group_targets": 24,
+      "label_weight": 24.0,
+      "mae": 0.18664233621621099,
+      "rmse": 0.21652047275259936
+    },
+    "frequency": {
+      "concept_group_targets": 24,
+      "label_weight": 24.0,
+      "mae": 0.17956369570407404,
+      "rmse": 0.20524728855635735
+    }
+  }
+}

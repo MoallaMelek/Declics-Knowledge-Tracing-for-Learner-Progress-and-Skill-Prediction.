@@ -20,5 +20,7 @@ jobs:
           node --check web/app.js
           node --check web/musician.js
           node --check web/case-study.js
+          node --check web/musical-cloud.js
+          node --check web/musical-demo.js
       - name: Validate contracts and models
         run: python -B -m pytest -q -p no:cacheprovider

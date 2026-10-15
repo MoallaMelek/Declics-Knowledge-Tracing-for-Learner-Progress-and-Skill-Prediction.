@@ -70,3 +70,28 @@ def test_checkpoint_paths_cannot_escape_directory(tmp_path):
     (tmp_path/'resume.json').write_text(json.dumps({'files': [{'name': '../model.pt', 'sha256': 'a'*64}]}))
     with pytest.raises(ValueError, match='Unsafe'):
         cloud.load_resume(tmp_path)
+
+
+def test_promotion_cannot_cherry_pick_an_easy_validation_control():
+    from axis7.musical_registry import validate_comparison
+    analysis = {'validation_selected_control': 'mean', 'validation_controls':
+                {'mean': {'mae': .2}, 'history': {'mae': .1}}}
+    with pytest.raises(ValueError, match='validation'):
+        validate_comparison(analysis, {'mae': .15}, 'mae')
+    analysis['validation_selected_control'] = 'history'
+    with pytest.raises(ValueError, match='stronger'):
+        validate_comparison(analysis, {'mae': .15}, 'mae')
+    validate_comparison(analysis, {'mae': .09}, 'mae')
+
+
+def test_saving_after_corrupt_latest_generation_preserves_the_valid_backup(tmp_path):
+    import json
+    cloud.save_resume(tmp_path,{'epoch':1})
+    cloud.save_resume(tmp_path,{'epoch':2})
+    manifest=json.loads((tmp_path/'resume.json').read_text())
+    (tmp_path/manifest['files'][0]['name']).write_bytes(b'corrupt')
+    assert cloud.load_resume(tmp_path)['epoch']==1
+    cloud.save_resume(tmp_path,{'epoch':3})
+    manifest=json.loads((tmp_path/'resume.json').read_text())
+    (tmp_path/manifest['files'][0]['name']).write_bytes(b'interrupted again')
+    assert cloud.load_resume(tmp_path)['epoch']==1

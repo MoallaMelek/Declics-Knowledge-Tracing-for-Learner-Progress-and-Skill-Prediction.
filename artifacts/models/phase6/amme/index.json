@@ -1,0 +1,27 @@
+{
+  "source": "amme",
+  "splits": {
+    "42": {
+      "selected": "enhanced_gru",
+      "criterion": "validation_mae",
+      "models": {
+        "enhanced_gru": "seed-42/enhanced_gru"
+      }
+    },
+    "17": {
+      "selected": "enhanced_gru",
+      "criterion": "validation_mae",
+      "models": {
+        "enhanced_gru": "seed-17/enhanced_gru"
+      }
+    },
+    "83": {
+      "selected": "enhanced_gru",
+      "criterion": "validation_mae",
+      "models": {
+        "enhanced_gru": "seed-83/enhanced_gru"
+      }
+    }
+  },
+  "ablations": []
+}

@@ -50,6 +50,24 @@ def test_cached_models_are_invalidated_by_content_changes(api):
     assert client.post('/api/v5/musical/forecast',json=body).status_code == 422
 
 
+def test_demo_hides_raw_query_and_target_reveal_cannot_change_forecast(api,monkeypatch):
+    client,body,root=api
+    monkeypatch.setattr(musical_api,'ROOT',root)
+    directory=root/'runtime/musical-demo';directory.mkdir(parents=True)
+    path=directory/'yousician.json'
+    case={'query':body,'provenance':{'kind':'explicit_unit_test_fixture'},
+          'plot_history':[{'group':1,'score':.2}], 'observed_target':{'0':.1},
+          'private_learner_id':'DO_NOT_EXPOSE'}
+    path.write_text(json.dumps(case))
+    first=client.get('/api/v5/musical/demo?source=yousician').json()
+    case['observed_target']['0']=.99;path.write_text(json.dumps(case))
+    second=client.get('/api/v5/musical/demo?source=yousician').json()
+    assert first['forecast']['predictions']==second['forecast']['predictions']
+    assert first['observed_target']!=second['observed_target']
+    assert 'query' not in first and 'observations' not in first['history'][0]
+    assert 'DO_NOT_EXPOSE' not in json.dumps(first)
+
+
 @pytest.mark.parametrize('value', ['2023-02-29T12:00:00','2023-08-07', '2023-08-07T12:00:00Z'])
 def test_inference_dates_do_not_guess_missing_or_invalid_information(value):
     with pytest.raises(ValueError):

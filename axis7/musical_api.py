@@ -11,6 +11,7 @@ import torch
 from .cloud_training import SOURCES, encode, forward, apply_feature_mode, parse_singpad_time
 from .musical_registry import REGISTRY_ROOT, entries, cached_validate
 from .musical_evidence import evidence
+from .data import ROOT
 
 router = APIRouter()
 
@@ -65,6 +66,28 @@ class BenchmarkQuery(BaseModel):
 def musical_models():
     return {'status': 'source_benchmark_only', 'models': entries(),
             'message': 'Modèles évalués sur leur base musicale. Le carnet piano conserve son abstention.'}
+
+
+@router.get('/api/v5/musical/demo')
+def musical_demo(source: Literal['singpad', 'yousician'] = 'singpad'):
+    path = ROOT / 'runtime/musical-demo' / f'{source}.json'
+    if not path.exists():
+        raise HTTPException(503, 'La démonstration réelle doit être reconstruite à partir de votre archive locale.')
+    try:
+        case = json.loads(path.read_text(encoding='utf-8'))
+        forecast = musical_forecast(BenchmarkQuery(**case['query']))
+    except (ValueError, KeyError, OSError):
+        raise HTTPException(503, 'Démonstration locale incompatible ; reconstruisez-la avec le modèle actif.')
+    return {'provenance': case['provenance'], 'history': case['plot_history'],
+            'observed_target': case['observed_target'], 'forecast': forecast}
+
+
+@router.get('/api/v5/musical/research')
+def musical_research():
+    path = ROOT / 'artifacts/phase6/results-summary.json'
+    if not path.exists():
+        raise HTTPException(503, 'Les comparaisons Phase 6 ne sont pas encore publiées.')
+    return json.loads(path.read_text(encoding='utf-8'))
 
 
 @router.post('/api/v5/musical/forecast')

@@ -23,7 +23,19 @@ def _verified_model(path, report_digest, model_digest):
 
 def cached_validate(folder):
     folder = Path(folder)
-    return _verified_model(str(folder.resolve()), digest(folder/'metrics.json'), digest(folder/'model.pt'))
+    report_digest = digest(folder/'metrics.json')
+    if (folder/'analysis.json').exists():
+        report_digest += digest(folder/'analysis.json')
+    return _verified_model(str(folder.resolve()), report_digest, digest(folder/'model.pt'))
+
+
+def validate_comparison(analysis, validation, metric):
+    control = analysis['validation_selected_control']
+    controls = analysis['validation_controls']
+    if control not in controls or control != min(controls, key=lambda name: controls[name][metric]):
+        raise ValueError('Control must be selected exclusively on validation')
+    if not validation[metric] < controls[control][metric]:
+        raise ValueError('Neural model does not improve the stronger validation control')
 
 
 def validate(folder, *, require_gate=True):
@@ -71,6 +83,10 @@ def validate(folder, *, require_gate=True):
     if require_gate and not (meta['validation_gate']['accepted'] and val[metric] < baseline[metric]
             and val['observed_targets'] >= 30 and test['observed_targets'] >= 30):
         raise ValueError('Benchmark validation gate failed; research metrics retained only')
+    if require_gate and source == 'singpad':
+        if not (folder/'analysis.json').exists():
+            raise ValueError('Corrected SingPAD promotion requires matched historical controls')
+        validate_comparison(json.loads((folder/'analysis.json').read_text(encoding='utf-8')), val, metric)
     for report in (val, test):
         import math
         if not math.isfinite(report[metric]):
@@ -83,7 +99,7 @@ def install(folder, destination=REGISTRY_ROOT, *, activate=True):
     identifier = f"{meta['source']}-{meta['model']}-s{meta['seed']}-{meta['model_sha256'][:12]}"
     target = Path(destination) / identifier
     target.mkdir(parents=True, exist_ok=True)
-    for name in ('model.pt', 'metrics.json', 'metrics.csv', 'history.json'):
+    for name in ('model.pt', 'metrics.json', 'metrics.csv', 'history.json', 'analysis.json'):
         src = Path(folder)/name
         if src.exists():
             shutil.copyfile(src, target/name)
@@ -96,7 +112,7 @@ def install(folder, destination=REGISTRY_ROOT, *, activate=True):
 
 
 def import_bundle(bundle, destination=REGISTRY_ROOT):
-    allowed = {'model.pt', 'metrics.json', 'metrics.csv', 'history.json'}
+    allowed = {'model.pt', 'metrics.json', 'metrics.csv', 'history.json', 'analysis.json'}
     Path(destination).parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=Path(destination).parent) as tmp, zipfile.ZipFile(bundle) as z:
         if len(z.namelist()) != len(set(z.namelist())) or set(z.namelist()) - allowed:
@@ -127,11 +143,16 @@ def entries(root=REGISTRY_ROOT):
             meta, _ = cached_validate(folder)
             if active is not None and active.get(meta['source']) != folder.name:
                 continue
+            comparison = json.loads((folder/'analysis.json').read_text(encoding='utf-8')) if (folder/'analysis.json').exists() else None
             result.append({'id': folder.name, 'source': meta['source'], 'instrument': meta['instrument'],
                            'target': meta['target'], 'model': meta['model'], 'test': meta['test'],
                            'validation': meta['validation'], 'scope': 'source_benchmark_only',
-                           'citation': meta['citation'], 'limitations': meta['limitations']})
-        except (ValueError, KeyError, OSError, RuntimeError):
+                           'citation': meta['citation'], 'limitations': meta['limitations'],
+                           'version': meta['version'], 'preprocessing': meta.get('preprocessing'),
+                           'comparison': {'metrics': comparison['metrics'],
+                                          'selected_control': comparison['validation_selected_control'],
+                                          'bootstrap': comparison['bootstrap']} if comparison else None})
+        except (ValueError, KeyError, OSError, RuntimeError, TypeError):
             continue  # Corrupt/incompatible models are not silently served.
     return result
 

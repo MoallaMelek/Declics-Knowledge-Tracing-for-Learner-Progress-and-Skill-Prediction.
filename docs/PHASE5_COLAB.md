@@ -1,3 +1,5 @@
+> Historique Phase 5 : les résultats SingPAD ci-dessous sont méthodologiquement invalides en raison du tri des dates. Les anciens modèles sont retirés. Voir [la correction et les limites Phase 6](PHASE6_SCIENCE_FR.md).
+
 # Phase 5 — entraînement musical et Google Colab
 
 Les notebooks utilisent les mêmes chargeurs et modèles PyTorch que le projet.
