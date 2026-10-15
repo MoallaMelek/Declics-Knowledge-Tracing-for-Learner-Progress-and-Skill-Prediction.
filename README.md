@@ -1,152 +1,131 @@
-# DÉCLIC · Axis 7 — Musical Learning Intelligence
+<div align="center">
 
-## Phase 4: real piano histories and guarded forecasting
+# DÉCLIC
+### Comprendre le passé musical pour prévoir le prochain résultat
 
-The latest development adds a licensed descriptive piano study, source-comparable progress
-feedback and an additive v4 forecast policy that abstains unless a clearly labeled synthetic
-research query is eligible. It does **not** establish real-music predictive validity.
+**Axe 7 · Objectif O08 · Phase 7**
 
-See [Phase 4 implementation](docs/PHASE4_IMPLEMENTATION.md),
-[musical data investigation](docs/MUSIC_DATA_PHASE4.md),
-[teammate package](docs/TEAM_PHASE4.md) and
-[dataset attribution](data/music-phase4/README.md).
+[![Validation](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/workflows/validate.yml/badge.svg?branch=phase7%2Fpersonalized-musical-learning)](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/workflows/validate.yml)
 
-Reproduce acquired-data analysis with `python scripts/acquire_phase4_music.py` followed by
-`python scripts/analyze_phase4_music.py`. The research interface links the real piano
-case study at `/web/case-study.html`; the familiar musician notebook remains the default.
-Historical studies and models are preserved. No other axis's recognition/scoring model is implemented.
+**36 entraînements neuronaux terminés** · **3 bases musicales** · **315 tests réussis**
 
+[Voir la démonstration locale](http://127.0.0.1:8773/web/o08.html) · [Lire le rapport](docs/PHASE7_REPORT.md) · [Préparer la soutenance](docs/PHASE7_PRESENTATION_FR.md) · [Reproduire les expériences](docs/PHASE7_REPRODUCTION.md)
 
-A musician-first local piano practice notebook, with separate research and team-integration modes. The default guided flow collects clearly sourced self/teacher assessments; it does not pretend to listen to audio or infer mastery. Research-mode probabilities come from saved checkpoints. No LLM produces learner predictions and no video is generated.
+</div>
 
-Axis 7 is the longitudinal intelligence component of a seven-person ESPRIT music-learning project. The other six axes own pitch, rhythm, alignment, performance quality, technique and instrument recognition. This repository consumes their observations through versioned contracts; it does not implement their perception models.
+![Démonstration DÉCLIC : historique musical réel et résultat futur masqué](docs/assets/phase7/overview.png)
 
-## Phase 3: practice first
+DÉCLIC aide à lire un parcours d'apprentissage musical : les résultats déjà observés, la prévision d'un réseau entraîné, puis la comparaison avec le résultat réellement obtenu. L'axe 7 reçoit les mesures des autres axes du projet ; l'analyse du son, du rythme ou de la technique reste leur responsabilité.
 
-Open the local app, select a short piano exercise, read its instructions, play, and enter your own assessment or one actually received from a teacher. Demo profiles keep fictional ratings separate from a consenting personal local notebook. The home, feedback, progress and notebook views use ordinary music language; models, probabilities, JSON and experiments are in **Research & integration** at `/web/research.html`.
+> **Statut actuel :** démonstration locale et recherche reproductible sur des données musicales réelles. La validation avec un professeur et une nouvelle cohorte reste à réaliser. Aucun bénéfice pédagogique ni transfert automatique au piano n'est démontré.
 
-- Six provisional piano exercises and qualitative, teacher-reviewable descriptors; no teacher approval has been invented.
-- Local pseudonymous collection, sequential attempts, strict quality checks, safe retries and scoped JSON export. No identity or raw-media fields.
-- Three explainable observed-history practice policies, with evidence and insufficient-data states. The local rubric is not connected to the synthetic-trained predictor.
-- Atomic v3 evidence supports per-observation producer attribution across axes, explicit missingness, source versions and observation-only context.
-- Verified dataset investigation plus a new **40-run frozen-checkpoint stress diagnostic**. No suitable, ready and rights-verified musical KT table was acquired; real musical validation remains outstanding.
-- **162 regression tests passed**; the final musician UI change was separately rechecked. Existing research UI retains its 19 checks and the new practice UI has 20 API-fed checks.
+## Une démonstration en trois gestes
 
-Start with [collection documentation](docs/PRACTICE_COLLECTION.md), [teacher review materials](docs/PIANO_RUBRIC_REVIEW.md), [team v3 guide](docs/TEAM_PHASE3.md), [dataset investigation](docs/MUSIC_DATA_PHASE3.md), [UX review](docs/PHASE3_UX_REVIEW.md) and [verification](docs/PHASE3_VALIDATION.md). Stress results and cold-start slices are in [RESULTS.md](artifacts/phase3/stress-20261013-v2/RESULTS.md) and its adjacent immutable summary/predictions/source snapshot. Reproduce in a new directory with `python scripts/evaluate_phase3_robustness.py --output artifacts/phase3/YOUR-NEW-ID`.
+| 1 · Lire le passé | 2 · Calculer la prévision | 3 · Révéler le résultat |
+|---|---|---|
+| Un vrai parcours de test, séparé des apprenants d'entraînement. | Un modèle PyTorch enregistré utilise uniquement les observations antérieures. | Le résultat observé apparaît après le calcul, avec les erreurs de prévision. |
 
-This remains a single-user loopback application. Institutional/minor research, production authorization, approved labels and empirical musical outcomes require a separate reviewed process. The requested objectives revision 1-2 was unavailable; v3 explicitly records the available cached 1-1 mapping rather than claiming it was read. Axis 7 corresponds to learner/future-performance prediction (O09 in that version).
+```mermaid
+flowchart LR
+    A[Historique musical réel] --> B[Contrôle du domaine et des dates]
+    B --> C[Réseau PyTorch entraîné]
+    C --> D[Prévision enregistrée]
+    D --> E[Révélation du résultat observé]
+    A --> F[États descriptifs des compétences]
+    F --> G[Suggestions explicites ou abstention]
+```
 
-## Version 2 upgrade
+La page distingue les **observations**, les **prévisions** et les **interprétations descriptives**. Une compétence peu documentée reste indéterminée. Les suggestions utilisent uniquement le catalogue historique disponible et s'abstiennent si aucun exercice adapté n'est connu. Leur efficacité éducative n'a pas été évaluée.
 
-- Corrected grouped BKT likelihood and stable filtering; score-only and excluded observations leave binary model state unchanged.
-- Strict v2 input contracts, six mock producers, confidence/rubric eligibility, transactional chronology and idempotent retries.
-- Enhanced GRU with causal success/failure history and training-only exercise difficulty; a declared simpleKT-inspired item attention adaptation.
-- Repeated learner splits, separate model selection/calibration learners, exercise/exposure controls and genuine outcome/item ablations.
-- Interactive skill maps, trajectories, evidence inspection and two explainable practice heuristics, with explicit provenance and validity limits.
+## Ce qui a réellement été entraîné
 
-The controlled study configuration is [research-v2.json](configs/research-v2.json). Completed results are published atomically under `artifacts/v2/index.json`; the interface does not report incomplete runs as final evidence. Full methods and model-selection rationale are in [SCIENCE_V2.md](docs/SCIENCE_V2.md).
+| Base | Données longitudinales utilisables | Ce que le modèle cherche à prévoir | Utilisation actuelle |
+|---|---|---|---|
+| **AMME** | 59 apprenants · 212 groupes | Score continu de similarité mélodique du prochain bloc ; ce n'est pas un pourcentage de notes correctes. | Recherche ; pas de promotion du nouveau modèle. |
+| **SingPAD** | 1 042 apprenants · 18 328 groupes | Résultat des concepts du prochain groupe de chant, à partir des annotations de notes. | Démonstration dans le domaine vocal validé. |
+| **Yousician** | 999 apprenants · 12 596 jours actifs | Score agrégé du prochain jour actif à l'ukulélé. | Démonstration ukulélé ; aucun transfert universel aux instruments. |
 
-## Completed controlled study
+**33 entraînements principaux + 3 extensions Yousician**, sur CPU local. Les trois séparations d'apprenants utilisent les graines 42, 17 et 83. Le protocole compare GRU, variantes d'historique et attention ; chaque base reçoit les conditions pertinentes. Les contrôles statistiques servent à vérifier les résultats scientifiques ; les prévisions de l'application utilisent des réseaux neuronaux.
 
-The fixed-budget v2 study completed **102 runs**: two domains, three learner splits, two neural initialization seeds, five statistical controls and six neural variants. These descriptive means average initializations within each split, then splits; overlapping learner splits are not independent population replications.
+### Résultats sans sélection sur le test
 
-| Real FORGET-SE model | Mean ROC-AUC | Mean raw log loss |
-|---|---:|---:|
-| DKT GRU | 0.7203 | 0.6066 |
-| Exercise-aware PFA control | 0.7266 | 0.5980 |
-| Enhanced GRU | **0.7610** | **0.5689** |
-| Enhanced GRU without learner outcomes | 0.7237 | 0.6045 |
-| Item attention adaptation | 0.7263 | 0.6004 |
+Moyennes sur les trois séparations ; **plus bas = meilleur**. Le modèle neuronal et le contrôle de chaque séparation sont choisis sur la validation, avant lecture du test.
 
-Validation selected enhanced GRU on each real-data split. Its paired learner-bootstrap raw-loss difference against the validation-selected strongest statistical control was negative on all three splits. The exercise-aware attention adaptation did not clearly improve the comparison; its negative result is retained. This does not isolate recurrence from the enhanced model's cross-skill features, and no psychological mastery or musical transfer is established.
+| Base · mesure | Réseau sélectionné | Contrôle sélectionné | Conclusion descriptive |
+|---|---:|---:|---|
+| AMME · erreur absolue moyenne | 0,18628 | **0,17245** | Le réseau n'apporte pas de gain moyen. |
+| Yousician · erreur absolue moyenne | 0,09089 | **0,09030** | Pas de supériorité moyenne convaincante. |
+| SingPAD · perte logarithmique | **0,51792** | 0,52419 | Avantage modeste, encore exploratoire. |
 
-On **synthetic music**, plain PFA and exercise-aware PFA had similar mean raw losses (0.6191 and 0.6196), compared with enhanced GRU (0.6270), DKT (0.6353) and item attention (0.6461). That small descriptive gap does not establish a statistical winner. The default musical neural demonstrator remains DKT-7, selected on the representative split's validation loss, with the validation-selected overall statistical winner disclosed. Architecture complexity is not treated as success.
+L'extension Yousician enrichie par le contexte historique n'améliore pas clairement la moyenne. Le recalibrage des probabilités n'aide pas systématiquement. Les séparations réutilisent la cohorte Phase 6 : elles ne remplacent pas une confirmation sur une nouvelle cohorte.
 
-Full [results](artifacts/v2/axis7-v2-20261013-controlled/RESULTS.md), [machine summary](artifacts/v2/axis7-v2-20261013-controlled/summary.json), per-split predictions, calibration, skill/history slices, intervals, checkpoints and source snapshots remain available. Historical v1 outputs below retain their original calibrated semantics and are not silently pooled with v2 raw results.
+![Comparaison des représentations sur SingPAD : résultats mesurés sur trois séparations](artifacts/phase7/figures/representations-singpad.png)
 
-## Open the demonstration
+[Tableaux complets et limites](docs/PHASE7_RESULTS.md) · [Résumé vérifiable en JSON](artifacts/phase7/summary.json) · [Provenance des exécutions](artifacts/phase7/execution-provenance.json)
 
-Run `Launch.ps1` from PowerShell in this folder. On this delivery machine it finds the prepared environment automatically. Open **http://127.0.0.1:8767/**. Keep the server window running; press Ctrl+C to stop it.
+## Lancer l'application
 
-On another machine, use Python 3.12 or newer and create an environment first:
+Python **3.12 ou supérieur**, depuis la racine du dépôt :
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.lock.txt --extra-index-url https://download.pytorch.org/whl/cpu
-.\.venv\Scripts\python.exe -m uvicorn axis7.server:app --host 127.0.0.1 --port 8767
+.\.venv\Scripts\python.exe -m pip install -e '.[test]' --extra-index-url https://download.pytorch.org/whl/cpu
+.\.venv\Scripts\python.exe -m uvicorn axis7.server:app --host 127.0.0.1 --port 8773
 ```
 
-The checkpoints and benchmark data are included; opening the demonstration requires no retraining or account. The interface loads no external fonts, scripts, or services and needs no network connection. There is no cloud prediction service.
+Ouvrir **[la démonstration O08](http://127.0.0.1:8773/web/o08.html)**, ou [le carnet musical](http://127.0.0.1:8773/). Sur la machine de livraison, le serveur et les exemples réels sont déjà préparés.
 
-## Explore the twin
+**Sur une nouvelle installation**, les poids et rapports publics sont inclus, mais les archives sources et les parcours individuels de démonstration restent privés. Après acquisition autorisée des archives, reconstruire les deux exemples :
 
-1. Start in **Atelier musical · simulation**. Select a skill to inspect its forecast, observed successes/errors, history, and variation across initializations.
-2. Replay sessions or move the history slider. Earlier predictions never consume later outcomes.
-3. Open **Ajouter une séance simulée**, choose a skill and scenario, and incorporate it. An independent mock producer creates four outcomes; the saved model then updates its predictions. The model does not manufacture its own evidence.
-4. Switch to **Étude réelle · génie logiciel** to inspect held-out FORGET-SE histories without relabelling them as musical skills.
-5. Open **Preuves scientifiques** for the measured model comparison and plots. **Détail du modèle** exposes alternate saved models.
+```powershell
+.\.venv\Scripts\python.exe scripts/build_musical_demo.py --source singpad --archive 'CHEMIN/singKT-dataset-main.zip'
+.\.venv\Scripts\python.exe scripts/build_musical_demo.py --source yousician --archive 'CHEMIN/yousician_ukulele.json.zip'
+```
 
-Node size reflects usable evidence count. Graph links mean co-observation in one attempt; they are not learned prerequisites. The default practice policy combines forecast fragility, recent failures, recurring errors and generic forecast change; a second policy prioritizes the lowest forecast. Both require three usable observations. These explicit rules have not been validated for learning gains. Seed ranges are model variation, not individual confidence intervals or psychological mastery. V2 curves disclose known attempted-exercise conditioning; the current next forecast uses an unknown exercise unless one is explicitly requested.
+Sans ces fichiers, la démonstration signale leur absence. Les droits de réutilisation et conditions propres à chaque source continuent de s'appliquer ; la présence de ce code ne donne aucun droit supplémentaire sur les données. Voir le [guide de reproduction](docs/PHASE7_REPRODUCTION.md) et les [décisions sur les données musicales](docs/MUSIC_DATA_PHASE4.md).
 
-## Historical v1 measurements, preserved
+Les modèles actifs antérieurs validés sont conservés. Les 36 poids Phase 7 sont des artefacts de recherche et ne remplacent pas automatiquement le registre actif. Le carnet piano conserve l'abstention lorsque le domaine et la mesure ne sont pas validés.
 
-The real, licensed fallback is **FORGET-SE v1**, a software engineering corpus with 10,873 observations from 186 learners. After atomic grouping of tied timestamps there are 10,307 attempts. The declared target is *full credit*, not arbitrary conversion of every continuous score to a musical outcome. See [data attribution](data/DATA_LICENSE.md).
+## Ce qui est prêt, ce qui reste à prouver
 
-Training, selection, calibration, and test learners are disjoint. The fixed split has 130/14/14/28 learners. Three neural initialization seeds share this split. Model selection uses validation loss; temperature scaling uses separate calibration learners.
+| Livré et vérifié | Prochaine validation nécessaire |
+|---|---|
+| Prévisions réelles, révélation différée et affichage mobile | Revue d'usage avec un professeur et des élèves |
+| États descriptifs et règles de suggestions testés | Taxonomie, seuils et contenu des exercices approuvés par un enseignant |
+| Collecte locale volontaire, dates de disponibilité, export et suppression | Contrat de mesure commun aux axes et véritable pilote consenti |
+| Contrôles appris, calibration, données manquantes et CV AMME avec Ridge | Nouvelle cohorte, incertitude individuelle et confirmation indépendante |
+| API bornée, tests de causalité et poids vérifiés | Authentification par utilisateur et audit avant mise en ligne |
 
-| Model, representative run | Real test ROC-AUC | Real test log loss |
-|---|---:|---:|
-| Training skill prior | 0.5913 | 0.6850 |
-| BKT | 0.5854 | 0.6540 |
-| PFA | 0.5937 | 0.6581 |
-| DKT-style GRU, seed 7 | **0.7276** | **0.5945** |
-| SAKT-style attention, seed 7 | 0.7099 | 0.6099 |
+La collecte prospective est désactivée sans jeton administrateur local. Même activée, ses prévisions terrain restent en **abstention** tant qu'aucun contrat de mesure et modèle de domaine n'est validé. Le jeton local ne constitue pas une authentification d'élève ni une solution de déploiement public.
 
-DKT seed 7 was selected on validation, not on these test numbers. Its learner-bootstrap test AUC interval is approximately [0.6948, 0.7572], conditional on this trained model and split. All runs, raw/calibrated metrics, learner macro scores, skill slices, early-history slices, confusion matrices, errors, and bootstrap results are in [real results](artifacts/forget-se/RESULTS.md) and `results.json`.
+## Guides pour l'équipe et la soutenance
 
-On synthetic musical data, **PFA wins overall**; DKT is the best neural candidate. The musical view defaults to DKT to demonstrate the neural integration, with the overall winner disclosed and selectable. See [synthetic results](artifacts/music-mock/RESULTS.md). These measurements do not validate musical transfer.
+| Besoin | Document |
+|---|---|
+| Comprendre les choix et les limites | [Rapport scientifique et technique](docs/PHASE7_REPORT.md) |
+| Examiner toutes les mesures | [Résultats détaillés](docs/PHASE7_RESULTS.md) |
+| Refaire l'étude et reprendre une interruption | [Reproduction et exploitation](docs/PHASE7_REPRODUCTION.md) |
+| Présenter l'application en classe | [Parcours de démonstration](docs/PHASE7_DEMO_GUIDE.md) |
+| Expliquer le projet en cinq minutes | [Oral en français](docs/PHASE7_PRESENTATION_FR.md) |
+| Préparer les questions du professeur | [Questions et réponses](docs/PHASE7_QA_FR.md) |
+| Partager une synthèse en anglais | [Executive summary](docs/PHASE7_EXECUTIVE_SUMMARY_EN.md) |
+| Vérifier la livraison | [Preuves et vérifications](docs/PHASE7_VERIFICATION.md) |
+| Retrouver l'entraînement Colab | [Guide Phase 5](docs/PHASE5_COLAB.md) |
+| Consulter les anciennes phases | [Archive du README Phases 1 à 5](docs/README_HISTORY_PHASE1_5.md) |
 
-## Reproduce and test
+## Vérifier le code
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -q
-.\.venv\Scripts\python.exe -m axis7.train --domain all
+node --check web/o08.js
+node --check web/musician.js
 ```
 
-If using this delivery machine's prepared environment, substitute `..\..\work\.venv\Scripts\python.exe`. Historical training now refuses to overwrite existing results; use `--output-root artifacts/new-study` to create a fresh legacy comparison. The v2 framework is run with `python -m axis7.research_v2 --config configs/research-v2.json --experiment-id YOUR-NEW-ID`; every study ID is immutable. It evaluates two domains across split seeds 2026/2027/2028, with neural seeds 7/19, 28 maximum epochs and early stopping, five statistical controls and six neural variants (102 runs). This is a fixed-budget comparison, not an exhaustive tuning study.
+**315 tests réussis** dans la CI de la livraison du code Phase 7 : [exécution vérifiée](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/runs/38801586386), commit `05f2757bc8f6c803fe6886559109923277b9a90d`. Le badge en haut suit la branche et les changements documentaires suivants. Les tests couvrent notamment la causalité temporelle, les partitions d'apprenants, les contrats, la révélation du résultat, la rétention et les reprises d'analyse.
 
-Regenerate input schemas with `python -m axis7.schema` and `python -m axis7.contracts`. Exact installed versions are in `requirements.lock.txt`. CI checks JavaScript syntax and the Python/API/frontend regression suite. The old [validation](docs/VALIDATION.md), [design](docs/DESIGN_CHANGES.md) and [completion](docs/COMPLETION_REPORT.md) documents describe the historical v1 delivery; consult the v2 upgrade documentation for current behavior.
+<details>
+<summary>Compatibilité et historique des objectifs</summary>
 
-The frontend regression test runs `web/app.js` under Node.js when it is installed; without Node it is skipped. Tests cover current/future label leakage in recurrent, attention, and baseline models; atomic duplicate targets; disjoint learner splits; strict observation validation; persisted API ingestion; model reload reproducibility; simulated updates/reset; and displayed historical prefix invariance. API tests use an isolated temporary database.
+La Phase 7 désigne la fonction de prévision par **O08**, conformément à son cahier des charges. Les contrats historiques v3 gardent la correspondance de la version d'objectifs 1-1 disponible à l'époque, où l'axe 7 était O09. Cette compatibilité est conservée et ne crée aucune correspondance de compétences approuvée. Les anciennes études FORGET-SE et les simulations musicales restent archivées dans leurs domaines respectifs.
 
-## Integrate DÉCLIC observations
-
-[Integration guide](docs/INTEGRATION.md) and [JSON schema](schemas/attempt-v1.schema.json) define the boundary. Axes 1–6 retain ownership of media analysis and rubric decisions. Axis 7 consumes versioned, timestamped skill observations only. New pseudonymous learners can be created by their first valid project event. Raw media is neither required nor accepted by this interface.
-
-Added observations persist locally in `runtime/events.sqlite`; attempt IDs are unique across all learners, and NaN, infinite, or misspelled fields are refused before storage. The reset control removes added events for the selected learner; supplied benchmark and mock fixtures remain intact. Export is an analysis snapshot of the internal history, not a canonical event format for re-import.
-
-## Evidence and limits
-
-- [Research and project-document synthesis](docs/RESEARCH.md): all supplied sources, axes mapping, datasets, model literature, and validity requirements.
-- [Architecture](docs/ARCHITECTURE.md), [model card](docs/MODEL_CARD.md), [source inventory](docs/SOURCE_MANIFEST.json).
-- [Claude architecture critique](docs/CLAUDE_REVIEW.md) and [design critique](docs/CLAUDE_DESIGN_REVIEW.md).
-
-The musical taxonomy and rubric are provisional. No DÉCLIC learner study has been performed. Repeated splits overlap learners, so their standard deviation is descriptive rather than three independent population replications. Exercise features use training-only atomic bundle statistics; they are not teacher-validated psychometric difficulty. Unknown timestamp units prevent elapsed-time forgetting claims. BKT parameters are not validated individual mastery states. Recommendations have no causal evaluation. Neural implementations are declared adaptations, not exact paper reproductions. The runtime is a single-user loopback demonstration, without production authentication, consent management, authorization, or a student-record deployment.
-
-Music data decisions: [rights investigation](docs/MUSIC_DATA_V2.md) and [teacher data-collection protocol](docs/MUSIC_COLLECTION_PROTOCOL.md). A paper's open license is not assumed to grant rights to an undistributed raw dataset. Until rights and longitudinal suitability are established, music results remain explicitly synthetic.
-
-The user's original `declic` source folder was preserved. The requested global AI_TEAM/AGENTS templates were unavailable; no protocol was fabricated. Read-only Codex CLI reviews and Claude CLI consultation worked under the user's explicit authorization.
-
-
-The separate [exploratory global-history control](artifacts/v2/exploratory-global-control/RESULTS.md) uses a plain logistic model with cross-skill history features. Its paired intervals against the validation-selected neural models on FORGET-SE all include zero. EGRU retains a small numerical advantage, but this experiment does not establish an architecture-specific advantage over the stronger control. This posthoc diagnostic is separate from the fixed 102-run study. Reproduce it with `python scripts/global_history_control.py --output artifacts/new-global-control`.
-
-Final local verification: 92 tests passed (81.18 seconds), including 19 frontend checks. All 102 saved checkpoint predictions were reconstructed exactly; see [verification](artifacts/v2/checkpoint-verification.json).
-# Phase 5 — entraînement cloud musical
-
-Trois notebooks Google Colab et un pipeline PyTorch reprenable sont disponibles :
-[guide Colab](docs/PHASE5_COLAB.md). Les modèles réellement évalués sont exposés
-dans `/web/musical-cloud.html` et `/api/v5/musical/models`, dans leur domaine source.
-Les Phases 1–4 et l'abstention du carnet piano restent compatibles.
-Les trois bases ont aussi été entraînées sur un Tesla T4 dans Colab :
-[résultats GPU et vérifications d'importation](docs/PHASE5_CLOUD_VERIFICATION.md).
-Un notebook commun permet d'enchaîner les trois bases sur une seule session gratuite.
+</details>

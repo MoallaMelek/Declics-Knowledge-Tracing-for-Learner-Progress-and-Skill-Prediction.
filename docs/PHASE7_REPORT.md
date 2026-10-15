@@ -308,6 +308,8 @@ enseignant ; fixer la définition de chaque résultat avec les autres axes ; col
 consenti avec séparation chronologique des prévisions ; évaluer une nouvelle cohorte sans choix sur
 le test ; ensuite seulement réexaminer la promotion, l'incertitude et l'efficacité des recommandations.
 
+Les investigations suivantes n'ont pas été exécutées dans cette livraison : validation croisée neuronale AMME, comparaison systématique des fenêtres et traitement robuste des valeurs extrêmes, ajustement BKT et validation de la couverture d'intervalles individuels. La CV AMME livrée porte sur Ridge ; les quantiles d'erreur ne prouvent pas une incertitude individuelle calibrée. Ces pistes restent des travaux complémentaires, sans résultats à leur attribuer.
+
 ## Références méthodologiques vérifiées
 
 Température et calibration : Guo et al., On Calibration of Modern Neural Networks, ICML 2017,
