@@ -63,7 +63,11 @@ def report(output,revision,ci_url,screenshots):
     for name in ['PHASE7_REPORT.md']:
         story.append(PageBreak())
         body=ST['body'].clone('report-body',leading=14,spaceAfter=7)
-        story.extend(Paragraph(p.text,body) if isinstance(p,Paragraph) and p.style.name=='body' else p for p in md_document(ROOT/'docs'/name))
+        references=False
+        for p in md_document(ROOT/'docs'/name):
+            if isinstance(p,Paragraph) and p.getPlainText()=='Références méthodologiques vérifiées':
+                references=True
+            story.append(Paragraph(p.text,ST['small'] if references else body) if isinstance(p,Paragraph) and p.style.name=='body' else p)
     story.append(PageBreak());story.append(Paragraph('Figures issues des résultats exécutés',ST['h1']))
     captions=[('representations-singpad.png','Chaque point est un score de test réellement mesuré. La moyenne est descriptive ; aucun intervalle individuel n’est ajouté.'),
         ('calibration-singpad.png','GRU graine 42 : fréquences de test comparées aux probabilités. Le recalibrage est ajusté sur validation uniquement.'),
