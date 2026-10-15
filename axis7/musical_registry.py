@@ -5,6 +5,7 @@ from pathlib import Path
 import shutil
 import tempfile
 import zipfile
+from functools import lru_cache
 
 import torch
 
@@ -12,6 +13,17 @@ from .cloud_training import SOURCES, VERSION, PREPROCESSING, atomic_json, digest
 from .data import ROOT
 
 REGISTRY_ROOT = ROOT / 'artifacts/models/musical-cloud'
+
+
+@lru_cache(maxsize=8)
+def _verified_model(path, report_digest, model_digest):
+    # Digests invalidate a cache hit if either file changes, including equal-size writes.
+    return validate(path)
+
+
+def cached_validate(folder):
+    folder = Path(folder)
+    return _verified_model(str(folder.resolve()), digest(folder/'metrics.json'), digest(folder/'model.pt'))
 
 
 def validate(folder, *, require_gate=True):
@@ -27,6 +39,8 @@ def validate(folder, *, require_gate=True):
         if (chronology.get('chronological_inversions') != 0 or chronology.get('duplicate_time_groups') != 0
                 or chronology.get('learners', 0) < 10):
             raise ValueError('Missing or failed SingPAD chronological audit')
+    if meta.get('feature_mode', 'full') not in ('full', 'no_counts', 'no_recent', 'no_items'):
+        raise ValueError('Unknown feature configuration')
     if meta.get('instrument') != SOURCES[source]['instrument'] or meta.get('target') != SOURCES[source]['target']:
         raise ValueError('Incompatible source domain/target')
     if digest(folder/'model.pt') != meta.get('model_sha256'):
@@ -110,7 +124,7 @@ def entries(root=REGISTRY_ROOT):
         if not folder.is_dir():
             continue
         try:
-            meta, _ = validate(folder)
+            meta, _ = cached_validate(folder)
             if active is not None and active.get(meta['source']) != folder.name:
                 continue
             result.append({'id': folder.name, 'source': meta['source'], 'instrument': meta['instrument'],

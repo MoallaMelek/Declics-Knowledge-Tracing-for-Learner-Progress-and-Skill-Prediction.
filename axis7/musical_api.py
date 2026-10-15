@@ -8,8 +8,9 @@ import numpy as np
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 import torch
 
-from .cloud_training import SOURCES, encode, forward, apply_feature_mode
-from .musical_registry import REGISTRY_ROOT, entries, validate
+from .cloud_training import SOURCES, encode, forward, apply_feature_mode, parse_singpad_time
+from .musical_registry import REGISTRY_ROOT, entries, cached_validate
+from .musical_evidence import evidence
 
 router = APIRouter()
 
@@ -40,14 +41,11 @@ class BenchmarkQuery(BaseModel):
 
     @model_validator(mode='after')
     def source_time(self):
-        from datetime import datetime
         times = [self.query_time] + [r.time for r in self.history]
         if self.source == 'singpad':
             if any(not isinstance(t, str) for t in times):
                 raise ValueError('SingPAD requires source local ISO timestamps')
-            parsed = [datetime.fromisoformat(t) for t in times]
-            if any(t.tzinfo is not None for t in parsed):
-                raise ValueError('SingPAD source timezone is unspecified')
+            parsed = [parse_singpad_time(t) for t in times]
             self.query_time = parsed[0].isoformat()
             for row, t in zip(self.history, parsed[1:]):
                 row.time = t.isoformat()
@@ -83,8 +81,8 @@ def musical_forecast(body: BenchmarkQuery):
         if not isinstance(active, dict) or active.get(body.source) != body.model_id:
             return {'status': 'abstained', 'reason': 'inactive_model', 'predictions': None}
     try:
-        meta, model = validate(folder)
-    except (ValueError, OSError, KeyError, RuntimeError):
+        meta, model = cached_validate(folder)
+    except (ValueError, OSError, KeyError, RuntimeError, TypeError):
         raise HTTPException(422, 'Model failed benchmark validation')
     if body.source != meta['source'] or body.instrument != meta['instrument']:
         return {'status': 'abstained', 'reason': 'incompatible_domain', 'predictions': None}
@@ -123,6 +121,12 @@ def musical_forecast(body: BenchmarkQuery):
         prediction = torch.sigmoid(forward(model, meta['model'], tensors))[0,-1].numpy()
     return {'status': 'source_benchmark_only', 'source': body.source, 'instrument': body.instrument,
             'target': meta['target'], 'model_id': body.model_id, 'prefix_groups': len(rows)-1,
+            'definition': {'query_time': body.query_time, 'exercise': body.exercise,
+                           'scale': 'probabilité de réussite d’une note par concept' if body.source == 'singpad' else 'score continu entre 0 et 1',
+                           'horizon': 'prochain enregistrement' if body.source == 'singpad' else 'prochain jour actif' if body.source == 'yousician' else 'prochain bloc',
+                           'schema': meta['version'], 'preprocessing': meta.get('preprocessing'),
+                           'history_provenance': 'historique fourni dans la requête ; origine non authentifiée'},
+            'evidence': evidence(rows[:-1], body.concepts, body.source),
             'predictions': {str(k): float(prediction[k]) for k in body.concepts},
             'message': 'Prévision de la cible de cette base ; aucune validation pour un autre instrument.',
             'test_metrics': meta['test']}
