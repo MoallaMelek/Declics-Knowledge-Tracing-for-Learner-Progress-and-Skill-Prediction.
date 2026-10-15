@@ -91,13 +91,44 @@ def make_samples(learners, ids, K, items, condition, context=64):
     return samples
 
 
+def target_logits(model, inputs):
+    """Exact selected-query evaluation, same independent attention queries.
+
+    The mask selects outputs to score, never supplies outcome values to the model.
+    No interactions exist between queries in SimpleKTStyleAttention. Evaluation
+    equivalence to the dense implementation is regression-tested.
+    """
+    if model.condition not in ('attention','no_concept_embedding'):
+        return model(*inputs[:4])
+    x, previous, current, difficulty, _, weights = inputs
+    base = model.base; B,T,_ = x.shape; H = base.skill.embedding_dim
+    positions = base.position(torch.arange(T,device=x.device))
+    memory = base.memory(x)+base.item(previous)+base.difficulty(difficulty[:,:,:1])+positions
+    indices = [torch.nonzero(weights[b]>0,as_tuple=False) for b in range(B)]
+    N = max(1,max(len(i) for i in indices))
+    ts = torch.zeros((B,N),dtype=torch.long,device=x.device); ks = torch.zeros_like(ts)
+    for b, values in enumerate(indices):
+        if len(values): ts[b,:len(values)]=values[:,0]; ks[b,:len(values)]=values[:,1]
+    bi = torch.arange(B,device=x.device)[:,None]
+    queries = base.skill(ks)+base.item(current[bi,ts])+base.difficulty(difficulty[bi,ts,1:])+base.position(ts)
+    mask = (torch.arange(T,device=x.device)[None,None,:]>ts[:,:,None]).repeat_interleave(base.attn.num_heads,dim=0)
+    attended,_ = base.attn(queries,memory,memory,attn_mask=mask,need_weights=False)
+    attended = base.norm(attended+queries)
+    own_counts = torch.stack((x[bi,ts,2*model.K+ks],x[bi,ts,3*model.K+ks]),-1)
+    selected = base.head(torch.cat((attended,queries,own_counts),-1)).squeeze(-1)
+    result = torch.zeros_like(weights)
+    for b,values in enumerate(indices):
+        if len(values): result[b,values[:,0],values[:,1]]=selected[b,:len(values)]
+    return result
+
+
 def predictions(model, samples, device='cpu'):
     ys = []; ps = []; ws = []
     model.eval()
     with torch.inference_mode():
         for i in range(0, len(samples), 16):
             inputs = c.batch(samples[i:i+16], device)
-            p = torch.sigmoid(model(*inputs[:4])).cpu().numpy()
+            p = torch.sigmoid(target_logits(model,inputs)).cpu().numpy()
             y, w = (a.cpu().numpy() for a in inputs[4:]); mask = w > 0
             ys.extend(y[mask]); ps.extend(p[mask]); ws.extend(w[mask])
     return tuple(np.asarray(a) for a in (ys, ps, ws))
@@ -163,7 +194,7 @@ def train_representation(prepared, seed, condition, folder, epochs=8):
         model.train()
         while cursor < len(order):
             inputs = c.batch([sets['train'][i] for i in order[cursor:cursor+16]], 'cpu')
-            logits = model(*inputs[:4]); y, w = inputs[4:]
+            logits = target_logits(model,inputs); y, w = inputs[4:]
             loss_values = nn.functional.binary_cross_entropy_with_logits(logits, y, reduction='none') if binary else (torch.sigmoid(logits)-y)**2
             loss = (loss_values*w).sum()/w.sum()
             if not torch.isfinite(loss): raise ValueError('Nonfinite training loss')

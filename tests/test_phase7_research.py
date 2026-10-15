@@ -3,6 +3,7 @@ import pytest
 import torch
 from axis7.phase7_research import RepresentationModel, gap_encode, fit_temperature, calibration, tabular, make_samples
 from axis7.cloud_training import batch
+from axis7.phase7_research import target_logits
 
 
 def rows():
@@ -59,3 +60,17 @@ def test_tabular_target_not_in_its_features_and_window_labels_once():
     for condition in ('gru','recent3'):
         samples = make_samples({'a':a},['a'],2,{},condition,context=4)
         assert sum(s[-1].sum() for s in samples) == 5
+
+
+@pytest.mark.parametrize('condition',['attention','no_concept_embedding'])
+def test_sparse_attention_matches_dense_outputs_and_gradients(condition):
+    torch.manual_seed(9)
+    model=RepresentationModel(condition,2,2).eval()
+    inputs=batch([gap_encode(rows(),2,{'x':1},condition)],'cpu')
+    mask=inputs[-1]>0
+    dense=model(*inputs[:4]); sparse=target_logits(model,inputs)
+    torch.testing.assert_close(dense[mask],sparse[mask],atol=1e-6,rtol=1e-5)
+    dense[mask].sum().backward(); grads={n:p.grad.clone() for n,p in model.named_parameters() if p.grad is not None}
+    model.zero_grad(); target_logits(model,inputs)[mask].sum().backward()
+    for n,p in model.named_parameters():
+        if n in grads: torch.testing.assert_close(grads[n],p.grad,atol=2e-5,rtol=2e-4)

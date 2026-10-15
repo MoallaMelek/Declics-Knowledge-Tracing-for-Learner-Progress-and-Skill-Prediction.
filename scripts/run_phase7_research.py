@@ -18,7 +18,13 @@ def run(source, archive, seeds):
     for seed in seeds:
         reports = {}
         for condition in conditions:
-            report, model, split, K, items = train_representation(prepared, seed, condition, private/f'{seed}/{condition}')
+            completed = public/f'seed-{seed}/{condition}.json'
+            if completed.exists():
+                reports[condition] = json.loads(completed.read_text(encoding='utf-8'))
+                continue
+            # New implementation fingerprint gets its own resumable directory.
+            implementation = c.digest(ROOT/'axis7/phase7_research.py')[:12]
+            report, model, split, K, items = train_representation(prepared, seed, condition, private/f'{seed}/{condition}-{implementation}')
             reports[condition] = report
             c.atomic_json(public/f'seed-{seed}/{condition}.json', report)
             if seed == 42 and condition == 'gru':
