@@ -52,6 +52,13 @@ const throws = fn => { try { fn(); return false; } catch (e) { return true; } };
   const forged = clone(fx.reveal); forged.comparison[0].prediction += 0.01;
   check('a reveal for different predictions is refused', !A.acceptReveal(s5, forged));
   check('a reveal for another cutoff is refused', !A.acceptReveal(states.find(s => s.cutoff === 6), fx.reveal));
+  const wrongModel=clone(fx.reveal);wrongModel.identity.model_id='another-model';wrongModel.model_id='another-model';
+  check('same probabilities under another model are refused',!A.acceptReveal(s5,wrongModel));
+  const wrongData=clone(fx.reveal);wrongData.identity.generation='different-generation';
+  check('a reveal under another data generation is refused',!A.acceptReveal(s5,wrongData));
+  const toy=clone(s5);toy.past[2].score=.99;toy.past[2].concepts={'0':[0,1],'1':[99,99]};
+  toy.trail=toy.trail.filter(x=>x.index!==2);toy.trail.push({index:2,predicted_mean:.5,observed_mean:.5});
+  check('perfect two-concept predictions compare .5 to .5, never .5 to .99',A.timeline(toy)[2].score===.5&&A.timeline(toy)[2].predicted===.5);
   check('log-loss per note', Math.abs(A.logLoss(0.8, 3, 4) - -(3 * Math.log(0.8) + Math.log(0.2))) < 1e-12);
   check('calibration bin lookup', A.calibrationBin([{lower: 0.7, observed: 0.75}, {lower: 0.8, observed: 0.85}], 0.84).observed === 0.85 && A.calibrationBin(null, 0.5) === null);
   check('abstention reason is explained, never a number', /abstient/.test(A.reason('insufficient_atomic_history')) && /abstient/.test(A.reason('unknown')));
@@ -75,6 +82,23 @@ const throws = fn => { try { fn(); return false; } catch (e) { return true; } };
   const slow = client.state('yousician', '01', 6); const fast = client.state('yousician', '01', 7);
   await fast; await slow.catch(() => null);
   check('a superseded request is aborted', signals.length >= 4 && signals[signals.length - 2].aborted);
+
+  const pendingClient=createClient(async()=>{await new Promise(r=>setTimeout(r,20));return {ok:true,json:async()=>states[2]};});
+  const pending=pendingClient.state('yousician','01',3);pendingClient.forget();await pending;
+  check('forget blocks a pending response from repopulating caches',pendingClient.visitedCount()===0);
+  for(const [status,code] of [[404,'api_unavailable'],[503,'unavailable'],[401,'authentication'],[500,'server']]){
+    const c=createClient(async()=>({ok:false,status,json:async()=>({detail:'controlled'})}));
+    let err;try{await c.state('yousician','01',3);}catch(e){err=e;}
+    check(`HTTP ${status} is categorized without raw details`,err?.code===code&&!err.message.includes('controlled'));
+  }
+  for(const code of ['missing_data','missing_model']){
+    const c=createClient(async()=>({ok:false,status:503,json:async()=>({detail:{code,message:'private path'}})}));
+    let err;try{await c.state('yousician','01',3);}catch(e){err=e;}
+    check(`structured ${code} is distinguished`,err?.code===code&&!err.message.includes('private path'));
+  }
+  const timeout=createClient((_url,opts)=>new Promise((_resolve,reject)=>opts.signal.addEventListener('abort',()=>reject(new DOMException('aborted','AbortError')))),{timeoutMs:10});
+  let timeoutError;try{await timeout.state('yousician','01',3);}catch(e){timeoutError=e;}
+  check('timeout is distinct from cancellation',timeoutError?.code==='timeout');
 
   const failed = results.filter(r => !r[1]);
   for (const [name, ok] of results) console.log(`${ok ? 'ok  ' : 'FAIL'} ${name}`);

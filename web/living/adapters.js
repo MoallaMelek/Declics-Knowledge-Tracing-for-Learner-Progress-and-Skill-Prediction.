@@ -45,6 +45,10 @@
 
   // Refuse payloads that would contain information from the selected cutoff onwards.
   function assertCausal(s) {
+    if (!s || !identityKey(s) || s.identity.source !== s.source || s.identity.learner !== s.learner
+        || s.identity.cutoff !== s.cutoff || s.identity.target_index !== (s.target ? s.cutoff : null)
+        || s.identity.model_id !== s.provenance?.model_id || s.identity.model_sha256 !== s.provenance?.model_sha256)
+      throw new Error('Identité de prévision incompatible avec la vue reçue');
     if (!s || !Array.isArray(s.past) || s.past.length !== s.cutoff) throw new Error('Réponse incohérente avec le point de coupure');
     s.past.forEach((p, i) => { if (p.index !== i || i >= s.cutoff) throw new Error('Observation postérieure au point de coupure'); });
     (s.trail || []).forEach(t => { if (t.index >= s.cutoff) throw new Error('Prévision évaluée postérieure au point de coupure'); });
@@ -53,12 +57,19 @@
     return s;
   }
   function sameRequest(s, want) { return !!s && s.source === want.source && s.learner === want.learner && s.cutoff === want.cutoff; }
-  const revealKey = s => `${s.source}|${s.learner}|${s.cutoff}`;
+  const identityKey = s => {
+    const fields = ['generation', 'request_id', 'model_id', 'model_sha256', 'source', 'learner', 'cutoff', 'target_index'];
+    if (!s || !s.identity || fields.some(k => s.identity[k] === undefined)) return '';
+    return fields.map(k => String(s.identity[k])).join('|');
+  };
+  const sameIdentity = (a, b) => !!identityKey(a) && identityKey(a) === identityKey(b);
+  const revealKey = s => `${s.source}|${s.learner}|${s.cutoff}|${identityKey(s)}`;
   // A reveal is accepted only for the forecast it was requested for, and only if it has the predictions we showed.
   function acceptReveal(s, rv) {
-    if (!rv || rv.cutoff !== s.cutoff || rv.learner !== s.learner || !s.forecast || !s.forecast.predictions) return false;
+    if (!rv || !sameIdentity(s, rv) || rv.model_id !== s.provenance.model_id || rv.model_sha256 !== s.provenance.model_sha256 || rv.cutoff !== s.cutoff || rv.learner !== s.learner || !s.forecast || !s.forecast.predictions) return false;
     const p = s.forecast.predictions;
-    return rv.comparison.length === Object.keys(p).length && rv.comparison.every(c => Math.abs(p[String(c.concept)] - c.prediction) < 1e-9);
+    return Array.isArray(rv.comparison) && new Set(rv.comparison.map(c => String(c.concept))).size === Object.keys(p).length
+      && rv.comparison.length === Object.keys(p).length && rv.comparison.every(c => Object.hasOwn(p, String(c.concept)) && Math.abs(p[String(c.concept)] - c.prediction) < 1e-9);
   }
 
   function stateIndex(s) { const out = {}; for (const st of s.skill_states.states) out[st.concept] = st; return out; }
@@ -174,7 +185,9 @@
     for (let i = 0; i < s.steps_total; i++) {
       if (i < s.cutoff) {
         const t = s.trail.find(e => e.index === i);
-        slots.push({index: i, kind: 'past', score: s.past[i].score, predicted: t && t.predicted_mean !== undefined ? t.predicted_mean : null});
+        // Both series give every concept equal weight; scientific note-weighted loss is unchanged.
+        const observed = t && t.observed_mean !== undefined ? t.observed_mean : mean(Object.values(s.past[i].concepts).map(([a, n]) => a / n));
+        slots.push({index: i, kind: 'past', score: observed, predicted: t && t.predicted_mean !== undefined ? t.predicted_mean : null});
       } else if (i === s.cutoff) slots.push({index: i, kind: 'next', predicted: s.forecast && s.forecast.predictions ? mean(Object.values(s.forecast.predictions)) : null});
       else slots.push({index: i, kind: 'future'});
     }
@@ -202,7 +215,7 @@
   };
   const reason = r => REASONS[r] || 'Le réseau s’abstient ; aucune valeur n’est inventée.';
 
-  return {STATES, SUFFICIENT, pct, num, forecast, points, nf, conceptName, stepName, slot, hash01, assertCausal, sameRequest, revealKey, acceptReveal,
+  return {STATES, SUFFICIENT, pct, num, forecast, points, nf, conceptName, stepName, slot, hash01, assertCausal, sameRequest, identityKey, sameIdentity, revealKey, acceptReveal,
           stateIndex, constellation, neighbours, conceptSeries, fingerprint, indicators, compareIndicators, timeline,
           logLoss, calibrationBin, reason, mean};
 });

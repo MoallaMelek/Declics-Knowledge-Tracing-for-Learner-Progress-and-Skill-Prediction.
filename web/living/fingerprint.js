@@ -69,8 +69,8 @@
 
     button.addEventListener('click', () => {
       const st = store.get();
-      if (st.compareCutoff) store.set({compareCutoff: null, compareSnapshot: null});
-      else store.set({compareCutoff: st.cutoff, compareSnapshot: st.snapshot});
+      if (st.compareCutoff) store.set({compareCutoff: null, compareSnapshot: null, comparisonEpoch: st.comparisonEpoch + 1});
+      else store.set({compareCutoff: st.snapshot.cutoff, compareSnapshot: st.snapshot, comparisonEpoch: st.comparisonEpoch + 1});
     });
 
     function render(st) {

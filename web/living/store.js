@@ -19,7 +19,7 @@
   const initial = () => ({
     source: 'singpad', learner: '01', learners: [], cutoff: 1, stepsTotal: 0,
     snapshot: null,          // /state payload for the current cutoff (past only)
-    compareCutoff: null, compareSnapshot: null,
+    compareCutoff: null, compareSnapshot: null, comparisonEpoch: 0,
     selected: null,          // concept id or null
     playing: false, speed: 1, research: false, stage: 'history',
     reveals: {},             // cutoff -> /reveal payload, only after an explicit request

@@ -44,7 +44,7 @@
     }
     function inspectionOr(st) {
       const ins = st.inspection;
-      if (!ins || ins.cutoff !== st.snapshot.cutoff || ins.key !== `${st.snapshot.source}|${st.snapshot.learner}`) return h('p', {class: 'empty', text: 'Lecture des tenseurs réellement fournis au réseau…'});
+      if (!ins || ins.cutoff !== st.snapshot.cutoff || ins.key !== `${st.snapshot.source}|${st.snapshot.learner}` || (ins.available !== false && !A.sameIdentity(st.snapshot, ins))) return h('p', {class: 'empty', text: 'Lecture des tenseurs réellement fournis au réseau…'});
       if (ins.error) return h('p', {class: 'empty', text: ins.error});
       if (!ins.available) return h('p', {class: 'empty', text: A.reason(ins.reason)});
       return null;
@@ -180,6 +180,8 @@
       const values = Object.values(p), m = A.mean(values), bin = singpad ? A.calibrationBin(prov.calibration_bins, m) : null;
       const test = prov.test || {}, ref = prov.train_mean_test || {};
       return [h('h3', {text: singpad ? `Probabilité de réussite d’une note, pour ${values.length} concepts du prochain groupe` : 'Score prévu pour le prochain jour actif'}),
+        prov.eligibility ? h('p', {class: 'note', text: prov.eligibility.statement}) : null,
+        prov.data_mode === 'synthetic_fixture' ? h('p', {class: 'note', text: 'TEST SYNTHÉTIQUE D’INTÉGRATION : trajectoires générées, tenseurs entraînés copiés ; les métriques source ne valident pas ces trajectoires.'}) : null,
         h('ul', {class: 'logits probs'}, Object.entries(p).map(([k, v]) => h('li', {}, h('span', {class: 'lg-name', text: singpad ? `C${k}` : 'score'}),
           h('span', {class: 'lg-bar'}, h('span', {style: `width:${(100 * v).toFixed(1)}%`})), h('strong', {class: 'gold', text: A.forecast(snap.source, v)})))),
         h('p', {}, singpad ? 'Moyenne simple des concepts : ' : 'Valeur : ', h('strong', {class: 'gold', text: A.forecast(snap.source, m)}), singpad ? ' (une probabilité n’est pas la confiance du modèle).' : ' (score continu, pas une probabilité).'),
@@ -214,7 +216,7 @@
       if (blocked) return [blocked, chart].filter(Boolean);
       const rv = st.reveals[A.revealKey(snap)], singpad = snap.source === 'singpad';
       if (!rv) return [h('h3', {text: 'Le résultat réel reste caché'}),
-        h('p', {text: 'La prévision a été calculée sans lui. Il n’a pas été transmis à cette page : le serveur ne le renvoie qu’avec le reçu signé de cette prévision.'}),
+        h('p', {text: 'La prévision utilise uniquement le passé admis. Le résultat est masqué dans cette vue ; un autre moment du rejeu peut déjà l’avoir affiché. Le reçu signé permet de le comparer explicitement à cette prévision.'}),
         h('button', {type: 'button', class: 'primary', text: `Révéler le résultat du pas ${snap.cutoff + 1}`, onclick: e => { e.currentTarget.disabled = true; onReveal(); }}),
         chart].filter(Boolean);
       const refs = rv.references, lch = refs.learner_concept_history;

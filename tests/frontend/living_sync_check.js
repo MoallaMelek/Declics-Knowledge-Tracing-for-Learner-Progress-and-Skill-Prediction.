@@ -260,7 +260,7 @@ function aspects(c) {
   const range = $('cutoff');
   add('range input value', range.value === String(c) && range.max === String(T) && range.getAttribute('aria-valuetext').startsWith(`${c} ${unit}(s)`), `${range.value}/${range.max}`);
   const label = $('cutoff-label').textContent, detail = $('cutoff-detail').textContent;
-  add('dock readout', label === `${READOUT} ${c} sur ${T}` && (ref.target ? detail.includes(`le résultat du pas ${c + 1} reste caché`) : detail.includes('fin du parcours enregistré'))
+  add('dock readout', label === `${READOUT} ${c} sur ${T}` && (ref.target ? detail.includes(`résultat du pas ${c + 1} masqué`) : detail.includes('fin du parcours enregistré'))
       && $('prev').disabled === (c <= 1) && $('next').disabled === (c >= T), `${label} · ${detail}`);
   const track = $('track');
   add('timeline track', track.querySelectorAll('rect.tl-bar').length === c && track.querySelectorAll('rect.tl-next').length === (ref.target ? 1 : 0)
@@ -308,7 +308,9 @@ function aspects(c) {
   }
   const h3 = $('stage-detail').querySelector('h3');
   add('observatory history heading', st.stage === 'history' && h3 && h3.textContent === `${c} ${unit}(s) antérieurs, dans l’ordre`, h3 && h3.textContent);
-  add('URL query', location.search === `?source=${fx.source}&learner=${fx.token}&cutoff=${c}`, location.search);
+  const query = new URLSearchParams(location.search);
+  add('URL query', query.get('source') === fx.source && query.get('learner') === fx.token && query.get('cutoff') === String(c)
+      && query.get('stage') === st.stage, location.search);
   add('status line', $('status').textContent.includes(`${unit} ${c} sur ${T}`), $('status').textContent);
   const leak = futureOutcomeIn(JSON.stringify(st), c);
   add('store holds no outcome at or after the cutoff', !leak, leak);
@@ -389,14 +391,14 @@ async function scenario() {
   syncAt(`newer cutoff 3 after slow ${s1}`, 3);
   contracts(`back from ${B} to 3`, skyAtB, skyConcepts());
 
-  // ...and ignored by the views when the newer cutoff is served from the cache (nothing aborts the older request).
+  // A cached destination must also cancel the outstanding request, not only hide its response.
   await slide(s2); await clock.advance(80);
   const slow2 = stateRequests().find(r => r.cutoff === s2) || {};
   pendingAt(`while ${s2} loads`, 3, s2);
   await slide(B); await clock.advance(100);
-  check(`cached ${B} is shown while ${s2} is still pending`, store.get().snapshot.cutoff === B && slow2.url && !slow2.delivered && !slow2.aborted);
+  check(`cached ${B} is shown and ${s2} is cancelled`, store.get().snapshot.cutoff === B && slow2.url && !slow2.delivered && slow2.aborted);
   await clock.advance(1200);
-  check(`the late answer for ${s2} arrives but never reaches the views`, slow2.delivered && !snaps.includes(s2));
+  check(`the cancelled answer for ${s2} never reaches the views`, !slow2.delivered && !snaps.includes(s2));
   syncAt(`cached ${B} after late ${s2}`, B);
   delayFor = () => 20;
 

@@ -38,7 +38,7 @@
       document.getElementById('cutoff-label').textContent = `${unit === 'groupe' ? 'Groupe' : 'Jour actif'} ${snap.cutoff} sur ${n}`;
       const when = snap.source === 'singpad' ? `J+${A.num(last.day, 1)} depuis le premier enregistrement` : `jour ${last.day} depuis l’inscription`;
       document.getElementById('cutoff-detail').textContent = snap.target
-        ? `${when} · le résultat du pas ${snap.cutoff + 1} reste caché`
+        ? `${when} · résultat du pas ${snap.cutoff + 1} masqué · frise : moyenne par concept`
         : `${when} · fin du parcours enregistré, rien à prévoir`;
       document.getElementById('prev').disabled = snap.cutoff <= 1;
       document.getElementById('next').disabled = snap.cutoff >= n;
