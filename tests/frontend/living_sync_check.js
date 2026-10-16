@@ -2,7 +2,9 @@
 // Drives the real Living Learner page in a VM: web/living.html is parsed into a minimal DOM, the scripts it loads run
 // in page order, time is virtual and fetch serves real /api/v7/o08/living payloads written by tests/test_phase8_living.py.
 // It checks that the four views (timeline dock, constellation, fingerprint, observatory) and the URL stay in step and
-// past-only while the cutoff moves, including late responses, playback and lazy inspection.
+// past-only while the cutoff moves, including late responses, playback and lazy inspection. It runs for both sources:
+// Yousician (one indicator, K = 1, active days) and SingPAD (K source concepts, recording groups), where the sky must
+// hold only the concepts evaluated up to the hidden next step and contract when the cutoff moves back.
 // usage: node living_sync_check.js <web dir> <fixtures.json>
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const WEB = process.argv[2], fx = JSON.parse(fs.readFileSync(process.argv[3], 'utf8'));
@@ -175,8 +177,12 @@ parse(document, fs.readFileSync(path.join(WEB, 'living.html'), 'utf8'));
 const $ = id => document.getElementById(id);
 
 // ---- Browser globals and the network stub.
-const T = fx.learners.learners.find(l => l.token === fx.token).steps;
+const T = fx.learners.learners.find(l => l.token === fx.token).steps, K = fx.learners.provenance.K;
 const START = 2;
+const UNIT = fx.source === 'singpad' ? 'groupe' : 'jour actif', READOUT = fx.source === 'singpad' ? 'Groupe' : 'Jour actif';
+// Test-only ground truth (never served to the page): the concepts evaluated at each step, and where each first appears.
+const firstSeen = new Map();
+fx.concepts.forEach((ks, i) => ks.forEach(k => { if (!firstSeen.has(k)) firstSeen.set(k, i); }));
 let address = new URL(`http://127.0.0.1/web/living.html?source=${fx.source}&learner=${fx.token}&cutoff=${START}`);
 const location = {get href() { return address.href; }, get search() { return address.search; }, get hash() { return address.hash; }, get pathname() { return address.pathname; }};
 const history = {replaceState(_s, _t, url) { address = new URL(url, address); }};
@@ -230,33 +236,76 @@ function futureOutcomeIn(text, c) {
   return fx.outcomes.slice(c).map(String).find(v => !seen.has(v) && new RegExp(`(^|[^0-9])${escape(v)}([^0-9]|$)`).test(text)) || null;
 }
 
+// Concept ids a part of the page names: data-k attributes, "C12" labels and "Concept source 12" in text, titles and ARIA labels.
+function mentioned(root) {
+  const ids = new Set(), scan = t => { for (const m of t.matchAll(/(?<![\w-])C(\d+)(?!\d)|Concept source (\d+)/g)) ids.add(Number(m[1] ?? m[2])); };
+  walk(root, n => {
+    if (n instanceof Text) scan(n.data);
+    else if (n instanceof Element) {
+      if (n.hasAttribute('data-k')) ids.add(Number(n.getAttribute('data-k')));
+      for (const a of ['aria-label', 'title']) if (n.hasAttribute(a)) scan(n.getAttribute(a));
+    }
+  });
+  return ids;
+}
+const skyConcepts = () => $('sky').querySelectorAll('g.node').map(g => Number(g.getAttribute('data-k'))).sort((a, b) => a - b);
+const skyRows = () => $('sky-table').querySelectorAll('tbody').flatMap(b => b.querySelectorAll('tr')).map(tr => tr.querySelectorAll('td').map(td => td.textContent));
+
 // Every view, the URL and the store must describe exactly cutoff c, using only what the server sent for c.
 function aspects(c) {
-  const st = sandbox.Living.app.store.get(), ref = fx.states[c], unit = 'jour actif', out = [];
+  const st = sandbox.Living.app.store.get(), ref = fx.states[c], unit = UNIT, out = [];
   const add = (name, ok, detail) => out.push([name, !!ok, detail]);
   add('store cutoff', st.cutoff === c && st.snapshot && st.snapshot.cutoff === c && st.snapshot.past.length === c && st.learner === fx.token,
       `cutoff ${st.cutoff}, snapshot ${st.snapshot && st.snapshot.cutoff}`);
   const range = $('cutoff');
   add('range input value', range.value === String(c) && range.max === String(T) && range.getAttribute('aria-valuetext').startsWith(`${c} ${unit}(s)`), `${range.value}/${range.max}`);
   const label = $('cutoff-label').textContent, detail = $('cutoff-detail').textContent;
-  add('dock readout', label === `Jour actif ${c} sur ${T}` && (ref.target ? detail.includes(`le résultat du pas ${c + 1} reste caché`) : detail.includes('fin du parcours enregistré'))
+  add('dock readout', label === `${READOUT} ${c} sur ${T}` && (ref.target ? detail.includes(`le résultat du pas ${c + 1} reste caché`) : detail.includes('fin du parcours enregistré'))
       && $('prev').disabled === (c <= 1) && $('next').disabled === (c >= T), `${label} · ${detail}`);
   const track = $('track');
   add('timeline track', track.querySelectorAll('rect.tl-bar').length === c && track.querySelectorAll('rect.tl-next').length === (ref.target ? 1 : 0)
       && track.querySelectorAll('line.tl-future').length === T - c - (ref.target ? 1 : 0), `${track.querySelectorAll('rect.tl-bar').length} bars`);
-  const sky = $('sky'), ks = sky.querySelectorAll('g.node').map(g => Number(g.getAttribute('data-k'))).sort((a, b) => a - b);
+  const sky = $('sky'), ks = skyConcepts(), rows = skyRows();
   const served = ref.skill_states.states.map(s => s.concept).sort((a, b) => a - b);
   const allowed = new Set([...ref.past.flatMap(p => Object.keys(p.concepts).map(Number)), ...(ref.target ? ref.target.concepts : [])]);
-  add('constellation nodes = this cutoff\'s skill states', same(ks, served) && ks.every(k => allowed.has(k)) && $('sky-table').querySelectorAll('tbody').flatMap(b => b.querySelectorAll('tr')).length === served.length,
+  add('constellation nodes = this cutoff\'s skill states', same(ks, served) && ks.every(k => allowed.has(k)) && rows.length === served.length,
       `${ks} vs ${served}`);
   if (ref.K === 1) {
     const days = sky.querySelectorAll('circle.day'), kind = k => days.filter(d => d.getAttribute('class') === k).length;
     add('constellation orbit lights only observed days', kind('day') === c && kind('day next') === (ref.target ? 1 : 0) && days.length === T, `${kind('day')} lit`);
+  } else {
+    // Many concepts: no day orbit; labels and the table name the served concepts, counted on steps before c only.
+    const labels = sky.querySelectorAll('text.node-label').map(t => t.textContent).sort(), names = rows.map(r => r[0]).sort();
+    add('sky labels and table rows name exactly these concepts', same(labels, served.map(k => `C${k}`).sort()) && same(names, served.map(k => `Concept source ${k}`).sort()),
+        `${labels.length} labels, ${names.length} rows`);
+    const past = fx.concepts.slice(0, c), next = new Set(c < T ? fx.concepts[c] : []);
+    const miscounted = rows.filter(r => { const k = Number(r[0].slice('Concept source '.length));
+      return r[2] !== String(past.filter(step => step.includes(k)).length) || r[6] !== (next.has(k) ? 'oui' : 'non'); });
+    add('sky counts only steps before the cutoff', miscounted.length === 0, miscounted.slice(0, 3).map(r => r.join(' / ')).join(' | '));
+    // A concept first evaluated at the hidden next step belongs to its definition only: an empty star with the target ring.
+    const newcomers = [...next].filter(k => firstSeen.get(k) === c), star = k => sky.querySelectorAll('g.node').find(g => g.getAttribute('data-k') === String(k));
+    const filled = newcomers.filter(k => { const g = star(k); return !g || !g.querySelector('circle.node-core').classList.contains('hollow') || !g.querySelector('circle.node-target').classList.contains('on'); });
+    add('concepts first evaluated at the next step are empty target stars', filled.length === 0, `${filled} of ${newcomers}`);
+    const later = [...firstSeen].filter(([, i]) => i > c).map(([k]) => k), named = mentioned($('stage'));
+    const leaked = later.filter(k => named.has(k)), unknown = [...named].filter(k => !firstSeen.has(k));
+    add('no concept that first appears later is anywhere in the sky (stars, labels, table, inspector)', leaked.length === 0 && unknown.length === 0,
+        `later ${leaked}, unknown ${unknown}`);
+    const dust = sky.querySelectorAll('circle.dust-dot');
+    add('vocabulary dust is fixed and anonymous; no day orbit', dust.length === ref.K && dust.every(d => !d.hasAttribute('data-k') && !d.childNodes.length)
+        && sky.querySelectorAll('circle.day').length === 0, `${dust.length} dust`);
   }
   const fp = $('fp-main'), grooves = fp.querySelectorAll('circle.fp-groove'), center = fp.querySelector('text.fp-center');
   add('fingerprint rings = cutoff', fp.querySelectorAll('g.fp-ring').length === c && grooves.filter(g => !g.classList.contains('future')).length === c
       && grooves.length === T && center && center.textContent === String(c) && fp.querySelectorAll('g.fp-target').length === (ref.target ? 1 : 0),
       `${fp.querySelectorAll('g.fp-ring').length} rings`);
+  if (ref.K > 1) {
+    const rim = fp.querySelectorAll('g.fp-rim').flatMap(g => g.querySelectorAll('line')), lit = rim.filter(l => l.classList.contains('lit')).length;
+    const past = fx.concepts.slice(0, c), pastKs = new Set(past.flat()), arcs = fp.querySelectorAll('g.fp-ring').flatMap(g => g.querySelectorAll('path.fp-arc'));
+    add('fingerprint arcs and lit rim = concepts of past steps only', rim.length === ref.K && lit === pastKs.size
+        && arcs.length === past.reduce((a, step) => a + step.length, 0) && arcs.every(a => pastKs.has(Number(a.getAttribute('data-k'))))
+        && fp.querySelectorAll('g.fp-target').flatMap(g => g.querySelectorAll('path.fp-next')).length === (c < T ? fx.concepts[c].length : 0),
+        `${lit} lit for ${pastKs.size}, ${arcs.length} arcs`);
+  }
   const h3 = $('stage-detail').querySelector('h3');
   add('observatory history heading', st.stage === 'history' && h3 && h3.textContent === `${c} ${unit}(s) antérieurs, dans l’ordre`, h3 && h3.textContent);
   add('URL query', location.search === `?source=${fx.source}&learner=${fx.token}&cutoff=${c}`, location.search);
@@ -266,6 +315,10 @@ function aspects(c) {
   return out;
 }
 function syncAt(label, c) { for (const [name, ok, detail] of aspects(c)) check(`${label} | ${name}`, ok, detail); }
+// Many concepts: moving the cutoff back removes the stars of the steps left behind (the browser check saw 72 -> 45).
+function contracts(label, before, after) {
+  if (K > 1) check(`${label} | the sky contracts to a subset (${before.length} -> ${after.length} stars)`, after.length < before.length && after.every(k => before.includes(k)));
+}
 // While the state for `pending` is in flight, the views keep showing `shown` together: no view runs ahead of the others.
 function pendingAt(label, shown, pending) {
   const st = sandbox.Living.app.store.get();
@@ -294,6 +347,7 @@ async function scenario() {
   const snaps = [];
   store.subscribe((st, prev) => { if (st.snapshot && st.snapshot !== prev.snapshot) snaps.push(st.snapshot.cutoff); });
   check('fixture outcomes are the served past scores', fx.states[T].past.every((p, i) => p.score === fx.outcomes[i]) && fx.outcomes.length === T);
+  check('fixture concepts are the served past concepts', fx.states[T].past.every((p, i) => same(Object.keys(p.concepts).map(Number).sort((a, b) => a - b), fx.concepts[i])) && fx.concepts.length === T);
 
   // 1. Deep link: ?cutoff=2 opens the page on that cutoff.
   await clock.advance(400);
@@ -313,16 +367,19 @@ async function scenario() {
   // 3. End key: last recorded step, nothing left to forecast.
   key('End'); await clock.advance(400);
   syncAt(`end ${T}`, T);
+  const endSky = skyConcepts();
 
   // 4. Back below the start: the sky, the record and the observatory contract to the past of B.
   await slide(B); await clock.advance(400);
   syncAt(`back to ${B}`, B);
+  contracts(`back from ${T} to ${B}`, endSky, skyConcepts());
   check(`${START} -> ${A} -> ${T} -> ${B} requests nothing in between`, same(stateRequests().map(r => r.cutoff), [START, A, T, B]), stateRequests().map(r => r.cutoff).join(','));
 
   // 5. A slow answer for an older cutoff loses to a newer one: aborted when the newer cutoff needs the network...
   const visited = new Set(stateRequests().map(r => r.cutoff));
   const [s1, s2] = Array.from({length: T - 5}, (_, i) => 5 + i).filter(c => !visited.has(c));
   delayFor = r => (r.kind === 'state' && (r.cutoff === s1 || r.cutoff === s2) ? 600 : 20);
+  const skyAtB = skyConcepts();
   await slide(s1); await clock.advance(80);
   const slow1 = stateRequests().find(r => r.cutoff === s1) || {};
   check(`slow cutoff ${s1} is in flight`, slow1.url && !slow1.delivered && !slow1.aborted);
@@ -330,6 +387,7 @@ async function scenario() {
   await slide(3); await clock.advance(1200);
   check(`the superseded request for ${s1} is aborted and never reaches the views`, slow1.aborted && !slow1.delivered && !snaps.includes(s1));
   syncAt(`newer cutoff 3 after slow ${s1}`, 3);
+  contracts(`back from ${B} to 3`, skyAtB, skyConcepts());
 
   // ...and ignored by the views when the newer cutoff is served from the cache (nothing aborts the older request).
   await slide(s2); await clock.advance(80);
@@ -345,8 +403,8 @@ async function scenario() {
   // 6. Playback at ×2 walks every step once and stops at the last one.
   $('speed').value = '2'; fire($('speed'), 'change');
   const playFrom = snaps.length; click($('play'));
-  const drift = [];
-  let last = B, pauseShown = false;
+  const drift = [], shrank = [];
+  let last = B, pauseShown = false, sky = skyConcepts();
   for (let t = 0; t < 20000 && last < T; t += 25) {
     await clock.advance(25);
     const snap = store.get().snapshot;
@@ -354,11 +412,13 @@ async function scenario() {
       last = snap.cutoff; await clock.advance(100);
       pauseShown = pauseShown || ($('play-icon').getAttribute('href') === '#i-pause' && $('play').getAttribute('aria-pressed') === 'true');
       for (const [name, ok, detail] of aspects(last)) if (!ok) drift.push(`${last}: ${name} (${detail})`);
+      const now = skyConcepts(); if (!sky.every(k => now.includes(k))) shrank.push(last); sky = now;
     }
   }
   check('playback shows the pause control while playing', pauseShown);
   check('playback advances one step at a time to the end', same(snaps.slice(playFrom), Array.from({length: T - B}, (_, i) => B + 1 + i)), snaps.slice(playFrom).join(','));
   check('every playback step keeps the four views in step', drift.length === 0, drift.slice(0, 3).join(' | '));
+  check('playback only adds stars to the sky', shrank.length === 0, shrank.join(','));
   const before = requests.length; await clock.advance(6000);
   check('playback stops at the last step', !store.get().playing && store.get().cutoff === T && $('play-icon').getAttribute('href') === '#i-play'
         && $('play').getAttribute('aria-pressed') === 'false' && requests.length === before);

@@ -80,14 +80,23 @@ Demo links open a prepared view: `?source=singpad&learner=01&cutoff=20&concept=3
 * Live synchronisation check (script run in the browser): moving 12 → 20 → 4, timeline, slider, readout,
   constellation, fingerprint rings, observatory and URL agreed at every step; back at 4 the sky contracted
   from 72 to 45 stars and showed no concept that only appears later. The same check now runs in CI:
-  `tests/frontend/living_sync_check.js` (from `test_living_page_keeps_its_four_views_synchronised_and_causal`)
-  loads the scripts listed by `living.html` in Node with a minimal DOM parsed from the page, a virtual clock and
-  served payloads from the fake Yousician fixture. It moves 2 → 6 → 9 → 4 (slider drag, End key), checks store,
-  slider, readout, track, constellation, fingerprint rings, observatory heading, URL and status at every stop,
-  then a slow aborted request, a late answer losing to a cached cutoff, playback ×2 stopping at the last step,
-  lazy GRU inspection, one request per cutoff the user is on and no later outcome in the page state
-  (131 checks; each of 10 deliberate regressions of the page scripts makes it fail). The fixture has a single
-  Yousician indicator (K = 1): the many-concept SingPAD sky is still checked only in the browser.
+  `tests/frontend/living_sync_check.js` loads the scripts listed by `living.html` in Node with a minimal DOM
+  parsed from the page, a virtual clock and served payloads, for both sources. It moves 2 → T−3 → T → 4 (slider
+  drag, End key), checks store, slider, readout, track, constellation, fingerprint rings, observatory heading,
+  URL and status at every stop, then a slow aborted request, a late answer losing to a cached cutoff, playback ×2
+  stopping at the last step, lazy GRU inspection, one request per cutoff the user is on and no later outcome in
+  the page state. `test_living_page_keeps_its_four_views_synchronised_and_causal` runs it on the fake Yousician
+  fixture (K = 1, 133 checks). `test_living_page_keeps_a_many_concept_sky_synchronised_and_causal` runs it on a
+  fake SingPAD archive served through the tracked active SingPAD EnhancedGRU (K = 270, exercises from its
+  vocabulary, every recording group bringing new concepts; 185 checks): stars, labels and sky table name exactly
+  the served concepts, counted on earlier groups only; concepts first evaluated at the hidden next group are
+  empty target stars; no concept that first appears later is named anywhere in the sky or inspector; the
+  fingerprint rim lights past concepts only; moving back from 11 to 4 contracts the sky to a subset (58 → 25
+  stars) and playback only adds stars. Deliberate regressions make it fail: each of 10 page-script regressions on
+  the Yousician run (9 on the SingPAD run, which has no day orbit) and, on the SingPAD run only, 8 sky
+  regressions (stale stars or labels kept after moving back, a sky table drawn once, a sky remembering every
+  star, filled target-only stars, a rim lit by next-step concepts, a Yousician readout, an inspector naming a
+  later concept) and a served payload naming a later concept.
 * Independent review: a fresh read-only Codex session (`codex exec review --base phase7/…`) found two P2 bugs,
   both fixed and re-verified in the browser: pointer capture prevented mouse selection of stars; a cached
   cutoff kept an expired reveal receipt (the client now refetches that cutoff once and retries).

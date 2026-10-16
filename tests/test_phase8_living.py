@@ -1,4 +1,5 @@
 """Phase 8 living-learner adapter: causal replay, reveal contract, inspection integrity, privacy."""
+from datetime import datetime, timedelta
 import gzip
 import json
 import os
@@ -15,6 +16,9 @@ from axis7 import living_learner as living, musical_api, musical_registry as reg
 from axis7.musical_api import BenchmarkQuery
 
 ROOT = Path(__file__).resolve().parents[1]
+TRACKED = ROOT/'artifacts/models/musical-cloud'
+# One distinct prime number of notes per recording group: a group score s/p (0 < s < p) is then distinctive.
+PRIMES = (101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167)
 
 
 def prepared(seed=0, n=14):
@@ -26,37 +30,71 @@ def prepared(seed=0, n=14):
     return {'version': 'musical-cloud-v2', 'source': 'yousician', 'sha256': 'f'*64, 'learners': learners}
 
 
+def prepared_singpad(items, K, seed=0, n=14):
+    """Fake SingPAD archive: local ISO times, several source concepts per recording group, binary notes of weight 1.
+
+    Exercises come from the model's vocabulary, so forecasts do not abstain. Every group introduces concepts never
+    seen before, so the sky grows with the cutoff and a later concept is recognisable in an earlier view.
+    """
+    rng = random.Random(seed); learners = {}
+    for i in range(n):
+        time, seen, rows = datetime(2023, 3, 1+i, 9, 0), [], []
+        for d in range(10 + i % 5):
+            ks = rng.sample(sorted(set(range(K))-set(seen)), rng.randint(4, 7)) + rng.sample(seen, min(len(seen), 2))
+            notes = PRIMES[d]; successes = rng.randint(1, notes-1)
+            outcomes = [1]*successes + [0]*(notes-successes); rng.shuffle(outcomes)
+            cuts = [0, *sorted(rng.sample(range(1, notes), len(ks)-1)), notes]
+            rows.append({'time': time.isoformat(), 'exercise': rng.choice(items), 'difficulty': 0.0,
+                         'obs': [[k, y, 1.0] for k, a, b in zip(ks, cuts, cuts[1:]) for y in outcomes[a:b]]})
+            seen += [k for k in ks if k not in seen]; time += timedelta(minutes=rng.randint(40, 5000))
+        learners[f'SECRET-singer-{i}'] = rows
+    return {'version': 'musical-cloud-v2', 'source': 'singpad', 'sha256': 'f'*64, 'learners': learners}
+
+
 def write(folder, data):
-    path = folder/'yousician-prepared.json.gz'
+    path = folder/f"{data['source']}-prepared.json.gz"
     with gzip.open(path, 'wt', encoding='utf-8') as handle: json.dump(data, handle)
     stamp = path.stat().st_mtime_ns + 10**9; os.utime(path, ns=(stamp, stamp))
     return path
 
 
-@pytest.fixture
-def env(tmp_path, monkeypatch):
-    registry.install(ROOT/'artifacts/models/phase5/yousician/enhanced_gru', tmp_path/'registry')
+def serve(tmp_path, monkeypatch, model, archive):
+    """Installs a tracked model in a tmp registry and serves a fake prepared archive built for its vocabulary."""
+    identifier = registry.install(model, tmp_path/'registry')
     for module in (musical_api, living):
         monkeypatch.setattr(module, 'REGISTRY_ROOT', tmp_path/'registry')
     monkeypatch.setattr(living, 'DATA_DIR', tmp_path)
     monkeypatch.setattr(living, 'check_integrity', lambda *a: None)   # fake learners cannot match real split digests
     monkeypatch.setattr(living, '_cohorts', {}); monkeypatch.setattr(living, '_forecasts', {})
-    data = prepared(); write(tmp_path, data)
+    data = archive(registry.cached_validate(tmp_path/'registry'/identifier)[0]); write(tmp_path, data)
     app = FastAPI(); app.include_router(living.router)
     return TestClient(app), tmp_path, data
 
 
-def rows_of(client, data, token):
+@pytest.fixture
+def env(tmp_path, monkeypatch):
+    return serve(tmp_path, monkeypatch, ROOT/'artifacts/models/phase5/yousician/enhanced_gru', lambda meta: prepared())
+
+
+@pytest.fixture
+def singpad_env(tmp_path, monkeypatch):
+    # The tracked SingPAD EnhancedGRU the page serves (the Phase 5 one predates the corrected chronology and is refused).
+    model = TRACKED/json.loads((TRACKED/'active.json').read_text(encoding='utf-8'))['singpad']
+    return serve(tmp_path, monkeypatch, model, lambda meta: prepared_singpad(
+        sorted(item for item in meta['items'] if '|' not in item), meta['K']))
+
+
+def rows_of(client, data, token, source='yousician'):
     """Replays the server's fixed selection rule to find the private rows behind a token (test only)."""
     from axis7.cloud_training import split_learners
-    meta, _ = registry.cached_validate(living.REGISTRY_ROOT/json.loads((living.REGISTRY_ROOT/'active.json').read_text())['yousician'])
+    meta, _ = registry.cached_validate(living.REGISTRY_ROOT/json.loads((living.REGISTRY_ROOT/'active.json').read_text())[source])
     test = split_learners(data['learners'], meta['seed'])['test']
     eligible = [data['learners'][l] for l in test if len(data['learners'][l]) >= living.MIN_STEPS]
     return eligible[int(token)-1]
 
 
-def state(client, cutoff, learner='01'):
-    r = client.get(f'/api/v7/o08/living/state?source=yousician&learner={learner}&cutoff={cutoff}')
+def state(client, cutoff, learner='01', source='yousician'):
+    r = client.get(f'/api/v7/o08/living/state?source={source}&learner={learner}&cutoff={cutoff}')
     assert r.status_code == 200, r.text
     return r.json()
 
@@ -202,27 +240,45 @@ def test_frontend_adapters_and_network_layer_with_real_payloads(env, tmp_path):
     assert 'checks passed' in run.stdout
 
 
-@pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is not installed')
-def test_living_page_keeps_its_four_views_synchronised_and_causal(env, tmp_path):
+def run_sync_check(client, data, source, tmp_path):
     """Runs web/living.html's real scripts in Node against served payloads while the cutoff moves (manual check in Phase 8)."""
-    client, _, data = env
-    learners = client.get('/api/v7/o08/living/learners?source=yousician').json()
+    learners = client.get(f'/api/v7/o08/living/learners?source={source}').json()
     longest = max(learners['learners'], key=lambda l: l['steps']); token, steps = longest['token'], longest['steps']
     assert steps >= 8
-    q = f'source=yousician&learner={token}'
-    fixtures = tmp_path/'living-sync-fixtures.json'
+    q = f'source={source}&learner={token}'
+    rows = rows_of(client, data, token, source)
+    fixtures = tmp_path/f'living-sync-{source}.json'
     fixtures.write_text(json.dumps({
-        'source': 'yousician', 'token': token, 'learners': learners,
+        'source': source, 'token': token, 'learners': learners,
         # Server side of the stub: the page may only receive the cutoffs it asks for.
-        'states': {c: state(client, c, token) for c in range(1, steps+1)},
+        'states': {c: state(client, c, token, source) for c in range(1, steps+1)},
         'inspections': {c: client.get(f'/api/v7/o08/living/inspect?{q}&cutoff={c}').json() for c in range(1, steps)},
-        # Test-only ground truth, used to prove that no outcome at or after the cutoff reaches the page state.
-        'outcomes': [row['obs'][0][1] for row in rows_of(client, data, token)]}), encoding='utf-8')
+        # Test-only ground truth, used to prove that no outcome or concept at or after the cutoff reaches the page.
+        'outcomes': [sum(v*w for _, v, w in row['obs'])/sum(w for *_, w in row['obs']) for row in rows],
+        'concepts': [sorted({o[0] for o in row['obs']}) for row in rows]}), encoding='utf-8')
     run = subprocess.run(['node', str(ROOT/'tests/frontend/living_sync_check.js'), str(ROOT/'web'), str(fixtures)],
                          capture_output=True, text=True, encoding='utf-8', timeout=120)
     print(run.stdout)
     assert run.returncode == 0, run.stdout+run.stderr
     assert 'checks passed' in run.stdout
+
+
+@pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is not installed')
+def test_living_page_keeps_its_four_views_synchronised_and_causal(env, tmp_path):
+    client, _, data = env
+    run_sync_check(client, data, 'yousician', tmp_path)
+
+
+@pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is not installed')
+def test_living_page_keeps_a_many_concept_sky_synchronised_and_causal(singpad_env, tmp_path):
+    """SingPAD (K = 270): the sky shows only concepts evaluated up to the next step and contracts when moving back."""
+    client, _, data = singpad_env
+    learners = client.get('/api/v7/o08/living/learners?source=singpad').json()['learners']
+    token = max(learners, key=lambda l: l['steps'])['token']
+    concepts = [{o[0] for o in row['obs']} for row in rows_of(client, data, token, 'singpad')]
+    # The fixture must exercise the many-concept case: every group brings new concepts.
+    assert all(ks - set().union(*concepts[:i]) for i, ks in enumerate(concepts)) and len(set().union(*concepts)) >= 40
+    run_sync_check(client, data, 'singpad', tmp_path)
 
 
 @pytest.mark.skipif(not (ROOT/'runtime/musical-demo/singpad-prepared.json.gz').exists(), reason='private held-out data not installed')
