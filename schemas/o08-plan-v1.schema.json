@@ -1,0 +1,87 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "learner_id": {
+      "pattern": "^learner_[a-f0-9]{16}$",
+      "title": "Learner Id",
+      "type": "string"
+    },
+    "attempt_id": {
+      "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+      "title": "Attempt Id",
+      "type": "string"
+    },
+    "instrument": {
+      "enum": [
+        "voice",
+        "ukulele",
+        "keyboard",
+        "piano",
+        "other"
+      ],
+      "title": "Instrument",
+      "type": "string"
+    },
+    "exercise_id": {
+      "pattern": "^[a-zA-Z0-9_|.-]{1,1000}$",
+      "title": "Exercise Id",
+      "type": "string"
+    },
+    "exercise_version": {
+      "pattern": "^[a-zA-Z0-9_.-]{1,40}$",
+      "title": "Exercise Version",
+      "type": "string"
+    },
+    "not_before": {
+      "format": "date-time",
+      "title": "Not Before",
+      "type": "string"
+    },
+    "concepts": {
+      "items": {
+        "type": "integer"
+      },
+      "maxItems": 1024,
+      "minItems": 1,
+      "title": "Concepts",
+      "type": "array"
+    },
+    "score_definition": {
+      "enum": [
+        "singpad_note_binary",
+        "yousician_active_day_fraction",
+        "amme_scoretype7_block_mean",
+        "custom_unvalidated"
+      ],
+      "title": "Score Definition",
+      "type": "string"
+    },
+    "scale": {
+      "enum": [
+        "binary_notes",
+        "continuous_unit_interval"
+      ],
+      "title": "Scale",
+      "type": "string"
+    },
+    "model_id": {
+      "pattern": "^[a-z0-9_-]{1,120}$",
+      "title": "Model Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "learner_id",
+    "attempt_id",
+    "instrument",
+    "exercise_id",
+    "exercise_version",
+    "not_before",
+    "concepts",
+    "score_definition",
+    "scale",
+    "model_id"
+  ],
+  "title": "Plan",
+  "type": "object"
+}

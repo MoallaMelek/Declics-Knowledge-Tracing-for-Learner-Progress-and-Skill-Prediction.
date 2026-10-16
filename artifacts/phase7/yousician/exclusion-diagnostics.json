@@ -1,0 +1,99 @@
+{
+  "unit": "same tied groups as Phase 6 after exact dedup and practice removal",
+  "strata": {
+    "0_prior_days": {
+      "retained": 13079,
+      "excluded_contradictory": 2328
+    },
+    "10plus_prior_days": {
+      "retained": 23071,
+      "excluded_contradictory": 4875
+    },
+    "1_2_prior_days": {
+      "retained": 19605,
+      "excluded_contradictory": 5025
+    },
+    "3_9_prior_days": {
+      "excluded_contradictory": 11727,
+      "retained": 45613
+    },
+    "all": {
+      "retained": 101368,
+      "excluded_contradictory": 23955
+    },
+    "all_observed_alternatives_at_least_0.8": {
+      "retained": 63194,
+      "excluded_contradictory": 5866
+    },
+    "all_observed_alternatives_below_0.5": {
+      "retained": 10931,
+      "excluded_contradictory": 865
+    },
+    "difficulty:0": {
+      "retained": 7178,
+      "excluded_contradictory": 544
+    },
+    "difficulty:1": {
+      "retained": 21532,
+      "excluded_contradictory": 4720
+    },
+    "difficulty:10": {
+      "retained": 10
+    },
+    "difficulty:2": {
+      "retained": 21014,
+      "excluded_contradictory": 5712
+    },
+    "difficulty:3": {
+      "retained": 23747,
+      "excluded_contradictory": 6522
+    },
+    "difficulty:4": {
+      "retained": 14169,
+      "excluded_contradictory": 3656
+    },
+    "difficulty:5": {
+      "retained": 7207,
+      "excluded_contradictory": 1604
+    },
+    "difficulty:6": {
+      "retained": 4557,
+      "excluded_contradictory": 958
+    },
+    "difficulty:7": {
+      "retained": 1423,
+      "excluded_contradictory": 172
+    },
+    "difficulty:8": {
+      "excluded_contradictory": 65,
+      "retained": 475
+    },
+    "difficulty:9": {
+      "retained": 56,
+      "excluded_contradictory": 2
+    },
+    "mixed_or_intermediate_observed_alternatives": {
+      "retained": 27243,
+      "excluded_contradictory": 17224
+    },
+    "session_index_0_2": {
+      "retained": 15955,
+      "excluded_contradictory": 2778
+    },
+    "session_index_10plus": {
+      "retained": 53720,
+      "excluded_contradictory": 13219
+    },
+    "session_index_3_9": {
+      "retained": 31693,
+      "excluded_contradictory": 7958
+    }
+  },
+  "performance_definition": "Ranges of recorded counter alternatives, not recovered true outcomes for excluded groups.",
+  "history_definition": "Number of earlier distinct recorded signup days, including days with later-excluded groups; diagnostic only.",
+  "attempt_reconstruction": "unsupported: no unique attempt identifier; next-active-day target retained",
+  "limitations": [
+    "Descriptive selection diagnostics, not causal missingness correction.",
+    "No missing labels imputed."
+  ]
+}

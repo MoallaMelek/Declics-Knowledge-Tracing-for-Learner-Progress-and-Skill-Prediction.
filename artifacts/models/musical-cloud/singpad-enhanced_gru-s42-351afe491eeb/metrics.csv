@@ -1,0 +1,17 @@
+split,metric,value
+validation,observed_targets,55414
+validation,label_weight,132014.0
+validation,mae,0.24243667670028746
+validation,rmse,0.3087135655086241
+validation,log_loss,0.5105009234603715
+validation,brier,0.1671554693732194
+validation,roc_auc,0.6749085805072043
+validation,pr_auc,0.8613655401457401
+test,observed_targets,62119
+test,label_weight,149278.0
+test,mae,0.25248870833665876
+test,rmse,0.3184039899337158
+test,log_loss,0.5216429624240952
+test,brier,0.17262009966420652
+test,roc_auc,0.6970038454094427
+test,pr_auc,0.8606579239925617

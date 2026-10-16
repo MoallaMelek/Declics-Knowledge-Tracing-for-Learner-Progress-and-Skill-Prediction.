@@ -3,6 +3,20 @@ __pycache__/
 .pytest_cache/
 *.pyc
 runtime/
+data/music-phase4/raw/
+data/music-phase5/raw/
+# Resumable optimizer/cache state stays local or in Drive; portable validated weights are versioned.
+artifacts/models/phase5/**/checkpoint-*.pt
+artifacts/models/phase5/**/resume.json
+artifacts/models/phase5/**/prepared.json.gz
+artifacts/models/phase6/**/checkpoint-*.pt
+artifacts/models/phase6/**/resume.json
+artifacts/models/phase6/**/prepared.json.gz
+artifacts/phase6/private/
+tmp/phase7-private/
+artifacts/models/phase7/**/checkpoint-*.pt
+artifacts/models/phase7/**/resume.json
+artifacts/models/phase7/**/prepared.json.gz
 
 # Local configuration and credentials
 .env

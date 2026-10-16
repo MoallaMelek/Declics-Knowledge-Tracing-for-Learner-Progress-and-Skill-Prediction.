@@ -1,0 +1,8 @@
+{
+  "version": "source-skill-mapping-v1",
+  "status": "unvalidated",
+  "singpad": {"namespace": "singpad-source-concept", "validated_mappings": []},
+  "amme": {"namespace": "amme-scoretype7-block-score", "validated_mappings": []},
+  "yousician": {"namespace": "yousician-ukulele-active-day-score", "validated_mappings": []},
+  "required_for_mapping": "Document source concept meaning, teacher taxonomy and empirical validation before publishing a mapping."
+}

@@ -2,8 +2,10 @@ import numpy as np
 import torch
 from torch import nn
 from scipy.optimize import minimize
+from scipy.special import logsumexp
 from sklearn.linear_model import LogisticRegression
 from .data import arrays
+from .eligibility import eligible,compact_history,expand_forecasts
 
 class DKT(nn.Module):
     """DKT-style GRU: a recurrent baseline, not original LSTM paper reproduction."""
@@ -41,15 +43,17 @@ def pfa_features(rows,K):
     for r in rows:
         before={}
         for o in r['obs']:
+            if not eligible(o):continue
             k=o['k']; f=np.zeros(3*K);f[k]=1;f[K+k]=np.log1p(successes[k]);f[2*K+k]=np.log1p(failures[k]);before[k]=f
-            if o['y'] is not None:result.append((f,o['y']))
+            if eligible(o):result.append((f,o['y']))
         for o in r['obs']:
-            if o['y'] is not None:successes[o['k']]+=o['y'];failures[o['k']]+=1-o['y']
+            if eligible(o):successes[o['k']]+=o['y'];failures[o['k']]+=1-o['y']
     return result
 
 class Baseline:
     def __init__(self,name,K):self.name=name;self.K=K;self.priors=np.ones(K)*.5
     def fit(self,learners):
+        learners={u:compact_history(rows)[0] for u,rows in learners.items()}
         success=np.ones(self.K);counts=np.ones(self.K)*2
         for rows in learners.values():
             for r in rows:
@@ -72,8 +76,8 @@ class Baseline:
                     for groups in histories:
                         m=L
                         for ys in groups:
-                            p=np.clip(m*(1-S)+(1-m)*G,1e-7,1-1e-7)
-                            nll-=sum(y*np.log(p)+(1-y)*np.log1p(-p) for y in ys)
+                            # One shared latent state per atomic group, consistent with filtering.
+                            nll-=self.group_log_likelihood(m,ys,G,S)
                             m=self.update(m,ys,T,G,S)
                     return nll
                 fits=[minimize(loss,v,bounds=[(.001,.999),(.001,.35),(.01,.49),(.01,.49)],method='L-BFGS-B')
@@ -81,10 +85,19 @@ class Baseline:
                 self.params.append(min(fits,key=lambda v:v.fun).x.tolist())
         return self
     @staticmethod
+    def group_logs(m,ys,G,S):
+        eps=np.finfo(float).tiny;m=np.clip(m,eps,1-eps)
+        success=sum(ys);failure=len(ys)-success
+        return (np.log(m)+success*np.log1p(-S)+failure*np.log(S),
+                np.log1p(-m)+success*np.log(G)+failure*np.log1p(-G))
+    @staticmethod
+    def group_log_likelihood(m,ys,G,S):
+        return float(logsumexp(Baseline.group_logs(m,ys,G,S)))
+    @staticmethod
     def update(m,ys,T,G,S):
-        known=m;unknown=1-m
-        for y in ys:known*=1-S if y else S;unknown*=G if y else 1-G
-        posterior=known/max(known+unknown,1e-12)
+        if not ys:return float(m)
+        known,unknown=Baseline.group_logs(m,ys,G,S)
+        posterior=float(np.exp(known-logsumexp([known,unknown])))
         return posterior+(1-posterior)*T
     def predict(self,rows,append_query=False):
         K=self.K;successes=np.zeros(K);failures=np.zeros(K)
@@ -99,15 +112,15 @@ class Baseline:
             predictions.append(p)
             if self.name=='bkt':
                 for k in range(K):
-                    ys=[o['y'] for o in r['obs'] if o['k']==k and o['y'] is not None]
+                    ys=[o['y'] for o in r['obs'] if o['k']==k and eligible(o)]
                     if ys:mastery[k]=self.update(mastery[k],ys,*self.params[k][1:])
             for o in r['obs']:
-                if o['y'] is not None:successes[o['k']]+=o['y'];failures[o['k']]+=1-o['y']
+                if eligible(o):successes[o['k']]+=o['y'];failures[o['k']]+=1-o['y']
         return np.array(predictions)
 
 def neural_predict(model,rows,K,query=False):
-    rs=list(rows)+([{'obs':[]}] if query else [])
-    if not rs:return np.empty((0,K))
+    compact,positions=compact_history(rows)
+    rs=compact+[{'obs':[]}]
     model.eval();parts=[];context=model.context
     # Complete evaluation, bounded history. Overlapping warm context prevents dropped tail events.
     with torch.no_grad():
@@ -118,4 +131,4 @@ def neural_predict(model,rows,K,query=False):
             if start>0:x=x[1:]
             out=torch.sigmoid(model(torch.from_numpy(x)[None])).numpy()[0]
             parts.append(out[-1:] if len(rs)>context else out)
-    return np.concatenate(parts)
+    return expand_forecasts(np.concatenate(parts),positions,query)

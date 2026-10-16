@@ -1,0 +1,15 @@
+{
+  "selected": "gru",
+  "criterion": "validation_mae",
+  "results": {
+    "gru": {
+      "validation": 0.17192673861980437,
+      "test": 0.18855049525913986
+    },
+    "unordered": {
+      "validation": 0.17435161054134368,
+      "test": 0.19214325851720312
+    }
+  },
+  "promotion": "none; experimental weights remain private, active Phase 6 models unchanged"
+}

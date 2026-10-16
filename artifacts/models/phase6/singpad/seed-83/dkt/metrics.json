@@ -1,0 +1,313 @@
+{
+  "version": "musical-cloud-v2",
+  "preprocessing": "singpad-datetime-v2",
+  "source": "singpad",
+  "sha256": "9e87e3ccb4bbc6e90a571a28a989168f0c7e49a332c633de328e5c5660773b64",
+  "seed": 83,
+  "model": "dkt",
+  "hidden": 48,
+  "context": 64,
+  "K": 270,
+  "items": {
+    "250": 1,
+    "250|251": 2,
+    "250|251|252|253|254|255|272|273|276|279": 3,
+    "250|251|252|253|254|272": 4,
+    "250|251|252|253|254|272|273|274": 5,
+    "250|251|252|253|254|272|273|274|275": 6,
+    "250|251|252|253|254|272|273|274|275|276": 7,
+    "250|252": 8,
+    "250|258": 9,
+    "250|270": 10,
+    "251": 11,
+    "251|253": 12,
+    "252": 13,
+    "252|253": 14,
+    "253": 15,
+    "254": 16,
+    "254|256": 17,
+    "254|271": 18,
+    "255": 19,
+    "255|256": 20,
+    "256": 21,
+    "256|257": 22,
+    "256|258": 23,
+    "256|259": 24,
+    "257": 25,
+    "257|258": 26,
+    "258": 27,
+    "258|259": 28,
+    "258|263": 29,
+    "258|294": 30,
+    "259": 31,
+    "259|260": 32,
+    "260": 33,
+    "260|261": 34,
+    "261": 35,
+    "261|262": 36,
+    "262": 37,
+    "262|263": 38,
+    "262|264": 39,
+    "262|265": 40,
+    "263": 41,
+    "263|264": 42,
+    "264": 43,
+    "264|266": 44,
+    "265": 45,
+    "265|266": 46,
+    "266": 47,
+    "267": 48,
+    "268": 49,
+    "268|269": 50,
+    "269": 51,
+    "270": 52,
+    "270|273": 53,
+    "271": 54,
+    "272": 55,
+    "272|273": 56,
+    "272|286": 57,
+    "273": 58,
+    "273|274": 59,
+    "274": 60,
+    "274|281": 61,
+    "275": 62,
+    "276": 63,
+    "279": 64,
+    "279|282": 65,
+    "279|286": 66,
+    "280": 67,
+    "280|284": 68,
+    "281": 69,
+    "281|282": 70,
+    "282": 71,
+    "282|284": 72,
+    "283": 73,
+    "283|284": 74,
+    "284": 75,
+    "284|285": 76,
+    "284|286": 77,
+    "285": 78,
+    "286": 79,
+    "286|287": 80,
+    "287": 81,
+    "287|289": 82,
+    "288": 83,
+    "289": 84,
+    "290": 85,
+    "291": 86,
+    "292": 87,
+    "293": 88,
+    "294": 89
+  },
+  "batch_size": 16,
+  "feature_mode": "full",
+  "protocol": "learner_disjoint_70_15_15",
+  "splits": {
+    "train": {
+      "count": 729,
+      "sha256": "a565611506d7ef8dac24cb54542cad2de94aabc4ef9005cbad3451ad2a3b4907"
+    },
+    "validation": {
+      "count": 156,
+      "sha256": "5ddda00c8439e789debe379fb0c928dfaccef2c5373ee38d7c25b35d9e57f069"
+    },
+    "test": {
+      "count": 157,
+      "sha256": "6330cd8b5a7b51aea7bf93522e6b7495dc3055f4eae0a8b19a05b46733971c9b"
+    }
+  },
+  "instrument": "voice",
+  "target": "next_recording_note_success_by_source_concept",
+  "citation": "Zhang et al. (2024), SingPAD, doi:10.5281/zenodo.12729828",
+  "binary": true,
+  "device": "cpu",
+  "epochs_completed": 12,
+  "execution": {
+    "code_revision": "66fdae0e58157d59138312890877b89bf46bf949",
+    "tracked_worktree_dirty": true,
+    "python": "3.12.14",
+    "torch": "2.14.1+cpu",
+    "numpy": "2.5.3"
+  },
+  "audit": {
+    "recordings": 19892,
+    "exact_duplicates_excluded": 0,
+    "note_labels": 1081876,
+    "unit": "entire recording; equal timestamps hidden together",
+    "timezone": "source local time, unspecified; never converted to UTC",
+    "single_group_learners_excluded": 32,
+    "chronology": {
+      "learners": 1042,
+      "time_groups": 18328,
+      "chronological_inversions": 0,
+      "duplicate_time_groups": 0
+    }
+  },
+  "validation": {
+    "observed_targets": 60080,
+    "label_weight": 139532.0,
+    "mae": 0.24861604575568302,
+    "rmse": 0.3085923256957002,
+    "log_loss": 0.49966023420684574,
+    "brier": 0.16255470570526898,
+    "mae_note": 0.33414310568411476,
+    "rmse_note": 0.403180735781447,
+    "roc_auc": 0.6895154898924744,
+    "pr_auc": 0.868776982254401,
+    "calibration_bins": [
+      {
+        "lower": 0.3,
+        "weight": 587.0,
+        "prediction": 0.3800058872066121,
+        "observed": 0.2555366293535119
+      },
+      {
+        "lower": 0.4,
+        "weight": 4162.0,
+        "prediction": 0.4605779067462365,
+        "observed": 0.45939452473945996
+      },
+      {
+        "lower": 0.5,
+        "weight": 11579.0,
+        "prediction": 0.5569106094659492,
+        "observed": 0.5558338395009974
+      },
+      {
+        "lower": 0.6,
+        "weight": 22123.0,
+        "prediction": 0.655117445150379,
+        "observed": 0.6622971593249217
+      },
+      {
+        "lower": 0.7,
+        "weight": 41844.0,
+        "prediction": 0.7551204503713562,
+        "observed": 0.7756428658104375
+      },
+      {
+        "lower": 0.8,
+        "weight": 52245.0,
+        "prediction": 0.8478902232978934,
+        "observed": 0.8660924507603256
+      },
+      {
+        "lower": 0.9,
+        "weight": 6992.0,
+        "prediction": 0.9151908970039414,
+        "observed": 0.9286327238559074
+      }
+    ]
+  },
+  "test": {
+    "observed_targets": 67864,
+    "label_weight": 159768.0,
+    "mae": 0.25289913629278726,
+    "rmse": 0.31331941047473805,
+    "log_loss": 0.5130623655505973,
+    "brier": 0.1686365555458176,
+    "mae_note": 0.3436636905433008,
+    "rmse_note": 0.4106538147221058,
+    "roc_auc": 0.6918042945756842,
+    "pr_auc": 0.8636723807056694,
+    "calibration_bins": [
+      {
+        "lower": 0.3,
+        "weight": 438.0,
+        "prediction": 0.38204701734732277,
+        "observed": 0.31050228495916277
+      },
+      {
+        "lower": 0.4,
+        "weight": 5927.0,
+        "prediction": 0.46158395117544415,
+        "observed": 0.45318036324935235
+      },
+      {
+        "lower": 0.5,
+        "weight": 16197.0,
+        "prediction": 0.5559822412128028,
+        "observed": 0.5717108130156938
+      },
+      {
+        "lower": 0.6,
+        "weight": 27376.0,
+        "prediction": 0.6532129448893508,
+        "observed": 0.6541496226610316
+      },
+      {
+        "lower": 0.7,
+        "weight": 45354.0,
+        "prediction": 0.7548994195086987,
+        "observed": 0.7589187303637419
+      },
+      {
+        "lower": 0.8,
+        "weight": 57014.0,
+        "prediction": 0.8483157055099957,
+        "observed": 0.867734242192626
+      },
+      {
+        "lower": 0.9,
+        "weight": 7462.0,
+        "prediction": 0.9152769748150456,
+        "observed": 0.9313856881162782
+      }
+    ]
+  },
+  "constant_train_mean_reference": {
+    "mean": 0.7477524838101205,
+    "validation": {
+      "observed_targets": 60080,
+      "label_weight": 139532.0,
+      "mae": 0.2792925615952883,
+      "rmse": 0.3325581153115535,
+      "log_loss": 0.5413290183208279,
+      "brier": 0.17792038228656035,
+      "mae_note": 0.3665390890524763,
+      "rmse_note": 0.42180609560147464,
+      "roc_auc": 0.5,
+      "pr_auc": 0.769343235020419,
+      "calibration_bins": [
+        {
+          "lower": 0.7,
+          "weight": 139532.0,
+          "prediction": 0.7477524838101205,
+          "observed": 0.769343235020419
+        }
+      ]
+    },
+    "test": {
+      "observed_targets": 67864,
+      "label_weight": 159768.0,
+      "mae": 0.2818025097204338,
+      "rmse": 0.33751212556583043,
+      "log_loss": 0.5554994541606822,
+      "brier": 0.18438193746954512,
+      "mae_note": 0.3730006442354611,
+      "rmse_note": 0.42939717915881226,
+      "roc_auc": 0.5,
+      "pr_auc": 0.7563028911182829,
+      "calibration_bins": [
+        {
+          "lower": 0.7,
+          "weight": 159768.0,
+          "prediction": 0.7477524838101205,
+          "observed": 0.7563028911182829
+        }
+      ]
+    }
+  },
+  "validation_gate": {
+    "accepted": true,
+    "rule": "validation improves train-only mean; >=30 validation/test targets",
+    "scope": "source benchmark only; not validation for DEClic piano practice"
+  },
+  "limitations": [
+    "Learner-disjoint benchmark, not a randomized educational experiment.",
+    "No generic mastery interpretation or cross-instrument validation.",
+    "Windowed recurrent memory; counts retain the strictly earlier full prefix.",
+    "Single fixed split/seed; estimates have no confidence interval."
+  ],
+  "model_sha256": "48c2087935f90db6f77e447f0fee05834172d6794566777c3e78d39669296cc6"
+}

@@ -1,0 +1,243 @@
+{
+  "seed": 701,
+  "scope": "frozen model input stress test, not retraining",
+  "conditions": {
+    "intact": {
+      "metrics": {
+        "concept_group_targets": 62152,
+        "label_weight": 148076.0,
+        "mae": 0.2516671215736527,
+        "rmse": 0.3180398993173184,
+        "log_loss": 0.5179215196849823,
+        "brier": 0.17105323571755485,
+        "mae_note": 0.338806274358849,
+        "roc_auc": 0.6987325794084612,
+        "pr_auc": 0.8633509428609705,
+        "calibration": [
+          {
+            "lower": 0.3,
+            "label_weight": 161.0,
+            "prediction": 0.38917695457890905,
+            "observed": 0.254658385879875
+          },
+          {
+            "lower": 0.4,
+            "label_weight": 5302.0,
+            "prediction": 0.4700855423497146,
+            "observed": 0.3979630353289679
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 15320.0,
+            "prediction": 0.5551620047335214,
+            "observed": 0.5479765038878971
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 26016.0,
+            "prediction": 0.6537180941684806,
+            "observed": 0.6452567672937178
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 37307.0,
+            "prediction": 0.7518331549943275,
+            "observed": 0.744578767450144
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 44818.0,
+            "prediction": 0.850668097923886,
+            "observed": 0.8472934998654993
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 19152.0,
+            "prediction": 0.9288317222636794,
+            "observed": 0.9172932339634563
+          }
+        ]
+      },
+      "atomic_targets": 2623,
+      "input_policy": "modified earlier history only; unchanged target labels"
+    },
+    "random_missing_30pct": {
+      "metrics": {
+        "concept_group_targets": 62152,
+        "label_weight": 148076.0,
+        "mae": 0.25632044677735955,
+        "rmse": 0.32162486354091735,
+        "log_loss": 0.5237146659312487,
+        "brier": 0.17334641100749854,
+        "mae_note": 0.3438454775369747,
+        "roc_auc": 0.6863490907992436,
+        "pr_auc": 0.8576585346270881,
+        "calibration": [
+          {
+            "lower": 0.3,
+            "label_weight": 130.0,
+            "prediction": 0.38842772107857926,
+            "observed": 0.31538461584311267
+          },
+          {
+            "lower": 0.4,
+            "label_weight": 5181.0,
+            "prediction": 0.4712097606380988,
+            "observed": 0.40513414651862995
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 17735.0,
+            "prediction": 0.5548656087510513,
+            "observed": 0.5847758695941123
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 26377.0,
+            "prediction": 0.6526307522986192,
+            "observed": 0.653751376315369
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 36199.0,
+            "prediction": 0.7518840141940398,
+            "observed": 0.7449929575980502
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 45299.0,
+            "prediction": 0.8506125156951899,
+            "observed": 0.8437051608015081
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 17155.0,
+            "prediction": 0.926564043901016,
+            "observed": 0.9158262907190525
+          }
+        ]
+      },
+      "atomic_targets": 2623,
+      "input_policy": "modified earlier history only; unchanged target labels"
+    },
+    "missing_latest2": {
+      "metrics": {
+        "concept_group_targets": 62152,
+        "label_weight": 148076.0,
+        "mae": 0.2676196281620493,
+        "rmse": 0.3310194659900223,
+        "log_loss": 0.5390409353724336,
+        "brier": 0.17947774502410432,
+        "mae_note": 0.3571628796138132,
+        "roc_auc": 0.6548340391440792,
+        "pr_auc": 0.8436727824966608,
+        "calibration": [
+          {
+            "lower": 0.3,
+            "label_weight": 150.0,
+            "prediction": 0.39132708112398784,
+            "observed": 0.2800000015894572
+          },
+          {
+            "lower": 0.4,
+            "label_weight": 5237.0,
+            "prediction": 0.4723748628114821,
+            "observed": 0.4460569053791579
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 25120.0,
+            "prediction": 0.5562177314903516,
+            "observed": 0.6481687920239226
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 28291.0,
+            "prediction": 0.6479737070837092,
+            "observed": 0.6826199165838617
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 34240.0,
+            "prediction": 0.7521171174682328,
+            "observed": 0.7471962637215783
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 39145.0,
+            "prediction": 0.8502452963810647,
+            "observed": 0.8346148951216316
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 15893.0,
+            "prediction": 0.9280544282476004,
+            "observed": 0.9076952125610163
+          }
+        ]
+      },
+      "atomic_targets": 2623,
+      "input_policy": "modified earlier history only; unchanged target labels"
+    },
+    "no_target_concept_history": {
+      "metrics": {
+        "concept_group_targets": 62152,
+        "label_weight": 148076.0,
+        "mae": 0.2800945161949159,
+        "rmse": 0.33386230004232786,
+        "log_loss": 0.5443560781352705,
+        "brier": 0.18136789354933816,
+        "mae_note": 0.37568400895917425,
+        "roc_auc": 0.6427014372819441,
+        "pr_auc": 0.835791549515484,
+        "calibration": [
+          {
+            "lower": 0.3,
+            "label_weight": 23.0,
+            "prediction": 0.38339927274247876,
+            "observed": 0.4782608721567237
+          },
+          {
+            "lower": 0.4,
+            "label_weight": 2759.0,
+            "prediction": 0.4772222590061926,
+            "observed": 0.5357013433501961
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 22222.0,
+            "prediction": 0.5552547957549354,
+            "observed": 0.5945909480418365
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 42465.0,
+            "prediction": 0.6522634280158847,
+            "observed": 0.7129400703130953
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 46470.0,
+            "prediction": 0.7480283322810408,
+            "observed": 0.7727135806232017
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 30410.0,
+            "prediction": 0.8420938904996531,
+            "observed": 0.8651759305654663
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 3727.0,
+            "prediction": 0.9204011202530212,
+            "observed": 0.9278239877567172
+          }
+        ]
+      },
+      "atomic_targets": 2623,
+      "input_policy": "modified earlier history only; unchanged target labels"
+    }
+  },
+  "limitation": "Artificial missingness does not identify real missing-data mechanisms; intact uses full prefix last64, distinct from chunked training evaluation."
+}

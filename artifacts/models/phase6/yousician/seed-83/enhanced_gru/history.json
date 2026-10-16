@@ -1,0 +1,110 @@
+[
+  {
+    "epoch": 1,
+    "validation": {
+      "observed_targets": 1752,
+      "label_weight": 1752.0,
+      "mae": 0.12823485953894925,
+      "rmse": 0.17715866744980385
+    }
+  },
+  {
+    "epoch": 2,
+    "validation": {
+      "observed_targets": 1752,
+      "label_weight": 1752.0,
+      "mae": 0.11004292281114891,
+      "rmse": 0.15297413984075486
+    }
+  },
+  {
+    "epoch": 3,
+    "validation": {
+      "observed_targets": 1752,
+      "label_weight": 1752.0,
+      "mae": 0.10020815870261084,
+      "rmse": 0.14558102264384065
+    }
+  },
+  {
+    "epoch": 4,
+    "validation": {
+      "observed_targets": 1752,
+      "label_weight": 1752.0,
+      "mae": 0.09691316688850046,
+      "rmse": 0.14154344813601996
+    }
+  },
+  {
+    "epoch": 5,
+    "validation": {
+      "observed_targets": 1752,
+      "label_weight": 1752.0,
+      "mae": 0.09672421812330752,
+      "rmse": 0.1397152620829145
+    }
+  },
+  {
+    "epoch": 6,
+    "validation": {
+      "observed_targets": 1752,
+      "label_weight": 1752.0,
+      "mae": 0.09616065903069222,
+      "rmse": 0.13924762953479072
+    }
+  },
+  {
+    "epoch": 7,
+    "validation": {
+      "observed_targets": 1752,
+      "label_weight": 1752.0,
+      "mae": 0.10083080647878995,
+      "rmse": 0.1406280775650367
+    }
+  },
+  {
+    "epoch": 8,
+    "validation": {
+      "observed_targets": 1752,
+      "label_weight": 1752.0,
+      "mae": 0.09454964999466726,
+      "rmse": 0.13902876186317087
+    }
+  },
+  {
+    "epoch": 9,
+    "validation": {
+      "observed_targets": 1752,
+      "label_weight": 1752.0,
+      "mae": 0.09515367805549543,
+      "rmse": 0.1388147201194537
+    }
+  },
+  {
+    "epoch": 10,
+    "validation": {
+      "observed_targets": 1752,
+      "label_weight": 1752.0,
+      "mae": 0.09581713157293459,
+      "rmse": 0.13878951773824902
+    }
+  },
+  {
+    "epoch": 11,
+    "validation": {
+      "observed_targets": 1752,
+      "label_weight": 1752.0,
+      "mae": 0.0960885806510982,
+      "rmse": 0.13877547591326225
+    }
+  },
+  {
+    "epoch": 12,
+    "validation": {
+      "observed_targets": 1752,
+      "label_weight": 1752.0,
+      "mae": 0.0962248604455495,
+      "rmse": 0.1387823028803132
+    }
+  }
+]

@@ -1,0 +1,67 @@
+{
+  "unit": "unique tied user/session/relative-time/exercise/song group after exact dedup and practice exclusion",
+  "groups": {
+    "all": {
+      "retained": 101368,
+      "contradictory_excluded": 23955
+    },
+    "difficulty:0": {
+      "retained": 7178,
+      "contradictory_excluded": 544
+    },
+    "days_0_6": {
+      "retained": 41615,
+      "contradictory_excluded": 9607
+    },
+    "difficulty:1": {
+      "retained": 21532,
+      "contradictory_excluded": 4720
+    },
+    "difficulty:2": {
+      "retained": 21014,
+      "contradictory_excluded": 5712
+    },
+    "difficulty:3": {
+      "retained": 23747,
+      "contradictory_excluded": 6522
+    },
+    "difficulty:4": {
+      "retained": 14169,
+      "contradictory_excluded": 3656
+    },
+    "difficulty:6": {
+      "retained": 4557,
+      "contradictory_excluded": 958
+    },
+    "difficulty:5": {
+      "retained": 7207,
+      "contradictory_excluded": 1604
+    },
+    "difficulty:7": {
+      "retained": 1423,
+      "contradictory_excluded": 172
+    },
+    "difficulty:8": {
+      "contradictory_excluded": 65,
+      "retained": 475
+    },
+    "days_7_29": {
+      "retained": 57966,
+      "contradictory_excluded": 13885
+    },
+    "days_30_plus": {
+      "contradictory_excluded": 463,
+      "retained": 1787
+    },
+    "difficulty:9": {
+      "retained": 56,
+      "contradictory_excluded": 2
+    },
+    "difficulty:10": {
+      "retained": 10
+    }
+  },
+  "unique_attempt_id_reconstructed": false,
+  "interpretation": "Different exclusion rates are a selection-bias diagnostic, not proof that missing outcomes are recoverable.",
+  "future_covariates": "Historical difficulty/day gaps could be studied separately; neither future difficulty nor future day gap is available to current forecast."
+}

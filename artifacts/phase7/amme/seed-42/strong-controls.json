@@ -1,0 +1,47 @@
+{
+  "source": "amme",
+  "seed": 42,
+  "splits": {
+    "train": {
+      "count": 41,
+      "sha256": "b84e84b4f5c60e128ce8d3927c0da1f2f1d46a361635cdac22a8caf38698bc2a"
+    },
+    "validation": {
+      "count": 9,
+      "sha256": "ce16a5df2dbc2bfeedcb09c23f37c2f9d203ba7c96d8e5c6b925f5336bcd8785"
+    },
+    "test": {
+      "count": 9,
+      "sha256": "75831a8ce9b136de30cdb8a62f433f63bdfa960868ddfabd4c60a6fece5138c7"
+    }
+  },
+  "protocol": "PFA logistic C [.01,1,100]; boosted trees leaves [7,15], 100 iterations, lr .05, l2=1; all choices validation only",
+  "dataset_sha256": "2a8fb3f213f6472f0020383aa68e12a23001547715bb071903b0616ad7db2e18",
+  "scope": "research controls only, no deployed classical ML",
+  "models": {
+    "boosted_trees": {
+      "selected_parameter": "7",
+      "validation_candidates": {
+        "7": {
+          "concept_group_targets": 25,
+          "label_weight": 25.0,
+          "mae": 0.1788396836122555,
+          "rmse": 0.21426870793370997
+        },
+        "15": {
+          "concept_group_targets": 25,
+          "label_weight": 25.0,
+          "mae": 0.1788396836122555,
+          "rmse": 0.21426870793370997
+        }
+      },
+      "test": {
+        "concept_group_targets": 23,
+        "label_weight": 23.0,
+        "mae": 0.1868927095531439,
+        "rmse": 0.232067908009423
+      }
+    }
+  },
+  "selected_strong_control": "boosted_trees"
+}

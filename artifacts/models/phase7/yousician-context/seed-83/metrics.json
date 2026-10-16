@@ -1,0 +1,107 @@
+{
+  "config": {
+    "source": "yousician",
+    "condition": "historical_metadata_gru",
+    "seed": 83,
+    "epochs": 8,
+    "dataset_sha256": "9e4b6fe3d11381de02d197fe6dbd84676d6e48e25d9d0d364bb43d0a400dc52e",
+    "splits": {
+      "train": {
+        "count": 699,
+        "sha256": "ac5e5d30ae95aac80eded6f89e0c556198358c06132c5c9fa715f99df991bce0"
+      },
+      "validation": {
+        "count": 150,
+        "sha256": "489c4cc38464d2c76361120341d35c6c4a285e5057a244677f774c9918095a3d"
+      },
+      "test": {
+        "count": 150,
+        "sha256": "5927e9c93319a6d9c0a8ab7614be9e09ed744b96d51f99fe61ba13baa7d3e44e"
+      }
+    },
+    "features": [
+      "previous_day_difficulty_scaled",
+      "previous_day_difficulty_missing",
+      "previous_day_exercise_diversity_log",
+      "previous_day_evaluated_counter_log",
+      "previous_day_session_diversity_log",
+      "cumulative_evaluated_counter_log",
+      "cumulative_exercise_diversity_log",
+      "previous_observed_day_gap_log",
+      "rolling3_day_score"
+    ],
+    "source_hashes": {
+      "scripts\\train_yousician_context.py": "c9352bcea7cf8dc2966d3f727be6a3bcb113a898b2fc1c442868314693958483",
+      "axis7\\yousician_context.py": "d013a5c6806f9a7e57b6f1f0591a77cdac8098d82adc2e2f42ae4cd9e6ac0484"
+    },
+    "device": "cpu",
+    "torch": "2.14.1+cpu",
+    "numpy": "2.5.3"
+  },
+  "validation": {
+    "concept_group_targets": 1752,
+    "label_weight": 1752.0,
+    "mae": 0.09457736822976369,
+    "rmse": 0.13921913993992205
+  },
+  "test": {
+    "concept_group_targets": 1705,
+    "label_weight": 1705.0,
+    "mae": 0.09512118281812962,
+    "rmse": 0.14163392601118271
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "validation_mae": 0.11645344450865706
+    },
+    {
+      "epoch": 2,
+      "validation_mae": 0.11455931286561434
+    },
+    {
+      "epoch": 3,
+      "validation_mae": 0.10831099313143726
+    },
+    {
+      "epoch": 4,
+      "validation_mae": 0.10159082302491959
+    },
+    {
+      "epoch": 5,
+      "validation_mae": 0.09808054110503088
+    },
+    {
+      "epoch": 6,
+      "validation_mae": 0.09851656224765734
+    },
+    {
+      "epoch": 7,
+      "validation_mae": 0.09457736822976369
+    },
+    {
+      "epoch": 8,
+      "validation_mae": 0.09645122527804005
+    }
+  ],
+  "status": "exploratory_research_only",
+  "comparison_caveat": "Different input dimension and parameterization; feature gain is not an isolated causal effect.",
+  "same_feature_control": {
+    "kind": "boosted_trees",
+    "selected_leaves": 15,
+    "validation": {
+      "concept_group_targets": 1752,
+      "label_weight": 1752.0,
+      "mae": 0.09290237144925528,
+      "rmse": 0.1376794072359328
+    },
+    "test": {
+      "concept_group_targets": 1705,
+      "label_weight": 1705.0,
+      "mae": 0.09430390959894731,
+      "rmse": 0.1403852386795221
+    },
+    "selection": "validation MAE only"
+  },
+  "model_sha256": "c75625f65ac8dc1444be48abceae97ee23feb7686a6bf60f815f8ffcc7dcfa24"
+}

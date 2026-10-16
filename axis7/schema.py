@@ -7,19 +7,28 @@ MUSIC_SKILLS = ["pitch", "rhythm", "timing", "articulation", "fingering", "score
 MUSIC_LABELS = ["Justesse", "Rythme", "Placement temporel", "Articulation", "Doigté", "Lecture de partition"]
 
 # NaN and infinities are not valid measurements; they would also break strict JSON storage.
-UnitFloat = Annotated[float, Field(ge=0, le=1, allow_inf_nan=False)]
-NonNegativeFloat = Annotated[float, Field(ge=0, allow_inf_nan=False)]
-FiniteFloat = Annotated[float, Field(allow_inf_nan=False)]
+UnitFloat = Annotated[float, Field(ge=0, le=1, allow_inf_nan=False,strict=True)]
+NonNegativeFloat = Annotated[float, Field(ge=0, allow_inf_nan=False,strict=True)]
+FiniteFloat = Annotated[float, Field(allow_inf_nan=False,strict=True)]
 
 class SkillObservation(BaseModel):
     # Unknown keys are rejected: a misspelled field must not be silently dropped.
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="forbid", json_schema_extra={"anyOf": [
+        {"required": ["outcome"], "properties": {"outcome": {"type": "integer", "minimum": 0, "maximum": 1}}},
+        {"required": ["score"], "properties": {"score": {"type": "number", "minimum": 0, "maximum": 1}}}
+    ]})
     skill_id: str = Field(min_length=1, max_length=80)
-    outcome: StrictInt | None = None
+    outcome: StrictInt | None = Field(default=None, ge=0, le=1)
     score: UnitFloat | None = None
     source_confidence: UnitFloat | None = None
     error_types: list[str] = Field(default_factory=list, max_length=20)
     evidence_id: str | None = None
+
+    @model_validator(mode="after")
+    def has_measurement(self):
+        if self.outcome is None and self.score is None:
+            raise ValueError("each observation needs an outcome or a scaled score")
+        return self
 
     @field_validator("outcome")
     @classmethod
@@ -49,6 +58,13 @@ class Attempt(BaseModel):
     @classmethod
     def timezone(cls,v):
         if v.tzinfo is None or v.utcoffset() is None: raise ValueError("timestamp requires a timezone")
+        return v
+
+    @field_validator('timestamp',mode='before')
+    @classmethod
+    def canonical_timestamp(cls,v):
+        if not isinstance(v,(str,datetime)):
+            raise ValueError('timestamp must be an ISO 8601 string with timezone')
         return v
 
     @model_validator(mode="after")

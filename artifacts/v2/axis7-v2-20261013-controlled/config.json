@@ -1,0 +1,48 @@
+{
+  "study_version": "axis7-science-v2.1",
+  "domains": [
+    "forget-se",
+    "music-mock"
+  ],
+  "split_seeds": [
+    2026,
+    2027,
+    2028
+  ],
+  "serving_split": 2026,
+  "neural_seeds": [
+    7,
+    19
+  ],
+  "models": [
+    "prior",
+    "bkt",
+    "pfa",
+    "exposure",
+    "item_pfa",
+    "dkt",
+    "sakt",
+    "enhanced_gru",
+    "item_attention",
+    "enhanced_gru_no_outcome",
+    "item_attention_no_item"
+  ],
+  "epochs": 28,
+  "patience": 6,
+  "batch_size": 24,
+  "hidden": 48,
+  "context": 256,
+  "learning_rate": 0.002,
+  "weight_decay": 0.0001,
+  "bootstrap_replicates": 300,
+  "torch_threads": 2,
+  "primary_metric": "raw_test_log_loss",
+  "selection_metric": "raw_validation_log_loss",
+  "target": "full_credit_at_least_1_minus_1e-8",
+  "calibration": "secondary_temperature_fitted_on_disjoint_calibration_learners",
+  "item_representation": "sorted_unique_question_bundle_or_exercise_id;train_only_vocabulary",
+  "missing_policy": "skip_all_model_ineligible_observations_and_noop_events",
+  "long_history_policy": "overlapping_context_windows_with_owner_targets;global_causal_counts",
+  "ablation_policy": "no_outcome_replaces_all_success_failure_direction_with_total_exposure;no_item_zeroes_item_embeddings_and_difficulty",
+  "synthetic_seed": 2026
+}

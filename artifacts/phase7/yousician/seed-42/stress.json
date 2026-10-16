@@ -1,0 +1,47 @@
+{
+  "seed": 701,
+  "scope": "frozen model input stress test, not retraining",
+  "conditions": {
+    "intact": {
+      "metrics": {
+        "concept_group_targets": 1740,
+        "label_weight": 1740.0,
+        "mae": 0.09086131657655726,
+        "rmse": 0.13377871422231474
+      },
+      "atomic_targets": 1740,
+      "input_policy": "modified earlier history only; unchanged target labels"
+    },
+    "random_missing_30pct": {
+      "metrics": {
+        "concept_group_targets": 1740,
+        "label_weight": 1740.0,
+        "mae": 0.09613261379023222,
+        "rmse": 0.1390498575453723
+      },
+      "atomic_targets": 1740,
+      "input_policy": "modified earlier history only; unchanged target labels"
+    },
+    "missing_latest2": {
+      "metrics": {
+        "concept_group_targets": 1740,
+        "label_weight": 1740.0,
+        "mae": 0.11113651855902254,
+        "rmse": 0.15508739248987027
+      },
+      "atomic_targets": 1740,
+      "input_policy": "modified earlier history only; unchanged target labels"
+    },
+    "no_target_concept_history": {
+      "metrics": {
+        "concept_group_targets": 1740,
+        "label_weight": 1740.0,
+        "mae": 0.15016587330670705,
+        "rmse": 0.17907220834916296
+      },
+      "atomic_targets": 1740,
+      "input_policy": "modified earlier history only; unchanged target labels"
+    }
+  },
+  "limitation": "Artificial missingness does not identify real missing-data mechanisms; intact uses full prefix last64, distinct from chunked training evaluation."
+}

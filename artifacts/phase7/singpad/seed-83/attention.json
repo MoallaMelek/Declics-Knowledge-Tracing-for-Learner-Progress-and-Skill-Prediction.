@@ -1,0 +1,308 @@
+{
+  "config": {
+    "protocol": "phase7-exploratory-v1",
+    "condition": "attention",
+    "seed": 83,
+    "dataset_sha256": "9e87e3ccb4bbc6e90a571a28a989168f0c7e49a332c633de328e5c5660773b64",
+    "splits": {
+      "train": {
+        "count": 729,
+        "sha256": "a565611506d7ef8dac24cb54542cad2de94aabc4ef9005cbad3451ad2a3b4907"
+      },
+      "validation": {
+        "count": 156,
+        "sha256": "5ddda00c8439e789debe379fb0c928dfaccef2c5373ee38d7c25b35d9e57f069"
+      },
+      "test": {
+        "count": 157,
+        "sha256": "6330cd8b5a7b51aea7bf93522e6b7495dc3055f4eae0a8b19a05b46733971c9b"
+      }
+    },
+    "epochs": 8,
+    "K": 270,
+    "hidden": 48,
+    "context": 64,
+    "source_sha256": "c5ae8027542c3af645d495ec65c162d5456a4e0a459d54d623395f6e5180ce21",
+    "core_sha256": {
+      "cloud_training.py": "05df4f7d63fe61a06759623ce5e2fb655f30bb6d5e87f6192f853522f6dd88e0",
+      "models.py": "5149efbe2a856e2f1c435f241cae549ba53b0d62582d10549ddb885ec417bb71",
+      "models_v2.py": "c5cb91565789c08631173dea532c97658378093734a5fbb343a19705bff7a0f0"
+    },
+    "device": "cpu",
+    "torch": "2.14.1+cpu",
+    "numpy": "2.5.3"
+  },
+  "source": "singpad",
+  "epochs_completed": 8,
+  "trainable_parameters": 86593,
+  "validation": {
+    "concept_group_targets": 60080,
+    "label_weight": 139532.0,
+    "mae": 0.2456794040170753,
+    "rmse": 0.3091709457779501,
+    "log_loss": 0.5006019181166881,
+    "brier": 0.16291215594022002,
+    "mae_note": 0.3283623123396865,
+    "roc_auc": 0.6840605832342768,
+    "pr_auc": 0.8665138537883638,
+    "calibration": [
+      {
+        "lower": 0.2,
+        "label_weight": 177.0,
+        "prediction": 0.2851649455431491,
+        "observed": 0.24858757449408708
+      },
+      {
+        "lower": 0.3,
+        "label_weight": 1502.0,
+        "prediction": 0.3537567173553688,
+        "observed": 0.2703062606238811
+      },
+      {
+        "lower": 0.4,
+        "label_weight": 4951.0,
+        "prediction": 0.4606024893070322,
+        "observed": 0.4974752597449115
+      },
+      {
+        "lower": 0.5,
+        "label_weight": 12299.0,
+        "prediction": 0.5551463302649834,
+        "observed": 0.595007726619889
+      },
+      {
+        "lower": 0.6,
+        "label_weight": 20382.0,
+        "prediction": 0.6530059102227042,
+        "observed": 0.6715729588427226
+      },
+      {
+        "lower": 0.7,
+        "label_weight": 33339.0,
+        "prediction": 0.7548829405429843,
+        "observed": 0.7692192347542655
+      },
+      {
+        "lower": 0.8,
+        "label_weight": 53215.0,
+        "prediction": 0.851009083375507,
+        "observed": 0.8507187840676583
+      },
+      {
+        "lower": 0.9,
+        "label_weight": 13667.0,
+        "prediction": 0.9197528172648798,
+        "observed": 0.9155630361649404
+      }
+    ]
+  },
+  "test": {
+    "concept_group_targets": 67864,
+    "label_weight": 159768.0,
+    "mae": 0.2487345877455639,
+    "rmse": 0.31306584254813136,
+    "log_loss": 0.5125676875198848,
+    "brier": 0.1684777243359516,
+    "mae_note": 0.3351117443477976,
+    "roc_auc": 0.6914744556301378,
+    "pr_auc": 0.863058009921287,
+    "calibration": [
+      {
+        "lower": 0.2,
+        "label_weight": 40.0,
+        "prediction": 0.2850149370729923,
+        "observed": 0.37500000149011614
+      },
+      {
+        "lower": 0.3,
+        "label_weight": 1064.0,
+        "prediction": 0.3684141426382208,
+        "observed": 0.40507518927937836
+      },
+      {
+        "lower": 0.4,
+        "label_weight": 6315.0,
+        "prediction": 0.46084081639114677,
+        "observed": 0.4703087905181464
+      },
+      {
+        "lower": 0.5,
+        "label_weight": 14530.0,
+        "prediction": 0.5545364473043273,
+        "observed": 0.5670337256938937
+      },
+      {
+        "lower": 0.6,
+        "label_weight": 24927.0,
+        "prediction": 0.6538981427381954,
+        "observed": 0.6483732523803782
+      },
+      {
+        "lower": 0.7,
+        "label_weight": 38031.0,
+        "prediction": 0.7534368774729221,
+        "observed": 0.7453656249444364
+      },
+      {
+        "lower": 0.8,
+        "label_weight": 58694.0,
+        "prediction": 0.8517578890858856,
+        "observed": 0.8493542798371495
+      },
+      {
+        "lower": 0.9,
+        "label_weight": 16167.0,
+        "prediction": 0.9185366304234714,
+        "observed": 0.9164965680193841
+      }
+    ]
+  },
+  "selection": "minimum validation loss; test never used",
+  "status": "exploratory_research_only",
+  "individual_uncertainty": "not validated",
+  "calibration": {
+    "fit": "validation only",
+    "temperature": 0.9804838874577974,
+    "test_raw": {
+      "concept_group_targets": 67864,
+      "label_weight": 159768.0,
+      "mae": 0.2487345876886707,
+      "rmse": 0.31306584248057057,
+      "log_loss": 0.5125676874286095,
+      "brier": 0.16847772429364963,
+      "mae_note": 0.33511174432336155,
+      "roc_auc": 0.6914744542485208,
+      "pr_auc": 0.8630580070180687,
+      "calibration": [
+        {
+          "lower": 0.2,
+          "label_weight": 40.0,
+          "prediction": 0.2850149370729923,
+          "observed": 0.37500000149011614
+        },
+        {
+          "lower": 0.3,
+          "label_weight": 1064.0,
+          "prediction": 0.36841414286229845,
+          "observed": 0.40507518927937836
+        },
+        {
+          "lower": 0.4,
+          "label_weight": 6315.0,
+          "prediction": 0.4608408165751991,
+          "observed": 0.4703087905181464
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 14530.0,
+          "prediction": 0.5545364474479034,
+          "observed": 0.5670337256938937
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 24927.0,
+          "prediction": 0.6538981426282017,
+          "observed": 0.6483732523803782
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 38031.0,
+          "prediction": 0.7534368773632135,
+          "observed": 0.7453656249444364
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 58694.0,
+          "prediction": 0.8517578890716684,
+          "observed": 0.8493542798371495
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 16167.0,
+          "prediction": 0.9185366304234714,
+          "observed": 0.9164965680193841
+        }
+      ],
+      "ece": 0.005650182349232316,
+      "brier_binned_decomposition": {
+        "reliability": 5.15381993573978e-05,
+        "resolution": 0.014972336223286618,
+        "uncertainty": 0.18430882695690443,
+        "within_bin_residual": -0.0009103046393255654
+      },
+      "binning": "10 equal-width bins [i/10,(i+1)/10), final upper bound inclusive",
+      "temperature": 1.0
+    },
+    "test_scaled": {
+      "concept_group_targets": 67864,
+      "label_weight": 159768.0,
+      "mae": 0.24768466826513946,
+      "rmse": 0.3131309848937243,
+      "log_loss": 0.5127029480866102,
+      "brier": 0.16851851626609402,
+      "mae_note": 0.33308629707054815,
+      "roc_auc": 0.6914744539296862,
+      "pr_auc": 0.8630580021468006,
+      "calibration": [
+        {
+          "lower": 0.2,
+          "label_weight": 42.0,
+          "prediction": 0.28217349520751406,
+          "observed": 0.40476190618106295
+        },
+        {
+          "lower": 0.3,
+          "label_weight": 1107.0,
+          "prediction": 0.3674098085527928,
+          "observed": 0.4001806698396277
+        },
+        {
+          "lower": 0.4,
+          "label_weight": 6270.0,
+          "prediction": 0.4605061360761119,
+          "observed": 0.47145135757621776
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 14225.0,
+          "prediction": 0.5546319603081956,
+          "observed": 0.566186294082179
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 24222.0,
+          "prediction": 0.6541612936443267,
+          "observed": 0.6454875758363007
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 37027.0,
+          "prediction": 0.7535442910161043,
+          "observed": 0.7418100326819913
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 58534.0,
+          "prediction": 0.8524725676819092,
+          "observed": 0.8457648563399062
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 18341.0,
+          "prediction": 0.9196602472737184,
+          "observed": 0.9135270714938566
+        }
+      ],
+      "ece": 0.008913611750791469,
+      "brier_binned_decomposition": {
+        "reliability": 9.209873231389843e-05,
+        "resolution": 0.014994015337708578,
+        "uncertainty": 0.18430882695690443,
+        "within_bin_residual": -0.0008883940854157446
+      },
+      "binning": "10 equal-width bins [i/10,(i+1)/10), final upper bound inclusive",
+      "temperature": 0.9804838874577974
+    }
+  },
+  "model_sha256": "577055368f3627fe1de2575e306ae47049d235e13f0d01a4445dd6243fd1cb99"
+}

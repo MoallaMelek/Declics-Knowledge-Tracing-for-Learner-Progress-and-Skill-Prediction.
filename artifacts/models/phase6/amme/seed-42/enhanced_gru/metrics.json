@@ -1,0 +1,88 @@
+{
+  "version": "musical-cloud-v2",
+  "preprocessing": "amme-block-v1",
+  "source": "amme",
+  "sha256": "2a8fb3f213f6472f0020383aa68e12a23001547715bb071903b0616ad7db2e18",
+  "seed": 42,
+  "model": "enhanced_gru",
+  "hidden": 48,
+  "context": 64,
+  "K": 1,
+  "items": {},
+  "batch_size": 16,
+  "feature_mode": "full",
+  "protocol": "learner_disjoint_70_15_15",
+  "splits": {
+    "train": {
+      "count": 41,
+      "sha256": "b84e84b4f5c60e128ce8d3927c0da1f2f1d46a361635cdac22a8caf38698bc2a"
+    },
+    "validation": {
+      "count": 9,
+      "sha256": "ce16a5df2dbc2bfeedcb09c23f37c2f9d203ba7c96d8e5c6b925f5336bcd8785"
+    },
+    "test": {
+      "count": 9,
+      "sha256": "75831a8ce9b136de30cdb8a62f433f63bdfa960868ddfabd4c60a6fece5138c7"
+    }
+  },
+  "instrument": "keyboard",
+  "target": "next_block_pitch_dtw_coverage_adjusted_score",
+  "citation": "Chmiel et al. (2025), doi:10.1371/journal.pone.0320055; OSF 2GVTY",
+  "binary": false,
+  "device": "cpu",
+  "epochs_completed": 12,
+  "execution": {
+    "code_revision": "ba93a013003d6435b66c5f0b40dd4b1816eff924",
+    "tracked_worktree_dirty": false,
+    "python": "3.12.14",
+    "torch": "2.14.1+cpu",
+    "numpy": "2.5.3"
+  },
+  "audit": {
+    "raw_rows": 4184,
+    "conflicting_performances_excluded": 0,
+    "unit": "block mean of scoretype 7; all same-block outcomes hidden",
+    "score_meaning": "pitch similarity adjusted by aligned coverage, not correctness",
+    "single_group_learners_excluded": 3
+  },
+  "validation": {
+    "observed_targets": 25,
+    "label_weight": 25.0,
+    "mae": 0.17022379457950593,
+    "rmse": 0.20572431875733213
+  },
+  "test": {
+    "observed_targets": 23,
+    "label_weight": 23.0,
+    "mae": 0.18565732337858365,
+    "rmse": 0.2283656999291095
+  },
+  "constant_train_mean_reference": {
+    "mean": 0.5068209045913854,
+    "validation": {
+      "observed_targets": 25,
+      "label_weight": 25.0,
+      "mae": 0.17454134592925324,
+      "rmse": 0.21226748367091894
+    },
+    "test": {
+      "observed_targets": 23,
+      "label_weight": 23.0,
+      "mae": 0.1957655899059897,
+      "rmse": 0.23931604630635858
+    }
+  },
+  "validation_gate": {
+    "accepted": false,
+    "rule": "validation improves train-only mean; >=30 validation/test targets",
+    "scope": "source benchmark only; not validation for DEClic piano practice"
+  },
+  "limitations": [
+    "Learner-disjoint benchmark, not a randomized educational experiment.",
+    "No generic mastery interpretation or cross-instrument validation.",
+    "Windowed recurrent memory; counts retain the strictly earlier full prefix.",
+    "Single fixed split/seed; estimates have no confidence interval."
+  ],
+  "model_sha256": "1ee852535c7d970d20c81137d4a180802840cab50f054be2d91dd12ffa9fec83"
+}

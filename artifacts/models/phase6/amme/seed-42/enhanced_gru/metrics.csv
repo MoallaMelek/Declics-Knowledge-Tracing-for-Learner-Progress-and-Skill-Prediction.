@@ -1,0 +1,9 @@
+split,metric,value
+validation,observed_targets,25
+validation,label_weight,25.0
+validation,mae,0.17022379457950593
+validation,rmse,0.20572431875733213
+test,observed_targets,23
+test,label_weight,23.0
+test,mae,0.18565732337858365
+test,rmse,0.2283656999291095

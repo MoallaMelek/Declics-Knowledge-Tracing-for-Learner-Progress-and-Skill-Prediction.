@@ -1,0 +1,8 @@
+.panel{background:#fff;border:1px solid var(--line);padding:26px 30px;border-radius:20px;margin:22px 0;box-shadow:0 4px 22px #20372e05}
+.page-heading p{max-width:750px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.93rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{background:var(--soft);font-weight:650}
+details{margin:12px 0 28px}summary{cursor:pointer;color:var(--green);font-weight:600}
+details p{margin-top:16px}
+@media(max-width:600px){.panel{padding:20px}.panel h2{font-size:21px}th,td{padding:8px 6px;font-size:.8rem}}

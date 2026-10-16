@@ -1,0 +1,12 @@
+{
+  "protocol": "phase7-exploratory-v1",
+  "allowed_source_sha256": [
+    "1cab88ce972e9209f01ae4ce56e279ef9fbab15094a748763ec02ddc74fe1205",
+    "c5ae8027542c3af645d495ec65c162d5456a4e0a459d54d623395f6e5180ce21",
+    "d398b59b89968cfd7ec89f89bd7cef5fa884fa60622a7d7124b17787805c1077"
+  ],
+  "reason": "Dense and selected-query attention implementations; evaluation outputs and gradients equivalence tested. Dropout training trajectories need not match.",
+  "compatibility_scope": "same data, split, architecture, loss and hyperparameters; distinct loaded source fingerprint preserved per run",
+  "abandoned_run": "Initial dense attention seed42 interrupted after epoch5 for performance; not a completed experiment and not used in tables.",
+  "future_only_provenance_hardening": "Normalized source fingerprint captured at import, after all 33 runs completed; not retroactively attributed."
+}

@@ -1,0 +1,556 @@
+{
+  "execution": "actual local CPU",
+  "python": "3.12.14",
+  "pytorch": "2.14.1+cpu",
+  "rows": [
+    {
+      "source": "amme",
+      "model": "enhanced_gru",
+      "epochs": 12,
+      "validation": {
+        "observed_targets": 25,
+        "label_weight": 25.0,
+        "mae": 0.17022379457950593,
+        "rmse": 0.20572431875733213
+      },
+      "test": {
+        "observed_targets": 23,
+        "label_weight": 23.0,
+        "mae": 0.18565732337858365,
+        "rmse": 0.2283656999291095
+      },
+      "reference_test": {
+        "observed_targets": 23,
+        "label_weight": 23.0,
+        "mae": 0.1957655899059897,
+        "rmse": 0.23931604630635858
+      },
+      "gate": {
+        "accepted": false,
+        "rule": "validation improves train-only mean; >=30 validation/test targets",
+        "scope": "source benchmark only; not validation for DEClic piano practice"
+      },
+      "sha256": "2a8fb3f213f6472f0020383aa68e12a23001547715bb071903b0616ad7db2e18",
+      "audit": {
+        "raw_rows": 4184,
+        "conflicting_performances_excluded": 0,
+        "unit": "block mean of scoretype 7; all same-block outcomes hidden",
+        "score_meaning": "pitch similarity adjusted by aligned coverage, not correctness"
+      }
+    },
+    {
+      "source": "singpad",
+      "model": "dkt",
+      "epochs": 12,
+      "validation": {
+        "observed_targets": 55414,
+        "label_weight": 132014.0,
+        "mae": 0.2480694993183364,
+        "rmse": 0.30877921033872147,
+        "log_loss": 0.5107229479849613,
+        "brier": 0.16719600458157624,
+        "roc_auc": 0.675198149308694,
+        "pr_auc": 0.8603038359105439,
+        "calibration_bins": [
+          {
+            "lower": 0.30000000000000004,
+            "weight": 432.0,
+            "prediction": 0.3797502130683925,
+            "observed": 0.46527777922650176
+          },
+          {
+            "lower": 0.4,
+            "weight": 4662.0,
+            "prediction": 0.4591606502456759,
+            "observed": 0.4987130017127284
+          },
+          {
+            "lower": 0.5,
+            "weight": 10951.0,
+            "prediction": 0.5549053339237122,
+            "observed": 0.5723678228260719
+          },
+          {
+            "lower": 0.6000000000000001,
+            "weight": 20258.0,
+            "prediction": 0.6555283230082376,
+            "observed": 0.6579129258287496
+          },
+          {
+            "lower": 0.7000000000000001,
+            "weight": 39776.0,
+            "prediction": 0.7553122054983293,
+            "observed": 0.7661906697583922
+          },
+          {
+            "lower": 0.8,
+            "weight": 49683.0,
+            "prediction": 0.8471266271732923,
+            "observed": 0.8569933392782767
+          },
+          {
+            "lower": 0.9,
+            "weight": 6252.0,
+            "prediction": 0.9147380940325354,
+            "observed": 0.9294625725799734
+          }
+        ]
+      },
+      "test": {
+        "observed_targets": 62119,
+        "label_weight": 149278.0,
+        "mae": 0.25703911342399677,
+        "rmse": 0.31800813150982693,
+        "log_loss": 0.5214401168475491,
+        "brier": 0.1723681705648681,
+        "roc_auc": 0.698922509863382,
+        "pr_auc": 0.8597511089154658,
+        "calibration_bins": [
+          {
+            "lower": 0.30000000000000004,
+            "weight": 972.0,
+            "prediction": 0.3732287138393877,
+            "observed": 0.3045267514547203
+          },
+          {
+            "lower": 0.4,
+            "weight": 7332.0,
+            "prediction": 0.4615870280606917,
+            "observed": 0.49768139946386747
+          },
+          {
+            "lower": 0.5,
+            "weight": 17670.0,
+            "prediction": 0.5540636330826105,
+            "observed": 0.5423316382584291
+          },
+          {
+            "lower": 0.6000000000000001,
+            "weight": 24571.0,
+            "prediction": 0.6532611228851001,
+            "observed": 0.6446624093173425
+          },
+          {
+            "lower": 0.7000000000000001,
+            "weight": 42422.0,
+            "prediction": 0.7544105060549269,
+            "observed": 0.7687284916530086
+          },
+          {
+            "lower": 0.8,
+            "weight": 49051.0,
+            "prediction": 0.8479504419336484,
+            "observed": 0.8641414053812394
+          },
+          {
+            "lower": 0.9,
+            "weight": 7260.0,
+            "prediction": 0.9153399952679626,
+            "observed": 0.9312672182527619
+          }
+        ]
+      },
+      "reference_test": {
+        "observed_targets": 62119,
+        "label_weight": 149278.0,
+        "mae": 0.2877421210207819,
+        "rmse": 0.3450297794971833,
+        "log_loss": 0.5684531753267608,
+        "brier": 0.19028454759837163,
+        "roc_auc": 0.5,
+        "pr_auc": 0.7444298576040681,
+        "calibration_bins": [
+          {
+            "lower": 0.7000000000000001,
+            "weight": 149278.0,
+            "prediction": 0.7499527994575261,
+            "observed": 0.7444298576040681
+          }
+        ]
+      },
+      "gate": {
+        "accepted": true,
+        "rule": "validation improves train-only mean; >=30 validation/test targets",
+        "scope": "source benchmark only; not validation for DEClic piano practice"
+      },
+      "sha256": "9e87e3ccb4bbc6e90a571a28a989168f0c7e49a332c633de328e5c5660773b64",
+      "audit": {
+        "recordings": 19892,
+        "exact_duplicates_excluded": 0,
+        "note_labels": 1081876,
+        "unit": "entire recording; equal timestamps hidden together",
+        "timezone": "source local time, unspecified; never converted to UTC"
+      }
+    },
+    {
+      "source": "singpad",
+      "model": "enhanced_gru",
+      "epochs": 10,
+      "validation": {
+        "observed_targets": 55414,
+        "label_weight": 132014.0,
+        "mae": 0.24243667670028746,
+        "rmse": 0.3087135655086241,
+        "log_loss": 0.5105009234603715,
+        "brier": 0.1671554693732194,
+        "roc_auc": 0.6749085805072043,
+        "pr_auc": 0.8613655401457401,
+        "calibration_bins": [
+          {
+            "lower": 0.30000000000000004,
+            "weight": 134.0,
+            "prediction": 0.3780284448346095,
+            "observed": 0.30597014925373134
+          },
+          {
+            "lower": 0.4,
+            "weight": 2105.0,
+            "prediction": 0.4688578790412096,
+            "observed": 0.4589073652184774
+          },
+          {
+            "lower": 0.5,
+            "weight": 10955.0,
+            "prediction": 0.5575751422747582,
+            "observed": 0.549885899652117
+          },
+          {
+            "lower": 0.6000000000000001,
+            "weight": 19338.0,
+            "prediction": 0.6550799472210683,
+            "observed": 0.6495501110321555
+          },
+          {
+            "lower": 0.7000000000000001,
+            "weight": 35814.0,
+            "prediction": 0.7542599613405442,
+            "observed": 0.7491483798030767
+          },
+          {
+            "lower": 0.8,
+            "weight": 48292.0,
+            "prediction": 0.849332950842032,
+            "observed": 0.8387724691337756
+          },
+          {
+            "lower": 0.9,
+            "weight": 15376.0,
+            "prediction": 0.9240277834763823,
+            "observed": 0.9143470355079865
+          }
+        ]
+      },
+      "test": {
+        "observed_targets": 62119,
+        "label_weight": 149278.0,
+        "mae": 0.25248870833665876,
+        "rmse": 0.3184039899337158,
+        "log_loss": 0.5216429624240952,
+        "brier": 0.17262009966420652,
+        "roc_auc": 0.6970038454094427,
+        "pr_auc": 0.8606579239925617,
+        "calibration_bins": [
+          {
+            "lower": 0.2,
+            "weight": 1.0,
+            "prediction": 0.2805371582508087,
+            "observed": 1.0
+          },
+          {
+            "lower": 0.30000000000000004,
+            "weight": 103.0,
+            "prediction": 0.38333905698026266,
+            "observed": 0.2427184484103351
+          },
+          {
+            "lower": 0.4,
+            "weight": 4078.0,
+            "prediction": 0.4715999019838771,
+            "observed": 0.41098577922914414
+          },
+          {
+            "lower": 0.5,
+            "weight": 17653.0,
+            "prediction": 0.5547931035881927,
+            "observed": 0.5313544466932023
+          },
+          {
+            "lower": 0.6000000000000001,
+            "weight": 26200.0,
+            "prediction": 0.6523409959810381,
+            "observed": 0.6451526742567885
+          },
+          {
+            "lower": 0.7000000000000001,
+            "weight": 36905.0,
+            "prediction": 0.7532215006628297,
+            "observed": 0.7463758316638508
+          },
+          {
+            "lower": 0.8,
+            "weight": 47798.0,
+            "prediction": 0.8500543318025148,
+            "observed": 0.8448679877745242
+          },
+          {
+            "lower": 0.9,
+            "weight": 16540.0,
+            "prediction": 0.9267873366589702,
+            "observed": 0.9198307143490505
+          }
+        ]
+      },
+      "reference_test": {
+        "observed_targets": 62119,
+        "label_weight": 149278.0,
+        "mae": 0.2877421210207819,
+        "rmse": 0.3450297794971833,
+        "log_loss": 0.5684531753267608,
+        "brier": 0.19028454759837163,
+        "roc_auc": 0.5,
+        "pr_auc": 0.7444298576040681,
+        "calibration_bins": [
+          {
+            "lower": 0.7000000000000001,
+            "weight": 149278.0,
+            "prediction": 0.7499527994575261,
+            "observed": 0.7444298576040681
+          }
+        ]
+      },
+      "gate": {
+        "accepted": true,
+        "rule": "validation improves train-only mean; >=30 validation/test targets",
+        "scope": "source benchmark only; not validation for DEClic piano practice"
+      },
+      "sha256": "9e87e3ccb4bbc6e90a571a28a989168f0c7e49a332c633de328e5c5660773b64",
+      "audit": {
+        "recordings": 19892,
+        "exact_duplicates_excluded": 0,
+        "note_labels": 1081876,
+        "unit": "entire recording; equal timestamps hidden together",
+        "timezone": "source local time, unspecified; never converted to UTC"
+      }
+    },
+    {
+      "source": "singpad",
+      "model": "item_attention",
+      "epochs": 12,
+      "validation": {
+        "observed_targets": 55414,
+        "label_weight": 132014.0,
+        "mae": 0.24550746294978112,
+        "rmse": 0.3086070375117342,
+        "log_loss": 0.5101378138400803,
+        "brier": 0.1670897074459408,
+        "roc_auc": 0.6748444026834333,
+        "pr_auc": 0.8620250548148635,
+        "calibration_bins": [
+          {
+            "lower": 0.2,
+            "weight": 60.0,
+            "prediction": 0.276761120557785,
+            "observed": 0.20000000049670538
+          },
+          {
+            "lower": 0.30000000000000004,
+            "weight": 1061.0,
+            "prediction": 0.36843446565618165,
+            "observed": 0.4062205487467229
+          },
+          {
+            "lower": 0.4,
+            "weight": 4833.0,
+            "prediction": 0.45851897751226844,
+            "observed": 0.49762052789826877
+          },
+          {
+            "lower": 0.5,
+            "weight": 10500.0,
+            "prediction": 0.5561703791504814,
+            "observed": 0.5917142882474831
+          },
+          {
+            "lower": 0.6000000000000001,
+            "weight": 19648.0,
+            "prediction": 0.6547887607049865,
+            "observed": 0.669228422609446
+          },
+          {
+            "lower": 0.7000000000000001,
+            "weight": 35564.0,
+            "prediction": 0.7542919365121629,
+            "observed": 0.7567765177012298
+          },
+          {
+            "lower": 0.8,
+            "weight": 49358.0,
+            "prediction": 0.848504307145281,
+            "observed": 0.8454151318581273
+          },
+          {
+            "lower": 0.9,
+            "weight": 10990.0,
+            "prediction": 0.9199321979821217,
+            "observed": 0.9222020028997975
+          }
+        ]
+      },
+      "test": {
+        "observed_targets": 62119,
+        "label_weight": 149278.0,
+        "mae": 0.25455276930372833,
+        "rmse": 0.3170024304051642,
+        "log_loss": 0.5200070479493588,
+        "brier": 0.17172953974127764,
+        "roc_auc": 0.6994996609065538,
+        "pr_auc": 0.8596841655950338,
+        "calibration_bins": [
+          {
+            "lower": 0.1,
+            "weight": 1.0,
+            "prediction": 0.19871369004249573,
+            "observed": 0.0
+          },
+          {
+            "lower": 0.2,
+            "weight": 661.0,
+            "prediction": 0.27176091897776194,
+            "observed": 0.25718608349787125
+          },
+          {
+            "lower": 0.30000000000000004,
+            "weight": 2519.0,
+            "prediction": 0.3565441634196902,
+            "observed": 0.3747518880528654
+          },
+          {
+            "lower": 0.4,
+            "weight": 8329.0,
+            "prediction": 0.4598689896925284,
+            "observed": 0.4830111683896358
+          },
+          {
+            "lower": 0.5,
+            "weight": 17383.0,
+            "prediction": 0.5531446097950896,
+            "observed": 0.5784962345104336
+          },
+          {
+            "lower": 0.6000000000000001,
+            "weight": 24070.0,
+            "prediction": 0.6530168541546526,
+            "observed": 0.6651017887925627
+          },
+          {
+            "lower": 0.7000000000000001,
+            "weight": 35464.0,
+            "prediction": 0.7534958942548137,
+            "observed": 0.76517031566796
+          },
+          {
+            "lower": 0.8,
+            "weight": 47918.0,
+            "prediction": 0.8505017949982137,
+            "observed": 0.8537084199222282
+          },
+          {
+            "lower": 0.9,
+            "weight": 12933.0,
+            "prediction": 0.920629556924001,
+            "observed": 0.9186576983910798
+          }
+        ]
+      },
+      "reference_test": {
+        "observed_targets": 62119,
+        "label_weight": 149278.0,
+        "mae": 0.2877421210207819,
+        "rmse": 0.3450297794971833,
+        "log_loss": 0.5684531753267608,
+        "brier": 0.19028454759837163,
+        "roc_auc": 0.5,
+        "pr_auc": 0.7444298576040681,
+        "calibration_bins": [
+          {
+            "lower": 0.7000000000000001,
+            "weight": 149278.0,
+            "prediction": 0.7499527994575261,
+            "observed": 0.7444298576040681
+          }
+        ]
+      },
+      "gate": {
+        "accepted": true,
+        "rule": "validation improves train-only mean; >=30 validation/test targets",
+        "scope": "source benchmark only; not validation for DEClic piano practice"
+      },
+      "sha256": "9e87e3ccb4bbc6e90a571a28a989168f0c7e49a332c633de328e5c5660773b64",
+      "audit": {
+        "recordings": 19892,
+        "exact_duplicates_excluded": 0,
+        "note_labels": 1081876,
+        "unit": "entire recording; equal timestamps hidden together",
+        "timezone": "source local time, unspecified; never converted to UTC"
+      }
+    },
+    {
+      "source": "yousician",
+      "model": "enhanced_gru",
+      "epochs": 12,
+      "validation": {
+        "observed_targets": 1709,
+        "label_weight": 1709.0,
+        "mae": 0.09553810549521739,
+        "rmse": 0.14414752527091076
+      },
+      "test": {
+        "observed_targets": 1740,
+        "label_weight": 1740.0,
+        "mae": 0.09054359545631484,
+        "rmse": 0.13409410246319206
+      },
+      "reference_test": {
+        "observed_targets": 1740,
+        "label_weight": 1740.0,
+        "mae": 0.10920679224191496,
+        "rmse": 0.1542987617219753
+      },
+      "gate": {
+        "accepted": true,
+        "rule": "validation improves train-only mean; >=30 validation/test targets",
+        "scope": "source benchmark only; not validation for DEClic piano practice"
+      },
+      "sha256": "9e4b6fe3d11381de02d197fe6dbd84676d6e48e25d9d0d364bb43d0a400dc52e",
+      "audit": {
+        "raw_rows": 415461,
+        "exact_duplicates_excluded": 478,
+        "practice_rows_excluded": 31275,
+        "conflicting_groups_excluded": 23955,
+        "zero_evaluation_groups_excluded": 0,
+        "unit": "next active signup day",
+        "part_policy": "global counters counted once per tied exercise/session/time group",
+        "target_weighting": "each active day equally weighted; evaluated counters within day",
+        "limitation": "no unique attempt ID; ambiguous repeated counters excluded, not guessed"
+      }
+    }
+  ],
+  "selected": {
+    "amme": {
+      "model": "enhanced_gru",
+      "criterion": "validation_mae",
+      "benchmark_accepted": false
+    },
+    "singpad": {
+      "model": "item_attention",
+      "criterion": "validation_log_loss",
+      "benchmark_accepted": true
+    },
+    "yousician": {
+      "model": "enhanced_gru",
+      "criterion": "validation_mae",
+      "benchmark_accepted": true
+    }
+  },
+  "scope": "source benchmark only; not validated for personal DEClic piano practice"
+}

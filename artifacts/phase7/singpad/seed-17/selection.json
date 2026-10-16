@@ -1,0 +1,31 @@
+{
+  "selected": "gru",
+  "criterion": "validation_log_loss",
+  "results": {
+    "gru": {
+      "validation": 0.547352495026064,
+      "test": 0.5232846957098148
+    },
+    "unordered": {
+      "validation": 0.549242644815896,
+      "test": 0.5255805108322392
+    },
+    "recent3": {
+      "validation": 0.5515482224193796,
+      "test": 0.5259961400794879
+    },
+    "attention": {
+      "validation": 0.5494202877219392,
+      "test": 0.5229079784281409
+    },
+    "no_concept_embedding": {
+      "validation": 0.5521108424352238,
+      "test": 0.5242618402068048
+    },
+    "past_gaps": {
+      "validation": 0.5475444622934568,
+      "test": 0.523258681356979
+    }
+  },
+  "promotion": "none; experimental weights remain private, active Phase 6 models unchanged"
+}

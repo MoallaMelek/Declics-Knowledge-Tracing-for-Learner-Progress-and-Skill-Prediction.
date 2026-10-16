@@ -1,0 +1,27 @@
+{
+  "base_url": "http://127.0.0.1:8773",
+  "measurements": [
+    {
+      "source": "singpad",
+      "requests": 15,
+      "first_measured_ms": 30.329499999425025,
+      "warm_median_ms": 14.979049999965355,
+      "warm_p95_ms": 37.27826000040295,
+      "model_id": "singpad-enhanced_gru-s42-8576d5ba1d6a",
+      "real_three_step_workflow": true,
+      "target_held_out_of_browser_until_reveal": true
+    },
+    {
+      "source": "yousician",
+      "requests": 15,
+      "first_measured_ms": 85.47960000032617,
+      "warm_median_ms": 13.104699999530567,
+      "warm_p95_ms": 30.33739500124284,
+      "model_id": "yousician-enhanced_gru-s42-77455ae03f05",
+      "real_three_step_workflow": true,
+      "target_held_out_of_browser_until_reveal": true
+    }
+  ],
+  "scope": "local machine HTTP requests; first measurement not necessarily cold, no concurrent-load benchmark",
+  "configuration": "single uvicorn worker; actual thread count was not instrumented"
+}

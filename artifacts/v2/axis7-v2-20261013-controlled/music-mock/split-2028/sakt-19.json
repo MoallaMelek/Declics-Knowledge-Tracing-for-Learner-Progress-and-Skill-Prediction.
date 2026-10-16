@@ -1,0 +1,56 @@
+{
+  "name": "sakt",
+  "K": 6,
+  "hidden": 48,
+  "context": 256,
+  "split_seed": 2028,
+  "seed": 19,
+  "domain": "music-mock",
+  "metadata": {
+    "domain": "music-mock",
+    "name": "Atelier musical · simulation",
+    "skills": [
+      "pitch",
+      "rhythm",
+      "timing",
+      "articulation",
+      "fingering",
+      "score_navigation"
+    ],
+    "labels": [
+      "Justesse",
+      "Rythme",
+      "Placement temporel",
+      "Articulation",
+      "Doigté",
+      "Lecture de partition"
+    ],
+    "provenance": "synthetic",
+    "target": "issue binaire simulée",
+    "order_note": "Sessions synthétiques ; taxonomie provisoire, sans graphe de prérequis validé"
+  },
+  "output": "raw_primary",
+  "applicability": "known exercise bundle conditions forecast; omitted exercise uses train-only UNK",
+  "items": {
+    "vocabulary": {
+      "mock-exercise-0": 1,
+      "mock-exercise-1": 2,
+      "mock-exercise-2": 3,
+      "mock-exercise-3": 4,
+      "mock-exercise-4": 5,
+      "mock-exercise-5": 6
+    },
+    "difficulty": {
+      "mock-exercise-5": 0.43047619047619046,
+      "mock-exercise-0": 0.42090261282660335,
+      "mock-exercise-1": 0.42585170340681366,
+      "mock-exercise-4": 0.3993963782696177,
+      "mock-exercise-2": 0.39626257786296115,
+      "mock-exercise-3": 0.4272251308900523
+    },
+    "unknown_difficulty": 0.4165571616294349,
+    "fit_unit": "training learners only; atomic exercise bundle"
+  },
+  "temperature": 1.128705755541613,
+  "implementation_version": "axis7-science-v2.1"
+}

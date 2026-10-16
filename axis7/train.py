@@ -75,10 +75,13 @@ def plot_artifacts(results,out):
     winner=next(r for r in results['runs'] if r['id']==results['selected']['overall'])
     fig,ax=plt.subplots(figsize=(9,4));sk=winner['test']['per_skill'];ax.bar(list(sk),[v['log_loss'] for v in sk.values()],color='#547d78');ax.set(xlabel='Skill index (see manifest)',ylabel='Log loss',title=f"Per-skill error · {winner['id']}");fig.tight_layout();fig.savefig(out/'per_skill.png',dpi=160);plt.close(fig)
 
-def run(domain,config):
+def run(domain,config,output_root=None):
+    out=Path(output_root)/domain if output_root else ROOT/'artifacts'/domain
+    if (out/'results.json').exists():
+        raise FileExistsError('Historical results are immutable. Supply a new --output-root directory.')
     start=time.time();learners,meta=load_forget() if domain=='forget-se' else generate_music()
     K=len(meta['skills']);splits=split_students(learners,config['split_seed']);parts={n:{u:learners[u] for u in ids} for n,ids in splits.items()}
-    out=ROOT/'artifacts'/domain;out.mkdir(parents=True,exist_ok=True)
+    out.mkdir(parents=True,exist_ok=True)
     write_json(out/'splits.json',splits);write_json(out/'metadata.json',meta)
     # Test data serialized for demo and audit, never used to fit any artifact.
     write_json(out/'heldout_learners.json',parts['test'])
@@ -128,6 +131,6 @@ def run(domain,config):
 
 if __name__=='__main__':
     logging.basicConfig(level=logging.INFO,format='%(asctime)s %(message)s')
-    ap=argparse.ArgumentParser();ap.add_argument('--domain',choices=['forget-se','music-mock','all'],default='all');ap.add_argument('--config',default=str(ROOT/'configs/experiment.json'));args=ap.parse_args()
+    ap=argparse.ArgumentParser();ap.add_argument('--domain',choices=['forget-se','music-mock','all'],default='all');ap.add_argument('--config',default=str(ROOT/'configs/experiment.json'));ap.add_argument('--output-root');args=ap.parse_args()
     config=json.loads(Path(args.config).read_text(encoding='utf-8'))
-    for domain in ['forget-se','music-mock'] if args.domain=='all' else [args.domain]:run(domain,config)
+    for domain in ['forget-se','music-mock'] if args.domain=='all' else [args.domain]:run(domain,config,args.output_root)

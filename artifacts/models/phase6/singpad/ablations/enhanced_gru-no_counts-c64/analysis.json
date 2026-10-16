@@ -1,0 +1,6790 @@
+{
+  "metrics": {
+    "neural": {
+      "concept_group_targets": 62152,
+      "label_weight": 148076.0,
+      "mae": 0.25205712759819865,
+      "rmse": 0.3171005014468557,
+      "log_loss": 0.5161937930709384,
+      "brier": 0.17045658617763215,
+      "mae_note": 0.34029746916519693,
+      "roc_auc": 0.7037502506384219,
+      "pr_auc": 0.8646558760589752,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 2450.0,
+          "prediction": 0.4867769657592384,
+          "observed": 0.4306122473794587
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 22798.0,
+          "prediction": 0.551671402850625,
+          "observed": 0.5314062662175589
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 23225.0,
+          "prediction": 0.6515892716911816,
+          "observed": 0.6369429518389882
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 34554.0,
+          "prediction": 0.7539816195454774,
+          "observed": 0.7560050953551545
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 48465.0,
+          "prediction": 0.8506261263286736,
+          "observed": 0.8523470562668171
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 16584.0,
+          "prediction": 0.9238347387973721,
+          "observed": 0.9200434162673661
+        }
+      ]
+    },
+    "train_mean": {
+      "concept_group_targets": 62152,
+      "label_weight": 148076.0,
+      "mae": 0.2873229407981289,
+      "rmse": 0.3449058565853232,
+      "log_loss": 0.5653318371245426,
+      "brier": 0.18886390806664033,
+      "mae_note": 0.37638750610998606,
+      "roc_auc": 0.5,
+      "pr_auc": 0.7472716732084833,
+      "calibration": [
+        {
+          "lower": 0.7,
+          "label_weight": 148076.0,
+          "prediction": 0.7499527994575261,
+          "observed": 0.7472716732084833
+        }
+      ]
+    },
+    "previous": {
+      "concept_group_targets": 62152,
+      "label_weight": 148076.0,
+      "mae": 0.2634097756485971,
+      "rmse": 0.4051455836505491,
+      "log_loss": 2.6283805465142027,
+      "brier": 0.2340468021113289,
+      "mae_note": 0.31295850437412454,
+      "roc_auc": 0.6351631765981234,
+      "pr_auc": 0.8103270520294297,
+      "calibration": [
+        {
+          "lower": 0.0,
+          "label_weight": 16732.0,
+          "prediction": 0.00034556357460572727,
+          "observed": 0.5343055239558655
+        },
+        {
+          "lower": 0.1,
+          "label_weight": 445.0,
+          "prediction": 0.1550358062333225,
+          "observed": 0.5393258462461193
+        },
+        {
+          "lower": 0.2,
+          "label_weight": 2747.0,
+          "prediction": 0.24120880131073066,
+          "observed": 0.5704404837734968
+        },
+        {
+          "lower": 0.3,
+          "label_weight": 3516.0,
+          "prediction": 0.3352998986395031,
+          "observed": 0.6089306081241511
+        },
+        {
+          "lower": 0.4,
+          "label_weight": 1240.0,
+          "prediction": 0.41046978161412134,
+          "observed": 0.6475806525878368
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 11888.0,
+          "prediction": 0.5038294802065426,
+          "observed": 0.6878364752968059
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 11486.0,
+          "prediction": 0.657825750710523,
+          "observed": 0.6986766536993347
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 16962.0,
+          "prediction": 0.7458971296733558,
+          "observed": 0.7362928915460947
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 8434.0,
+          "prediction": 0.8256478779574946,
+          "observed": 0.8022290755161352
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 74626.0,
+          "prediction": 0.9988226722678504,
+          "observed": 0.8241765618589252
+        }
+      ]
+    },
+    "rolling3": {
+      "concept_group_targets": 62152,
+      "label_weight": 148076.0,
+      "mae": 0.2540548650093044,
+      "rmse": 0.3612780210844069,
+      "log_loss": 1.4262349789806217,
+      "brier": 0.20042566667844994,
+      "mae_note": 0.32096540681240626,
+      "roc_auc": 0.6555356056373769,
+      "pr_auc": 0.8251353847709973,
+      "calibration": [
+        {
+          "lower": 0.0,
+          "label_weight": 6357.0,
+          "prediction": 0.005006976440363632,
+          "observed": 0.4406166442473467
+        },
+        {
+          "lower": 0.1,
+          "label_weight": 2077.0,
+          "prediction": 0.15393173922682576,
+          "observed": 0.4309099689341246
+        },
+        {
+          "lower": 0.2,
+          "label_weight": 2366.0,
+          "prediction": 0.24358903098058682,
+          "observed": 0.525781914232801
+        },
+        {
+          "lower": 0.3,
+          "label_weight": 6995.0,
+          "prediction": 0.33949144498133776,
+          "observed": 0.5959971434468027
+        },
+        {
+          "lower": 0.4,
+          "label_weight": 3287.0,
+          "prediction": 0.4403944835101635,
+          "observed": 0.6209309450490953
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 12584.0,
+          "prediction": 0.5234907617960898,
+          "observed": 0.6658455203639584
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 20242.0,
+          "prediction": 0.6605971742921164,
+          "observed": 0.7126766149440121
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 21930.0,
+          "prediction": 0.7510986005804677,
+          "observed": 0.7415868694427293
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 18867.0,
+          "prediction": 0.8461129714895183,
+          "observed": 0.8015582786554397
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 53371.0,
+          "prediction": 0.9886436776514853,
+          "observed": 0.8490003947269729
+        }
+      ]
+    },
+    "ewma": {
+      "concept_group_targets": 62152,
+      "label_weight": 148076.0,
+      "mae": 0.251825668158954,
+      "rmse": 0.3581133957886256,
+      "log_loss": 1.1948274595706314,
+      "brier": 0.19814906240304567,
+      "mae_note": 0.31967413217822244,
+      "roc_auc": 0.6612685668071403,
+      "pr_auc": 0.8291926544037859,
+      "calibration": [
+        {
+          "lower": 0.0,
+          "label_weight": 6223.0,
+          "prediction": 0.012643188837808883,
+          "observed": 0.43435642090537013
+        },
+        {
+          "lower": 0.1,
+          "label_weight": 2212.0,
+          "prediction": 0.15075975895748775,
+          "observed": 0.43716094299315544
+        },
+        {
+          "lower": 0.2,
+          "label_weight": 4089.0,
+          "prediction": 0.24861331157617608,
+          "observed": 0.5392516536055523
+        },
+        {
+          "lower": 0.3,
+          "label_weight": 4628.0,
+          "prediction": 0.3513439256089659,
+          "observed": 0.5706568744062553
+        },
+        {
+          "lower": 0.4,
+          "label_weight": 5722.0,
+          "prediction": 0.4509339399290892,
+          "observed": 0.6343935721666819
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 11956.0,
+          "prediction": 0.5257828620592937,
+          "observed": 0.6696219493380435
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 13826.0,
+          "prediction": 0.656196291381343,
+          "observed": 0.6991899346515944
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 25841.0,
+          "prediction": 0.7475297096391252,
+          "observed": 0.7428505107697575
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 19588.0,
+          "prediction": 0.8470005603642597,
+          "observed": 0.8053400062278677
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 53991.0,
+          "prediction": 0.9810175143516224,
+          "observed": 0.8494563921573971
+        }
+      ]
+    },
+    "frequency": {
+      "concept_group_targets": 62152,
+      "label_weight": 148076.0,
+      "mae": 0.2552587547698454,
+      "rmse": 0.32862707192102447,
+      "log_loss": 0.5408798529670613,
+      "brier": 0.177899610559171,
+      "mae_note": 0.3367360788352602,
+      "roc_auc": 0.6715210095263534,
+      "pr_auc": 0.8460007902347502,
+      "calibration": [
+        {
+          "lower": 0.0,
+          "label_weight": 457.0,
+          "prediction": 0.06599003047228494,
+          "observed": 0.14004376515974362
+        },
+        {
+          "lower": 0.1,
+          "label_weight": 1265.0,
+          "prediction": 0.1597908555801461,
+          "observed": 0.2774703577219733
+        },
+        {
+          "lower": 0.2,
+          "label_weight": 2786.0,
+          "prediction": 0.2532176684554068,
+          "observed": 0.3736539867500008
+        },
+        {
+          "lower": 0.3,
+          "label_weight": 4487.0,
+          "prediction": 0.35574185426241356,
+          "observed": 0.5179407203269876
+        },
+        {
+          "lower": 0.4,
+          "label_weight": 7988.0,
+          "prediction": 0.4572977285499537,
+          "observed": 0.5906359567262631
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 11889.0,
+          "prediction": 0.5543784306257687,
+          "observed": 0.6368071353984988
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 20093.0,
+          "prediction": 0.6554389182699785,
+          "observed": 0.6984024308705314
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 33652.0,
+          "prediction": 0.7509865732314289,
+          "observed": 0.7469689785746946
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 35406.0,
+          "prediction": 0.8508154806258518,
+          "observed": 0.8175168067430673
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 30053.0,
+          "prediction": 0.942017173410062,
+          "observed": 0.8807440200487802
+        }
+      ]
+    }
+  },
+  "validation_selected_control": "frequency",
+  "bootstrap": {
+    "unit": "whole held-out learner; note/day-weighted statistic",
+    "metric": "log_loss",
+    "repeats": 1000,
+    "seed": 20261015,
+    "learners": 157,
+    "intervals_95_percent": {
+      "neural": [
+        0.4901815064335473,
+        0.5411669948073325
+      ],
+      "train_mean": [
+        0.5378011619822197,
+        0.591019513368182
+      ],
+      "previous": [
+        2.4674767297679963,
+        2.79036602721341
+      ],
+      "rolling3": [
+        1.353207260535668,
+        1.4958598260723213
+      ],
+      "ewma": [
+        1.1291669596381668,
+        1.2630307814271788
+      ],
+      "frequency": [
+        0.5150803203106932,
+        0.5668801512562864
+      ]
+    },
+    "paired_neural_minus_control": {
+      "train_mean": [
+        -0.060596843200517114,
+        -0.038375667465713914
+      ],
+      "previous": [
+        -2.254472939578458,
+        -1.9695592096996253
+      ],
+      "rolling3": [
+        -0.9641177125350378,
+        -0.8554122104797958
+      ],
+      "ewma": [
+        -0.7294499442431067,
+        -0.6268300926654771
+      ],
+      "frequency": [
+        -0.03039043980220533,
+        -0.018284143373059676
+      ]
+    },
+    "limitation": "Conditional on fitted weights and split; not a confidence interval for an individual prediction."
+  },
+  "slices": {
+    "history_1_2_groups": {
+      "neural": {
+        "concept_group_targets": 6805,
+        "label_weight": 16670.0,
+        "mae": 0.2540070316635282,
+        "rmse": 0.31414476095151855,
+        "log_loss": 0.5154190778915605,
+        "brier": 0.1699340880498102,
+        "mae_note": 0.3416935784033713,
+        "roc_auc": 0.7182059536556258,
+        "pr_auc": 0.8674533815560874,
+        "calibration": [
+          {
+            "lower": 0.4,
+            "label_weight": 85.0,
+            "prediction": 0.48663942568442403,
+            "observed": 0.24705882440595067
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 1379.0,
+            "prediction": 0.5619805222667587,
+            "observed": 0.4010152302849889
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 2656.0,
+            "prediction": 0.6525355887386095,
+            "observed": 0.5873494005245886
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 5569.0,
+            "prediction": 0.7559905320400608,
+            "observed": 0.7516609823753
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 6242.0,
+            "prediction": 0.8420590477011136,
+            "observed": 0.8649471339216717
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 739.0,
+            "prediction": 0.9184582004366451,
+            "observed": 0.9445196219161657
+          }
+        ]
+      },
+      "control": {
+        "concept_group_targets": 6805,
+        "label_weight": 16670.0,
+        "mae": 0.2535861954030557,
+        "rmse": 0.3214781322540599,
+        "log_loss": 0.5323398429672684,
+        "brier": 0.17459534673408228,
+        "mae_note": 0.33438597182371405,
+        "roc_auc": 0.6845535429493499,
+        "pr_auc": 0.8400509733650304,
+        "calibration": [
+          {
+            "lower": 0.0,
+            "label_weight": 12.0,
+            "prediction": 0.09871827826692758,
+            "observed": 0.0
+          },
+          {
+            "lower": 0.1,
+            "label_weight": 191.0,
+            "prediction": 0.1571989714700151,
+            "observed": 0.21465968851643707
+          },
+          {
+            "lower": 0.2,
+            "label_weight": 329.0,
+            "prediction": 0.25812975154440765,
+            "observed": 0.34650456235039195
+          },
+          {
+            "lower": 0.3,
+            "label_weight": 670.0,
+            "prediction": 0.35989180344811794,
+            "observed": 0.48208955559712735
+          },
+          {
+            "lower": 0.4,
+            "label_weight": 829.0,
+            "prediction": 0.4565134966159084,
+            "observed": 0.5609167702271366
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 1292.0,
+            "prediction": 0.5559698150088198,
+            "observed": 0.6447368448617473
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 1838.0,
+            "prediction": 0.6537791543259154,
+            "observed": 0.6686615905723452
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 4004.0,
+            "prediction": 0.7522971501234679,
+            "observed": 0.7557442575194441
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 4359.0,
+            "prediction": 0.8546245545262787,
+            "observed": 0.8279421901991401
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 3146.0,
+            "prediction": 0.930164879837635,
+            "observed": 0.8827082022588797
+          }
+        ]
+      },
+      "learners": 157
+    },
+    "history_3_9_groups": {
+      "neural": {
+        "concept_group_targets": 22229,
+        "label_weight": 54782.0,
+        "mae": 0.24703767796442702,
+        "rmse": 0.3117096965678429,
+        "log_loss": 0.5096435705319611,
+        "brier": 0.16823489187604398,
+        "mae_note": 0.33635735534838096,
+        "roc_auc": 0.7211015634988839,
+        "pr_auc": 0.874290482058307,
+        "calibration": [
+          {
+            "lower": 0.4,
+            "label_weight": 866.0,
+            "prediction": 0.4843776601842039,
+            "observed": 0.3960739059704969
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 7440.0,
+            "prediction": 0.5504852547039909,
+            "observed": 0.4967741963012965
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 8224.0,
+            "prediction": 0.6535616489235992,
+            "observed": 0.6119893018522297
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 13509.0,
+            "prediction": 0.754316685201326,
+            "observed": 0.747575692032204
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 19019.0,
+            "prediction": 0.8502961175381194,
+            "observed": 0.859298597926271
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 5724.0,
+            "prediction": 0.9230574204903396,
+            "observed": 0.9336128589794154
+          }
+        ]
+      },
+      "control": {
+        "concept_group_targets": 22229,
+        "label_weight": 54782.0,
+        "mae": 0.2489134860163697,
+        "rmse": 0.32358700039746296,
+        "log_loss": 0.5368931252703086,
+        "brier": 0.175780503767855,
+        "mae_note": 0.33099752620985323,
+        "roc_auc": 0.6810954711196873,
+        "pr_auc": 0.8476419004100109,
+        "calibration": [
+          {
+            "lower": 0.0,
+            "label_weight": 243.0,
+            "prediction": 0.06831768821816955,
+            "observed": 0.1111111125521699
+          },
+          {
+            "lower": 0.1,
+            "label_weight": 527.0,
+            "prediction": 0.1588628167466495,
+            "observed": 0.22201138618888167
+          },
+          {
+            "lower": 0.2,
+            "label_weight": 1091.0,
+            "prediction": 0.2542170652889097,
+            "observed": 0.36205316423741535
+          },
+          {
+            "lower": 0.3,
+            "label_weight": 1727.0,
+            "prediction": 0.35616958267967064,
+            "observed": 0.5107122204839735
+          },
+          {
+            "lower": 0.4,
+            "label_weight": 3030.0,
+            "prediction": 0.4572478332314072,
+            "observed": 0.5805280560240297
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 4006.0,
+            "prediction": 0.5517327145953524,
+            "observed": 0.6235646560148365
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 6870.0,
+            "prediction": 0.6564301466955283,
+            "observed": 0.7001455626026165
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 12298.0,
+            "prediction": 0.7515773397905614,
+            "observed": 0.7476012379919771
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 12564.0,
+            "prediction": 0.8501762460773392,
+            "observed": 0.8167780978117104
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 12426.0,
+            "prediction": 0.9428664647601052,
+            "observed": 0.8783196534295311
+          }
+        ]
+      },
+      "learners": 157
+    },
+    "history_10_plus_groups": {
+      "neural": {
+        "concept_group_targets": 33118,
+        "label_weight": 76624.0,
+        "mae": 0.2552215485246477,
+        "rmse": 0.32153096451626173,
+        "log_loss": 0.5210453903925409,
+        "brier": 0.17215864951314575,
+        "mae_note": 0.3428107048891534,
+        "roc_auc": 0.6912644551835168,
+        "pr_auc": 0.8591148717232707,
+        "calibration": [
+          {
+            "lower": 0.4,
+            "label_weight": 1499.0,
+            "prediction": 0.48817088806366743,
+            "observed": 0.4609739849464427
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 13979.0,
+            "prediction": 0.5512857290925672,
+            "observed": 0.5627011970944462
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 12345.0,
+            "prediction": 0.6500717141020873,
+            "observed": 0.6642365354584412
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 15476.0,
+            "prediction": 0.7529662385925701,
+            "observed": 0.7649263395186688
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 23204.0,
+            "prediction": 0.8532012057107105,
+            "observed": 0.8432597844368414
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 10121.0,
+            "prediction": 0.9246669324381221,
+            "observed": 0.9105819592909572
+          }
+        ]
+      },
+      "control": {
+        "concept_group_targets": 33118,
+        "label_weight": 76624.0,
+        "mae": 0.2601591525237774,
+        "rmse": 0.3337020084517943,
+        "log_loss": 0.5455880760222407,
+        "brier": 0.18013351881514958,
+        "mae_note": 0.3413501119555295,
+        "roc_auc": 0.6613388807820093,
+        "pr_auc": 0.8447625727437627,
+        "calibration": [
+          {
+            "lower": 0.0,
+            "label_weight": 202.0,
+            "prediction": 0.06124567499809845,
+            "observed": 0.18316831845458192
+          },
+          {
+            "lower": 0.1,
+            "label_weight": 547.0,
+            "prediction": 0.161589989639173,
+            "observed": 0.35283364074975526
+          },
+          {
+            "lower": 0.2,
+            "label_weight": 1366.0,
+            "prediction": 0.2512363966533329,
+            "observed": 0.38945827517511206
+          },
+          {
+            "lower": 0.3,
+            "label_weight": 2090.0,
+            "prediction": 0.35405804903225807,
+            "observed": 0.5354067009958354
+          },
+          {
+            "lower": 0.4,
+            "label_weight": 4129.0,
+            "prediction": 0.4574917975953689,
+            "observed": 0.6040203463449464
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 6591.0,
+            "prediction": 0.5556745419586386,
+            "observed": 0.6433014743128418
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 11385.0,
+            "prediction": 0.6551087388097817,
+            "observed": 0.7021519565155593
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 17350.0,
+            "prediction": 0.7502653745559285,
+            "observed": 0.7444956792543188
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 18483.0,
+            "prediction": 0.8503516809037045,
+            "observed": 0.8155602462565957
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 14481.0,
+            "prediction": 0.943863318100568,
+            "observed": 0.8823976256269734
+          }
+        ]
+      },
+      "learners": 104
+    },
+    "unseen_exercise": {
+      "neural": {
+        "concept_group_targets": 137,
+        "label_weight": 426.0,
+        "mae": 0.2727957035943936,
+        "rmse": 0.32789839461586207,
+        "log_loss": 0.5374976598431357,
+        "brier": 0.17894033832651546,
+        "mae_note": 0.37980130028543085,
+        "roc_auc": 0.512035821883822,
+        "pr_auc": 0.8662557814725438,
+        "calibration": [
+          {
+            "lower": 0.4,
+            "label_weight": 34.0,
+            "prediction": 0.489854320007212,
+            "observed": 0.8823529446826262
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 177.0,
+            "prediction": 0.535896605017495,
+            "observed": 0.7853107365679606
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 15.0,
+            "prediction": 0.6684511582056681,
+            "observed": 0.9333333333333333
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 82.0,
+            "prediction": 0.7469103888767522,
+            "observed": 0.939024393151446
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 101.0,
+            "prediction": 0.847359310872484,
+            "observed": 0.801980203331107
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 17.0,
+            "prediction": 0.9117279122857487,
+            "observed": 1.0
+          }
+        ]
+      },
+      "control": {
+        "concept_group_targets": 137,
+        "label_weight": 426.0,
+        "mae": 0.2392743666040226,
+        "rmse": 0.29822918295830686,
+        "log_loss": 0.49347968634521056,
+        "brier": 0.1603636267028351,
+        "mae_note": 0.3211910500925667,
+        "roc_auc": 0.6082813028008875,
+        "pr_auc": 0.8890808870904439,
+        "calibration": [
+          {
+            "lower": 0.2,
+            "label_weight": 20.0,
+            "prediction": 0.26799086472593275,
+            "observed": 0.7000000029802322
+          },
+          {
+            "lower": 0.3,
+            "label_weight": 13.0,
+            "prediction": 0.36336441989136475,
+            "observed": 0.9230769230769231
+          },
+          {
+            "lower": 0.4,
+            "label_weight": 28.0,
+            "prediction": 0.4677006334547721,
+            "observed": 0.6428571513720921
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 27.0,
+            "prediction": 0.562475260800679,
+            "observed": 0.8888888910964683
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 55.0,
+            "prediction": 0.6719301407866637,
+            "observed": 0.7636363647200844
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 103.0,
+            "prediction": 0.7477217226449642,
+            "observed": 0.9126213609593586
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 98.0,
+            "prediction": 0.8599947041922091,
+            "observed": 0.7959183723646768
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 82.0,
+            "prediction": 0.9357344904768514,
+            "observed": 0.9268292704733406
+          }
+        ]
+      },
+      "learners": 4
+    },
+    "low_observed_score_under_0_5": {
+      "neural": {
+        "concept_group_targets": 13421,
+        "label_weight": 26866.0,
+        "mae": 0.5500322889165282,
+        "rmse": 0.5811129439770216,
+        "log_loss": 1.0800675848256989,
+        "brier": 0.4139149915011307,
+        "mae_note": 0.6230029606495026,
+        "roc_auc": 0.5351321880459528,
+        "pr_auc": 0.12455556725403662,
+        "calibration": [
+          {
+            "lower": 0.4,
+            "label_weight": 1295.0,
+            "prediction": 0.48573892823057285,
+            "observed": 0.0803088819658434
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 9051.0,
+            "prediction": 0.5490702844077007,
+            "observed": 0.1042978696548969
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 6502.0,
+            "prediction": 0.6486018147423831,
+            "observed": 0.1131959420232654
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 5464.0,
+            "prediction": 0.7475647212689304,
+            "observed": 0.11383601979353897
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 3925.0,
+            "prediction": 0.8450303891965538,
+            "observed": 0.13477707277058038
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 629.0,
+            "prediction": 0.9202759361608229,
+            "observed": 0.13354531304824901
+          }
+        ]
+      },
+      "control": {
+        "concept_group_targets": 13421,
+        "label_weight": 26866.0,
+        "mae": 0.5140428288128888,
+        "rmse": 0.5692243058633711,
+        "log_loss": 1.0898895280383418,
+        "brier": 0.40023904822912615,
+        "mae_note": 0.5888279821935164,
+        "roc_auc": 0.5251510565088396,
+        "pr_auc": 0.12109304996422308,
+        "calibration": [
+          {
+            "lower": 0.0,
+            "label_weight": 387.0,
+            "prediction": 0.06498470447097675,
+            "observed": 0.049095608217001575
+          },
+          {
+            "lower": 0.1,
+            "label_weight": 894.0,
+            "prediction": 0.15945467519483938,
+            "observed": 0.0861297556651252
+          },
+          {
+            "lower": 0.2,
+            "label_weight": 1629.0,
+            "prediction": 0.2517434081032271,
+            "observed": 0.08778391804539257
+          },
+          {
+            "lower": 0.3,
+            "label_weight": 1853.0,
+            "prediction": 0.3534574026822898,
+            "observed": 0.10469509107530664
+          },
+          {
+            "lower": 0.4,
+            "label_weight": 2667.0,
+            "prediction": 0.457524238341326,
+            "observed": 0.10723659783087736
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 3343.0,
+            "prediction": 0.5527346766129347,
+            "observed": 0.124139996451102
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 4389.0,
+            "prediction": 0.6546411376428126,
+            "observed": 0.11278195718910625
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 5858.0,
+            "prediction": 0.7476516710430957,
+            "observed": 0.11710481616814986
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 3968.0,
+            "prediction": 0.8459601935870367,
+            "observed": 0.11617943791732672
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 1878.0,
+            "prediction": 0.9362482431192946,
+            "observed": 0.12939297363431818
+          }
+        ]
+      },
+      "learners": 156
+    },
+    "high_observed_score_at_least_0_8": {
+      "neural": {
+        "concept_group_targets": 39497,
+        "label_weight": 90671.0,
+        "mae": 0.1968451375635694,
+        "rmse": 0.22911440867484478,
+        "log_loss": 0.2724477789757296,
+        "brier": 0.06724432126033109,
+        "mae_note": 0.22033558341415152,
+        "roc_auc": 0.5354582747186502,
+        "pr_auc": 0.9846626913466263,
+        "calibration": [
+          {
+            "lower": 0.4,
+            "label_weight": 684.0,
+            "prediction": 0.48709020641637824,
+            "observed": 0.9897660819584864
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 7844.0,
+            "prediction": 0.5539229033113073,
+            "observed": 0.9813870474855734
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 10638.0,
+            "prediction": 0.6533548189724583,
+            "observed": 0.9788494080299497
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 21025.0,
+            "prediction": 0.7563048266825864,
+            "observed": 0.9800713435024484
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 36130.0,
+            "prediction": 0.8522810184886308,
+            "observed": 0.9831995572438044
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 14350.0,
+            "prediction": 0.9243688550269562,
+            "observed": 0.9859233450308079
+          }
+        ]
+      },
+      "control": {
+        "concept_group_targets": 39497,
+        "label_weight": 90671.0,
+        "mae": 0.20269176459943905,
+        "rmse": 0.253242699064153,
+        "log_loss": 0.2915900327507566,
+        "brier": 0.07888277362720446,
+        "mae_note": 0.2239195064351161,
+        "roc_auc": 0.5261726087482869,
+        "pr_auc": 0.9841514778377525,
+        "calibration": [
+          {
+            "lower": 0.0,
+            "label_weight": 13.0,
+            "prediction": 0.07846072134106684,
+            "observed": 1.0
+          },
+          {
+            "lower": 0.1,
+            "label_weight": 160.0,
+            "prediction": 0.1576794960362922,
+            "observed": 0.981249999627471
+          },
+          {
+            "lower": 0.2,
+            "label_weight": 566.0,
+            "prediction": 0.25659019214165346,
+            "observed": 0.9787985874149067
+          },
+          {
+            "lower": 0.3,
+            "label_weight": 1503.0,
+            "prediction": 0.3568479288494058,
+            "observed": 0.9820359284609695
+          },
+          {
+            "lower": 0.4,
+            "label_weight": 3230.0,
+            "prediction": 0.45905045257097904,
+            "observed": 0.9823529412133775
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 5335.0,
+            "prediction": 0.5549665905572195,
+            "observed": 0.9814432991925197
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 10751.0,
+            "prediction": 0.6565120630067246,
+            "observed": 0.9815831085535861
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 20342.0,
+            "prediction": 0.7526334123890702,
+            "observed": 0.979598859684175
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 24864.0,
+            "prediction": 0.851926782193275,
+            "observed": 0.9824646074789908
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 23907.0,
+            "prediction": 0.9432433579107548,
+            "observed": 0.9849834775752154
+          }
+        ]
+      },
+      "learners": 157
+    },
+    "rare_train_concepts": {
+      "neural": {
+        "concept_group_targets": 4126,
+        "label_weight": 4963.0,
+        "mae": 0.3650824951532265,
+        "rmse": 0.4235675778175365,
+        "log_loss": 0.601747081534919,
+        "brier": 0.20739995567190317,
+        "mae_note": 0.40054404529505333,
+        "roc_auc": 0.6801043790937799,
+        "pr_auc": 0.7958097611648578,
+        "calibration": [
+          {
+            "lower": 0.4,
+            "label_weight": 190.0,
+            "prediction": 0.4850036798339141,
+            "observed": 0.3105263157894737
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 1184.0,
+            "prediction": 0.5503491808635157,
+            "observed": 0.5059121625397254
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 1093.0,
+            "prediction": 0.6500390198180573,
+            "observed": 0.6230558101343432
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 1182.0,
+            "prediction": 0.7490172866738185,
+            "observed": 0.7055837568494471
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 1009.0,
+            "prediction": 0.8464315702586745,
+            "observed": 0.8136769085088735
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 305.0,
+            "prediction": 0.9300826688281826,
+            "observed": 0.8819672133101791
+          }
+        ]
+      },
+      "control": {
+        "concept_group_targets": 4126,
+        "label_weight": 4963.0,
+        "mae": 0.37666752638263323,
+        "rmse": 0.4384461361529721,
+        "log_loss": 0.6348894041381917,
+        "brier": 0.22022547700115888,
+        "mae_note": 0.4096380734902669,
+        "roc_auc": 0.6183695085673776,
+        "pr_auc": 0.7442242414510334,
+        "calibration": [
+          {
+            "lower": 0.1,
+            "label_weight": 9.0,
+            "prediction": 0.17985073436067367,
+            "observed": 0.4444444477558136
+          },
+          {
+            "lower": 0.2,
+            "label_weight": 53.0,
+            "prediction": 0.2566227256958974,
+            "observed": 0.39622641509433965
+          },
+          {
+            "lower": 0.3,
+            "label_weight": 200.0,
+            "prediction": 0.3537192013695823,
+            "observed": 0.44
+          },
+          {
+            "lower": 0.4,
+            "label_weight": 320.0,
+            "prediction": 0.4587045555993699,
+            "observed": 0.496875000372529
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 444.0,
+            "prediction": 0.5532768552078217,
+            "observed": 0.5788288289630735
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 997.0,
+            "prediction": 0.6598433322384205,
+            "observed": 0.6188565701873994
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 1628.0,
+            "prediction": 0.7478638569969521,
+            "observed": 0.6848894355484543
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 1118.0,
+            "prediction": 0.8362553818544143,
+            "observed": 0.750447227511295
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 194.0,
+            "prediction": 0.9244047972329407,
+            "observed": 0.8402061863351113
+          }
+        ]
+      },
+      "learners": 122
+    },
+    "frequent_train_concepts": {
+      "neural": {
+        "concept_group_targets": 58026,
+        "label_weight": 143113.0,
+        "mae": 0.2481375332973622,
+        "rmse": 0.3127587935318986,
+        "log_loss": 0.5132268999819336,
+        "brier": 0.16917543112672784,
+        "mae_note": 0.3382081847722174,
+        "roc_auc": 0.7035524854828971,
+        "pr_auc": 0.8662713319438065,
+        "calibration": [
+          {
+            "lower": 0.4,
+            "label_weight": 2260.0,
+            "prediction": 0.48692604731933203,
+            "observed": 0.44070796729189105
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 21614.0,
+            "prediction": 0.5517438332583579,
+            "observed": 0.532802815618621
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 22132.0,
+            "prediction": 0.651665831663047,
+            "observed": 0.6376287753471743
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 33372.0,
+            "prediction": 0.7541574508248223,
+            "observed": 0.7577909644104627
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 47456.0,
+            "prediction": 0.8507153101426198,
+            "observed": 0.8531692532300622
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 16279.0,
+            "prediction": 0.9237176788637522,
+            "observed": 0.9207568041844335
+          }
+        ]
+      },
+      "control": {
+        "concept_group_targets": 58026,
+        "label_weight": 143113.0,
+        "mae": 0.25104843332096044,
+        "rmse": 0.32415185992511614,
+        "log_loss": 0.5376197060729125,
+        "brier": 0.1764317964881112,
+        "mae_note": 0.3342079185739786,
+        "roc_auc": 0.672396768939209,
+        "pr_auc": 0.8481696787381553,
+        "calibration": [
+          {
+            "lower": 0.0,
+            "label_weight": 457.0,
+            "prediction": 0.06599003047228494,
+            "observed": 0.14004376515974362
+          },
+          {
+            "lower": 0.1,
+            "label_weight": 1256.0,
+            "prediction": 0.15964711441054044,
+            "observed": 0.27627388733160346
+          },
+          {
+            "lower": 0.2,
+            "label_weight": 2733.0,
+            "prediction": 0.2531516355122139,
+            "observed": 0.37321624847621737
+          },
+          {
+            "lower": 0.3,
+            "label_weight": 4287.0,
+            "prediction": 0.3558362164220978,
+            "observed": 0.5215768630994153
+          },
+          {
+            "lower": 0.4,
+            "label_weight": 7668.0,
+            "prediction": 0.4572390190225915,
+            "observed": 0.5945487770227152
+          },
+          {
+            "lower": 0.5,
+            "label_weight": 11445.0,
+            "prediction": 0.5544211653995187,
+            "observed": 0.6390563593440933
+          },
+          {
+            "lower": 0.6,
+            "label_weight": 19096.0,
+            "prediction": 0.6552089643148812,
+            "observed": 0.7025555112591512
+          },
+          {
+            "lower": 0.7,
+            "label_weight": 32024.0,
+            "prediction": 0.751145322358013,
+            "observed": 0.7501249083788014
+          },
+          {
+            "lower": 0.8,
+            "label_weight": 34288.0,
+            "prediction": 0.8512902295300301,
+            "observed": 0.8197036881470897
+          },
+          {
+            "lower": 0.9,
+            "label_weight": 29859.0,
+            "prediction": 0.9421316046026124,
+            "observed": 0.8810074026048086
+          }
+        ]
+      },
+      "learners": 157
+    }
+  },
+  "per_concept_min_10_learners_100_notes": {
+    "0": {
+      "learners": 74,
+      "concept_group_targets": 155,
+      "label_weight": 291.0,
+      "mae": 0.38687382858643415,
+      "rmse": 0.4281383510725937,
+      "log_loss": 0.6520626448351774,
+      "brier": 0.23055330676568866,
+      "mae_note": 0.4572470642856716,
+      "roc_auc": 0.7232530120481928,
+      "pr_auc": 0.7449858322400562,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 78.0,
+          "prediction": 0.5642018455725449,
+          "observed": 0.24358974358974358
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 159.0,
+          "prediction": 0.6531120613685943,
+          "observed": 0.6540880503144654
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 54.0,
+          "prediction": 0.7187691728274027,
+          "observed": 0.7962962962962963
+        }
+      ]
+    },
+    "1": {
+      "learners": 84,
+      "concept_group_targets": 434,
+      "label_weight": 673.0,
+      "mae": 0.2869844032786399,
+      "rmse": 0.362078789610512,
+      "log_loss": 0.5074469648545523,
+      "brier": 0.16750521036129631,
+      "mae_note": 0.32816958338863605,
+      "roc_auc": 0.7108849599581759,
+      "pr_auc": 0.874884880635549,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 34.0,
+          "prediction": 0.496957168859594,
+          "observed": 0.5294117647058824
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 83.0,
+          "prediction": 0.5421745252896504,
+          "observed": 0.5301204819277109
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 71.0,
+          "prediction": 0.6521586381213765,
+          "observed": 0.647887323943662
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 157.0,
+          "prediction": 0.7515954193036267,
+          "observed": 0.7388535031847133
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 202.0,
+          "prediction": 0.854320768672641,
+          "observed": 0.8168316831683168
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 126.0,
+          "prediction": 0.9233196817693257,
+          "observed": 0.9365079365079365
+        }
+      ]
+    },
+    "3": {
+      "learners": 136,
+      "concept_group_targets": 1036,
+      "label_weight": 2638.0,
+      "mae": 0.18911999145450692,
+      "rmse": 0.26184509118588273,
+      "log_loss": 0.3758909672937783,
+      "brier": 0.11434669508319767,
+      "mae_note": 0.239300314692301,
+      "roc_auc": 0.7272811287607768,
+      "pr_auc": 0.9339398035369063,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 1.0,
+          "prediction": 0.499515175819397,
+          "observed": 0.0
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 222.0,
+          "prediction": 0.5386469092991975,
+          "observed": 0.6441441449496124
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 235.0,
+          "prediction": 0.6581011188791154,
+          "observed": 0.6893617032690251
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 344.0,
+          "prediction": 0.755975991487503,
+          "observed": 0.7936046509895214
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 788.0,
+          "prediction": 0.860760839230518,
+          "observed": 0.8769035544719188
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 1048.0,
+          "prediction": 0.9334977153717107,
+          "observed": 0.9398854957282088
+        }
+      ]
+    },
+    "4": {
+      "learners": 134,
+      "concept_group_targets": 845,
+      "label_weight": 1342.0,
+      "mae": 0.26855077522344634,
+      "rmse": 0.34180690572039985,
+      "log_loss": 0.47265447358703283,
+      "brier": 0.15092286975581903,
+      "mae_note": 0.30237432417280496,
+      "roc_auc": 0.6832523450522147,
+      "pr_auc": 0.8774850366824924,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 171.0,
+          "prediction": 0.5499721336783024,
+          "observed": 0.5789473706867263
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 153.0,
+          "prediction": 0.6532539698033552,
+          "observed": 0.666666666861453
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 264.0,
+          "prediction": 0.7549023203777544,
+          "observed": 0.772727273743261
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 489.0,
+          "prediction": 0.8572486201434535,
+          "observed": 0.8691206554328006
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 265.0,
+          "prediction": 0.924469464679934,
+          "observed": 0.8981132091216322
+        }
+      ]
+    },
+    "5": {
+      "learners": 145,
+      "concept_group_targets": 1439,
+      "label_weight": 3836.0,
+      "mae": 0.23165938737136976,
+      "rmse": 0.2977569842906685,
+      "log_loss": 0.47059012854315385,
+      "brier": 0.151675942352185,
+      "mae_note": 0.3067644056828443,
+      "roc_auc": 0.7050168291498635,
+      "pr_auc": 0.8939633669473515,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 44.0,
+          "prediction": 0.4977281825108962,
+          "observed": 0.5000000115145337
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 504.0,
+          "prediction": 0.5471984544207179,
+          "observed": 0.5833333367629657
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 396.0,
+          "prediction": 0.6502868174904525,
+          "observed": 0.6590909127785702
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 715.0,
+          "prediction": 0.7546248436807752,
+          "observed": 0.7608391634650997
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 1495.0,
+          "prediction": 0.8516497267129828,
+          "observed": 0.8515050189949597
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 682.0,
+          "prediction": 0.9194274182892964,
+          "observed": 0.9325513206313083
+        }
+      ]
+    },
+    "6": {
+      "learners": 115,
+      "concept_group_targets": 750,
+      "label_weight": 1553.0,
+      "mae": 0.2562442282208764,
+      "rmse": 0.3396957009342183,
+      "log_loss": 0.4547595758731953,
+      "brier": 0.1475084299036252,
+      "mae_note": 0.2909611425002748,
+      "roc_auc": 0.7434494772631487,
+      "pr_auc": 0.9137551848820415,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 65.0,
+          "prediction": 0.47649591244184053,
+          "observed": 0.5230769258279067
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 152.0,
+          "prediction": 0.5541854916434539,
+          "observed": 0.5789473690092564
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 145.0,
+          "prediction": 0.6509479341835811,
+          "observed": 0.5931034488924618
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 240.0,
+          "prediction": 0.7548504675428073,
+          "observed": 0.6916666680326065
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 518.0,
+          "prediction": 0.8548398627737774,
+          "observed": 0.855212355845223
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 433.0,
+          "prediction": 0.9294312967989792,
+          "observed": 0.9422632797210376
+        }
+      ]
+    },
+    "7": {
+      "learners": 145,
+      "concept_group_targets": 1216,
+      "label_weight": 5189.0,
+      "mae": 0.18416360266740714,
+      "rmse": 0.2511142195416436,
+      "log_loss": 0.3971788728471737,
+      "brier": 0.12156045546959621,
+      "mae_note": 0.2547796772625962,
+      "roc_auc": 0.7269146433384852,
+      "pr_auc": 0.9204413292277016,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 410.0,
+          "prediction": 0.5578198605921211,
+          "observed": 0.546341467703261
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 517.0,
+          "prediction": 0.6504341068765873,
+          "observed": 0.6576402393715525
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 808.0,
+          "prediction": 0.7590613817371944,
+          "observed": 0.8032178249910916
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 1824.0,
+          "prediction": 0.8547758209731495,
+          "observed": 0.883223686179375
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 1630.0,
+          "prediction": 0.9330075751418716,
+          "observed": 0.9355828231829075
+        }
+      ]
+    },
+    "8": {
+      "learners": 136,
+      "concept_group_targets": 1110,
+      "label_weight": 3006.0,
+      "mae": 0.22671591269418706,
+      "rmse": 0.29799685526417147,
+      "log_loss": 0.4661447575571564,
+      "brier": 0.15011838175895717,
+      "mae_note": 0.3008359897929655,
+      "roc_auc": 0.7328817468577269,
+      "pr_auc": 0.89373252856362,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 398.0,
+          "prediction": 0.5604545641784093,
+          "observed": 0.5226130679474404
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 402.0,
+          "prediction": 0.6483436566383685,
+          "observed": 0.616915423663991
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 487.0,
+          "prediction": 0.7570922161764188,
+          "observed": 0.75359343117757
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 1020.0,
+          "prediction": 0.8530618103695851,
+          "observed": 0.8598039225912562
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 699.0,
+          "prediction": 0.9259502197880943,
+          "observed": 0.9298998580896463
+        }
+      ]
+    },
+    "9": {
+      "learners": 106,
+      "concept_group_targets": 359,
+      "label_weight": 811.0,
+      "mae": 0.2278984096429498,
+      "rmse": 0.3037063867236065,
+      "log_loss": 0.4583923178049974,
+      "brier": 0.1460600101937788,
+      "mae_note": 0.2869008934683074,
+      "roc_auc": 0.7176144604434495,
+      "pr_auc": 0.8929056681127956,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 70.0,
+          "prediction": 0.5678995268685477,
+          "observed": 0.5428571447730064
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 109.0,
+          "prediction": 0.6473970883483187,
+          "observed": 0.5779816568444628
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 136.0,
+          "prediction": 0.758866960511488,
+          "observed": 0.7794117675546337
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 255.0,
+          "prediction": 0.8517228044715582,
+          "observed": 0.8588235300545599
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 241.0,
+          "prediction": 0.9304635138927159,
+          "observed": 0.9045643169602913
+        }
+      ]
+    },
+    "10": {
+      "learners": 99,
+      "concept_group_targets": 452,
+      "label_weight": 1018.0,
+      "mae": 0.20018070994753734,
+      "rmse": 0.2761872592156265,
+      "log_loss": 0.39048128742410665,
+      "brier": 0.12122046305677248,
+      "mae_note": 0.24973751976354183,
+      "roc_auc": 0.7402139487015952,
+      "pr_auc": 0.9326717771947945,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 77.0,
+          "prediction": 0.5623544353943366,
+          "observed": 0.6493506493506493
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 104.0,
+          "prediction": 0.6534833014011383,
+          "observed": 0.6826923076923077
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 153.0,
+          "prediction": 0.7586800580710368,
+          "observed": 0.7450980392156863
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 306.0,
+          "prediction": 0.8524570338476717,
+          "observed": 0.8627450980392157
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 378.0,
+          "prediction": 0.9367245563438961,
+          "observed": 0.9470899470899471
+        }
+      ]
+    },
+    "12": {
+      "learners": 60,
+      "concept_group_targets": 126,
+      "label_weight": 186.0,
+      "mae": 0.2746133836366797,
+      "rmse": 0.3534214726090823,
+      "log_loss": 0.4817600734804137,
+      "brier": 0.15562870208785126,
+      "mae_note": 0.32089001050244564,
+      "roc_auc": 0.76674547051475,
+      "pr_auc": 0.8849429114358882,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 26.0,
+          "prediction": 0.5631874249531672,
+          "observed": 0.38461538690787095
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 42.0,
+          "prediction": 0.6627198954423269,
+          "observed": 0.6428571471146175
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 25.0,
+          "prediction": 0.7469824242591858,
+          "observed": 0.84
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 68.0,
+          "prediction": 0.8519895742921268,
+          "observed": 0.8970588244059506
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 25.0,
+          "prediction": 0.9231466555595398,
+          "observed": 0.8800000047683716
+        }
+      ]
+    },
+    "14": {
+      "learners": 152,
+      "concept_group_targets": 1782,
+      "label_weight": 6256.0,
+      "mae": 0.22230899346101543,
+      "rmse": 0.27515970443852805,
+      "log_loss": 0.5149637117614952,
+      "brier": 0.16898674828976532,
+      "mae_note": 0.34267086604406427,
+      "roc_auc": 0.6768534301085236,
+      "pr_auc": 0.8558309736059039,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 193.0,
+          "prediction": 0.49644908417074174,
+          "observed": 0.4404145127905465
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 977.0,
+          "prediction": 0.5435207261033775,
+          "observed": 0.5823950912868232
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 935.0,
+          "prediction": 0.6552036896746426,
+          "observed": 0.7069518759129519
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 1398.0,
+          "prediction": 0.7548363532375368,
+          "observed": 0.7596566553023751
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 2345.0,
+          "prediction": 0.8503379389675442,
+          "observed": 0.8609808117850248
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 408.0,
+          "prediction": 0.914099755824781,
+          "observed": 0.8970588229450525
+        }
+      ]
+    },
+    "15": {
+      "learners": 153,
+      "concept_group_targets": 2011,
+      "label_weight": 6466.0,
+      "mae": 0.2226875429478106,
+      "rmse": 0.2797251771392466,
+      "log_loss": 0.5070263584851222,
+      "brier": 0.16556555924863792,
+      "mae_note": 0.3314763327485535,
+      "roc_auc": 0.6718071999223418,
+      "pr_auc": 0.8605731085736337,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 964.0,
+          "prediction": 0.5570209056015332,
+          "observed": 0.5871369321656672
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 927.0,
+          "prediction": 0.6529788881572448,
+          "observed": 0.6677454177454966
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 1416.0,
+          "prediction": 0.7556220218539238,
+          "observed": 0.7450565000796049
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 2545.0,
+          "prediction": 0.8518318584485232,
+          "observed": 0.8593320258122764
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 614.0,
+          "prediction": 0.916942016406634,
+          "observed": 0.8990228035114098
+        }
+      ]
+    },
+    "16": {
+      "learners": 156,
+      "concept_group_targets": 2182,
+      "label_weight": 6877.0,
+      "mae": 0.22122265094715407,
+      "rmse": 0.27998825823557,
+      "log_loss": 0.49205780783010544,
+      "brier": 0.16032387586820113,
+      "mae_note": 0.3231170170362645,
+      "roc_auc": 0.7072530171805155,
+      "pr_auc": 0.8788918821228333,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 3.0,
+          "prediction": 0.48836557070414227,
+          "observed": 0.3333333333333333
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 1067.0,
+          "prediction": 0.5507848542654973,
+          "observed": 0.5238987841864222
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 907.0,
+          "prediction": 0.6528983849543326,
+          "observed": 0.6890848982163275
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 1463.0,
+          "prediction": 0.7560181006616057,
+          "observed": 0.7416267969167485
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 2537.0,
+          "prediction": 0.8540207160050163,
+          "observed": 0.8596767853588676
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 900.0,
+          "prediction": 0.9180247275034586,
+          "observed": 0.9344444452722868
+        }
+      ]
+    },
+    "17": {
+      "learners": 133,
+      "concept_group_targets": 1076,
+      "label_weight": 1671.0,
+      "mae": 0.2805357107782278,
+      "rmse": 0.34924762289778244,
+      "log_loss": 0.4960133308253707,
+      "brier": 0.16117198700746602,
+      "mae_note": 0.3222100166037741,
+      "roc_auc": 0.6751214520062767,
+      "pr_auc": 0.8690873444184122,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 201.0,
+          "prediction": 0.5499318580129253,
+          "observed": 0.6119402985074627
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 228.0,
+          "prediction": 0.650994353649909,
+          "observed": 0.6666666671895144
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 405.0,
+          "prediction": 0.756478175116174,
+          "observed": 0.7209876551304335
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 651.0,
+          "prediction": 0.8565706204159469,
+          "observed": 0.8648233491521095
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 186.0,
+          "prediction": 0.917217694943951,
+          "observed": 0.9247311832763816
+        }
+      ]
+    },
+    "18": {
+      "learners": 87,
+      "concept_group_targets": 411,
+      "label_weight": 813.0,
+      "mae": 0.25726924750491115,
+      "rmse": 0.33134966029016083,
+      "log_loss": 0.49189286671097887,
+      "brier": 0.16063310573061274,
+      "mae_note": 0.31986799447221426,
+      "roc_auc": 0.698421407195809,
+      "pr_auc": 0.8804991248838632,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 134.0,
+          "prediction": 0.5533872598142766,
+          "observed": 0.5970149255955397
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 99.0,
+          "prediction": 0.6514880338100472,
+          "observed": 0.5959595977657973
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 163.0,
+          "prediction": 0.7549562863777021,
+          "observed": 0.7607361970503638
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 270.0,
+          "prediction": 0.854077191485299,
+          "observed": 0.8555555561074504
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 147.0,
+          "prediction": 0.9219515331748391,
+          "observed": 0.9183673469387755
+        }
+      ]
+    },
+    "19": {
+      "learners": 134,
+      "concept_group_targets": 722,
+      "label_weight": 895.0,
+      "mae": 0.3381804783917006,
+      "rmse": 0.4033495527592276,
+      "log_loss": 0.5433446838959339,
+      "brier": 0.18168527511889018,
+      "mae_note": 0.35952664107583754,
+      "roc_auc": 0.7226711084191398,
+      "pr_auc": 0.8469816182592556,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 1.0,
+          "prediction": 0.49409252405166626,
+          "observed": 0.0
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 172.0,
+          "prediction": 0.5479785865822504,
+          "observed": 0.43023255813953487
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 146.0,
+          "prediction": 0.6580843700938028,
+          "observed": 0.6301369863013698
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 251.0,
+          "prediction": 0.7532068322379276,
+          "observed": 0.7609561752988048
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 259.0,
+          "prediction": 0.8522999809055255,
+          "observed": 0.833976833976834
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 66.0,
+          "prediction": 0.9188576376799381,
+          "observed": 0.9393939393939394
+        }
+      ]
+    },
+    "20": {
+      "learners": 147,
+      "concept_group_targets": 1738,
+      "label_weight": 6199.0,
+      "mae": 0.21868897194097187,
+      "rmse": 0.2814490716274785,
+      "log_loss": 0.5230299547052891,
+      "brier": 0.17266324115286433,
+      "mae_note": 0.3458255995290265,
+      "roc_auc": 0.7010516131198598,
+      "pr_auc": 0.8534573981542253,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 364.0,
+          "prediction": 0.48832389564959555,
+          "observed": 0.4258241818419525
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 856.0,
+          "prediction": 0.5501058233954083,
+          "observed": 0.5443925285433359
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 850.0,
+          "prediction": 0.6520009388643152,
+          "observed": 0.6258823591996642
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 1485.0,
+          "prediction": 0.7533983118204958,
+          "observed": 0.793265999055872
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 2034.0,
+          "prediction": 0.8507934091951526,
+          "observed": 0.8397246854729592
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 610.0,
+          "prediction": 0.9141398297958687,
+          "observed": 0.9065573810798223
+        }
+      ]
+    },
+    "21": {
+      "learners": 144,
+      "concept_group_targets": 1631,
+      "label_weight": 5397.0,
+      "mae": 0.2122606017732258,
+      "rmse": 0.2692548062251721,
+      "log_loss": 0.4725901774574104,
+      "brier": 0.15129721896225035,
+      "mae_note": 0.304394436902449,
+      "roc_auc": 0.6935525370463702,
+      "pr_auc": 0.8809965036960515,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 589.0,
+          "prediction": 0.5573452929689443,
+          "observed": 0.5144312435631436
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 682.0,
+          "prediction": 0.647879747526387,
+          "observed": 0.7082111458362372
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 1148.0,
+          "prediction": 0.7561011714698546,
+          "observed": 0.7587108038729284
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 1936.0,
+          "prediction": 0.8533881709041181,
+          "observed": 0.8641528937934844
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 1042.0,
+          "prediction": 0.9218096403036832,
+          "observed": 0.9059500970275297
+        }
+      ]
+    },
+    "22": {
+      "learners": 139,
+      "concept_group_targets": 1385,
+      "label_weight": 4148.0,
+      "mae": 0.21532137872670978,
+      "rmse": 0.27900296529260976,
+      "log_loss": 0.48361641467255667,
+      "brier": 0.15690126557956538,
+      "mae_note": 0.3080961027625796,
+      "roc_auc": 0.7013970426752719,
+      "pr_auc": 0.8850901835853071,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 101.0,
+          "prediction": 0.4866370824303958,
+          "observed": 0.46534653730911785
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 439.0,
+          "prediction": 0.5481211309552464,
+          "observed": 0.6104783633371692
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 458.0,
+          "prediction": 0.6496747072346867,
+          "observed": 0.617903932929039
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 834.0,
+          "prediction": 0.7576072123839701,
+          "observed": 0.7302158285530923
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 1490.0,
+          "prediction": 0.8575840142349269,
+          "observed": 0.85637583976624
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 826.0,
+          "prediction": 0.9259154061283962,
+          "observed": 0.9140435838959119
+        }
+      ]
+    },
+    "23": {
+      "learners": 156,
+      "concept_group_targets": 2275,
+      "label_weight": 8238.0,
+      "mae": 0.21830256337186438,
+      "rmse": 0.2757078935733606,
+      "log_loss": 0.5231426650068782,
+      "brier": 0.17269173124301165,
+      "mae_note": 0.34829693350822827,
+      "roc_auc": 0.6882919225293916,
+      "pr_auc": 0.8524056801018685,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 1286.0,
+          "prediction": 0.5531045088593733,
+          "observed": 0.5233281516871222
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 1318.0,
+          "prediction": 0.6527171924099756,
+          "observed": 0.6418816411983623
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 2170.0,
+          "prediction": 0.7545864899037621,
+          "observed": 0.768202766508276
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 3183.0,
+          "prediction": 0.8475248189306543,
+          "observed": 0.853283066949753
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 281.0,
+          "prediction": 0.9104825266739652,
+          "observed": 0.9181494652376481
+        }
+      ]
+    },
+    "24": {
+      "learners": 87,
+      "concept_group_targets": 395,
+      "label_weight": 799.0,
+      "mae": 0.27945175479738527,
+      "rmse": 0.3338190685450316,
+      "log_loss": 0.5570837646308687,
+      "brier": 0.18715481919103621,
+      "mae_note": 0.383480997201522,
+      "roc_auc": 0.6653893124951201,
+      "pr_auc": 0.8271701009215214,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 2.0,
+          "prediction": 0.4963686168193817,
+          "observed": 0.5
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 205.0,
+          "prediction": 0.5549497996888509,
+          "observed": 0.5707317134229148
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 150.0,
+          "prediction": 0.6503497763474783,
+          "observed": 0.6600000049670537
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 253.0,
+          "prediction": 0.7521522535165779,
+          "observed": 0.7747035626130613
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 181.0,
+          "prediction": 0.839776829132059,
+          "observed": 0.8674033162343567
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 8.0,
+          "prediction": 0.9063785001635551,
+          "observed": 1.0
+        }
+      ]
+    },
+    "25": {
+      "learners": 143,
+      "concept_group_targets": 893,
+      "label_weight": 1447.0,
+      "mae": 0.30630901365257085,
+      "rmse": 0.3688385678478888,
+      "log_loss": 0.5764584210531861,
+      "brier": 0.19489929495762823,
+      "mae_note": 0.38167788532098224,
+      "roc_auc": 0.650826522573683,
+      "pr_auc": 0.8009223422868333,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 6.0,
+          "prediction": 0.4991002728541692,
+          "observed": 0.5
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 270.0,
+          "prediction": 0.5498719290450768,
+          "observed": 0.5296296315060721
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 265.0,
+          "prediction": 0.6521662331976981,
+          "observed": 0.6075471713857831
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 469.0,
+          "prediction": 0.756121670005164,
+          "observed": 0.784648189348961
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 419.0,
+          "prediction": 0.8444428445331237,
+          "observed": 0.7852028652421046
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 18.0,
+          "prediction": 0.9152362942695618,
+          "observed": 1.0
+        }
+      ]
+    },
+    "26": {
+      "learners": 148,
+      "concept_group_targets": 1595,
+      "label_weight": 3657.0,
+      "mae": 0.24532405882951566,
+      "rmse": 0.3100565819000218,
+      "log_loss": 0.5135584182787578,
+      "brier": 0.16900674511983488,
+      "mae_note": 0.3344893481779716,
+      "roc_auc": 0.7089774187624786,
+      "pr_auc": 0.8628987402670448,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 92.0,
+          "prediction": 0.49649718695360684,
+          "observed": 0.40217391304347827
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 567.0,
+          "prediction": 0.5441434085894724,
+          "observed": 0.5308641990551453
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 500.0,
+          "prediction": 0.6528822594881057,
+          "observed": 0.6440000028014183
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 763.0,
+          "prediction": 0.7533160477759485,
+          "observed": 0.7352555734184748
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 1200.0,
+          "prediction": 0.8533106604715188,
+          "observed": 0.8641666692122817
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 535.0,
+          "prediction": 0.9210702895004058,
+          "observed": 0.8878504690444358
+        }
+      ]
+    },
+    "27": {
+      "learners": 147,
+      "concept_group_targets": 1839,
+      "label_weight": 6076.0,
+      "mae": 0.23625036236695784,
+      "rmse": 0.2988748656267199,
+      "log_loss": 0.5237882935970476,
+      "brier": 0.1729258890367546,
+      "mae_note": 0.3446924718099835,
+      "roc_auc": 0.7038538512954704,
+      "pr_auc": 0.8519854670031173,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 1009.0,
+          "prediction": 0.5501367550184516,
+          "observed": 0.48959365946391176
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 1017.0,
+          "prediction": 0.6521082530448336,
+          "observed": 0.6371681454757204
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 1341.0,
+          "prediction": 0.7554183227637203,
+          "observed": 0.7628635376258451
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 2246.0,
+          "prediction": 0.8508964333009847,
+          "observed": 0.8468388267266145
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 463.0,
+          "prediction": 0.9174174369025179,
+          "observed": 0.9200863946011978
+        }
+      ]
+    },
+    "28": {
+      "learners": 101,
+      "concept_group_targets": 534,
+      "label_weight": 703.0,
+      "mae": 0.33257178247907593,
+      "rmse": 0.40002459544289676,
+      "log_loss": 0.5435291773385964,
+      "brier": 0.18218658060618714,
+      "mae_note": 0.36470356102554713,
+      "roc_auc": 0.7032903284426428,
+      "pr_auc": 0.8480389954100593,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 69.0,
+          "prediction": 0.48250424386798474,
+          "observed": 0.449275363182676
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 84.0,
+          "prediction": 0.5520441461177099,
+          "observed": 0.6071428589168049
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 107.0,
+          "prediction": 0.6492538452148438,
+          "observed": 0.588785048957183
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 191.0,
+          "prediction": 0.7495156623306075,
+          "observed": 0.7329842944419821
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 212.0,
+          "prediction": 0.8479804295413899,
+          "observed": 0.8632075468886573
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 40.0,
+          "prediction": 0.9114512369036675,
+          "observed": 0.925
+        }
+      ]
+    },
+    "29": {
+      "learners": 142,
+      "concept_group_targets": 1130,
+      "label_weight": 2449.0,
+      "mae": 0.26185621313899815,
+      "rmse": 0.3324173766638901,
+      "log_loss": 0.5148157483581696,
+      "brier": 0.1695390147372138,
+      "mae_note": 0.33643666549528645,
+      "roc_auc": 0.7252457553888733,
+      "pr_auc": 0.8623898444574901,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 403.0,
+          "prediction": 0.5566901147513472,
+          "observed": 0.4292803989080874
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 332.0,
+          "prediction": 0.6494649282420975,
+          "observed": 0.6445783143750874
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 555.0,
+          "prediction": 0.7523026005641834,
+          "observed": 0.7495495513484285
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 877.0,
+          "prediction": 0.8513592465981382,
+          "observed": 0.865450399818415
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 282.0,
+          "prediction": 0.9188781866790555,
+          "observed": 0.8829787245139162
+        }
+      ]
+    },
+    "30": {
+      "learners": 140,
+      "concept_group_targets": 921,
+      "label_weight": 2427.0,
+      "mae": 0.22525141376819344,
+      "rmse": 0.28977701430680797,
+      "log_loss": 0.4649615606221558,
+      "brier": 0.15001541345242703,
+      "mae_note": 0.3051936849999372,
+      "roc_auc": 0.7225211082134888,
+      "pr_auc": 0.8995694584347421,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 37.0,
+          "prediction": 0.47321905155439636,
+          "observed": 0.3783783783783784
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 317.0,
+          "prediction": 0.5555786274209007,
+          "observed": 0.5615141972288348
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 335.0,
+          "prediction": 0.6484918473371819,
+          "observed": 0.7074626888801803
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 436.0,
+          "prediction": 0.7565608969248763,
+          "observed": 0.7293577997372784
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 787.0,
+          "prediction": 0.8502408363767622,
+          "observed": 0.8703939019876332
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 515.0,
+          "prediction": 0.9292505102250183,
+          "observed": 0.9339805835659064
+        }
+      ]
+    },
+    "31": {
+      "learners": 144,
+      "concept_group_targets": 1207,
+      "label_weight": 2464.0,
+      "mae": 0.2952790193005719,
+      "rmse": 0.3577385313435988,
+      "log_loss": 0.561491535710528,
+      "brier": 0.1899898432560209,
+      "mae_note": 0.37584124567155985,
+      "roc_auc": 0.7130051637918631,
+      "pr_auc": 0.832960401618694,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 254.0,
+          "prediction": 0.4834329971647638,
+          "observed": 0.34251968679934974
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 375.0,
+          "prediction": 0.5455235463778177,
+          "observed": 0.5626666694084803
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 394.0,
+          "prediction": 0.65308426902984,
+          "observed": 0.5862944202904169
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 611.0,
+          "prediction": 0.7546586346509219,
+          "observed": 0.7332242262929239
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 730.0,
+          "prediction": 0.8499795120872863,
+          "observed": 0.8602739742561563
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 100.0,
+          "prediction": 0.914720140695572,
+          "observed": 0.9300000002980232
+        }
+      ]
+    },
+    "32": {
+      "learners": 66,
+      "concept_group_targets": 265,
+      "label_weight": 394.0,
+      "mae": 0.34774172933876213,
+      "rmse": 0.3983355520276697,
+      "log_loss": 0.5986571408682276,
+      "brier": 0.20626004449649799,
+      "mae_note": 0.41208880557324074,
+      "roc_auc": 0.6161648418491484,
+      "pr_auc": 0.8022293619708167,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 33.0,
+          "prediction": 0.493778000275294,
+          "observed": 0.6363636363636364
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 85.0,
+          "prediction": 0.5452045307439917,
+          "observed": 0.611764705882353
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 93.0,
+          "prediction": 0.6482166532547243,
+          "observed": 0.6451612903225806
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 115.0,
+          "prediction": 0.7496759606444318,
+          "observed": 0.7217391304347827
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 68.0,
+          "prediction": 0.8379410163444632,
+          "observed": 0.8529411764705882
+        }
+      ]
+    },
+    "33": {
+      "learners": 132,
+      "concept_group_targets": 820,
+      "label_weight": 3315.0,
+      "mae": 0.21210153374377058,
+      "rmse": 0.27895165004338845,
+      "log_loss": 0.47911189624712736,
+      "brier": 0.1563392550621616,
+      "mae_note": 0.30918771038548265,
+      "roc_auc": 0.7544832650731867,
+      "pr_auc": 0.8940177838972381,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 463.0,
+          "prediction": 0.5576633375870229,
+          "observed": 0.4535637191189031
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 487.0,
+          "prediction": 0.6513965758944439,
+          "observed": 0.609856266658409
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 522.0,
+          "prediction": 0.752093186209485,
+          "observed": 0.7030651373538934
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 1113.0,
+          "prediction": 0.8550436680957421,
+          "observed": 0.8652291136182115
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 730.0,
+          "prediction": 0.9275109890389116,
+          "observed": 0.9342465770162948
+        }
+      ]
+    },
+    "34": {
+      "learners": 131,
+      "concept_group_targets": 849,
+      "label_weight": 3416.0,
+      "mae": 0.2198379095992732,
+      "rmse": 0.2815843083716855,
+      "log_loss": 0.5499755164248883,
+      "brier": 0.18419985056585367,
+      "mae_note": 0.36312565788116,
+      "roc_auc": 0.6927066060484997,
+      "pr_auc": 0.8324590019509311,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 575.0,
+          "prediction": 0.5548014983923539,
+          "observed": 0.46956521972366
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 623.0,
+          "prediction": 0.6482967469321017,
+          "observed": 0.6292134859445199
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 860.0,
+          "prediction": 0.7580675950577093,
+          "observed": 0.7465116283921308
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 1271.0,
+          "prediction": 0.8467648682117838,
+          "observed": 0.8394964612158708
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 87.0,
+          "prediction": 0.91486907758932,
+          "observed": 0.9310344820735098
+        }
+      ]
+    },
+    "35": {
+      "learners": 143,
+      "concept_group_targets": 960,
+      "label_weight": 2253.0,
+      "mae": 0.2812592327277289,
+      "rmse": 0.3446355119918687,
+      "log_loss": 0.5679583031091595,
+      "brier": 0.1920093227975625,
+      "mae_note": 0.3838879734328405,
+      "roc_auc": 0.6592237180265793,
+      "pr_auc": 0.8150907287609157,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 96.0,
+          "prediction": 0.4701094950238864,
+          "observed": 0.44791666821887094
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 424.0,
+          "prediction": 0.551335555905441,
+          "observed": 0.6179245283018868
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 517.0,
+          "prediction": 0.654090639816262,
+          "observed": 0.5764023217172641
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 602.0,
+          "prediction": 0.7532301781779508,
+          "observed": 0.8172757455280849
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 549.0,
+          "prediction": 0.8477701303737412,
+          "observed": 0.8251366122932816
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 65.0,
+          "prediction": 0.9109965333571801,
+          "observed": 0.8923076904737033
+        }
+      ]
+    },
+    "36": {
+      "learners": 143,
+      "concept_group_targets": 1530,
+      "label_weight": 3668.0,
+      "mae": 0.26205610922632194,
+      "rmse": 0.32267568142033537,
+      "log_loss": 0.5448628571518803,
+      "brier": 0.18210649617438301,
+      "mae_note": 0.3595424642144224,
+      "roc_auc": 0.7073310511823168,
+      "pr_auc": 0.8377177193977663,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 642.0,
+          "prediction": 0.5471201949401808,
+          "observed": 0.4672897256376959
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 589.0,
+          "prediction": 0.647939070780937,
+          "observed": 0.5840407490780883
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 991.0,
+          "prediction": 0.7525964519450691,
+          "observed": 0.7679112019350021
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 1275.0,
+          "prediction": 0.8506203030137455,
+          "observed": 0.8415686310389463
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 171.0,
+          "prediction": 0.9109639445243524,
+          "observed": 0.8596491259441041
+        }
+      ]
+    },
+    "37": {
+      "learners": 134,
+      "concept_group_targets": 875,
+      "label_weight": 1277.0,
+      "mae": 0.3191305714934341,
+      "rmse": 0.38345589454201484,
+      "log_loss": 0.5364150922195723,
+      "brier": 0.17770926597865647,
+      "mae_note": 0.35397701882756555,
+      "roc_auc": 0.6426574929167732,
+      "pr_auc": 0.8372325490920076,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 2.0,
+          "prediction": 0.49267828464508057,
+          "observed": 0.5
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 204.0,
+          "prediction": 0.558907517323307,
+          "observed": 0.6519607851902643
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 212.0,
+          "prediction": 0.6572482841757109,
+          "observed": 0.6320754735256141
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 350.0,
+          "prediction": 0.7489135207448687,
+          "observed": 0.737142859186445
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 442.0,
+          "prediction": 0.8495402195874382,
+          "observed": 0.8438914036588971
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 67.0,
+          "prediction": 0.915988794903257,
+          "observed": 0.9402985079074974
+        }
+      ]
+    },
+    "38": {
+      "learners": 120,
+      "concept_group_targets": 964,
+      "label_weight": 3486.0,
+      "mae": 0.20359791012088663,
+      "rmse": 0.2623452054084643,
+      "log_loss": 0.4421384899672884,
+      "brier": 0.13855289768553114,
+      "mae_note": 0.2827733214426531,
+      "roc_auc": 0.6964512151984956,
+      "pr_auc": 0.8926661953830819,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 15.0,
+          "prediction": 0.4936540504296621,
+          "observed": 0.46666667262713113
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 297.0,
+          "prediction": 0.5523110491659505,
+          "observed": 0.5319865381577199
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 375.0,
+          "prediction": 0.6522315905888876,
+          "observed": 0.6826666702429454
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 700.0,
+          "prediction": 0.7566269552707672,
+          "observed": 0.7814285732592855
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 1260.0,
+          "prediction": 0.8562087742109147,
+          "observed": 0.8730158752392209
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 839.0,
+          "prediction": 0.9242928928925397,
+          "observed": 0.9177592380041161
+        }
+      ]
+    },
+    "39": {
+      "learners": 123,
+      "concept_group_targets": 510,
+      "label_weight": 712.0,
+      "mae": 0.34542108770836605,
+      "rmse": 0.40559046726180314,
+      "log_loss": 0.6005116031681439,
+      "brier": 0.20558508768223352,
+      "mae_note": 0.3977713426393273,
+      "roc_auc": 0.59471876879669,
+      "pr_auc": 0.7764302164917811,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 39.0,
+          "prediction": 0.4841476396108285,
+          "observed": 0.5384615384615384
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 108.0,
+          "prediction": 0.5432837892461706,
+          "observed": 0.657407409063092
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 157.0,
+          "prediction": 0.6584527712718696,
+          "observed": 0.6496815296115389
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 224.0,
+          "prediction": 0.7525770499237946,
+          "observed": 0.7142857148178986
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 177.0,
+          "prediction": 0.8449177620774608,
+          "observed": 0.8079096051932728
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 7.0,
+          "prediction": 0.9063849704606193,
+          "observed": 0.8571428571428571
+        }
+      ]
+    },
+    "40": {
+      "learners": 112,
+      "concept_group_targets": 1130,
+      "label_weight": 2485.0,
+      "mae": 0.24798060578239756,
+      "rmse": 0.30954247338314494,
+      "log_loss": 0.5096877383767636,
+      "brier": 0.16742619993274116,
+      "mae_note": 0.3362114031403441,
+      "roc_auc": 0.7050130181967011,
+      "pr_auc": 0.8677335887291597,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 66.0,
+          "prediction": 0.4906861506628268,
+          "observed": 0.4090909104455601
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 274.0,
+          "prediction": 0.55070767372194,
+          "observed": 0.5364963531929211
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 322.0,
+          "prediction": 0.6519331112041237,
+          "observed": 0.5838509341296942
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 665.0,
+          "prediction": 0.752806944506509,
+          "observed": 0.771428573915833
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 1003.0,
+          "prediction": 0.8500105169929512,
+          "observed": 0.8494516486452441
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 155.0,
+          "prediction": 0.913908080516323,
+          "observed": 0.9419354861782443
+        }
+      ]
+    },
+    "41": {
+      "learners": 109,
+      "concept_group_targets": 450,
+      "label_weight": 715.0,
+      "mae": 0.2627976629700694,
+      "rmse": 0.3397682168807212,
+      "log_loss": 0.5046945959870407,
+      "brier": 0.1657920935526704,
+      "mae_note": 0.3308299630199087,
+      "roc_auc": 0.7330630339062412,
+      "pr_auc": 0.8667598839029382,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 6.0,
+          "prediction": 0.4932146668434143,
+          "observed": 0.3333333333333333
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 53.0,
+          "prediction": 0.5527018218670251,
+          "observed": 0.5471698090715228
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 117.0,
+          "prediction": 0.6428406982340364,
+          "observed": 0.4700854721232357
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 188.0,
+          "prediction": 0.7511372991064762,
+          "observed": 0.7340425489113686
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 298.0,
+          "prediction": 0.8514652572222204,
+          "observed": 0.8892617419662091
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 53.0,
+          "prediction": 0.9120502685600856,
+          "observed": 0.8867924505809568
+        }
+      ]
+    },
+    "42": {
+      "learners": 135,
+      "concept_group_targets": 717,
+      "label_weight": 1156.0,
+      "mae": 0.3348365042191063,
+      "rmse": 0.3848252613612556,
+      "log_loss": 0.5798909655480219,
+      "brier": 0.1982634921623815,
+      "mae_note": 0.397897046613652,
+      "roc_auc": 0.6902628965661423,
+      "pr_auc": 0.8333518414684009,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 22.0,
+          "prediction": 0.4931316497651013,
+          "observed": 0.45454545454545453
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 175.0,
+          "prediction": 0.5613333238874163,
+          "observed": 0.5085714285714286
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 319.0,
+          "prediction": 0.650970758876083,
+          "observed": 0.5579937304075235
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 421.0,
+          "prediction": 0.7500158947607117,
+          "observed": 0.7695961995249406
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 219.0,
+          "prediction": 0.8255023286767202,
+          "observed": 0.8858447488584474
+        }
+      ]
+    },
+    "43": {
+      "learners": 78,
+      "concept_group_targets": 175,
+      "label_weight": 352.0,
+      "mae": 0.3831253932280974,
+      "rmse": 0.42738708866027647,
+      "log_loss": 0.6708552531821447,
+      "brier": 0.23947790537168884,
+      "mae_note": 0.4709147143770348,
+      "roc_auc": 0.688051375194603,
+      "pr_auc": 0.7010208953047389,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 120.0,
+          "prediction": 0.5515970647335052,
+          "observed": 0.31666666666666665
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 210.0,
+          "prediction": 0.649048277877626,
+          "observed": 0.6333333333333333
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 22.0,
+          "prediction": 0.7396177649497986,
+          "observed": 0.7727272727272727
+        }
+      ]
+    },
+    "44": {
+      "learners": 66,
+      "concept_group_targets": 134,
+      "label_weight": 270.0,
+      "mae": 0.28567966752582125,
+      "rmse": 0.33051207885467143,
+      "log_loss": 0.4921640848315611,
+      "brier": 0.15923823426883654,
+      "mae_note": 0.3373740624498438,
+      "roc_auc": 0.7019439312394571,
+      "pr_auc": 0.8982694126737826,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 6.0,
+          "prediction": 0.5685943762461344,
+          "observed": 1.0
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 58.0,
+          "prediction": 0.6510145006508663,
+          "observed": 0.5172413793103449
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 114.0,
+          "prediction": 0.7617792351204052,
+          "observed": 0.8157894736842105
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 92.0,
+          "prediction": 0.830982427234235,
+          "observed": 0.8913043478260869
+        }
+      ]
+    },
+    "45": {
+      "learners": 69,
+      "concept_group_targets": 215,
+      "label_weight": 854.0,
+      "mae": 0.3178637459420488,
+      "rmse": 0.3758366372183352,
+      "log_loss": 0.6422344359488608,
+      "brier": 0.22585505141188625,
+      "mae_note": 0.4357055021881778,
+      "roc_auc": 0.7040184386650497,
+      "pr_auc": 0.7418654784170435,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 66.0,
+          "prediction": 0.4541178738529032,
+          "observed": 0.22727272727272727
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 196.0,
+          "prediction": 0.552975268388281,
+          "observed": 0.3520408163265306
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 259.0,
+          "prediction": 0.6535670366066303,
+          "observed": 0.6602316602316602
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 201.0,
+          "prediction": 0.746031432602536,
+          "observed": 0.6318407960199005
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 132.0,
+          "prediction": 0.8350498689846559,
+          "observed": 0.8333333333333334
+        }
+      ]
+    },
+    "46": {
+      "learners": 79,
+      "concept_group_targets": 333,
+      "label_weight": 896.0,
+      "mae": 0.24265122054410831,
+      "rmse": 0.28984947925883325,
+      "log_loss": 0.46920958176516653,
+      "brier": 0.14958191705518825,
+      "mae_note": 0.3224241907841393,
+      "roc_auc": 0.6480092735961968,
+      "pr_auc": 0.8915407619535473,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 8.0,
+          "prediction": 0.482470840215683,
+          "observed": 0.625
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 128.0,
+          "prediction": 0.5502727692946792,
+          "observed": 0.7421875
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 150.0,
+          "prediction": 0.6522456558545431,
+          "observed": 0.7333333333333333
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 220.0,
+          "prediction": 0.751953122290698,
+          "observed": 0.7863636363636364
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 342.0,
+          "prediction": 0.8523217652276246,
+          "observed": 0.8859649122807017
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 48.0,
+          "prediction": 0.9140924041469892,
+          "observed": 0.9791666666666666
+        }
+      ]
+    },
+    "47": {
+      "learners": 92,
+      "concept_group_targets": 426,
+      "label_weight": 1381.0,
+      "mae": 0.22919711115608865,
+      "rmse": 0.28282331374598146,
+      "log_loss": 0.4845487397229424,
+      "brier": 0.15665448636181561,
+      "mae_note": 0.32156563761126533,
+      "roc_auc": 0.6672205151650037,
+      "pr_auc": 0.8779839869086092,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 248.0,
+          "prediction": 0.554729524639345,
+          "observed": 0.6653225828683184
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 167.0,
+          "prediction": 0.6494841068804621,
+          "observed": 0.6227544919994776
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 306.0,
+          "prediction": 0.7570939204272102,
+          "observed": 0.7875817007099102
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 506.0,
+          "prediction": 0.8573086628094021,
+          "observed": 0.8873517799224306
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 154.0,
+          "prediction": 0.9205056757895977,
+          "observed": 0.8896103899974328
+        }
+      ]
+    },
+    "48": {
+      "learners": 87,
+      "concept_group_targets": 329,
+      "label_weight": 1018.0,
+      "mae": 0.23469206380469393,
+      "rmse": 0.29599309864802176,
+      "log_loss": 0.4996299569347169,
+      "brier": 0.16438827267290448,
+      "mae_note": 0.3374190678293346,
+      "roc_auc": 0.7205216890161041,
+      "pr_auc": 0.8843448275684159,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 3.0,
+          "prediction": 0.4999229311943054,
+          "observed": 0.6666666865348816
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 235.0,
+          "prediction": 0.5573473085748388,
+          "observed": 0.5957446837678869
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 98.0,
+          "prediction": 0.6613276886696718,
+          "observed": 0.6020408187593732
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 236.0,
+          "prediction": 0.7562725165132749,
+          "observed": 0.711864408737017
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 378.0,
+          "prediction": 0.8528702740000669,
+          "observed": 0.9021164040480342
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 68.0,
+          "prediction": 0.9159139342167798,
+          "observed": 0.9264705895501024
+        }
+      ]
+    },
+    "49": {
+      "learners": 120,
+      "concept_group_targets": 547,
+      "label_weight": 1195.0,
+      "mae": 0.26726876195504573,
+      "rmse": 0.33540972459108076,
+      "log_loss": 0.5302130277501873,
+      "brier": 0.17648155214038172,
+      "mae_note": 0.33416175127381975,
+      "roc_auc": 0.7203336970552263,
+      "pr_auc": 0.8592361957442747,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 125.0,
+          "prediction": 0.5688582873344421,
+          "observed": 0.432
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 176.0,
+          "prediction": 0.645442339845679,
+          "observed": 0.5397727279500528
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 273.0,
+          "prediction": 0.7574834024513161,
+          "observed": 0.6996337002886958
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 429.0,
+          "prediction": 0.8497258888813721,
+          "observed": 0.8414918419781264
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 192.0,
+          "prediction": 0.9244528524577618,
+          "observed": 0.9010416669771075
+        }
+      ]
+    },
+    "50": {
+      "learners": 121,
+      "concept_group_targets": 624,
+      "label_weight": 1848.0,
+      "mae": 0.21608565244581793,
+      "rmse": 0.27612997625545865,
+      "log_loss": 0.4595746269921139,
+      "brier": 0.14803708561379103,
+      "mae_note": 0.3005201722289215,
+      "roc_auc": 0.7261492023267657,
+      "pr_auc": 0.9041268086245616,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 19.0,
+          "prediction": 0.4955848298574749,
+          "observed": 0.5263157910422275
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 251.0,
+          "prediction": 0.5507446354128925,
+          "observed": 0.5577689281022881
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 260.0,
+          "prediction": 0.6494279719316043,
+          "observed": 0.6538461564825131
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 277.0,
+          "prediction": 0.7610643839577905,
+          "observed": 0.7761732872427586
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 656.0,
+          "prediction": 0.8540396047983227,
+          "observed": 0.8521341480678175
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 385.0,
+          "prediction": 0.9305689602703243,
+          "observed": 0.9506493521201146
+        }
+      ]
+    },
+    "51": {
+      "learners": 125,
+      "concept_group_targets": 998,
+      "label_weight": 1318.0,
+      "mae": 0.3326613925657432,
+      "rmse": 0.3901580694452249,
+      "log_loss": 0.5597426949312279,
+      "brier": 0.187883409883701,
+      "mae_note": 0.371325000654377,
+      "roc_auc": 0.6336743540733553,
+      "pr_auc": 0.8223905200537799,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 222.0,
+          "prediction": 0.5576489006613826,
+          "observed": 0.5630630645397547
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 245.0,
+          "prediction": 0.6531181403568813,
+          "observed": 0.6979591848898907
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 414.0,
+          "prediction": 0.7556919595181654,
+          "observed": 0.7584541077919053
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 424.0,
+          "prediction": 0.8469002175162423,
+          "observed": 0.8066037758341376
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 13.0,
+          "prediction": 0.9076495720789983,
+          "observed": 1.0
+        }
+      ]
+    },
+    "52": {
+      "learners": 65,
+      "concept_group_targets": 116,
+      "label_weight": 352.0,
+      "mae": 0.2807380629872734,
+      "rmse": 0.35295268876554825,
+      "log_loss": 0.5768387020749327,
+      "brier": 0.19512484569681812,
+      "mae_note": 0.37702835288727193,
+      "roc_auc": 0.6152779974471579,
+      "pr_auc": 0.7934226993022624,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 27.0,
+          "prediction": 0.5641922443001358,
+          "observed": 0.7407407451558996
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 65.0,
+          "prediction": 0.6383682232636672,
+          "observed": 0.5692307692307692
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 135.0,
+          "prediction": 0.7510494135044239,
+          "observed": 0.7111111058129205
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 125.0,
+          "prediction": 0.8333960237503052,
+          "observed": 0.8079999980926513
+        }
+      ]
+    },
+    "53": {
+      "learners": 75,
+      "concept_group_targets": 240,
+      "label_weight": 536.0,
+      "mae": 0.26215176901488163,
+      "rmse": 0.3322392563494046,
+      "log_loss": 0.5419051399783373,
+      "brier": 0.18252222718313152,
+      "mae_note": 0.360449646628575,
+      "roc_auc": 0.7275636104655037,
+      "pr_auc": 0.8649875334789909,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 14.0,
+          "prediction": 0.4870593228510448,
+          "observed": 0.42857142857142855
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 55.0,
+          "prediction": 0.5512065237218683,
+          "observed": 0.5454545449126851
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 84.0,
+          "prediction": 0.6460404644409815,
+          "observed": 0.4404761965076129
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 174.0,
+          "prediction": 0.7495580860253038,
+          "observed": 0.7126436810726406
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 209.0,
+          "prediction": 0.8490453553541996,
+          "observed": 0.8899521538230221
+        }
+      ]
+    },
+    "54": {
+      "learners": 92,
+      "concept_group_targets": 310,
+      "label_weight": 504.0,
+      "mae": 0.2831061002280977,
+      "rmse": 0.35187238052212294,
+      "log_loss": 0.514240489723021,
+      "brier": 0.16944909280922632,
+      "mae_note": 0.3467996190228159,
+      "roc_auc": 0.6805772569444444,
+      "pr_auc": 0.8642333025621732,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 20.0,
+          "prediction": 0.49217069447040557,
+          "observed": 0.55
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 81.0,
+          "prediction": 0.5473072366949953,
+          "observed": 0.5925925925925926
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 82.0,
+          "prediction": 0.6490483727396988,
+          "observed": 0.7317073170731707
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 129.0,
+          "prediction": 0.7524210699768954,
+          "observed": 0.6976744186046512
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 148.0,
+          "prediction": 0.851907366030925,
+          "observed": 0.9054054054054054
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 44.0,
+          "prediction": 0.9179165837439623,
+          "observed": 0.9318181818181818
+        }
+      ]
+    },
+    "55": {
+      "learners": 72,
+      "concept_group_targets": 206,
+      "label_weight": 357.0,
+      "mae": 0.3067138479704283,
+      "rmse": 0.3684478731887286,
+      "log_loss": 0.5884785508503673,
+      "brier": 0.19924589844326793,
+      "mae_note": 0.3890249686132042,
+      "roc_auc": 0.6179119795338786,
+      "pr_auc": 0.7689362367633947,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 8.0,
+          "prediction": 0.4935632646083832,
+          "observed": 0.375
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 60.0,
+          "prediction": 0.5529521564642589,
+          "observed": 0.5666666676600774
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 78.0,
+          "prediction": 0.645090537957656,
+          "observed": 0.71794871871288
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 118.0,
+          "prediction": 0.7499230110039146,
+          "observed": 0.7118644082950334
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 89.0,
+          "prediction": 0.8571918285294865,
+          "observed": 0.831460675161876
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 4.0,
+          "prediction": 0.907400369644165,
+          "observed": 0.5
+        }
+      ]
+    },
+    "56": {
+      "learners": 93,
+      "concept_group_targets": 277,
+      "label_weight": 413.0,
+      "mae": 0.2966899434533015,
+      "rmse": 0.3753333989670771,
+      "log_loss": 0.5752458981702582,
+      "brier": 0.19696878378934252,
+      "mae_note": 0.37323111098410716,
+      "roc_auc": 0.6919279895093774,
+      "pr_auc": 0.8322234858663827,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 57.0,
+          "prediction": 0.5699111536929482,
+          "observed": 0.5614035129547119
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 77.0,
+          "prediction": 0.6532232575602346,
+          "observed": 0.49350649776396815
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 136.0,
+          "prediction": 0.7532709836959839,
+          "observed": 0.6691176512223833
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 115.0,
+          "prediction": 0.8548662201217984,
+          "observed": 0.8869565222574317
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 28.0,
+          "prediction": 0.9168067489351545,
+          "observed": 0.8571428571428571
+        }
+      ]
+    },
+    "57": {
+      "learners": 76,
+      "concept_group_targets": 185,
+      "label_weight": 244.0,
+      "mae": 0.3204677112278391,
+      "rmse": 0.39011873411389203,
+      "log_loss": 0.5619346232979194,
+      "brier": 0.19112705293613377,
+      "mae_note": 0.3688095400079352,
+      "roc_auc": 0.7076709062003179,
+      "pr_auc": 0.8364946632763441,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 5.0,
+          "prediction": 0.4918535351753235,
+          "observed": 0.8
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 47.0,
+          "prediction": 0.5572945234623361,
+          "observed": 0.5319148936170213
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 39.0,
+          "prediction": 0.6609867627804096,
+          "observed": 0.46153846153846156
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 63.0,
+          "prediction": 0.7528319879183694,
+          "observed": 0.6825396825396826
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 74.0,
+          "prediction": 0.8585892472718213,
+          "observed": 0.8918918918918919
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 16.0,
+          "prediction": 0.9164847619831562,
+          "observed": 0.875
+        }
+      ]
+    },
+    "58": {
+      "learners": 126,
+      "concept_group_targets": 808,
+      "label_weight": 1561.0,
+      "mae": 0.2731010737440511,
+      "rmse": 0.33561075085594505,
+      "log_loss": 0.5407071765288687,
+      "brier": 0.17984576512311765,
+      "mae_note": 0.35982010538689413,
+      "roc_auc": 0.6899736135818695,
+      "pr_auc": 0.8329859794746765,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 9.0,
+          "prediction": 0.49667595823605853,
+          "observed": 0.7777777777777778
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 322.0,
+          "prediction": 0.5417111619659092,
+          "observed": 0.5031055971887541
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 239.0,
+          "prediction": 0.6580281998323098,
+          "observed": 0.6108786654522229
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 394.0,
+          "prediction": 0.7539967141175633,
+          "observed": 0.7868020324235036
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 523.0,
+          "prediction": 0.8483263916312851,
+          "observed": 0.8546845146506512
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 74.0,
+          "prediction": 0.9131019888697444,
+          "observed": 0.8783783775729102
+        }
+      ]
+    },
+    "59": {
+      "learners": 64,
+      "concept_group_targets": 144,
+      "label_weight": 203.0,
+      "mae": 0.281615996302055,
+      "rmse": 0.3590569224690666,
+      "log_loss": 0.5182495119736203,
+      "brier": 0.17079379475522335,
+      "mae_note": 0.3286694878427853,
+      "roc_auc": 0.6713037634408602,
+      "pr_auc": 0.8633341818357861,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 26.0,
+          "prediction": 0.5632962286472321,
+          "observed": 0.6538461538461539
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 25.0,
+          "prediction": 0.6440060472488404,
+          "observed": 0.6
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 41.0,
+          "prediction": 0.7629404169757191,
+          "observed": 0.6585365853658537
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 96.0,
+          "prediction": 0.8614997497449318,
+          "observed": 0.8541666666666666
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 15.0,
+          "prediction": 0.9133547465006511,
+          "observed": 0.9333333333333333
+        }
+      ]
+    },
+    "60": {
+      "learners": 120,
+      "concept_group_targets": 679,
+      "label_weight": 1187.0,
+      "mae": 0.3027945178943014,
+      "rmse": 0.3573894999666423,
+      "log_loss": 0.5841034406693735,
+      "brier": 0.19912573790693522,
+      "mae_note": 0.3917779381383975,
+      "roc_auc": 0.6988358523389014,
+      "pr_auc": 0.8000330880179749,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 261.0,
+          "prediction": 0.5460397470956562,
+          "observed": 0.43295019431132464
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 216.0,
+          "prediction": 0.6488854722292335,
+          "observed": 0.5694444485836558
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 370.0,
+          "prediction": 0.749368071233904,
+          "observed": 0.7540540574370204
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 336.0,
+          "prediction": 0.8370671135683855,
+          "observed": 0.8333333356394654
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 4.0,
+          "prediction": 0.9086113274097443,
+          "observed": 1.0
+        }
+      ]
+    },
+    "62": {
+      "learners": 73,
+      "concept_group_targets": 213,
+      "label_weight": 393.0,
+      "mae": 0.2973106385945667,
+      "rmse": 0.34994057454358424,
+      "log_loss": 0.5708688721104413,
+      "brier": 0.1928570480482352,
+      "mae_note": 0.3875345744860378,
+      "roc_auc": 0.6234567895703427,
+      "pr_auc": 0.8131358680513283,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 75.0,
+          "prediction": 0.5547451186180115,
+          "observed": 0.6400000043710072
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 65.0,
+          "prediction": 0.6445288126285259,
+          "observed": 0.6153846190525936
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 165.0,
+          "prediction": 0.7520251815969293,
+          "observed": 0.7636363683324872
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 88.0,
+          "prediction": 0.827125489034436,
+          "observed": 0.8068181831728328
+        }
+      ]
+    },
+    "63": {
+      "learners": 44,
+      "concept_group_targets": 89,
+      "label_weight": 125.0,
+      "mae": 0.3697815129756927,
+      "rmse": 0.41915780612240633,
+      "log_loss": 0.6484466257337175,
+      "brier": 0.22769326643334878,
+      "mae_note": 0.43998802971839907,
+      "roc_auc": 0.5615881032547699,
+      "pr_auc": 0.6855132497741545,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 5.0,
+          "prediction": 0.49105806946754454,
+          "observed": 0.4
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 26.0,
+          "prediction": 0.5468975832829108,
+          "observed": 0.6923076923076923
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 29.0,
+          "prediction": 0.6613681398589035,
+          "observed": 0.4827586206896552
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 63.0,
+          "prediction": 0.7398542250905719,
+          "observed": 0.7301587301587301
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 2.0,
+          "prediction": 0.8137118816375732,
+          "observed": 0.5
+        }
+      ]
+    },
+    "64": {
+      "learners": 92,
+      "concept_group_targets": 221,
+      "label_weight": 227.0,
+      "mae": 0.40280242139547406,
+      "rmse": 0.4451864582516538,
+      "log_loss": 0.5867621785848811,
+      "brier": 0.20039362578245765,
+      "mae_note": 0.4048405053331989,
+      "roc_auc": 0.6581361218125115,
+      "pr_auc": 0.808462455833217,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 35.0,
+          "prediction": 0.5662669982228961,
+          "observed": 0.6
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 67.0,
+          "prediction": 0.6593855477091092,
+          "observed": 0.5522388059701493
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 110.0,
+          "prediction": 0.7484901173548265,
+          "observed": 0.7818181818181819
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 15.0,
+          "prediction": 0.8236762642860412,
+          "observed": 0.9333333333333333
+        }
+      ]
+    },
+    "65": {
+      "learners": 44,
+      "concept_group_targets": 95,
+      "label_weight": 137.0,
+      "mae": 0.32879071166045476,
+      "rmse": 0.3741635894822308,
+      "log_loss": 0.5671152455470906,
+      "brier": 0.1910932822051762,
+      "mae_note": 0.38304056912443063,
+      "roc_auc": 0.6267567567567568,
+      "pr_auc": 0.8088751775907168,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 21.0,
+          "prediction": 0.5645166238149008,
+          "observed": 0.6666666666666666
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 37.0,
+          "prediction": 0.6461615965173051,
+          "observed": 0.6486486486486487
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 39.0,
+          "prediction": 0.7514580289522806,
+          "observed": 0.7692307692307693
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 40.0,
+          "prediction": 0.8365473687648773,
+          "observed": 0.8
+        }
+      ]
+    },
+    "66": {
+      "learners": 62,
+      "concept_group_targets": 198,
+      "label_weight": 303.0,
+      "mae": 0.35127095224046867,
+      "rmse": 0.40214116578366355,
+      "log_loss": 0.5990716434472821,
+      "brier": 0.20627197266338854,
+      "mae_note": 0.40534582665257723,
+      "roc_auc": 0.6524121709538584,
+      "pr_auc": 0.8097415670726563,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 55.0,
+          "prediction": 0.5627721331336282,
+          "observed": 0.5636363636363636
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 61.0,
+          "prediction": 0.6399798842727161,
+          "observed": 0.5081967213114754
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 135.0,
+          "prediction": 0.7495778445844297,
+          "observed": 0.7481481481481481
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 52.0,
+          "prediction": 0.82342807833965,
+          "observed": 0.8269230769230769
+        }
+      ]
+    },
+    "67": {
+      "learners": 111,
+      "concept_group_targets": 615,
+      "label_weight": 1091.0,
+      "mae": 0.313605903759667,
+      "rmse": 0.372398288581122,
+      "log_loss": 0.5873451781915171,
+      "brier": 0.20146691936487895,
+      "mae_note": 0.4037242155337379,
+      "roc_auc": 0.6696761022069322,
+      "pr_auc": 0.8081274963125206,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 165.0,
+          "prediction": 0.4961896923455325,
+          "observed": 0.496969699678999
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 228.0,
+          "prediction": 0.5414769437752271,
+          "observed": 0.561403510601897
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 224.0,
+          "prediction": 0.6476164162158966,
+          "observed": 0.6428571460502488
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 228.0,
+          "prediction": 0.7549704491046437,
+          "observed": 0.771929825737811
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 211.0,
+          "prediction": 0.8461127871585683,
+          "observed": 0.8341232243024908
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 35.0,
+          "prediction": 0.9128422413553511,
+          "observed": 0.9142857193946838
+        }
+      ]
+    },
+    "68": {
+      "learners": 57,
+      "concept_group_targets": 234,
+      "label_weight": 322.0,
+      "mae": 0.35384410897397106,
+      "rmse": 0.39812750540506436,
+      "log_loss": 0.6079294204297238,
+      "brier": 0.20974774658490428,
+      "mae_note": 0.4215159321793858,
+      "roc_auc": 0.634570199937935,
+      "pr_auc": 0.7780636909934797,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 18.0,
+          "prediction": 0.4871378077401055,
+          "observed": 0.5
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 62.0,
+          "prediction": 0.5514467560475872,
+          "observed": 0.6129032258064516
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 110.0,
+          "prediction": 0.6693497191775929,
+          "observed": 0.5727272727272728
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 109.0,
+          "prediction": 0.7432996554112216,
+          "observed": 0.8256880733944955
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 23.0,
+          "prediction": 0.8167618098466293,
+          "observed": 0.8260869565217391
+        }
+      ]
+    },
+    "69": {
+      "learners": 116,
+      "concept_group_targets": 630,
+      "label_weight": 1269.0,
+      "mae": 0.2903101359698789,
+      "rmse": 0.3491856912896042,
+      "log_loss": 0.5532073439021077,
+      "brier": 0.1859180381363943,
+      "mae_note": 0.3719729096722753,
+      "roc_auc": 0.7035242362751937,
+      "pr_auc": 0.8304995920953748,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 155.0,
+          "prediction": 0.47777434375978284,
+          "observed": 0.45806451824403577
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 179.0,
+          "prediction": 0.5487865579194863,
+          "observed": 0.5139664825280952
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 151.0,
+          "prediction": 0.6521966946835549,
+          "observed": 0.6158940401298321
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 333.0,
+          "prediction": 0.7527973585658603,
+          "observed": 0.7627627644631956
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 441.0,
+          "prediction": 0.8474655133796657,
+          "observed": 0.8480725641491191
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 10.0,
+          "prediction": 0.9140796184539794,
+          "observed": 1.0
+        }
+      ]
+    },
+    "70": {
+      "learners": 116,
+      "concept_group_targets": 774,
+      "label_weight": 1633.0,
+      "mae": 0.301872601418939,
+      "rmse": 0.35690551677075094,
+      "log_loss": 0.5908156032865112,
+      "brier": 0.20201922869520778,
+      "mae_note": 0.3957999780666723,
+      "roc_auc": 0.6890843969805143,
+      "pr_auc": 0.7915462173293208,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 393.0,
+          "prediction": 0.5517689983050028,
+          "observed": 0.4351145067363598
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 344.0,
+          "prediction": 0.6530069048668063,
+          "observed": 0.6540697705173908
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 443.0,
+          "prediction": 0.7534511069142792,
+          "observed": 0.7516930035691767
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 450.0,
+          "prediction": 0.8421107942528195,
+          "observed": 0.8111111133628421
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 3.0,
+          "prediction": 0.9042456944783529,
+          "observed": 0.6666666666666666
+        }
+      ]
+    },
+    "76": {
+      "learners": 49,
+      "concept_group_targets": 112,
+      "label_weight": 112.0,
+      "mae": 0.3634905128606728,
+      "rmse": 0.4398898809950636,
+      "log_loss": 0.5825465956715495,
+      "brier": 0.1935031074018512,
+      "mae_note": 0.3634905128606728,
+      "roc_auc": 0.6425009589566553,
+      "pr_auc": 0.7709218466943676,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 4.0,
+          "prediction": 0.4942520260810852,
+          "observed": 0.25
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 16.0,
+          "prediction": 0.540822546929121,
+          "observed": 0.375
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 14.0,
+          "prediction": 0.6453256819929395,
+          "observed": 0.7142857142857143
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 22.0,
+          "prediction": 0.7565717832608656,
+          "observed": 0.9545454545454546
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 53.0,
+          "prediction": 0.8530218578734488,
+          "observed": 0.7358490566037735
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 3.0,
+          "prediction": 0.9072691996892294,
+          "observed": 0.6666666666666666
+        }
+      ]
+    },
+    "77": {
+      "learners": 61,
+      "concept_group_targets": 129,
+      "label_weight": 129.0,
+      "mae": 0.3246631432873334,
+      "rmse": 0.3904898154997905,
+      "log_loss": 0.4699238018774533,
+      "brier": 0.1524822960090604,
+      "mae_note": 0.3246631432873334,
+      "roc_auc": 0.7922975641869652,
+      "pr_auc": 0.9236405784970284,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 20.0,
+          "prediction": 0.5598443537950516,
+          "observed": 0.45
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 21.0,
+          "prediction": 0.6696008273533413,
+          "observed": 0.5714285714285714
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 29.0,
+          "prediction": 0.7523210829701917,
+          "observed": 0.7931034482758621
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 55.0,
+          "prediction": 0.8506309834393588,
+          "observed": 0.9090909090909091
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 4.0,
+          "prediction": 0.9071561098098755,
+          "observed": 1.0
+        }
+      ]
+    },
+    "79": {
+      "learners": 44,
+      "concept_group_targets": 92,
+      "label_weight": 100.0,
+      "mae": 0.394432293176651,
+      "rmse": 0.44099533116706285,
+      "log_loss": 0.6097951900501615,
+      "brier": 0.20947688211114746,
+      "mae_note": 0.41721163272857664,
+      "roc_auc": 0.6797802197802199,
+      "pr_auc": 0.7456980008055747,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 3.0,
+          "prediction": 0.4803820649782817,
+          "observed": 0.3333333333333333
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 21.0,
+          "prediction": 0.5440597505796523,
+          "observed": 0.42857142857142855
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 40.0,
+          "prediction": 0.6540713906288147,
+          "observed": 0.675
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 15.0,
+          "prediction": 0.7384674072265625,
+          "observed": 0.7333333333333333
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 21.0,
+          "prediction": 0.832617095538548,
+          "observed": 0.8095238095238095
+        }
+      ]
+    },
+    "82": {
+      "learners": 56,
+      "concept_group_targets": 110,
+      "label_weight": 120.0,
+      "mae": 0.3831670979658763,
+      "rmse": 0.4250611038513262,
+      "log_loss": 0.571750677399466,
+      "brier": 0.19317694200730795,
+      "mae_note": 0.4054356167713801,
+      "roc_auc": 0.7547082432849646,
+      "pr_auc": 0.8198356615364696,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 10.0,
+          "prediction": 0.48346344828605653,
+          "observed": 0.4
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 31.0,
+          "prediction": 0.5448003257474592,
+          "observed": 0.3870967741935484
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 27.0,
+          "prediction": 0.6474827395545112,
+          "observed": 0.7407407407407407
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 41.0,
+          "prediction": 0.7544958664149772,
+          "observed": 0.8292682926829268
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 11.0,
+          "prediction": 0.8215690417723223,
+          "observed": 0.8181818181818182
+        }
+      ]
+    },
+    "83": {
+      "learners": 72,
+      "concept_group_targets": 193,
+      "label_weight": 372.0,
+      "mae": 0.3046760647607747,
+      "rmse": 0.3531400621976341,
+      "log_loss": 0.5898014874499203,
+      "brier": 0.20024553762510736,
+      "mae_note": 0.41312783713975954,
+      "roc_auc": 0.6350333140473476,
+      "pr_auc": 0.7725927369285037,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 131.0,
+          "prediction": 0.5498578512031613,
+          "observed": 0.5648854967519528
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 92.0,
+          "prediction": 0.6483735668918361,
+          "observed": 0.7717391310826592
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 110.0,
+          "prediction": 0.7493018724701621,
+          "observed": 0.818181819265539
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 39.0,
+          "prediction": 0.8331600366494595,
+          "observed": 0.7179487202412043
+        }
+      ]
+    },
+    "84": {
+      "learners": 66,
+      "concept_group_targets": 173,
+      "label_weight": 205.0,
+      "mae": 0.3565907609171984,
+      "rmse": 0.4043654307697452,
+      "log_loss": 0.5658491708108309,
+      "brier": 0.1903406698942845,
+      "mae_note": 0.3895770384044182,
+      "roc_auc": 0.6881261384335156,
+      "pr_auc": 0.8076889298481407,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 3.0,
+          "prediction": 0.4920365611712138,
+          "observed": 0.6666666666666666
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 36.0,
+          "prediction": 0.5556662413809035,
+          "observed": 0.3888888888888889
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 48.0,
+          "prediction": 0.6435544937849045,
+          "observed": 0.6458333333333334
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 79.0,
+          "prediction": 0.7546813540820834,
+          "observed": 0.8227848101265823
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 39.0,
+          "prediction": 0.8214604151554596,
+          "observed": 0.8205128205128205
+        }
+      ]
+    },
+    "87": {
+      "learners": 34,
+      "concept_group_targets": 55,
+      "label_weight": 164.0,
+      "mae": 0.27947154986422235,
+      "rmse": 0.3358161788989637,
+      "log_loss": 0.5290873780486363,
+      "brier": 0.1757806369396351,
+      "mae_note": 0.3682606110219237,
+      "roc_auc": 0.7634698297713474,
+      "pr_auc": 0.8649887464808175,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 2.0,
+          "prediction": 0.49752235412597656,
+          "observed": 0.5
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 37.0,
+          "prediction": 0.5591533039067242,
+          "observed": 0.43243243001602794
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 32.0,
+          "prediction": 0.6553822346031666,
+          "observed": 0.5624999962747097
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 50.0,
+          "prediction": 0.7619002652168274,
+          "observed": 0.84
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 43.0,
+          "prediction": 0.8404062639835269,
+          "observed": 0.9069767469583556
+        }
+      ]
+    },
+    "88": {
+      "learners": 44,
+      "concept_group_targets": 97,
+      "label_weight": 132.0,
+      "mae": 0.3638252214048848,
+      "rmse": 0.4073742644320045,
+      "log_loss": 0.6120283559279133,
+      "brier": 0.2114083367760622,
+      "mae_note": 0.41651841320774774,
+      "roc_auc": 0.6821026282853566,
+      "pr_auc": 0.7544463914425037,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 8.0,
+          "prediction": 0.48549292236566544,
+          "observed": 0.375
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 21.0,
+          "prediction": 0.5545902081898281,
+          "observed": 0.38095238095238093
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 31.0,
+          "prediction": 0.6477420522320655,
+          "observed": 0.6774193548387096
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 60.0,
+          "prediction": 0.7544818540414174,
+          "observed": 0.7333333333333333
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 12.0,
+          "prediction": 0.8148217697938284,
+          "observed": 0.75
+        }
+      ]
+    },
+    "90": {
+      "learners": 49,
+      "concept_group_targets": 91,
+      "label_weight": 178.0,
+      "mae": 0.25616419248366623,
+      "rmse": 0.3258870971053378,
+      "log_loss": 0.5622222370928944,
+      "brier": 0.1904720629810922,
+      "mae_note": 0.37528575739164033,
+      "roc_auc": 0.6776556776556777,
+      "pr_auc": 0.8393396244579027,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 40.0,
+          "prediction": 0.5590253949165345,
+          "observed": 0.525
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 31.0,
+          "prediction": 0.6421211765658471,
+          "observed": 0.6129032258064516
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 42.0,
+          "prediction": 0.7488512325854528,
+          "observed": 0.8333333333333334
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 56.0,
+          "prediction": 0.8429340156061309,
+          "observed": 0.75
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 9.0,
+          "prediction": 0.9140728314717611,
+          "observed": 1.0
+        }
+      ]
+    },
+    "93": {
+      "learners": 37,
+      "concept_group_targets": 140,
+      "label_weight": 170.0,
+      "mae": 0.2622154172729043,
+      "rmse": 0.3597248534396809,
+      "log_loss": 0.4652008123083898,
+      "brier": 0.14410785253514108,
+      "mae_note": 0.2744503946865306,
+      "roc_auc": 0.6427245300533767,
+      "pr_auc": 0.8818653905346826,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 10.0,
+          "prediction": 0.5697148978710175,
+          "observed": 0.7
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 23.0,
+          "prediction": 0.6426505161368329,
+          "observed": 0.6086956521739131
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 26.0,
+          "prediction": 0.7582222246206723,
+          "observed": 0.7692307692307693
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 53.0,
+          "prediction": 0.8543563856268829,
+          "observed": 0.8867924528301887
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 58.0,
+          "prediction": 0.9419883242968855,
+          "observed": 0.8793103448275862
+        }
+      ]
+    },
+    "94": {
+      "learners": 107,
+      "concept_group_targets": 647,
+      "label_weight": 1133.0,
+      "mae": 0.29287369200747726,
+      "rmse": 0.3502946009943367,
+      "log_loss": 0.5857684871726597,
+      "brier": 0.1982432295226289,
+      "mae_note": 0.39046023688609394,
+      "roc_auc": 0.6370503981841082,
+      "pr_auc": 0.7774223003598868,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 63.0,
+          "prediction": 0.4948297431544652,
+          "observed": 0.42857142857142855
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 221.0,
+          "prediction": 0.5457994716739223,
+          "observed": 0.5475113159930545
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 201.0,
+          "prediction": 0.6536154921968185,
+          "observed": 0.721393036160303
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 328.0,
+          "prediction": 0.7542596891885851,
+          "observed": 0.7439024423862376
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 302.0,
+          "prediction": 0.8417594760458991,
+          "observed": 0.817880797958532
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 18.0,
+          "prediction": 0.9052774343225691,
+          "observed": 0.722222218910853
+        }
+      ]
+    },
+    "95": {
+      "learners": 32,
+      "concept_group_targets": 68,
+      "label_weight": 136.0,
+      "mae": 0.37088820162941427,
+      "rmse": 0.42023570328116727,
+      "log_loss": 0.6519089411564303,
+      "brier": 0.23174510513574667,
+      "mae_note": 0.4400177448987961,
+      "roc_auc": 0.8278439869989167,
+      "pr_auc": 0.8080769658001935,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 28.0,
+          "prediction": 0.5338457141603742,
+          "observed": 0.14285714285714285
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 46.0,
+          "prediction": 0.6558443100556083,
+          "observed": 0.3695652173913043
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 42.0,
+          "prediction": 0.742984360172635,
+          "observed": 0.7857142857142857
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 20.0,
+          "prediction": 0.8142693936824799,
+          "observed": 0.85
+        }
+      ]
+    },
+    "97": {
+      "learners": 32,
+      "concept_group_targets": 68,
+      "label_weight": 109.0,
+      "mae": 0.29254837047069443,
+      "rmse": 0.3306897923632468,
+      "log_loss": 0.5164556374894924,
+      "brier": 0.16898876629618306,
+      "mae_note": 0.35916111939543977,
+      "roc_auc": 0.6749304911955514,
+      "pr_auc": 0.844275613578672,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 24.0,
+          "prediction": 0.5539256036281586,
+          "observed": 0.625
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 12.0,
+          "prediction": 0.6483842929204305,
+          "observed": 0.5
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 42.0,
+          "prediction": 0.7548088204293024,
+          "observed": 0.8095238095238095
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 31.0,
+          "prediction": 0.8302511034473297,
+          "observed": 0.9032258064516129
+        }
+      ]
+    },
+    "101": {
+      "learners": 47,
+      "concept_group_targets": 89,
+      "label_weight": 152.0,
+      "mae": 0.36143722345954493,
+      "rmse": 0.41089627942782764,
+      "log_loss": 0.6289814061577595,
+      "brier": 0.22146733139499983,
+      "mae_note": 0.42981695736709397,
+      "roc_auc": 0.7449820788530467,
+      "pr_auc": 0.8240101411619953,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 38.0,
+          "prediction": 0.5647635459899902,
+          "observed": 0.3684210526315789
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 39.0,
+          "prediction": 0.6442521459017044,
+          "observed": 0.4358974358974359
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 64.0,
+          "prediction": 0.7523397598415613,
+          "observed": 0.75
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 11.0,
+          "prediction": 0.8262062235312029,
+          "observed": 1.0
+        }
+      ]
+    },
+    "102": {
+      "learners": 60,
+      "concept_group_targets": 126,
+      "label_weight": 163.0,
+      "mae": 0.350905525720924,
+      "rmse": 0.40619982955678696,
+      "log_loss": 0.578206879098199,
+      "brier": 0.19567314815772968,
+      "mae_note": 0.3915452991892224,
+      "roc_auc": 0.6773459383753502,
+      "pr_auc": 0.7980427277513582,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 12.0,
+          "prediction": 0.4870903914173444,
+          "observed": 0.4166666666666667
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 32.0,
+          "prediction": 0.5543484557420015,
+          "observed": 0.46875
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 23.0,
+          "prediction": 0.6559480247290238,
+          "observed": 0.782608695652174
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 61.0,
+          "prediction": 0.7565246429599699,
+          "observed": 0.7377049180327869
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 33.0,
+          "prediction": 0.8352046265746608,
+          "observed": 0.8484848484848485
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 2.0,
+          "prediction": 0.9074543714523315,
+          "observed": 0.5
+        }
+      ]
+    },
+    "103": {
+      "learners": 66,
+      "concept_group_targets": 140,
+      "label_weight": 145.0,
+      "mae": 0.44441146316199465,
+      "rmse": 0.46939967959037043,
+      "log_loss": 0.630481026426392,
+      "brier": 0.22033605919954244,
+      "mae_note": 0.44441146316199465,
+      "roc_auc": 0.6433552091878589,
+      "pr_auc": 0.7654596664510847,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 41.0,
+          "prediction": 0.5671699773974535,
+          "observed": 0.4878048780487805
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 76.0,
+          "prediction": 0.6576910858091555,
+          "observed": 0.6710526315789473
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 27.0,
+          "prediction": 0.7344701532964353,
+          "observed": 0.7407407407407407
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 1.0,
+          "prediction": 0.8087804913520813,
+          "observed": 1.0
+        }
+      ]
+    },
+    "104": {
+      "learners": 71,
+      "concept_group_targets": 196,
+      "label_weight": 201.0,
+      "mae": 0.42194210682342304,
+      "rmse": 0.46107719832087046,
+      "log_loss": 0.6198265158473348,
+      "brier": 0.21507974500047802,
+      "mae_note": 0.4246952032568443,
+      "roc_auc": 0.6811322773972603,
+      "pr_auc": 0.7579290402339551,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 46.0,
+          "prediction": 0.556345689555873,
+          "observed": 0.391304347826087
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 59.0,
+          "prediction": 0.6499661247609025,
+          "observed": 0.6101694915254238
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 77.0,
+          "prediction": 0.7422885267765491,
+          "observed": 0.7792207792207793
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 19.0,
+          "prediction": 0.8235192016551369,
+          "observed": 0.7368421052631579
+        }
+      ]
+    },
+    "105": {
+      "learners": 61,
+      "concept_group_targets": 192,
+      "label_weight": 361.0,
+      "mae": 0.31921958196856637,
+      "rmse": 0.3717029182798584,
+      "log_loss": 0.6106497167521111,
+      "brier": 0.20949269934695977,
+      "mae_note": 0.39583844326209494,
+      "roc_auc": 0.637610340479193,
+      "pr_auc": 0.7551156993084316,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 54.0,
+          "prediction": 0.5748371890297642,
+          "observed": 0.42592592592592593
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 74.0,
+          "prediction": 0.6454444132946633,
+          "observed": 0.5675675675675675
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 113.0,
+          "prediction": 0.7547812809986351,
+          "observed": 0.7964601769911505
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 118.0,
+          "prediction": 0.8347499279652612,
+          "observed": 0.7457627118644068
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 2.0,
+          "prediction": 0.9001479148864746,
+          "observed": 0.5
+        }
+      ]
+    },
+    "106": {
+      "learners": 68,
+      "concept_group_targets": 152,
+      "label_weight": 391.0,
+      "mae": 0.27339235672255613,
+      "rmse": 0.31889552479316363,
+      "log_loss": 0.6447897610562959,
+      "brier": 0.22530901881186563,
+      "mae_note": 0.4247036153163367,
+      "roc_auc": 0.6177588655244557,
+      "pr_auc": 0.7126089657433146,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 3.0,
+          "prediction": 0.48676934838294983,
+          "observed": 0.0
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 79.0,
+          "prediction": 0.5555262973036947,
+          "observed": 0.5316455790513679
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 88.0,
+          "prediction": 0.6627090160142292,
+          "observed": 0.5454545535824515
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 156.0,
+          "prediction": 0.752104538373458,
+          "observed": 0.7435897479836757
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 65.0,
+          "prediction": 0.8285354311649616,
+          "observed": 0.6769230865515196
+        }
+      ]
+    },
+    "107": {
+      "learners": 59,
+      "concept_group_targets": 144,
+      "label_weight": 265.0,
+      "mae": 0.26910067909168744,
+      "rmse": 0.3230334388634801,
+      "log_loss": 0.44350520338722427,
+      "brier": 0.14114305545415443,
+      "mae_note": 0.3051808879060565,
+      "roc_auc": 0.7275813953488371,
+      "pr_auc": 0.9232249100527431,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 43.0,
+          "prediction": 0.5641120880149132,
+          "observed": 0.6046511627906976
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 32.0,
+          "prediction": 0.6467246823012829,
+          "observed": 0.71875
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 57.0,
+          "prediction": 0.7613201381867392,
+          "observed": 0.7719298245614035
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 113.0,
+          "prediction": 0.8545587178880134,
+          "observed": 0.9026548672566371
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 20.0,
+          "prediction": 0.9255297362804413,
+          "observed": 1.0
+        }
+      ]
+    },
+    "108": {
+      "learners": 65,
+      "concept_group_targets": 171,
+      "label_weight": 242.0,
+      "mae": 0.313265135958175,
+      "rmse": 0.3710527243768834,
+      "log_loss": 0.560166431170603,
+      "brier": 0.18933301682949086,
+      "mae_note": 0.3812931219408335,
+      "roc_auc": 0.7148085585585585,
+      "pr_auc": 0.8350550293092387,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 52.0,
+          "prediction": 0.5518545737633338,
+          "observed": 0.4423076923076923
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 47.0,
+          "prediction": 0.6490049806046994,
+          "observed": 0.6170212765957447
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 81.0,
+          "prediction": 0.7487988258585517,
+          "observed": 0.7530864197530864
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 57.0,
+          "prediction": 0.8457092109479403,
+          "observed": 0.8771929824561403
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 5.0,
+          "prediction": 0.9155897378921509,
+          "observed": 1.0
+        }
+      ]
+    },
+    "109": {
+      "learners": 56,
+      "concept_group_targets": 115,
+      "label_weight": 118.0,
+      "mae": 0.4343547780634993,
+      "rmse": 0.46996474099142765,
+      "log_loss": 0.6501452490205103,
+      "brier": 0.22934143404632615,
+      "mae_note": 0.4447051357414763,
+      "roc_auc": 0.6343599033816424,
+      "pr_auc": 0.7333256237083329,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 31.0,
+          "prediction": 0.5536351280827676,
+          "observed": 0.4838709677419355
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 38.0,
+          "prediction": 0.6553979782681716,
+          "observed": 0.631578947368421
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 44.0,
+          "prediction": 0.7388791143894196,
+          "observed": 0.6590909090909091
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 5.0,
+          "prediction": 0.8163715481758118,
+          "observed": 0.8
+        }
+      ]
+    },
+    "110": {
+      "learners": 35,
+      "concept_group_targets": 77,
+      "label_weight": 269.0,
+      "mae": 0.22111438973685624,
+      "rmse": 0.28290692947768153,
+      "log_loss": 0.5696842430943776,
+      "brier": 0.1915604918778983,
+      "mae_note": 0.38409698465414377,
+      "roc_auc": 0.59311423961466,
+      "pr_auc": 0.8045540137901929,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 49.0,
+          "prediction": 0.5741269722276804,
+          "observed": 0.6326530703476497
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 69.0,
+          "prediction": 0.6514305593310923,
+          "observed": 0.68115943259951
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 76.0,
+          "prediction": 0.7600483674752084,
+          "observed": 0.8421052674713888
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 75.0,
+          "prediction": 0.83282044728597,
+          "observed": 0.7466666728258133
+        }
+      ]
+    },
+    "114": {
+      "learners": 42,
+      "concept_group_targets": 129,
+      "label_weight": 624.0,
+      "mae": 0.22899626090358466,
+      "rmse": 0.27582457692927453,
+      "log_loss": 0.6094057065110571,
+      "brier": 0.21022716716448295,
+      "mae_note": 0.41352081841429267,
+      "roc_auc": 0.62588488546534,
+      "pr_auc": 0.7703473321158172,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 145.0,
+          "prediction": 0.5541671189768561,
+          "observed": 0.5103448294360062
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 140.0,
+          "prediction": 0.6386908033064433,
+          "observed": 0.6500000012772423
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 255.0,
+          "prediction": 0.75165608513589,
+          "observed": 0.7450980396831737
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 84.0,
+          "prediction": 0.8352192306802386,
+          "observed": 0.7857142867786544
+        }
+      ]
+    },
+    "115": {
+      "learners": 42,
+      "concept_group_targets": 129,
+      "label_weight": 245.0,
+      "mae": 0.2868002909786847,
+      "rmse": 0.36403030766552813,
+      "log_loss": 0.6223401607113256,
+      "brier": 0.2175520783423117,
+      "mae_note": 0.40127207985463587,
+      "roc_auc": 0.6223652516363435,
+      "pr_auc": 0.800016776604056,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 2.0,
+          "prediction": 0.4936106503009796,
+          "observed": 1.0
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 61.0,
+          "prediction": 0.5410132173632012,
+          "observed": 0.6065573770491803
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 51.0,
+          "prediction": 0.6551015914655199,
+          "observed": 0.5882352987925211
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 40.0,
+          "prediction": 0.7427671790122986,
+          "observed": 0.5500000014901161
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 64.0,
+          "prediction": 0.8473983025178313,
+          "observed": 0.7187500023283064
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 27.0,
+          "prediction": 0.915394025820273,
+          "observed": 1.0
+        }
+      ]
+    },
+    "116": {
+      "learners": 42,
+      "concept_group_targets": 129,
+      "label_weight": 409.0,
+      "mae": 0.23829257510110627,
+      "rmse": 0.30105206975167587,
+      "log_loss": 0.5909149241845117,
+      "brier": 0.2018792916655196,
+      "mae_note": 0.3922234936516695,
+      "roc_auc": 0.628290408571563,
+      "pr_auc": 0.7955081716729059,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 71.0,
+          "prediction": 0.5427127715567468,
+          "observed": 0.5633802837888959
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 102.0,
+          "prediction": 0.6412174222516078,
+          "observed": 0.5980392189002505
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 106.0,
+          "prediction": 0.7545610570682669,
+          "observed": 0.7641509453643043
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 123.0,
+          "prediction": 0.8360694094402034,
+          "observed": 0.7886178886018148
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 7.0,
+          "prediction": 0.906693833214896,
+          "observed": 1.0
+        }
+      ]
+    },
+    "117": {
+      "learners": 37,
+      "concept_group_targets": 84,
+      "label_weight": 182.0,
+      "mae": 0.2662186044585574,
+      "rmse": 0.32676738996745386,
+      "log_loss": 0.6051813090089303,
+      "brier": 0.20952417910739943,
+      "mae_note": 0.4113826910017933,
+      "roc_auc": 0.6093333353386929,
+      "pr_auc": 0.796796789459279,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 2.0,
+          "prediction": 0.4919561892747879,
+          "observed": 1.0
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 52.0,
+          "prediction": 0.5464219875060595,
+          "observed": 0.5961538495925757
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 47.0,
+          "prediction": 0.6581501922708877,
+          "observed": 0.6808510670002471
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 43.0,
+          "prediction": 0.7550840613453887,
+          "observed": 0.6511627927769063
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 38.0,
+          "prediction": 0.8455157170170232,
+          "observed": 0.8421052710006112
+        }
+      ]
+    },
+    "118": {
+      "learners": 27,
+      "concept_group_targets": 63,
+      "label_weight": 113.0,
+      "mae": 0.325220343813432,
+      "rmse": 0.3921112692232237,
+      "log_loss": 0.6084787963086604,
+      "brier": 0.20684859258459076,
+      "mae_note": 0.3751335803386384,
+      "roc_auc": 0.5996212121212121,
+      "pr_auc": 0.7853011556638356,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 9.0,
+          "prediction": 0.5697214073605008,
+          "observed": 0.5555555555555556
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 27.0,
+          "prediction": 0.6618945753132855,
+          "observed": 0.5555555555555556
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 21.0,
+          "prediction": 0.7484870269185021,
+          "observed": 0.8571428571428571
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 46.0,
+          "prediction": 0.8429755400056425,
+          "observed": 0.717391304347826
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 10.0,
+          "prediction": 0.9120466589927674,
+          "observed": 0.9
+        }
+      ]
+    },
+    "121": {
+      "learners": 34,
+      "concept_group_targets": 67,
+      "label_weight": 104.0,
+      "mae": 0.28366802632808685,
+      "rmse": 0.3402127613374799,
+      "log_loss": 0.5375263252024686,
+      "brier": 0.17824472297687305,
+      "mae_note": 0.35818978341726154,
+      "roc_auc": 0.6746031746031746,
+      "pr_auc": 0.819286395415848,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 11.0,
+          "prediction": 0.5751755345951427,
+          "observed": 0.45454545454545453
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 20.0,
+          "prediction": 0.6489465177059174,
+          "observed": 0.65
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 40.0,
+          "prediction": 0.7606656894087791,
+          "observed": 0.75
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 33.0,
+          "prediction": 0.8474295952103355,
+          "observed": 0.8787878787878788
+        }
+      ]
+    },
+    "128": {
+      "learners": 38,
+      "concept_group_targets": 95,
+      "label_weight": 124.0,
+      "mae": 0.3104755292015691,
+      "rmse": 0.41328474182887565,
+      "log_loss": 0.5915943908295478,
+      "brier": 0.19499782621565717,
+      "mae_note": 0.32903627522530093,
+      "roc_auc": 0.6870265151515151,
+      "pr_auc": 0.8180369338839806,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 8.0,
+          "prediction": 0.5577530488371849,
+          "observed": 0.375
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 17.0,
+          "prediction": 0.6374828499906203,
+          "observed": 0.4117647058823529
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 18.0,
+          "prediction": 0.7560575471984016,
+          "observed": 0.7222222222222222
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 39.0,
+          "prediction": 0.856401787354396,
+          "observed": 0.7948717948717948
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 42.0,
+          "prediction": 0.9315813084443411,
+          "observed": 0.8095238095238095
+        }
+      ]
+    },
+    "129": {
+      "learners": 35,
+      "concept_group_targets": 99,
+      "label_weight": 174.0,
+      "mae": 0.3392391477165551,
+      "rmse": 0.3883811322348092,
+      "log_loss": 0.5700591533088349,
+      "brier": 0.19202764271157546,
+      "mae_note": 0.3928314908958427,
+      "roc_auc": 0.6364897966815248,
+      "pr_auc": 0.8034688699160739,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 35.0,
+          "prediction": 0.5565916436059134,
+          "observed": 0.4857142908232553
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 51.0,
+          "prediction": 0.6615449645939995,
+          "observed": 0.7450980409687641
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 59.0,
+          "prediction": 0.7477278901358783,
+          "observed": 0.8135593240543947
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 29.0,
+          "prediction": 0.8408318141411091,
+          "observed": 0.7586206937658375
+        }
+      ]
+    },
+    "145": {
+      "learners": 48,
+      "concept_group_targets": 140,
+      "label_weight": 280.0,
+      "mae": 0.26339374014309475,
+      "rmse": 0.3103359591181764,
+      "log_loss": 0.5266006833168433,
+      "brier": 0.17130840752179846,
+      "mae_note": 0.3432566885437284,
+      "roc_auc": 0.5479962721342032,
+      "pr_auc": 0.8340842425651643,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 38.0,
+          "prediction": 0.5656376198718422,
+          "observed": 0.7631578947368421
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 42.0,
+          "prediction": 0.6576295438266936,
+          "observed": 0.6666666666666666
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 80.0,
+          "prediction": 0.7555665165185929,
+          "observed": 0.8625
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 108.0,
+          "prediction": 0.8496626692789572,
+          "observed": 0.7777777777777778
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 12.0,
+          "prediction": 0.9079847931861877,
+          "observed": 1.0
+        }
+      ]
+    },
+    "147": {
+      "learners": 48,
+      "concept_group_targets": 140,
+      "label_weight": 140.0,
+      "mae": 0.2913985048021589,
+      "rmse": 0.3548722003240271,
+      "log_loss": 0.40979410017759665,
+      "brier": 0.12593427856281642,
+      "mae_note": 0.2913985048021589,
+      "roc_auc": 0.7230892356942777,
+      "pr_auc": 0.9346014586932081,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 3.0,
+          "prediction": 0.4876836935679118,
+          "observed": 0.6666666666666666
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 20.0,
+          "prediction": 0.5376823276281357,
+          "observed": 0.75
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 17.0,
+          "prediction": 0.6518344984335058,
+          "observed": 0.5294117647058824
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 29.0,
+          "prediction": 0.7522946781125562,
+          "observed": 0.9655172413793104
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 50.0,
+          "prediction": 0.8439712047576904,
+          "observed": 0.9
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 21.0,
+          "prediction": 0.9120577318327767,
+          "observed": 0.9523809523809523
+        }
+      ]
+    },
+    "152": {
+      "learners": 56,
+      "concept_group_targets": 211,
+      "label_weight": 215.0,
+      "mae": 0.3342193279155465,
+      "rmse": 0.41821241967328804,
+      "log_loss": 0.522857144758928,
+      "brier": 0.17490162796898642,
+      "mae_note": 0.3342193279155465,
+      "roc_auc": 0.8052220888355343,
+      "pr_auc": 0.8758354061878595,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 44.0,
+          "prediction": 0.5360021956942298,
+          "observed": 0.2727272727272727
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 22.0,
+          "prediction": 0.6563127962025729,
+          "observed": 0.5454545454545454
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 42.0,
+          "prediction": 0.7509017955689203,
+          "observed": 0.6904761904761905
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 57.0,
+          "prediction": 0.85301974677203,
+          "observed": 0.8421052631578947
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 50.0,
+          "prediction": 0.9242308890819549,
+          "observed": 0.92
+        }
+      ]
+    },
+    "153": {
+      "learners": 30,
+      "concept_group_targets": 115,
+      "label_weight": 118.0,
+      "mae": 0.33526930617073836,
+      "rmse": 0.3927874576742184,
+      "log_loss": 0.47821701689086116,
+      "brier": 0.15428198690617592,
+      "mae_note": 0.33526930617073836,
+      "roc_auc": 0.7746031746031746,
+      "pr_auc": 0.8993235246308112,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 19.0,
+          "prediction": 0.5446569229427137,
+          "observed": 0.5263157894736842
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 20.0,
+          "prediction": 0.6527201622724533,
+          "observed": 0.5
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 35.0,
+          "prediction": 0.7525236793926784,
+          "observed": 0.8285714285714286
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 43.0,
+          "prediction": 0.8465908502423486,
+          "observed": 0.9302325581395349
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 1.0,
+          "prediction": 0.9068124294281006,
+          "observed": 1.0
+        }
+      ]
+    },
+    "154": {
+      "learners": 41,
+      "concept_group_targets": 130,
+      "label_weight": 148.0,
+      "mae": 0.3441848654199291,
+      "rmse": 0.4041458111778395,
+      "log_loss": 0.5280988914811796,
+      "brier": 0.1768473502061074,
+      "mae_note": 0.3613523603291125,
+      "roc_auc": 0.775131118881119,
+      "pr_auc": 0.8916446510680194,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 4.0,
+          "prediction": 0.49266187846660614,
+          "observed": 0.5
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 23.0,
+          "prediction": 0.5517245453336964,
+          "observed": 0.43478260869565216
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 27.0,
+          "prediction": 0.6554980807834201,
+          "observed": 0.4444444444444444
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 44.0,
+          "prediction": 0.757823339917443,
+          "observed": 0.7954545454545454
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 50.0,
+          "prediction": 0.8449642813205719,
+          "observed": 0.9
+        }
+      ]
+    },
+    "157": {
+      "learners": 61,
+      "concept_group_targets": 192,
+      "label_weight": 674.0,
+      "mae": 0.2783261391635465,
+      "rmse": 0.3254678170343802,
+      "log_loss": 0.6233627840886525,
+      "brier": 0.21627796425981527,
+      "mae_note": 0.42715153402855843,
+      "roc_auc": 0.615621520405109,
+      "pr_auc": 0.7311853750134739,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 120.0,
+          "prediction": 0.5700961902737618,
+          "observed": 0.5416666693985462
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 230.0,
+          "prediction": 0.6548670465531556,
+          "observed": 0.6086956533400909
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 300.0,
+          "prediction": 0.7413147242863973,
+          "observed": 0.7566666681567827
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 24.0,
+          "prediction": 0.8115907038251559,
+          "observed": 0.6250000062088171
+        }
+      ]
+    },
+    "158": {
+      "learners": 37,
+      "concept_group_targets": 65,
+      "label_weight": 162.0,
+      "mae": 0.2899031284046762,
+      "rmse": 0.35935705004175905,
+      "log_loss": 0.6166574148845406,
+      "brier": 0.2114420142627152,
+      "mae_note": 0.38151620488025073,
+      "roc_auc": 0.6546650542731576,
+      "pr_auc": 0.7805943292961763,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 26.0,
+          "prediction": 0.5625321452434247,
+          "observed": 0.4230769311006253
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 35.0,
+          "prediction": 0.6514756117548262,
+          "observed": 0.6571428614003317
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 19.0,
+          "prediction": 0.7423180216237119,
+          "observed": 0.5263157926107708
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 76.0,
+          "prediction": 0.8579051220103314,
+          "observed": 0.7894736924453786
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 6.0,
+          "prediction": 0.921168863773346,
+          "observed": 0.8333333432674408
+        }
+      ]
+    },
+    "159": {
+      "learners": 35,
+      "concept_group_targets": 77,
+      "label_weight": 221.0,
+      "mae": 0.24686562812705926,
+      "rmse": 0.2927725647516442,
+      "log_loss": 0.5854924515016473,
+      "brier": 0.19883794661695697,
+      "mae_note": 0.40139952086215647,
+      "roc_auc": 0.6482122260668974,
+      "pr_auc": 0.7685157986242724,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 11.0,
+          "prediction": 0.4929639995098114,
+          "observed": 0.36363636363636365
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 58.0,
+          "prediction": 0.5557215912588711,
+          "observed": 0.5862068965517241
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 36.0,
+          "prediction": 0.6437236567338308,
+          "observed": 0.6388888888888888
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 72.0,
+          "prediction": 0.7602328012386957,
+          "observed": 0.7777777777777778
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 44.0,
+          "prediction": 0.8217060782692649,
+          "observed": 0.8181818181818182
+        }
+      ]
+    },
+    "160": {
+      "learners": 35,
+      "concept_group_targets": 77,
+      "label_weight": 125.0,
+      "mae": 0.36009399938583375,
+      "rmse": 0.39942165497801374,
+      "log_loss": 0.6213416468264813,
+      "brier": 0.21553765846537548,
+      "mae_note": 0.4306262059211731,
+      "roc_auc": 0.6301758366420873,
+      "pr_auc": 0.7281750268208905,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 8.0,
+          "prediction": 0.4936870336532593,
+          "observed": 0.75
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 33.0,
+          "prediction": 0.5524282599940444,
+          "observed": 0.45454545454545453
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 32.0,
+          "prediction": 0.6480084229260683,
+          "observed": 0.59375
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 48.0,
+          "prediction": 0.7522114117940267,
+          "observed": 0.8333333333333334
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 4.0,
+          "prediction": 0.8245353102684021,
+          "observed": 0.5
+        }
+      ]
+    },
+    "161": {
+      "learners": 29,
+      "concept_group_targets": 48,
+      "label_weight": 144.0,
+      "mae": 0.25828067027032375,
+      "rmse": 0.3178221456817968,
+      "log_loss": 0.487418889896071,
+      "brier": 0.1611961002981898,
+      "mae_note": 0.3335957541526938,
+      "roc_auc": 0.8201923101984472,
+      "pr_auc": 0.9187249814760082,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 24.0,
+          "prediction": 0.5664037764072418,
+          "observed": 0.2916666716337204
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 36.0,
+          "prediction": 0.6506735334793726,
+          "observed": 0.6388888930281004
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 15.0,
+          "prediction": 0.7642370343208313,
+          "observed": 0.600000011920929
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 63.0,
+          "prediction": 0.857302671387082,
+          "observed": 0.9365079402923584
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 6.0,
+          "prediction": 0.9204491078853607,
+          "observed": 1.0
+        }
+      ]
+    },
+    "164": {
+      "learners": 51,
+      "concept_group_targets": 136,
+      "label_weight": 151.0,
+      "mae": 0.36684630978975863,
+      "rmse": 0.40626544638549683,
+      "log_loss": 0.528765271887431,
+      "brier": 0.1749853877612441,
+      "mae_note": 0.37760520080067467,
+      "roc_auc": 0.7690101954120646,
+      "pr_auc": 0.8754988449833058,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 5.0,
+          "prediction": 0.49495401978492737,
+          "observed": 0.2
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 39.0,
+          "prediction": 0.5419915043390714,
+          "observed": 0.48717948717948717
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 36.0,
+          "prediction": 0.6530691799190309,
+          "observed": 0.6944444444444444
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 42.0,
+          "prediction": 0.7566896776358286,
+          "observed": 0.8809523809523809
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 29.0,
+          "prediction": 0.8400737478815276,
+          "observed": 0.8620689655172413
+        }
+      ]
+    },
+    "165": {
+      "learners": 43,
+      "concept_group_targets": 100,
+      "label_weight": 100.0,
+      "mae": 0.3762720954418182,
+      "rmse": 0.4296933260273764,
+      "log_loss": 0.5530278609569836,
+      "brier": 0.18463635443246923,
+      "mae_note": 0.3762720954418182,
+      "roc_auc": 0.6005333333333334,
+      "pr_auc": 0.8185669848491746,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 22.0,
+          "prediction": 0.5506040887399153,
+          "observed": 0.6818181818181818
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 17.0,
+          "prediction": 0.6353122942587909,
+          "observed": 0.5294117647058824
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 31.0,
+          "prediction": 0.7613406200562755,
+          "observed": 0.9032258064516129
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 30.0,
+          "prediction": 0.8313055713971456,
+          "observed": 0.7666666666666667
+        }
+      ]
+    },
+    "166": {
+      "learners": 41,
+      "concept_group_targets": 92,
+      "label_weight": 127.0,
+      "mae": 0.346235539265505,
+      "rmse": 0.3980771091865711,
+      "log_loss": 0.6172496575500331,
+      "brier": 0.21358349509455768,
+      "mae_note": 0.42901409587522193,
+      "roc_auc": 0.6352683461117196,
+      "pr_auc": 0.7543059078310482,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 12.0,
+          "prediction": 0.4881876930594444,
+          "observed": 0.5
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 27.0,
+          "prediction": 0.5530159407191806,
+          "observed": 0.4444444444444444
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 29.0,
+          "prediction": 0.6525416415313194,
+          "observed": 0.7241379310344828
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 58.0,
+          "prediction": 0.7433899928783548,
+          "observed": 0.7413793103448276
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 1.0,
+          "prediction": 0.8604937195777893,
+          "observed": 1.0
+        }
+      ]
+    },
+    "169": {
+      "learners": 38,
+      "concept_group_targets": 110,
+      "label_weight": 111.0,
+      "mae": 0.44111432953997776,
+      "rmse": 0.46200703935846127,
+      "log_loss": 0.6155059543991929,
+      "brier": 0.2134505044167708,
+      "mae_note": 0.44111432953997776,
+      "roc_auc": 0.7817725752508361,
+      "pr_auc": 0.8198761072324694,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 54.0,
+          "prediction": 0.547133657667372,
+          "observed": 0.37037037037037035
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 29.0,
+          "prediction": 0.6533021392493412,
+          "observed": 0.7241379310344828
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 28.0,
+          "prediction": 0.7389813512563705,
+          "observed": 0.8571428571428571
+        }
+      ]
+    },
+    "181": {
+      "learners": 40,
+      "concept_group_targets": 86,
+      "label_weight": 132.0,
+      "mae": 0.3193343353993965,
+      "rmse": 0.38148341296226507,
+      "log_loss": 0.5979141700126722,
+      "brier": 0.20613565451984828,
+      "mae_note": 0.40808779283543234,
+      "roc_auc": 0.7457837284458939,
+      "pr_auc": 0.8210318220878701,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 28.0,
+          "prediction": 0.5492143418107714,
+          "observed": 0.3214285767504147
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 33.0,
+          "prediction": 0.6699069900946184,
+          "observed": 0.6060606132854115
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 58.0,
+          "prediction": 0.7547802935386526,
+          "observed": 0.7586206922243381
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 13.0,
+          "prediction": 0.8341941145750192,
+          "observed": 0.8461538461538461
+        }
+      ]
+    },
+    "186": {
+      "learners": 44,
+      "concept_group_targets": 113,
+      "label_weight": 165.0,
+      "mae": 0.34061387343840166,
+      "rmse": 0.3888232385683765,
+      "log_loss": 0.57632078524,
+      "brier": 0.19461785380349034,
+      "mae_note": 0.39788289934268206,
+      "roc_auc": 0.674000001394023,
+      "pr_auc": 0.7994355911235925,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 50.0,
+          "prediction": 0.5412206256389618,
+          "observed": 0.5400000035762786
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 35.0,
+          "prediction": 0.6494478055409023,
+          "observed": 0.6285714302744184
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 49.0,
+          "prediction": 0.7475809977979077,
+          "observed": 0.8571428583592785
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 31.0,
+          "prediction": 0.8470452562455209,
+          "observed": 0.7741935541552882
+        }
+      ]
+    },
+    "193": {
+      "learners": 35,
+      "concept_group_targets": 86,
+      "label_weight": 158.0,
+      "mae": 0.22179961845844606,
+      "rmse": 0.2978874707303444,
+      "log_loss": 0.4347184618185831,
+      "brier": 0.1377875781295142,
+      "mae_note": 0.2735328059407729,
+      "roc_auc": 0.7246093749999999,
+      "pr_auc": 0.9159880105619952,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 20.0,
+          "prediction": 0.5417586386203765,
+          "observed": 0.65
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 22.0,
+          "prediction": 0.6304415220564062,
+          "observed": 0.5454545454545454
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 16.0,
+          "prediction": 0.7539076581597328,
+          "observed": 0.75
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 40.0,
+          "prediction": 0.8511295273900032,
+          "observed": 0.925
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 60.0,
+          "prediction": 0.9392337928215663,
+          "observed": 0.9
+        }
+      ]
+    },
+    "206": {
+      "learners": 32,
+      "concept_group_targets": 67,
+      "label_weight": 113.0,
+      "mae": 0.28333709698862736,
+      "rmse": 0.3620527539402359,
+      "log_loss": 0.5502272879878748,
+      "brier": 0.18417954071350282,
+      "mae_note": 0.34383507839091726,
+      "roc_auc": 0.7021604937983449,
+      "pr_auc": 0.8562427439215472,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 8.0,
+          "prediction": 0.49660901352763176,
+          "observed": 0.2500000074505806
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 19.0,
+          "prediction": 0.5426365074358488,
+          "observed": 0.5789473731266824
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 7.0,
+          "prediction": 0.653484216758183,
+          "observed": 0.7142857142857143
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 21.0,
+          "prediction": 0.7677276134490967,
+          "observed": 0.8095238152004424
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 35.0,
+          "prediction": 0.8562837413379124,
+          "observed": 0.7142857202461788
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 23.0,
+          "prediction": 0.9166608686032502,
+          "observed": 0.9130434782608695
+        }
+      ]
+    },
+    "212": {
+      "learners": 42,
+      "concept_group_targets": 143,
+      "label_weight": 218.0,
+      "mae": 0.344190937663437,
+      "rmse": 0.39667160551768066,
+      "log_loss": 0.6045061594042109,
+      "brier": 0.20704255204414368,
+      "mae_note": 0.4005547231467782,
+      "roc_auc": 0.6247933099185145,
+      "pr_auc": 0.7641492065795814,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 6.0,
+          "prediction": 0.48814307649930316,
+          "observed": 0.3333333333333333
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 38.0,
+          "prediction": 0.5438021688084853,
+          "observed": 0.5263157902579558
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 47.0,
+          "prediction": 0.6618442053490496,
+          "observed": 0.6382978761449773
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 71.0,
+          "prediction": 0.7448652143209753,
+          "observed": 0.7464788757579427
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 53.0,
+          "prediction": 0.8388702307107314,
+          "observed": 0.7735849095965331
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 3.0,
+          "prediction": 0.9092240333557129,
+          "observed": 1.0
+        }
+      ]
+    },
+    "222": {
+      "learners": 35,
+      "concept_group_targets": 125,
+      "label_weight": 158.0,
+      "mae": 0.39186815332762803,
+      "rmse": 0.43945495300810555,
+      "log_loss": 0.6651546964270055,
+      "brier": 0.23425989622968527,
+      "mae_note": 0.43877981546558914,
+      "roc_auc": 0.544293903074518,
+      "pr_auc": 0.6798787933669364,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 30.0,
+          "prediction": 0.5664918541908264,
+          "observed": 0.5333333333333333
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 47.0,
+          "prediction": 0.649575338718739,
+          "observed": 0.6595744680851063
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 61.0,
+          "prediction": 0.7496215417736867,
+          "observed": 0.6557377049180327
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 20.0,
+          "prediction": 0.8246269941329956,
+          "observed": 0.7
+        }
+      ]
+    },
+    "224": {
+      "learners": 28,
+      "concept_group_targets": 79,
+      "label_weight": 148.0,
+      "mae": 0.2121118355441738,
+      "rmse": 0.29516254532509567,
+      "log_loss": 0.49573176476913666,
+      "brier": 0.16313444167630267,
+      "mae_note": 0.3305513141928492,
+      "roc_auc": 0.7498803827751196,
+      "pr_auc": 0.8826939813397214,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 30.0,
+          "prediction": 0.5345563491185507,
+          "observed": 0.4666666666666667
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 13.0,
+          "prediction": 0.6486771794465872,
+          "observed": 0.6923076923076923
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 35.0,
+          "prediction": 0.7603923627308437,
+          "observed": 0.6857142857142857
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 66.0,
+          "prediction": 0.8640975961179445,
+          "observed": 0.9090909090909091
+        },
+        {
+          "lower": 0.9,
+          "label_weight": 4.0,
+          "prediction": 0.9121970236301422,
+          "observed": 0.75
+        }
+      ]
+    },
+    "225": {
+      "learners": 42,
+      "concept_group_targets": 149,
+      "label_weight": 190.0,
+      "mae": 0.371701255440712,
+      "rmse": 0.43433835671405757,
+      "log_loss": 0.6481300058414718,
+      "brier": 0.22636910688152964,
+      "mae_note": 0.42327410666778603,
+      "roc_auc": 0.5602058529851336,
+      "pr_auc": 0.7071121982257067,
+      "calibration": [
+        {
+          "lower": 0.5,
+          "label_weight": 39.0,
+          "prediction": 0.555821683162298,
+          "observed": 0.5897435897435898
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 38.0,
+          "prediction": 0.6531960226987538,
+          "observed": 0.6578947368421053
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 72.0,
+          "prediction": 0.7502634459071689,
+          "observed": 0.6388888893028101
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 41.0,
+          "prediction": 0.8291671508696021,
+          "observed": 0.7804878048780488
+        }
+      ]
+    },
+    "238": {
+      "learners": 31,
+      "concept_group_targets": 77,
+      "label_weight": 294.0,
+      "mae": 0.25215676442092777,
+      "rmse": 0.30400725080909735,
+      "log_loss": 0.6410194210802964,
+      "brier": 0.22348616690107215,
+      "mae_note": 0.4276511060517583,
+      "roc_auc": 0.6264187559358877,
+      "pr_auc": 0.715133184283973,
+      "calibration": [
+        {
+          "lower": 0.4,
+          "label_weight": 12.0,
+          "prediction": 0.4936341494321823,
+          "observed": 0.5833333507180214
+        },
+        {
+          "lower": 0.5,
+          "label_weight": 73.0,
+          "prediction": 0.5365631515032625,
+          "observed": 0.45205480227731676
+        },
+        {
+          "lower": 0.6,
+          "label_weight": 67.0,
+          "prediction": 0.6578640501890609,
+          "observed": 0.5820895644711025
+        },
+        {
+          "lower": 0.7,
+          "label_weight": 88.0,
+          "prediction": 0.7479655810377814,
+          "observed": 0.8068181848661466
+        },
+        {
+          "lower": 0.8,
+          "label_weight": 54.0,
+          "prediction": 0.8359433324248703,
+          "observed": 0.666666673289405
+        }
+      ]
+    }
+  },
+  "group_fraction_absolute_error_quantiles": {
+    "0.5": 0.23270389437675476,
+    "0.9": 0.6239891052246094,
+    "0.95": 0.742690920829773
+  },
+  "weighting": "note-count weighted binary loss/AUC/Brier; aggregated-fraction MAE separately",
+  "limitations": [
+    "history length is not a validated expertise measure",
+    "subgroup comparisons are descriptive, not causal",
+    "unseen exercise slice uses UNK in offline evaluation; serving abstains"
+  ]
+}

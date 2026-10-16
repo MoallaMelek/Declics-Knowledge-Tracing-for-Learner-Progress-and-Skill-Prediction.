@@ -1,0 +1,205 @@
+{
+  "method": "5 outer learner-grouped folds; 80/20 inner learner training/validation; fixed seed 701",
+  "target": "unchanged AMME scoretype7 next block mean; adjusted melodic similarity, not correctness",
+  "folds": [
+    {
+      "fold": 0,
+      "learners": {
+        "train": 37,
+        "validation": 10,
+        "test": 12
+      },
+      "selected_alpha": 1.0,
+      "validation_mae": 0.19610437353736968,
+      "test": {
+        "concept_group_targets": 30,
+        "label_weight": 30.0,
+        "mae": 0.17854843277710278,
+        "rmse": 0.20850456217424826
+      },
+      "median_absolute_error": 0.1817343352236001,
+      "p90_absolute_error": 0.309770848207037,
+      "test_by_previous_group_count": {
+        "1": {
+          "concept_group_targets": 12,
+          "label_weight": 12.0,
+          "mae": 0.19866103903668716,
+          "rmse": 0.2206998254399788
+        },
+        "2": {
+          "concept_group_targets": 10,
+          "label_weight": 10.0,
+          "mae": 0.14484556732458026,
+          "rmse": 0.19221848488977894
+        },
+        "3": {
+          "concept_group_targets": 8,
+          "label_weight": 8.0,
+          "mae": 0.19050810520337944,
+          "rmse": 0.20923795028035103
+        }
+      }
+    },
+    {
+      "fold": 1,
+      "learners": {
+        "train": 37,
+        "validation": 10,
+        "test": 12
+      },
+      "selected_alpha": 0.01,
+      "validation_mae": 0.18481928826343558,
+      "test": {
+        "concept_group_targets": 32,
+        "label_weight": 32.0,
+        "mae": 0.1473485751611238,
+        "rmse": 0.18740165385841978
+      },
+      "median_absolute_error": 0.11872448961331078,
+      "p90_absolute_error": 0.3522896925809691,
+      "test_by_previous_group_count": {
+        "1": {
+          "concept_group_targets": 12,
+          "label_weight": 12.0,
+          "mae": 0.15963523856622563,
+          "rmse": 0.18318736137058128
+        },
+        "2": {
+          "concept_group_targets": 11,
+          "label_weight": 11.0,
+          "mae": 0.11841086508503867,
+          "rmse": 0.1648985160614136
+        },
+        "3": {
+          "concept_group_targets": 9,
+          "label_weight": 9.0,
+          "mae": 0.16633466960286986,
+          "rmse": 0.21654409784949402
+        }
+      }
+    },
+    {
+      "fold": 2,
+      "learners": {
+        "train": 37,
+        "validation": 10,
+        "test": 12
+      },
+      "selected_alpha": 0.01,
+      "validation_mae": 0.1765131629079468,
+      "test": {
+        "concept_group_targets": 27,
+        "label_weight": 27.0,
+        "mae": 0.14134578731295544,
+        "rmse": 0.17720737455175647
+      },
+      "median_absolute_error": 0.12435771936684376,
+      "p90_absolute_error": 0.28490099725597,
+      "test_by_previous_group_count": {
+        "1": {
+          "concept_group_targets": 12,
+          "label_weight": 12.0,
+          "mae": 0.1574595828076478,
+          "rmse": 0.19781703875392806
+        },
+        "2": {
+          "concept_group_targets": 10,
+          "label_weight": 10.0,
+          "mae": 0.12863413819935626,
+          "rmse": 0.15424628325770198
+        },
+        "3": {
+          "concept_group_targets": 5,
+          "label_weight": 5.0,
+          "mae": 0.12809597635289222,
+          "rmse": 0.16755185360633068
+        }
+      }
+    },
+    {
+      "fold": 3,
+      "learners": {
+        "train": 37,
+        "validation": 10,
+        "test": 12
+      },
+      "selected_alpha": 100.0,
+      "validation_mae": 0.16411429882086112,
+      "test": {
+        "concept_group_targets": 33,
+        "label_weight": 33.0,
+        "mae": 0.19858937471687618,
+        "rmse": 0.23421857266985327
+      },
+      "median_absolute_error": 0.19449319417634103,
+      "p90_absolute_error": 0.3481852996286022,
+      "test_by_previous_group_count": {
+        "1": {
+          "concept_group_targets": 12,
+          "label_weight": 12.0,
+          "mae": 0.20610145315832198,
+          "rmse": 0.24367230419490976
+        },
+        "2": {
+          "concept_group_targets": 11,
+          "label_weight": 11.0,
+          "mae": 0.19713643707939832,
+          "rmse": 0.2354835406498859
+        },
+        "3": {
+          "concept_group_targets": 10,
+          "label_weight": 10.0,
+          "mae": 0.19117311198836692,
+          "rmse": 0.22086951663565058
+        }
+      }
+    },
+    {
+      "fold": 4,
+      "learners": {
+        "train": 38,
+        "validation": 10,
+        "test": 11
+      },
+      "selected_alpha": 1.0,
+      "validation_mae": 0.19250983116852474,
+      "test": {
+        "concept_group_targets": 31,
+        "label_weight": 31.0,
+        "mae": 0.1686070483507367,
+        "rmse": 0.21214810252309826
+      },
+      "median_absolute_error": 0.14661251532216202,
+      "p90_absolute_error": 0.39998691321667373,
+      "test_by_previous_group_count": {
+        "1": {
+          "concept_group_targets": 11,
+          "label_weight": 11.0,
+          "mae": 0.1933731288994692,
+          "rmse": 0.2343085107767995
+        },
+        "2": {
+          "concept_group_targets": 11,
+          "label_weight": 11.0,
+          "mae": 0.1512113521673824,
+          "rmse": 0.19266669220591082
+        },
+        "3": {
+          "concept_group_targets": 9,
+          "label_weight": 9.0,
+          "mae": 0.15959880079305216,
+          "rmse": 0.20628488444128412
+        }
+      }
+    }
+  ],
+  "mean_test_mae": 0.16688784366375897,
+  "sample_sd_test_mae": 0.023335015162751705,
+  "limitations": [
+    "Small sample; fold variation is descriptive.",
+    "Median/p90 errors describe outliers, not a robust-regression treatment.",
+    "Historical group count is reported; not elapsed practice time."
+  ],
+  "status": "research_only",
+  "report_label_correction": "Subgroups are numbers of previous observed groups, not actual block identifiers; values unchanged."
+}

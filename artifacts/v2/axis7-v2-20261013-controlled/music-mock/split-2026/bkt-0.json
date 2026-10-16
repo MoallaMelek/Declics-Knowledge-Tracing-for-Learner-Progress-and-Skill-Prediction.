@@ -1,0 +1,149 @@
+{
+  "name": "bkt",
+  "K": 6,
+  "hidden": 48,
+  "context": 256,
+  "split_seed": 2026,
+  "seed": 0,
+  "domain": "music-mock",
+  "metadata": {
+    "domain": "music-mock",
+    "name": "Atelier musical · simulation",
+    "skills": [
+      "pitch",
+      "rhythm",
+      "timing",
+      "articulation",
+      "fingering",
+      "score_navigation"
+    ],
+    "labels": [
+      "Justesse",
+      "Rythme",
+      "Placement temporel",
+      "Articulation",
+      "Doigté",
+      "Lecture de partition"
+    ],
+    "provenance": "synthetic",
+    "target": "issue binaire simulée",
+    "order_note": "Sessions synthétiques ; taxonomie provisoire, sans graphe de prérequis validé"
+  },
+  "output": "raw_primary",
+  "applicability": "known exercise bundle conditions forecast; omitted exercise uses train-only UNK",
+  "items": {
+    "vocabulary": {
+      "mock-exercise-0": 1,
+      "mock-exercise-1": 2,
+      "mock-exercise-2": 3,
+      "mock-exercise-3": 4,
+      "mock-exercise-4": 5,
+      "mock-exercise-5": 6
+    },
+    "difficulty": {
+      "mock-exercise-5": 0.42296650717703355,
+      "mock-exercise-4": 0.4000989119683481,
+      "mock-exercise-2": 0.4016045304388862,
+      "mock-exercise-1": 0.4228395061728395,
+      "mock-exercise-0": 0.42789148024750123,
+      "mock-exercise-3": 0.4422979156075242
+    },
+    "unknown_difficulty": 0.4193574756805363,
+    "fit_unit": "training learners only; atomic exercise bundle"
+  },
+  "temperature": 0.9981837583165848,
+  "implementation_version": "axis7-science-v2.1",
+  "baseline": {
+    "priors": [
+      0.5784499054820416,
+      0.5808977035490606,
+      0.5931882686849574,
+      0.5658561296859169,
+      0.583416087388282,
+      0.5808440018966334
+    ],
+    "params": [
+      [
+        0.21222693065330597,
+        0.09269028283823275,
+        0.3123300968672806,
+        0.2034547806502394
+      ],
+      [
+        0.22259702081901106,
+        0.09703083764158094,
+        0.3317355026646167,
+        0.21444355404167553
+      ],
+      [
+        0.19909804408089699,
+        0.06839055114641353,
+        0.372800557766875,
+        0.17474001079851764
+      ],
+      [
+        0.14884034159339302,
+        0.07147308559777746,
+        0.37311438579018674,
+        0.19161383414929825
+      ],
+      [
+        0.1003823319515879,
+        0.09936817613295831,
+        0.36268382113327247,
+        0.19319759627545027
+      ],
+      [
+        0.14686565813525662,
+        0.08486691437128178,
+        0.3447742533854768,
+        0.17619064857143835
+      ]
+    ]
+  },
+  "bkt_objective": "shared_latent_group_joint_log_likelihood",
+  "optimization": [
+    {
+      "skill": 0,
+      "success": true,
+      "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "objective": 1306.9194375014845,
+      "starts": 2
+    },
+    {
+      "skill": 1,
+      "success": true,
+      "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "objective": 1207.7739426992264,
+      "starts": 2
+    },
+    {
+      "skill": 2,
+      "success": true,
+      "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "objective": 1314.2232323531748,
+      "starts": 2
+    },
+    {
+      "skill": 3,
+      "success": true,
+      "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "objective": 1256.4923742398835,
+      "starts": 2
+    },
+    {
+      "skill": 4,
+      "success": true,
+      "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "objective": 1258.9753186949492,
+      "starts": 2
+    },
+    {
+      "skill": 5,
+      "success": true,
+      "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "objective": 1301.4814098651195,
+      "starts": 2
+    }
+  ]
+}

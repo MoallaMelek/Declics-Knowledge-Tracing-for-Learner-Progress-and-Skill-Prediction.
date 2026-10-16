@@ -1,0 +1,47 @@
+{
+  "source": "yousician",
+  "seed": 17,
+  "splits": {
+    "train": {
+      "count": 699,
+      "sha256": "520a953733b843925ba30ac32954af17c5177109939d05bdcda71df70dfe66f6"
+    },
+    "validation": {
+      "count": 150,
+      "sha256": "62187ac332a4f7101d2223e4d1ef8185e22a9db8787bb0a78bce54e4bb7a9e9e"
+    },
+    "test": {
+      "count": 150,
+      "sha256": "65e698a0f870b8a813145c8ba0f0c6f51c100dfec3a664d6239bf9f240a9140d"
+    }
+  },
+  "protocol": "PFA logistic C [.01,1,100]; boosted trees leaves [7,15], 100 iterations, lr .05, l2=1; all choices validation only",
+  "dataset_sha256": "9e4b6fe3d11381de02d197fe6dbd84676d6e48e25d9d0d364bb43d0a400dc52e",
+  "scope": "research controls only, no deployed classical ML",
+  "models": {
+    "boosted_trees": {
+      "selected_parameter": "7",
+      "validation_candidates": {
+        "7": {
+          "concept_group_targets": 1746,
+          "label_weight": 1746.0,
+          "mae": 0.09711966983286706,
+          "rmse": 0.14757479360358233
+        },
+        "15": {
+          "concept_group_targets": 1746,
+          "label_weight": 1746.0,
+          "mae": 0.0972358360638846,
+          "rmse": 0.14797577254911073
+        }
+      },
+      "test": {
+        "concept_group_targets": 1704,
+        "label_weight": 1704.0,
+        "mae": 0.08755189812062496,
+        "rmse": 0.1267564182302658
+      }
+    }
+  },
+  "selected_strong_control": "boosted_trees"
+}

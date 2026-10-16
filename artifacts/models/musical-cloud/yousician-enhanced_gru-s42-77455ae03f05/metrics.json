@@ -1,0 +1,83 @@
+{
+  "version": "musical-cloud-v1",
+  "source": "yousician",
+  "sha256": "9e4b6fe3d11381de02d197fe6dbd84676d6e48e25d9d0d364bb43d0a400dc52e",
+  "seed": 42,
+  "model": "enhanced_gru",
+  "hidden": 48,
+  "context": 64,
+  "K": 1,
+  "items": {},
+  "batch_size": 16,
+  "protocol": "learner_disjoint_70_15_15",
+  "splits": {
+    "train": {
+      "count": 699,
+      "sha256": "871c03733ae388058cd5b1e77ecef06d57f49b594726b6bc7fb2fd38bb0b7ed0"
+    },
+    "validation": {
+      "count": 150,
+      "sha256": "c5cdcb53be06705ba92654668186211a1e8fbe93c7bb10d83bdbfe30f4c45c90"
+    },
+    "test": {
+      "count": 150,
+      "sha256": "bae48dfccf98a21d6cdb472ca052159b383f58a24ed67d20828e293e682d7fe1"
+    }
+  },
+  "instrument": "ukulele",
+  "target": "next_active_day_success_fraction",
+  "citation": "Yousician Open Data, https://yousician.com/open-data",
+  "binary": false,
+  "device": "cuda",
+  "epochs_completed": 12,
+  "audit": {
+    "raw_rows": 415461,
+    "exact_duplicates_excluded": 478,
+    "practice_rows_excluded": 31275,
+    "conflicting_groups_excluded": 23955,
+    "zero_evaluation_groups_excluded": 0,
+    "unit": "next active signup day",
+    "part_policy": "global counters counted once per tied exercise/session/time group",
+    "target_weighting": "each active day equally weighted; evaluated counters within day",
+    "limitation": "no unique attempt ID; ambiguous repeated counters excluded, not guessed"
+  },
+  "validation": {
+    "observed_targets": 1709,
+    "label_weight": 1709.0,
+    "mae": 0.0955381028794489,
+    "rmse": 0.14414753100358701
+  },
+  "test": {
+    "observed_targets": 1740,
+    "label_weight": 1740.0,
+    "mae": 0.09054359257884922,
+    "rmse": 0.1340941025817425
+  },
+  "constant_train_mean_reference": {
+    "mean": 0.8113695230205038,
+    "validation": {
+      "observed_targets": 1709,
+      "label_weight": 1709.0,
+      "mae": 0.11252511864206195,
+      "rmse": 0.16126356771399747
+    },
+    "test": {
+      "observed_targets": 1740,
+      "label_weight": 1740.0,
+      "mae": 0.10920679224191496,
+      "rmse": 0.1542987617219753
+    }
+  },
+  "validation_gate": {
+    "accepted": true,
+    "rule": "validation improves train-only mean; >=30 validation/test targets",
+    "scope": "source benchmark only; not validation for DEClic piano practice"
+  },
+  "limitations": [
+    "Learner-disjoint benchmark, not a randomized educational experiment.",
+    "No generic mastery interpretation or cross-instrument validation.",
+    "Windowed recurrent memory; counts retain the strictly earlier full prefix.",
+    "Single fixed split/seed; estimates have no confidence interval."
+  ],
+  "model_sha256": "77455ae03f05c2a2840838aa8194ca570a94c1693b335322387fa04e2eb83714"
+}

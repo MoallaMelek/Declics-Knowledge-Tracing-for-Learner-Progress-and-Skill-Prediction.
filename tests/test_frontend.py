@@ -14,16 +14,19 @@ def test_ingest_and_reset_keep_selector_and_state_consistent(tmp_path, monkeypat
     monkeypatch.setattr(server, 'DB', tmp_path / 'events.sqlite')
     client = TestClient(server.app)
     fixtures = {'learners0': client.get('/api/learners?domain=music-mock').json()}
+    fixtures['experiments'] = client.get('/api/experiments?domain=forget-se').json()
     first = fixtures['learners0']['learners'][0]['id']
     fixtures['twin0'] = client.get(f'/api/twin/{first}?domain=music-mock').json()
     fixtures['ingest'] = client.post('/api/attempts', json=EVENT).json()
+    fixtures['ingestWeakest'] = dict(fixtures['ingest'],twin=client.get('/api/twin/ui-new-learner?policy=weakest').json())
     fixtures['learners1'] = client.get('/api/learners?domain=music-mock').json()
     fixtures['reset'] = client.post('/api/reset/ui-new-learner').json()
     fixtures['learners2'] = client.get('/api/learners?domain=music-mock').json()
     fixture_path = tmp_path / 'fixtures.json'
     fixture_path.write_text(json.dumps(fixtures, ensure_ascii=False), encoding='utf-8')
-    run = subprocess.run(['node', str(ROOT / 'tests/frontend/ui_check.js'), str(ROOT / 'web/app.js'), str(fixture_path)],
+    run = subprocess.run(['node', str(ROOT / 'tests/frontend/ui_check.js'), str(ROOT / 'web/app.js'), str(fixture_path),str(ROOT / 'web/research.html')],
                          capture_output=True, text=True, encoding='utf-8', timeout=120)
     print(run.stdout)
     assert run.returncode == 0, run.stdout + run.stderr
-    assert '9/9 checks passed' in run.stdout
+    assert '19/19 checks passed' in run.stdout
+

@@ -1,0 +1,79 @@
+{
+  "schema_version": "3.0",
+  "attempt_id": "team-mock-v3:atomic-multi-producer",
+  "student_id": "team-demo-v3",
+  "session_id": "mock-v3-session",
+  "exercise_id": "mock-v3-exercise",
+  "instrument": "piano-provisional",
+  "timestamp": "2026-06-01T00:05:00Z",
+  "provenance": "synthetic",
+  "rubric_version": "provisional-mock-v1",
+  "observations": [
+    {
+      "skill_id": "pitch",
+      "producer_axis": 1,
+      "producer_version": "mock-omr-pitch-v1",
+      "objective_id": "O01",
+      "assessment_kind": "direct",
+      "outcome": 1,
+      "source_confidence": 1.0,
+      "missing": false,
+      "reference_compared": true
+    },
+    {
+      "skill_id": "rhythm",
+      "producer_axis": 2,
+      "producer_version": "mock-timing-v1",
+      "objective_id": "O02",
+      "assessment_kind": "direct",
+      "outcome": 0,
+      "source_confidence": 0.9,
+      "missing": false,
+      "error_types": ["late_onset"]
+    },
+    {
+      "skill_id": "omr_metadata",
+      "producer_axis": 3,
+      "producer_version": "mock-omr-align-v1",
+      "objective_id": "O04",
+      "assessment_kind": "context",
+      "score": 0.95,
+      "source_confidence": 1.0,
+      "missing": false
+    },
+    {
+      "skill_id": "corrective_feedback",
+      "producer_axis": 4,
+      "producer_version": "mock-quality-v1",
+      "objective_id": "O08",
+      "assessment_kind": "context",
+      "missing": true
+    },
+    {
+      "skill_id": "fingering",
+      "producer_axis": 5,
+      "producer_version": "mock-technique-v1",
+      "objective_id": "O05",
+      "assessment_kind": "inferred",
+      "outcome": 1,
+      "source_confidence": 0.8,
+      "missing": false
+    },
+    {
+      "skill_id": "posture_context",
+      "producer_axis": 5,
+      "producer_version": "mock-technique-v1",
+      "objective_id": "O06",
+      "assessment_kind": "context",
+      "missing": true
+    },
+    {
+      "skill_id": "instrument_context",
+      "producer_axis": 6,
+      "producer_version": "mock-instrument-v1",
+      "objective_id": "O10",
+      "assessment_kind": "context",
+      "missing": true
+    }
+  ]
+}

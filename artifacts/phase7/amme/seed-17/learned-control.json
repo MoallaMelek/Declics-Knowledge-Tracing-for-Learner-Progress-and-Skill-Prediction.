@@ -1,0 +1,59 @@
+{
+  "kind": "ridge",
+  "seed": 17,
+  "selection": "validation_mae",
+  "selected_regularization": "100.0",
+  "validation_candidates": {
+    "0.01": {
+      "concept_group_targets": 23,
+      "label_weight": 23.0,
+      "mae": 0.19523409005078565,
+      "rmse": 0.2303331399618313
+    },
+    "1.0": {
+      "concept_group_targets": 23,
+      "label_weight": 23.0,
+      "mae": 0.1918383700134014,
+      "rmse": 0.22639015966576495
+    },
+    "100.0": {
+      "concept_group_targets": 23,
+      "label_weight": 23.0,
+      "mae": 0.18626719152482105,
+      "rmse": 0.21945987282147875
+    }
+  },
+  "test": {
+    "concept_group_targets": 24,
+    "label_weight": 24.0,
+    "mae": 0.17618688350601217,
+    "rmse": 0.21214781689516965
+  },
+  "features": [
+    "concept_ordinal",
+    "train_concept_prior",
+    "past_log_successes",
+    "past_log_failures",
+    "smoothed_past_fraction",
+    "previous_score",
+    "rolling3",
+    "past_groups",
+    "past_gap"
+  ],
+  "limitation": "Ordinal concept ID is a simple control, not a validated musical geometry.",
+  "scope": "research only; not deployed",
+  "splits": {
+    "train": {
+      "count": 41,
+      "sha256": "25b529717eb47f6f59f9070269c8202d001441f1b24e1e5baf8b3e04d30bab5a"
+    },
+    "validation": {
+      "count": 9,
+      "sha256": "862cd1dc256b2ac5df6fb00082512c3e3da74c26950f442cbd75d892e755ab49"
+    },
+    "test": {
+      "count": 9,
+      "sha256": "6e609a879a3f958fe932a6ba43e4cb7c6cdc17e00437667c5ac2e5c0b7762163"
+    }
+  }
+}

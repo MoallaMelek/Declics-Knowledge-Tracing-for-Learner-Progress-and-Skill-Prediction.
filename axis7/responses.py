@@ -1,0 +1,22 @@
+"""Stable public forecast envelope; probabilities concern binary performance only."""
+from typing import Literal
+from pydantic import BaseModel,ConfigDict
+from .schema import UnitFloat
+
+class ForecastV2(BaseModel):
+    model_config=ConfigDict(extra='forbid')
+    response_version:Literal['2.0']='2.0'
+    student_id:str
+    domain:Literal['music-mock','forget-se']
+    model_id:str
+    implementation_version:str
+    training_implementation_version:str
+    model_profile:Literal['provisional-piano-v1','forget-se-full-credit-v1']
+    exercise_id:str|None
+    conditioning:Literal['exercise','generic_skill']
+    item_supported:bool|None
+    training_provenance:Literal['synthetic','public_software_engineering']
+    evaluated_scope:Literal['observed_skill_given_attempted_exercise','skill_only_forecast']
+    query_validity:Literal['generic_unknown_item_extrapolation','exercise_skill_applicability_not_validated','skill_only_forecast']
+    probabilities:dict[str,UnitFloat]
+    warning:str

@@ -1,0 +1,1249 @@
+{
+  "experiment_id": "axis7-v2-20261013-controlled",
+  "config": {
+    "status": "exploratory_posthoc",
+    "estimator": "L2 logistic C1 max_iter2000",
+    "features": [
+      "skill",
+      "target_KC_log_success_failure_counts",
+      "all_KC_log_success_failure_counts",
+      "known_atomic_item_onehot",
+      "train_only_item_difficulty",
+      "log_sequence_position",
+      "smoothed_global_success_fraction",
+      "smoothed_target_KC_success_fraction"
+    ],
+    "selection": "no tuning; compare to existing validation-selected neural; never replace mainstudy selections",
+    "retraining": "no neural retraining",
+    "threads": 2,
+    "bootstrap_replicates": 300
+  },
+  "results": [
+    {
+      "domain": "forget-se",
+      "split_seed": 2026,
+      "status": "exploratory_posthoc",
+      "metrics": {
+        "validation": {
+          "n": 917,
+          "positive_rate": 0.5419847328244275,
+          "auc": 0.7495472837022134,
+          "pr_auc": 0.7822136109713023,
+          "log_loss": 0.5836692314914427,
+          "brier": 0.20129624775069732,
+          "accuracy": 0.6837513631406761,
+          "f1": 0.7243346007604563,
+          "ece_10": 0.029848306400080883,
+          "confusion_matrix": [
+            [
+              246,
+              174
+            ],
+            [
+              116,
+              381
+            ]
+          ],
+          "calibration": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 20,
+              "mean_probability": 0.033051898244434795,
+              "observed_frequency": 0.05
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 30,
+              "mean_probability": 0.15484059004346717,
+              "observed_frequency": 0.13333333333333333
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 79,
+              "mean_probability": 0.2553198546621416,
+              "observed_frequency": 0.24050632911392406
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 101,
+              "mean_probability": 0.3460856386870509,
+              "observed_frequency": 0.38613861386138615
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 132,
+              "mean_probability": 0.45279428523174936,
+              "observed_frequency": 0.4015151515151515
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 150,
+              "mean_probability": 0.550800487511677,
+              "observed_frequency": 0.56
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 131,
+              "mean_probability": 0.6561477603230688,
+              "observed_frequency": 0.6183206106870229
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 153,
+              "mean_probability": 0.7444767146863781,
+              "observed_frequency": 0.7124183006535948
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 77,
+              "mean_probability": 0.8505879489455541,
+              "observed_frequency": 0.8311688311688312
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 44,
+              "mean_probability": 0.9393918254646156,
+              "observed_frequency": 0.9772727272727273
+            }
+          ]
+        },
+        "test": {
+          "n": 1683,
+          "positive_rate": 0.6108140225787284,
+          "auc": 0.7562694923812636,
+          "pr_auc": 0.8248581905704218,
+          "log_loss": 0.5631301495372842,
+          "brier": 0.19238952001499016,
+          "accuracy": 0.7082590612002376,
+          "f1": 0.7689411764705882,
+          "ece_10": 0.030912284998360923,
+          "confusion_matrix": [
+            [
+              375,
+              280
+            ],
+            [
+              211,
+              817
+            ]
+          ],
+          "calibration": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 31,
+              "mean_probability": 0.024835416318680255,
+              "observed_frequency": 0.0
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 45,
+              "mean_probability": 0.16802176747831324,
+              "observed_frequency": 0.2
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 123,
+              "mean_probability": 0.25550843750136837,
+              "observed_frequency": 0.3170731707317073
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 168,
+              "mean_probability": 0.35357059849368094,
+              "observed_frequency": 0.4107142857142857
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 219,
+              "mean_probability": 0.45617819011678734,
+              "observed_frequency": 0.4292237442922374
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 222,
+              "mean_probability": 0.5511568314757612,
+              "observed_frequency": 0.6081081081081081
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 269,
+              "mean_probability": 0.6490724912665564,
+              "observed_frequency": 0.6579925650557621
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 288,
+              "mean_probability": 0.7439273641517574,
+              "observed_frequency": 0.7638888888888888
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 206,
+              "mean_probability": 0.8462925061857259,
+              "observed_frequency": 0.8737864077669902
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 112,
+              "mean_probability": 0.9349510187928117,
+              "observed_frequency": 0.9375
+            }
+          ]
+        }
+      },
+      "selected_neural": "enhanced_gru-7",
+      "selected_neural_auc": 0.7643983722933436,
+      "selected_neural_log_loss": 0.5575858188011802,
+      "selected_neural_minus_global_control_log_loss_95": [
+        -0.016768378046355725,
+        0.005144704731955118
+      ],
+      "seconds": 12.024892200017348,
+      "features": 116
+    },
+    {
+      "domain": "forget-se",
+      "split_seed": 2027,
+      "status": "exploratory_posthoc",
+      "metrics": {
+        "validation": {
+          "n": 800,
+          "positive_rate": 0.60875,
+          "auc": 0.786854380014564,
+          "pr_auc": 0.84363481295848,
+          "log_loss": 0.5474517549975073,
+          "brier": 0.1836315451488383,
+          "accuracy": 0.7275,
+          "f1": 0.781563126252505,
+          "ece_10": 0.03776775349206338,
+          "confusion_matrix": [
+            [
+              192,
+              121
+            ],
+            [
+              97,
+              390
+            ]
+          ],
+          "calibration": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 16,
+              "mean_probability": 0.030362845907317786,
+              "observed_frequency": 0.0625
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 30,
+              "mean_probability": 0.16478889475176367,
+              "observed_frequency": 0.26666666666666666
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 60,
+              "mean_probability": 0.2513290842804974,
+              "observed_frequency": 0.23333333333333334
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 90,
+              "mean_probability": 0.3515050694839881,
+              "observed_frequency": 0.35555555555555557
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 93,
+              "mean_probability": 0.4523921859146276,
+              "observed_frequency": 0.45161290322580644
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 120,
+              "mean_probability": 0.5538469565053035,
+              "observed_frequency": 0.5583333333333333
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 114,
+              "mean_probability": 0.6517396996910693,
+              "observed_frequency": 0.7017543859649122
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 120,
+              "mean_probability": 0.7423213720846537,
+              "observed_frequency": 0.825
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 108,
+              "mean_probability": 0.8414372735585212,
+              "observed_frequency": 0.9166666666666666
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 49,
+              "mean_probability": 0.935523751373193,
+              "observed_frequency": 0.9183673469387755
+            }
+          ]
+        },
+        "test": {
+          "n": 1449,
+          "positive_rate": 0.5217391304347826,
+          "auc": 0.7612338425830489,
+          "pr_auc": 0.7872897625629988,
+          "log_loss": 0.5748750505410096,
+          "brier": 0.1977043398370342,
+          "accuracy": 0.6949620427881298,
+          "f1": 0.7080581241743725,
+          "ece_10": 0.023298297487237617,
+          "confusion_matrix": [
+            [
+              471,
+              222
+            ],
+            [
+              220,
+              536
+            ]
+          ],
+          "calibration": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 36,
+              "mean_probability": 0.032216680807413106,
+              "observed_frequency": 0.027777777777777776
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 81,
+              "mean_probability": 0.15844259887169415,
+              "observed_frequency": 0.18518518518518517
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 145,
+              "mean_probability": 0.25054374527565265,
+              "observed_frequency": 0.2620689655172414
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 203,
+              "mean_probability": 0.34581587461790353,
+              "observed_frequency": 0.3694581280788177
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 226,
+              "mean_probability": 0.4500416040266872,
+              "observed_frequency": 0.4026548672566372
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 224,
+              "mean_probability": 0.5485912747708872,
+              "observed_frequency": 0.5580357142857143
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 190,
+              "mean_probability": 0.6473201293814068,
+              "observed_frequency": 0.6473684210526316
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 177,
+              "mean_probability": 0.7388990828249726,
+              "observed_frequency": 0.7570621468926554
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 126,
+              "mean_probability": 0.8488139081104409,
+              "observed_frequency": 0.8968253968253969
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 41,
+              "mean_probability": 0.9301388689267772,
+              "observed_frequency": 1.0
+            }
+          ]
+        }
+      },
+      "selected_neural": "enhanced_gru-19",
+      "selected_neural_auc": 0.7656678271757635,
+      "selected_neural_log_loss": 0.5715640862811492,
+      "selected_neural_minus_global_control_log_loss_95": [
+        -0.0119600116380717,
+        0.004469266651092439
+      ],
+      "seconds": 11.001804300001822,
+      "features": 116
+    },
+    {
+      "domain": "forget-se",
+      "split_seed": 2028,
+      "status": "exploratory_posthoc",
+      "metrics": {
+        "validation": {
+          "n": 869,
+          "positive_rate": 0.5512082853855006,
+          "auc": 0.7273861142337134,
+          "pr_auc": 0.761357446018484,
+          "log_loss": 0.6024974505998959,
+          "brier": 0.20894168119760334,
+          "accuracy": 0.666283084004603,
+          "f1": 0.7082494969818913,
+          "ece_10": 0.029718572807548634,
+          "confusion_matrix": [
+            [
+              227,
+              163
+            ],
+            [
+              127,
+              352
+            ]
+          ],
+          "calibration": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 17,
+              "mean_probability": 0.028857958271122214,
+              "observed_frequency": 0.0
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 36,
+              "mean_probability": 0.15706264424966263,
+              "observed_frequency": 0.2222222222222222
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 88,
+              "mean_probability": 0.2516348607551373,
+              "observed_frequency": 0.26136363636363635
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 112,
+              "mean_probability": 0.3515313103855305,
+              "observed_frequency": 0.41964285714285715
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 101,
+              "mean_probability": 0.4489438105201131,
+              "observed_frequency": 0.48514851485148514
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 139,
+              "mean_probability": 0.5563744024765237,
+              "observed_frequency": 0.5611510791366906
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 133,
+              "mean_probability": 0.6488692490620789,
+              "observed_frequency": 0.6165413533834586
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 106,
+              "mean_probability": 0.7476085798690534,
+              "observed_frequency": 0.7169811320754716
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 108,
+              "mean_probability": 0.8469170015605397,
+              "observed_frequency": 0.8333333333333334
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 29,
+              "mean_probability": 0.9369205251249594,
+              "observed_frequency": 0.896551724137931
+            }
+          ]
+        },
+        "test": {
+          "n": 1532,
+          "positive_rate": 0.5574412532637075,
+          "auc": 0.7406815402789579,
+          "pr_auc": 0.7878368093022119,
+          "log_loss": 0.5890252456148645,
+          "brier": 0.20386937254873022,
+          "accuracy": 0.6821148825065274,
+          "f1": 0.7205966724039014,
+          "ece_10": 0.029774617897979912,
+          "confusion_matrix": [
+            [
+              417,
+              261
+            ],
+            [
+              226,
+              628
+            ]
+          ],
+          "calibration": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 35,
+              "mean_probability": 0.03495616425394846,
+              "observed_frequency": 0.08571428571428572
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 71,
+              "mean_probability": 0.15707607943843413,
+              "observed_frequency": 0.16901408450704225
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 143,
+              "mean_probability": 0.2509351067649556,
+              "observed_frequency": 0.3706293706293706
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 190,
+              "mean_probability": 0.3526861981499734,
+              "observed_frequency": 0.3631578947368421
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 204,
+              "mean_probability": 0.45335802241428746,
+              "observed_frequency": 0.4362745098039216
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 255,
+              "mean_probability": 0.5454831178562953,
+              "observed_frequency": 0.5843137254901961
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 223,
+              "mean_probability": 0.6519006097087988,
+              "observed_frequency": 0.6457399103139013
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 202,
+              "mean_probability": 0.7406904394258486,
+              "observed_frequency": 0.7227722772277227
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 145,
+              "mean_probability": 0.8498953551353339,
+              "observed_frequency": 0.8689655172413793
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 64,
+              "mean_probability": 0.9415724973283381,
+              "observed_frequency": 0.984375
+            }
+          ]
+        }
+      },
+      "selected_neural": "enhanced_gru-7",
+      "selected_neural_auc": 0.7522538392986674,
+      "selected_neural_log_loss": 0.5771329665272348,
+      "selected_neural_minus_global_control_log_loss_95": [
+        -0.02583710669715134,
+        0.0013954690328224048
+      ],
+      "seconds": 11.796311199985212,
+      "features": 116
+    },
+    {
+      "domain": "music-mock",
+      "split_seed": 2026,
+      "status": "exploratory_posthoc",
+      "metrics": {
+        "validation": {
+          "n": 1309,
+          "positive_rate": 0.6103896103896104,
+          "auc": 0.672926942992466,
+          "pr_auc": 0.7665479267018187,
+          "log_loss": 0.6244734849798012,
+          "brier": 0.21845144111510703,
+          "accuracy": 0.6233766233766234,
+          "f1": 0.715850144092219,
+          "ece_10": 0.05337424748095223,
+          "confusion_matrix": [
+            [
+              195,
+              315
+            ],
+            [
+              178,
+              621
+            ]
+          ],
+          "calibration": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 0,
+              "mean_probability": null,
+              "observed_frequency": null
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 0,
+              "mean_probability": null,
+              "observed_frequency": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 58,
+              "mean_probability": 0.2599446413329496,
+              "observed_frequency": 0.3103448275862069
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 133,
+              "mean_probability": 0.35278999119695165,
+              "observed_frequency": 0.42105263157894735
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 182,
+              "mean_probability": 0.44722200122257055,
+              "observed_frequency": 0.5714285714285714
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 233,
+              "mean_probability": 0.5536022202766533,
+              "observed_frequency": 0.4892703862660944
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 275,
+              "mean_probability": 0.6488585654830418,
+              "observed_frequency": 0.5963636363636363
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 245,
+              "mean_probability": 0.7467625175033685,
+              "observed_frequency": 0.7510204081632653
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 175,
+              "mean_probability": 0.8398285543659532,
+              "observed_frequency": 0.8628571428571429
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 8,
+              "mean_probability": 0.904932103543709,
+              "observed_frequency": 1.0
+            }
+          ]
+        },
+        "test": {
+          "n": 2615,
+          "positive_rate": 0.6061185468451242,
+          "auc": 0.6836406235643624,
+          "pr_auc": 0.7719177588152869,
+          "log_loss": 0.6207133472324353,
+          "brier": 0.21653953094093692,
+          "accuracy": 0.6435946462715105,
+          "f1": 0.7232779097387173,
+          "ece_10": 0.029401279462165676,
+          "confusion_matrix": [
+            [
+              465,
+              565
+            ],
+            [
+              367,
+              1218
+            ]
+          ],
+          "calibration": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 0,
+              "mean_probability": null,
+              "observed_frequency": null
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 0,
+              "mean_probability": null,
+              "observed_frequency": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 73,
+              "mean_probability": 0.27000814022288117,
+              "observed_frequency": 0.3424657534246575
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 353,
+              "mean_probability": 0.35513838701862604,
+              "observed_frequency": 0.45609065155807366
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 406,
+              "mean_probability": 0.4530265556123933,
+              "observed_frequency": 0.4458128078817734
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 465,
+              "mean_probability": 0.5531764965821927,
+              "observed_frequency": 0.5118279569892473
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 516,
+              "mean_probability": 0.6516371052363414,
+              "observed_frequency": 0.6531007751937985
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 470,
+              "mean_probability": 0.7469194591696585,
+              "observed_frequency": 0.7531914893617021
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 330,
+              "mean_probability": 0.8396825724039817,
+              "observed_frequency": 0.8696969696969697
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 2,
+              "mean_probability": 0.9024604184685465,
+              "observed_frequency": 1.0
+            }
+          ]
+        }
+      },
+      "selected_neural": "dkt-7",
+      "selected_neural_auc": 0.6549765703960062,
+      "selected_neural_log_loss": 0.6313741680899704,
+      "selected_neural_minus_global_control_log_loss_95": [
+        0.0035289778569531915,
+        0.01740697189116942
+      ],
+      "seconds": 15.495465899992269,
+      "features": 41
+    },
+    {
+      "domain": "music-mock",
+      "split_seed": 2027,
+      "status": "exploratory_posthoc",
+      "metrics": {
+        "validation": {
+          "n": 1305,
+          "positive_rate": 0.5678160919540229,
+          "auc": 0.6739120031393268,
+          "pr_auc": 0.7344352918827722,
+          "log_loss": 0.6385494879094237,
+          "brier": 0.2244644590590612,
+          "accuracy": 0.6199233716475095,
+          "f1": 0.6926889714993805,
+          "ece_10": 0.04267429571648759,
+          "confusion_matrix": [
+            [
+              250,
+              314
+            ],
+            [
+              182,
+              559
+            ]
+          ],
+          "calibration": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 0,
+              "mean_probability": null,
+              "observed_frequency": null
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 0,
+              "mean_probability": null,
+              "observed_frequency": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 32,
+              "mean_probability": 0.28308407791933754,
+              "observed_frequency": 0.53125
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 190,
+              "mean_probability": 0.35367786237993726,
+              "observed_frequency": 0.3526315789473684
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 210,
+              "mean_probability": 0.4480073772665463,
+              "observed_frequency": 0.4666666666666667
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 244,
+              "mean_probability": 0.553171102702614,
+              "observed_frequency": 0.4713114754098361
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 251,
+              "mean_probability": 0.6545701883193897,
+              "observed_frequency": 0.6334661354581673
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 246,
+              "mean_probability": 0.7422657376075934,
+              "observed_frequency": 0.6869918699186992
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 128,
+              "mean_probability": 0.8406338682879554,
+              "observed_frequency": 0.875
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 4,
+              "mean_probability": 0.9089252152481433,
+              "observed_frequency": 1.0
+            }
+          ]
+        },
+        "test": {
+          "n": 2621,
+          "positive_rate": 0.588325066768409,
+          "auc": 0.6890543316636795,
+          "pr_auc": 0.7622766473570417,
+          "log_loss": 0.6226290936444395,
+          "brier": 0.21722000734617414,
+          "accuracy": 0.6459366653948875,
+          "f1": 0.7174177831912302,
+          "ece_10": 0.01937864915233846,
+          "confusion_matrix": [
+            [
+              515,
+              564
+            ],
+            [
+              364,
+              1178
+            ]
+          ],
+          "calibration": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 0,
+              "mean_probability": null,
+              "observed_frequency": null
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 0,
+              "mean_probability": null,
+              "observed_frequency": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 96,
+              "mean_probability": 0.2771349779136097,
+              "observed_frequency": 0.3333333333333333
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 351,
+              "mean_probability": 0.3521629380225983,
+              "observed_frequency": 0.4017094017094017
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 432,
+              "mean_probability": 0.4470487014299098,
+              "observed_frequency": 0.44212962962962965
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 465,
+              "mean_probability": 0.5507797148882678,
+              "observed_frequency": 0.5182795698924731
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 494,
+              "mean_probability": 0.6507385537606333,
+              "observed_frequency": 0.6538461538461539
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 500,
+              "mean_probability": 0.7488030222663032,
+              "observed_frequency": 0.742
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 275,
+              "mean_probability": 0.8360394804556978,
+              "observed_frequency": 0.8545454545454545
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 8,
+              "mean_probability": 0.9072282921162278,
+              "observed_frequency": 1.0
+            }
+          ]
+        }
+      },
+      "selected_neural": "item_attention_no_item-19",
+      "selected_neural_auc": 0.6769225961012563,
+      "selected_neural_log_loss": 0.6297313488870244,
+      "selected_neural_minus_global_control_log_loss_95": [
+        0.0008787008940167124,
+        0.013902936529594245
+      ],
+      "seconds": 15.564314199989894,
+      "features": 41
+    },
+    {
+      "domain": "music-mock",
+      "split_seed": 2028,
+      "status": "exploratory_posthoc",
+      "metrics": {
+        "validation": {
+          "n": 1317,
+          "positive_rate": 0.6044039483675019,
+          "auc": 0.7333753701328137,
+          "pr_auc": 0.8076809643113414,
+          "log_loss": 0.5908026830796992,
+          "brier": 0.20276948087018862,
+          "accuracy": 0.689445709946849,
+          "f1": 0.7555289898386133,
+          "ece_10": 0.041021124146812436,
+          "confusion_matrix": [
+            [
+              276,
+              245
+            ],
+            [
+              164,
+              632
+            ]
+          ],
+          "calibration": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 0,
+              "mean_probability": null,
+              "observed_frequency": null
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 0,
+              "mean_probability": null,
+              "observed_frequency": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 30,
+              "mean_probability": 0.27825219988462935,
+              "observed_frequency": 0.26666666666666666
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 203,
+              "mean_probability": 0.36016898721079316,
+              "observed_frequency": 0.39408866995073893
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 207,
+              "mean_probability": 0.4467658456415239,
+              "observed_frequency": 0.3671497584541063
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 223,
+              "mean_probability": 0.5514337687246446,
+              "observed_frequency": 0.5695067264573991
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 259,
+              "mean_probability": 0.6507962652517053,
+              "observed_frequency": 0.6525096525096525
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 248,
+              "mean_probability": 0.7533353756002613,
+              "observed_frequency": 0.8306451612903226
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 146,
+              "mean_probability": 0.8385899190682674,
+              "observed_frequency": 0.8835616438356164
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 1,
+              "mean_probability": 0.9017066805720931,
+              "observed_frequency": 1.0
+            }
+          ]
+        },
+        "test": {
+          "n": 2665,
+          "positive_rate": 0.5774859287054409,
+          "auc": 0.7073602613863123,
+          "pr_auc": 0.7658929286734382,
+          "log_loss": 0.6152615702170037,
+          "brier": 0.21361256954640248,
+          "accuracy": 0.6592870544090056,
+          "f1": 0.7240121580547112,
+          "ece_10": 0.023525454329039113,
+          "confusion_matrix": [
+            [
+              566,
+              560
+            ],
+            [
+              348,
+              1191
+            ]
+          ],
+          "calibration": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 0,
+              "mean_probability": null,
+              "observed_frequency": null
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 0,
+              "mean_probability": null,
+              "observed_frequency": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 70,
+              "mean_probability": 0.27958972683279926,
+              "observed_frequency": 0.3142857142857143
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 407,
+              "mean_probability": 0.3572555445942167,
+              "observed_frequency": 0.3488943488943489
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 437,
+              "mean_probability": 0.4444117502031516,
+              "observed_frequency": 0.42105263157894735
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 483,
+              "mean_probability": 0.5507358283857773,
+              "observed_frequency": 0.5341614906832298
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 542,
+              "mean_probability": 0.652505532441813,
+              "observed_frequency": 0.6309963099630996
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 481,
+              "mean_probability": 0.7491465599576074,
+              "observed_frequency": 0.7879417879417879
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 245,
+              "mean_probability": 0.8312989109290702,
+              "observed_frequency": 0.8653061224489796
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 0,
+              "mean_probability": null,
+              "observed_frequency": null
+            }
+          ]
+        }
+      },
+      "selected_neural": "item_attention_no_item-19",
+      "selected_neural_auc": 0.6865170458545549,
+      "selected_neural_log_loss": 0.6286478312068895,
+      "selected_neural_minus_global_control_log_loss_95": [
+        0.005094066722029456,
+        0.0203293938241354
+      ],
+      "seconds": 12.243676999991294,
+      "features": 41
+    }
+  ],
+  "aggregate": {
+    "forget-se": {
+      "auc": 0.7527282917477568,
+      "log_loss": 0.5756768152310527,
+      "brier": 0.19798774413358486,
+      "ece_10": 0.027995066794526152
+    },
+    "music-mock": {
+      "auc": 0.6933517388714514,
+      "log_loss": 0.6195346703646262,
+      "brier": 0.21579070261117117,
+      "ece_10": 0.024101794314514417
+    }
+  }
+}

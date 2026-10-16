@@ -1,0 +1,7 @@
+{
+  "case": "completed GRU report retained, stress file absent, matching weights reloaded and stress regenerated",
+  "source": "amme",
+  "seed": 42,
+  "same_targets_and_metrics_within_1e-6": true,
+  "new_training_runs": 0
+}

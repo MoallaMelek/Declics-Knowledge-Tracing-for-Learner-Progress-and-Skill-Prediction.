@@ -1,11 +1,31 @@
+param([string]$Python, [ValidateRange(1,65535)][int]$Port = 8781, [string]$PreparedData, [switch]$AllowPartial, [switch]$Check)
 $ErrorActionPreference = 'Stop'
-Set-Location -LiteralPath $PSScriptRoot
-$taskPython = Join-Path $PSScriptRoot '.venv\Scripts\python.exe'
-if (-not (Test-Path -LiteralPath $taskPython)) {
-    $taskPython = Join-Path $PSScriptRoot '..\..\work\.venv\Scripts\python.exe'
+$taskCommon = & git -C $PSScriptRoot rev-parse --path-format=absolute --git-common-dir 2>$null
+$taskPrimary = if ($LASTEXITCODE -eq 0) { Split-Path -Parent $taskCommon } else { $PSScriptRoot }
+$taskCandidates = @()
+if ($Python) { $taskCandidates = @($Python) }
+elseif ($env:DECLIC_PYTHON) { $taskCandidates = @($env:DECLIC_PYTHON) }
+else {
+    $taskCandidates = @((Join-Path $PSScriptRoot '.venv\Scripts\python.exe'), (Join-Path $taskPrimary '.venv\Scripts\python.exe'), (Join-Path $taskPrimary '..\..\work\.venv\Scripts\python.exe'))
+    $taskSystem = Get-Command python -ErrorAction SilentlyContinue
+    if ($taskSystem) { $taskCandidates += $taskSystem.Source }
 }
-if (-not (Test-Path -LiteralPath $taskPython)) {
-    throw 'Create the Python environment using the instructions in README.md first.'
+$taskPython = $taskCandidates | Where-Object { Test-Path -LiteralPath $_ -PathType Leaf } | Select-Object -First 1
+if (-not $taskPython) { throw 'Python/environnement introuvable. Préparez .venv selon docs/START_WINDOWS.md ou passez -Python chemin\python.exe.' }
+$taskPython = (Resolve-Path -LiteralPath $taskPython).Path
+& $taskPython -X utf8 -c "import sys; assert sys.version_info >= (3,12), 'Python 3.12+ requis'; import torch,fastapi,uvicorn,numpy,pydantic; print('Interpréteur vérifié :',sys.executable)"
+if ($LASTEXITCODE -ne 0) { throw 'Python incompatible ou dépendances manquantes. Aucun paquet installé automatiquement ; voir docs/START_WINDOWS.md.' }
+if (-not $PreparedData) {
+    $taskLocalData = Join-Path $PSScriptRoot 'runtime\musical-demo'
+    $taskSharedData = Join-Path $taskPrimary 'runtime\musical-demo'
+    $PreparedData = if (Test-Path -LiteralPath $taskLocalData) { $taskLocalData } else { $taskSharedData }
 }
-Write-Host 'DÉCLIC is available at http://127.0.0.1:8767/ while this window stays open.'
-& $taskPython -m uvicorn axis7.server:app --host 127.0.0.1 --port 8767
+$taskArgs = @('-X','utf8','-B','-m','axis7.launch','--port',"$Port",'--prepared-data',$PreparedData)
+if ($AllowPartial) { $taskArgs += '--allow-partial' }
+if ($Check) { $taskArgs += '--check' }
+$taskPreviousPath = $env:PYTHONPATH
+try {
+    $env:PYTHONPATH = $PSScriptRoot + [IO.Path]::PathSeparator + $taskPreviousPath
+    & $taskPython @taskArgs
+    if ($LASTEXITCODE -ne 0) { throw "Démarrage DÉCLIC refusé (code $LASTEXITCODE). Consultez le diagnostic ci-dessus." }
+} finally { $env:PYTHONPATH = $taskPreviousPath }
