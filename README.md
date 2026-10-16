@@ -3,13 +3,13 @@
 # DÉCLIC
 ### Comprendre le passé musical pour prévoir le prochain résultat
 
-**Axe 7 · Objectif O08 · Phase 7**
+**Axe 7 · Objectif O08 · Phase 8 stabilisée**
 
-[![Validation](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/workflows/validate.yml/badge.svg?branch=phase7%2Fpersonalized-musical-learning)](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/workflows/validate.yml)
+[![Validation](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/workflows/validate.yml)
 
-**36 entraînements neuronaux terminés** · **3 bases musicales** · **315 tests réussis**
+**36 entraînements neuronaux terminés** · **3 bases musicales** · **350 tests locaux réussis** · **13 scénarios navigateur en CI**
 
-[Voir la démonstration locale](http://127.0.0.1:8773/web/o08.html) · [Lire le rapport](docs/PHASE7_REPORT.md) · [Préparer la soutenance](docs/PHASE7_PRESENTATION_FR.md) · [Reproduire les expériences](docs/PHASE7_REPRODUCTION.md)
+[Lancer la démonstration](docs/START_WINDOWS.md) · [Corrections de l’audit](docs/STABILIZATION_LEDGER.md) · [Préparer la soutenance](docs/PHASE7_PRESENTATION_FR.md) · [Reproduire les expériences](docs/PHASE7_REPRODUCTION.md)
 
 </div>
 
@@ -39,11 +39,15 @@ La page distingue les **observations**, les **prévisions** et les **interpréta
 
 ## Phase 8 · Le parcours vivant
 
-[La nouvelle page](http://127.0.0.1:8773/web/living.html) rejoue un vrai parcours de test pas à pas. À chaque
-point de coupure, elle ne reçoit que le passé : la **constellation** des concepts source s’allume, l’**empreinte
+[La nouvelle page](http://127.0.0.1:8781/web/living.html) rejoue un vrai parcours de test pas à pas, après le [lancement vérifié](docs/START_WINDOWS.md). À chaque
+point de coupure, ses vues utilisent le passé admis ; les résultats ultérieurs sont masqués, même si le rejeu les a déjà affichés. La **constellation** des concepts source s’allume, l’**empreinte
 musicale** ajoute un sillon, et l’**observatoire** montre l’entrée réelle du GRU, ses activations enregistrées,
 sa prévision et, à la demande, le résultat révélé par le serveur. Les poids ne changent pas pendant le rejeu ;
 aucun modèle classique ne produit de prévision. [Rapport Phase 8](docs/PHASE8_LIVING_LEARNER.md).
+
+La stabilisation lie snapshots, caches, inspections et reçus au contenu préparé et aux poids effectivement chargés. `/api/readiness` distingue serveur vivant et démonstration prête ; le lanceur vérifie le bon backend et ne ferme aucun serveur occupant son port. Les erreurs réseau proposent une reprise manuelle, sans boucle automatique. Les quatre vues de Claude sont conservées.
+
+Les prédicteurs restent des [modèles DL expérimentaux](docs/MODEL_ELIGIBILITY_POLICY.md) : Yousician ne bat pas le meilleur contrôle appris publié sur validation. Les [conditions de réutilisation des données](docs/DATA_PROVENANCE_AND_RIGHTS.md) encore non confirmées restent une décision externe.
 
 ![Le parcours vivant : constellation, inspection d’un concept et machine à remonter le parcours](docs/assets/phase8/overview.png)
 
@@ -131,7 +135,7 @@ node --check web/o08.js
 node --check web/musician.js
 ```
 
-**315 tests réussis** dans la CI de la livraison du code Phase 7 : [exécution vérifiée](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/runs/38801586386), commit `05f2757bc8f6c803fe6886559109923277b9a90d`. Le badge en haut suit la branche et les changements documentaires suivants. Les tests couvrent notamment la causalité temporelle, les partitions d'apprenants, les contrats, la révélation du résultat, la rétention et les reprises d'analyse.
+**350 tests locaux réussis** · **13 scénarios navigateur en CI** dans la CI de la livraison du code Phase 7 : [exécution vérifiée](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/runs/38801586386), commit `05f2757bc8f6c803fe6886559109923277b9a90d`. Le badge en haut suit la branche et les changements documentaires suivants. Les tests couvrent notamment la causalité temporelle, les partitions d'apprenants, les contrats, la révélation du résultat, la rétention et les reprises d'analyse.
 
 <details>
 <summary>Compatibilité et historique des objectifs</summary>

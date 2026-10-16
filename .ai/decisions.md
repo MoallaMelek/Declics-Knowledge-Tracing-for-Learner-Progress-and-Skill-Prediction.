@@ -9,3 +9,13 @@
 - 2026-10-15 · Codex consult (fresh read-only session, .ai/handoffs/2026-10-15-architecture-consult.md) adopted: forecasts labelled retrospective and conditional on the recorded exercise/concepts; total length labelled as navigation metadata; inspection on a deep copy of the model; eligible/excluded counts published; references scored on identical notes with concept-specific history.
 - 2026-10-15 · Edges shown by default only for pairs co-evaluated in >= 2 past steps (all pairs of the selected concept): readability, still observed structure.
 - 2026-10-15 · Yousician forecasts formatted "x / 100" like the Phase 7 UI (continuous score, not a probability).
+
+
+# Stabilization decisions
+
+- Start from latest audited application plus DOM tests, 6400c7a, on phase8/stabilization-and-audit-fixes in an isolated worktree.
+- Keep the trained neural artifacts and numerical prediction contract. Add provenance and operational checks around them.
+- A prepared archive's declared source hash is not the identity of its effective observations. Bind actual content, metadata and actual checkpoint to a serving generation; bind each history/target request separately.
+- Keep liveness distinct from readiness; missing private data is an explicit partial state. Do not stop unrelated listeners.
+- Use identical equal-concept means in the timeline; keep scientific note-weighted loss unchanged.
+- Fixture integration is labeled synthetic and never reported as held-out validation.

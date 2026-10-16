@@ -1,7 +1,7 @@
-# Current task
+# Phase 8 stabilization - release validation
 
-Phase 8 · Living Learner visual experience for O08 (branch `phase8/living-learner-ux`, separate worktree
-under `.claude/worktrees/phase8-living-learner` of the main checkout).
-Writer: Claude Code. Consultant: Codex CLI (read-only, fresh context-less `codex exec` sessions).
-Scope: frontend + read-only presentation adapter `axis7/living_learner.py`. No model/training/eval change.
-See docs/PHASE8_ASSIMILATION.md and docs/PHASE8_VISUAL_ARCHITECTURE.md.
+Writer and local verifier: Codex desktop. Fresh read-only Codex CLI design consultation, source-only final review and one closure pass; not the user’s open Claude conversation. The full private worktree review was rejected; the accepted review used an allowlisted export with no data/models/runtime/logs/screenshots.
+
+Baseline6400c7a. Code commits2a2ed69,c10419f,64c78ae,bac46e7. Local350pass; targeted35pass; cloud349pass/1skip +13synthetic browser scenarios; local13real-data browser scenarios; active metrics identical to audit. Original data, weights and CSS/constellation assets unchanged. See docs/STABILIZATION_LEDGER.md and docs/validation/phase8-stabilization.json.
+
+User explicitly authorizes final main merge after validation. PR#4 created and attached. Finish integrating main, verify final CI/merge, deliver French PDF and launch instructions. No force push, branch deletion, public deployment or replacement of trained models. F09 requires external rights confirmation; no permission invented.
