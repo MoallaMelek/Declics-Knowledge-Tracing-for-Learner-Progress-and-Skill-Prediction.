@@ -1,0 +1,6 @@
+{
+  "name": "declic-phase8-integration",
+  "private": true,
+  "scripts": {"test:browser": "node tests/browser/living_e2e.cjs"},
+  "devDependencies": {"playwright": "1.62.1"}
+}

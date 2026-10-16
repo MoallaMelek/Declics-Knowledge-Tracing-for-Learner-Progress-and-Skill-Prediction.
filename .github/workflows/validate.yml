@@ -26,3 +26,32 @@ jobs:
           for f in web/living/*.js; do node --check "$f"; done
       - name: Validate contracts and models
         run: python -B -m pytest -q -p no:cacheprovider
+  real-http-and-browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install CPU and pinned browser test dependencies
+        run: |
+          python -m pip install -e '.[test]' --extra-index-url https://download.pytorch.org/whl/cpu
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Real HTTP and Chromium with synthetic histories and copied trained tensors
+        env:
+          OMP_NUM_THREADS: '1'
+          MKL_NUM_THREADS: '1'
+        run: npm run test:browser
+      - name: Preserve labeled evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase8-synthetic-integration-real-weights
+          path: |
+            runtime/e2e/results.json
+            runtime/e2e/server.log
+            runtime/e2e/*.png
