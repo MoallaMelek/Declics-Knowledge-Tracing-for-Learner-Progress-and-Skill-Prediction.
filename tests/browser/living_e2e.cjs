@@ -109,11 +109,11 @@ async function views(page,cutoff) {assert.equal(await page.locator('#fp-main .fp
     await until(()=>page.locator('#recovery').isVisible(),'rejected reveal');assert.match(await page.locator('#status').innerText(),/incohérente/);await page.unroute(pattern);
     let count=0;
     await page.route(pattern,async route=>{count++;if(count===1)await route.fulfill({status:409,contentType:'application/json',body:'{"detail":"expired"}'});else await route.continue();});
-    await page.getByRole('button',{name:'Révéler le résultat du pas 4'}).click();await until(async()=>/révélé après/.test(await page.locator('#status').innerText()),'expiry refresh');assert.equal(count,2);await page.unroute(pattern);
+    await page.getByRole('button',{name:'Révéler le résultat du pas 4'}).click();await until(async()=>/révélé après/.test(await page.locator('#status').innerText()),'expiry refresh');assert.equal(count,2);assert.equal(await page.locator('#recovery').isVisible(),false);await page.unroute(pattern);
   });
   await test('interrupted connection gets French recovery and successful retry',async()=>{
     const pattern='**/api/v7/o08/living/state?*';await page.route(pattern,r=>r.abort('connectionreset'));
-    await page.getByRole('button',{name:'Pas suivant',exact:true}).click();await until(()=>page.locator('#recovery').isVisible(),'transport error');
+    await page.getByRole('button',{name:'Pas suivant',exact:true}).click();await until(async()=>await page.locator('#recovery').isVisible()&&/Impossible de contacter/.test(await page.locator('#status').innerText()),'transport error');
     assert.match(await page.locator('#status').innerText(),/Impossible de contacter/);await views(page,3);
     assert.equal(new URL(page.url()).searchParams.get('cutoff'),'3');
     await page.screenshot({path:path.join(OUT,'network-recovery.png')});await page.unroute(pattern);

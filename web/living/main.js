@@ -40,7 +40,8 @@
     const c = Math.max(1, Math.min(st.stepsTotal, Math.round(cutoff)));
     const request = {...want(), cutoff: c};
     const cohortEpoch = loadEpoch, requestEpoch = ++viewEpoch;
-    store.set({cutoff: c});
+    clearError();
+    store.set({cutoff: c, error: null});
     if (!client.cached(request.source, request.learner, c)) status(`Chargement du pas ${c}…`);
     try {
       const snap = await client.state(request.source, request.learner, c);
@@ -87,6 +88,7 @@
   async function reveal() {
     const snap = store.get().snapshot; if (!snap || !snap.reveal_receipt) return;
     const epoch = viewEpoch, cohortEpoch = loadEpoch;
+    clearError();
     status('Demande du résultat réel au serveur, avec le reçu de la prévision…');
     try {
       let rv;
@@ -102,7 +104,8 @@
       const now = store.get().snapshot;
       if (epoch !== viewEpoch || cohortEpoch !== loadEpoch || !A.sameIdentity(now, snap)) return;
       if (!A.acceptReveal(snap, rv)) throw new Error('Révélation incohérente avec la prévision affichée ; elle est ignorée.');
-      store.set({reveals: {...store.get().reveals, [A.revealKey(snap)]: rv}});
+      store.set({reveals: {...store.get().reveals, [A.revealKey(snap)]: rv}, error: null});
+      clearError();
       status(`Résultat du pas ${snap.cutoff + 1} révélé après la prévision. Les erreurs restent visibles.`);
     } catch (e) { if (epoch === viewEpoch && cohortEpoch === loadEpoch) showError(e); }
   }
