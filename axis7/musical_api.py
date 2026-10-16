@@ -12,6 +12,7 @@ from .cloud_training import SOURCES, encode, forward, apply_feature_mode, parse_
 from .musical_registry import REGISTRY_ROOT, entries, cached_validate
 from .musical_evidence import evidence
 from .data import ROOT
+from .serving_identity import MAX_HISTORY
 
 router = APIRouter()
 
@@ -38,7 +39,7 @@ class BenchmarkQuery(BaseModel):
     query_time: float | str
     exercise: str = Field(default='', max_length=1000)
     concepts: list[int] = Field(default_factory=lambda: [0], min_length=1, max_length=1024)
-    history: list[Group] = Field(max_length=500)
+    history: list[Group] = Field(max_length=MAX_HISTORY)
 
     @model_validator(mode='after')
     def source_time(self):
@@ -92,11 +93,20 @@ def musical_research():
 
 @router.post('/api/v5/musical/forecast')
 def musical_forecast(body: BenchmarkQuery):
+    return forecast_with_model(body)
+
+
+def forecast_with_model(body: BenchmarkQuery, validated=None):
+    """Internal pinned-generation inference; public requests still validate the registry.
+
+    The presentation adapter pins an already validated immutable metadata/model pair so
+    replacing active.json during a request cannot relabel an inference from another model.
+    """
     folder = REGISTRY_ROOT / body.model_id
-    if not folder.is_dir():
+    if validated is None and not folder.is_dir():
         raise HTTPException(404, 'Unknown registered musical model')
     manifest = REGISTRY_ROOT / 'active.json'
-    if manifest.exists():
+    if validated is None and manifest.exists():
         try:
             active = json.loads(manifest.read_text(encoding='utf-8'))
         except (ValueError, OSError):
@@ -104,7 +114,7 @@ def musical_forecast(body: BenchmarkQuery):
         if not isinstance(active, dict) or active.get(body.source) != body.model_id:
             return {'status': 'abstained', 'reason': 'inactive_model', 'predictions': None}
     try:
-        meta, model = cached_validate(folder)
+        meta, model = validated if validated is not None else cached_validate(folder)
     except (ValueError, OSError, KeyError, RuntimeError, TypeError):
         raise HTTPException(422, 'Model failed benchmark validation')
     if body.source != meta['source'] or body.instrument != meta['instrument']:

@@ -258,6 +258,8 @@ app.include_router(_prospective_router)
 app.include_router(_o08_demo_router)
 from .living_learner import router as _living_router
 app.include_router(_living_router)
+from .readiness import router as _readiness_router
+app.include_router(_readiness_router)
 from .o08_security import O08BodyLimit
 app.add_middleware(O08BodyLimit)
 

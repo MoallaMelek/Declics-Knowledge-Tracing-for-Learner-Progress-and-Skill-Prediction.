@@ -14,6 +14,9 @@ import hashlib
 import hmac
 import json
 import math
+import os
+from pathlib import Path
+import re
 import threading
 import time
 from typing import Literal
@@ -23,14 +26,16 @@ from pydantic import BaseModel, ConfigDict, Field
 import torch
 
 from . import o08_demo
-from .cloud_training import SOURCES, apply_feature_mode, encode, forward, public_split_provenance, split_learners
+from .cloud_training import SOURCES, VERSION, PREPROCESSING, apply_feature_mode, encode, forward, public_split_provenance, split_learners
 from .data import ROOT
-from .musical_api import BenchmarkQuery, musical_forecast
+from .musical_api import BenchmarkQuery, forecast_with_model
 from .musical_registry import REGISTRY_ROOT, cached_validate
+from .serving_identity import MAX_HISTORY, CONTRACT, canonical_digest, freeze, generation, request_identity
 from .skill_states import catalogue_from_history, recommend, skill_states
+from .model_eligibility import describe as eligibility
 
 router = APIRouter(prefix='/api/v7/o08/living')
-DATA_DIR = ROOT/'runtime/musical-demo'
+DATA_DIR = Path(os.environ.get('DECLIC_PREPARED_DATA', ROOT/'runtime/musical-demo'))
 MAX_LEARNERS = 8
 MIN_STEPS = 6
 SELECTION = (f'Les {MAX_LEARNERS} premiers apprenants du test (ordre de la partition du modèle actif) ayant au moins '
@@ -50,31 +55,81 @@ def check_integrity(data, meta, splits):
         raise ValueError('Learner split differs from the served model')
 
 
+def validate_observations(data, meta):
+    """Validate the actual parsed observations before publishing an immutable generation."""
+    if data.get('preprocessing') != meta.get('preprocessing', PREPROCESSING[meta['source']]):
+        raise ValueError('Prepared preprocessing mismatch')
+    for rows in data['learners'].values():
+        previous = None
+        for row in rows:
+            t = datetime.fromisoformat(row['time']) if meta['source']=='singpad' else float(row['time'])
+            if previous is not None and t <= previous: raise ValueError('Unordered prepared groups')
+            if meta['source'] != 'singpad' and not math.isfinite(t): raise ValueError('Invalid prepared time')
+            previous = t
+            if not isinstance(row['exercise'], str) or len(row['exercise'])>1000 or not row['obs']:
+                raise ValueError('Invalid prepared group')
+            for k, value, weight in row['obs']:
+                if (type(k) is not int or not 0<=k<meta['K'] or not math.isfinite(value)
+                        or not 0<=value<=1 or not math.isfinite(weight) or not 0<weight<=100000
+                        or meta['source']=='singpad' and value not in (0,1)):
+                    raise ValueError('Invalid prepared observation')
+
+
 def cohort(source):
     try:
         active = json.loads((REGISTRY_ROOT/'active.json').read_text(encoding='utf-8'))
         model_id = active[source]
-        meta, _ = cached_validate(REGISTRY_ROOT/model_id)
-        path = DATA_DIR/f'{source}-prepared.json.gz'
-        key = (source, model_id, str(path), path.stat().st_mtime_ns)
+        if not isinstance(model_id, str) or not re.fullmatch(r'[a-z0-9_-]{1,120}', model_id):
+            raise ValueError('Invalid model registry identifier')
+        meta, model = cached_validate(REGISTRY_ROOT/model_id)
     except (OSError, ValueError, KeyError, TypeError, RuntimeError):
-        raise HTTPException(503, 'Le parcours vivant demande les données privées préparées et un modèle actif validé.')
+        raise HTTPException(503, {'code': 'missing_model', 'message': 'Modèle actif absent ou incompatible ; vérifiez le registre.'})
+    try:
+        path = DATA_DIR/f'{source}-prepared.json.gz'
+        # Read/hash the compressed bytes once per boundary, including equal-size writes
+        # whose timestamp was preserved. Canonical JSON is hashed only on a new generation.
+        compressed = path.read_bytes()
+        key = (source, model_id, canonical_digest(meta), hashlib.sha256(compressed).hexdigest())
+    except (OSError, ValueError, KeyError, TypeError, RuntimeError):
+        raise HTTPException(503, {'code': 'missing_data', 'message': 'Données privées préparées absentes ; reconstruisez les parcours.'})
     with _lock:
         if source in _cohorts and _cohorts[source][0] == key:
             return _cohorts[source][1]
         try:
-            with gzip.open(path, 'rt', encoding='utf-8') as handle:
-                data = json.load(handle)
+            data = json.loads(gzip.decompress(compressed))
+            # Yousician's active v1 weights predate the implementation version bump for
+            # SingPAD chronology. Its own unchanged daily preparation is compatible v2.
+            compatible = data.get('version') == meta['version'] or (
+                source == 'yousician' and meta['version'] == 'musical-cloud-v1'
+                and data.get('version') == VERSION and data.get('preprocessing') == PREPROCESSING[source])
+            if data.get('source') != source or not compatible:
+                raise ValueError('Prepared source/schema mismatch')
+            if data.get('fixture') != meta.get('fixture'):
+                raise ValueError('Fixture and real-source modes cannot be mixed')
             splits = split_learners(data['learners'], meta['seed'])
             check_integrity(data, meta, splits)
-        except (OSError, ValueError, KeyError, TypeError):
-            raise HTTPException(503, 'Données préparées incompatibles avec le modèle actif ; reconstruisez-les.')
+            validate_observations(data, meta)
+            content_digest, generation_id = generation(data, meta, model_id)
+        except (OSError, ValueError, KeyError, TypeError, EOFError):
+            raise HTTPException(503, {'code': 'missing_data', 'message': 'Données préparées incompatibles avec le modèle actif ; reconstruisez-les.'})
         eligible = [data['learners'][l] for l in splits['test'] if len(data['learners'][l]) >= MIN_STEPS]
+        # A replay is bounded explicitly, not silently truncated. Longer histories stay
+        # in research data; this interface advertises the same 500-group API contract.
+        supported = [rows for rows in eligible if len(rows) <= MAX_HISTORY]
+        frozen_meta = freeze(meta)
         value = {'source': source, 'model_id': model_id, 'meta': meta, 'digest': data['sha256'],
-                 'learners': eligible[:MAX_LEARNERS],
+                 'content_digest': content_digest, 'generation': generation_id,
+                 'validated': (frozen_meta, model),
+                 'learners': freeze(supported[:MAX_LEARNERS]),
                  'counts': {'test_learners': len(splits['test']), 'eligible': len(eligible),
-                            'shown': min(len(eligible), MAX_LEARNERS),
+                            'shown': min(len(supported), MAX_LEARNERS),
+                            'excluded_over_limit': len(eligible)-len(supported),
                             'excluded_short': len(splits['test'])-len(eligible)}}
+        value['meta'] = frozen_meta
+        # Discard only this source's obsolete forecast generations; no cross-source purge.
+        for previous in list(_forecasts):
+            if previous[0] == source and previous[1] != generation_id:
+                del _forecasts[previous]
         _cohorts[source] = (key, value)
         return value
 
@@ -108,6 +163,10 @@ def step_view(index, row, first, source):
 def provenance(c):
     meta = c['meta']
     return {'model_id': c['model_id'], 'architecture': meta['model'], 'model_sha256': meta['model_sha256'],
+            'generation': c['generation'], 'data_content_sha256': c['content_digest'], 'identity_contract': CONTRACT,
+            'max_history': MAX_HISTORY,
+            'eligibility': eligibility(meta),
+            'data_mode': 'synthetic_fixture' if meta.get('fixture') else 'private_research_data',
             'dataset': c['source'], 'instrument': meta['instrument'], 'target': meta['target'],
             'K': meta['K'], 'hidden': meta['hidden'], 'context': meta['context'], 'seed': meta['seed'],
             'citation': meta['citation'], 'version': meta['version'], 'splits': meta['splits'],
@@ -121,6 +180,8 @@ def provenance(c):
 
 
 def query_for(c, rows, j):
+    if j > MAX_HISTORY:
+        raise HTTPException(422, f'Historique limité explicitement à {MAX_HISTORY} groupes ; aucun passé tronqué.')
     target = rows[j]
     return BenchmarkQuery(source=c['source'], model_id=c['model_id'], instrument=c['meta']['instrument'],
                           query_time=target['time'], exercise=target['exercise'],
@@ -131,10 +192,10 @@ def query_for(c, rows, j):
 
 
 def forecast_at(c, li, rows, j):
-    key = (c['source'], c['model_id'], c['digest'], li, j)
+    key = (c['source'], c['generation'], request_identity(c, li, rows, j))
     with _lock:
         if key not in _forecasts:
-            _forecasts[key] = musical_forecast(query_for(c, rows, j))
+            _forecasts[key] = forecast_with_model(query_for(c, rows, j), c['validated'])
         return _forecasts[key]
 
 
@@ -196,12 +257,12 @@ def learners(source: Literal['singpad', 'yousician'] = 'singpad'):
             'learners': [{'token': f'{i+1:02}', 'label': f'Parcours de test {i+1:02}', 'steps': len(rows)}
                          for i, rows in enumerate(c['learners'])],
             'replay': 'Rejeu rétrospectif exploratoire : la longueur totale du parcours sert à la navigation, '
-                      'jamais d’entrée au modèle.'}
+                      f'jamais d’entrée au modèle. Parcours de plus de {MAX_HISTORY} pas exclus de cette interface.'}
 
 
 @router.get('/state')
 def state(source: Literal['singpad', 'yousician'] = 'singpad', learner: str = Query('01', max_length=4),
-          cutoff: int = Query(1, ge=1, le=10000)):
+          cutoff: int = Query(1, ge=1, le=MAX_HISTORY)):
     c = cohort(source); li, rows = learner_rows(c, learner)
     if cutoff > len(rows):
         raise HTTPException(422, 'Point de coupure hors du parcours')
@@ -214,11 +275,17 @@ def state(source: Literal['singpad', 'yousician'] = 'singpad', learner: str = Qu
     summary = states_at(c, past, sorted(set(observed) | set(target_concepts)), predictions,
                         target['time'] if target else None)
     receipt = None
+    identity = {'generation': c['generation'], 'request_id': request_identity(c, li, rows, cutoff),
+                'model_id': c['model_id'], 'model_sha256': c['meta']['model_sha256'],
+                'source': source, 'learner': learner, 'cutoff': cutoff,
+                'target_index': cutoff if target else None}
     if predictions:
         receipt = o08_demo.ticket({'stage': 'living-predicted', 'source': source, 'learner': learner,
                                    'cutoff': cutoff, 'digest': c['digest'],
+                                   'identity': identity,
                                    'model_sha256': c['meta']['model_sha256'], 'predictions': predictions})
     return {'source': source, 'learner': learner, 'cutoff': cutoff, 'steps_total': len(rows),
+            'identity': identity,
             'unit': UNITS[source], 'K': c['meta']['K'],
             'past': [step_view(i, r, first, source) for i, r in enumerate(past)],
             'skill_states': summary, 'edges': edges(past),
@@ -227,15 +294,16 @@ def state(source: Literal['singpad', 'yousician'] = 'singpad', learner: str = Qu
                 'exercise_supported': (not target['exercise']) or target['exercise'] in c['meta']['items'],
                 'concepts': target_concepts,
                 'definition': 'Prévision rétrospective conditionnelle à l’exercice enregistré et aux concepts évalués '
-                              'de ce pas ; ses résultats ne sont pas transmis.' if source == 'singpad' else
+                              'de ce pas ; ses résultats sont exclus de cette réponse.' if source == 'singpad' else
                               'Prévision rétrospective du score agrégé du prochain jour actif, sans connaître ce jour '
-                              'ni ses exercices ; son résultat n’est pas transmis.'},
+                              'ni ses exercices ; son résultat est exclu de cette réponse.'},
             'forecast': None if forecast is None else {k: forecast.get(k) for k in
                         ('status', 'reason', 'predictions', 'model_id', 'prefix_groups', 'target')},
             'trail': [trail_entry(c, li, rows, j) for j in range(1, cutoff)],
             'recommendation': recommend(summary, catalogue_from_history(past, source)),
             'reveal_receipt': receipt, 'future_outcome_included': False,
-            'provenance': {'model_id': c['model_id'], 'model_sha256': c['meta']['model_sha256']}}
+            'provenance': {'model_id': c['model_id'], 'model_sha256': c['meta']['model_sha256'],
+                           'generation': c['generation'], 'data_content_sha256': c['content_digest']}}
 
 
 class Reveal(BaseModel):
@@ -259,11 +327,15 @@ def verify(receipt):
 @router.post('/reveal')
 def reveal(body: Reveal):
     payload = verify(body.receipt); c = cohort(payload['source'])
-    if payload['digest'] != c['digest'] or payload['model_sha256'] != c['meta']['model_sha256']:
+    identity = payload.get('identity', {})
+    if (payload['digest'] != c['digest'] or payload['model_sha256'] != c['meta']['model_sha256']
+            or identity.get('generation') != c['generation'] or identity.get('model_id') != c['model_id']):
         raise HTTPException(409, 'Révélation expirée ou parcours modifié ; recalculez la prévision.')
     li, rows = learner_rows(c, payload['learner']); j = payload['cutoff']
     if not 1 <= j < len(rows):
         raise HTTPException(409, 'Révélation expirée ou parcours modifié ; recalculez la prévision.')
+    if identity.get('request_id') != request_identity(c, li, rows, j):
+        raise HTTPException(409, 'Les observations ont changé ; recalculez la prévision.')
     predictions = payload['predictions']; per = tally(rows[j]); past = rows[:j]
     binary = SOURCES[c['source']]['binary']
     comparison = []
@@ -279,6 +351,7 @@ def reveal(body: Reveal):
     supported = {k: v for k, v in predictions.items() if int(k) in history}
     personal = {k: history[int(k)][0]/history[int(k)][1] for k in supported}
     return {'cutoff': j, 'learner': payload['learner'], 'model_id': c['model_id'],
+            'source': c['source'], 'identity': identity,
             'model_sha256': c['meta']['model_sha256'], 'comparison': comparison,
             'error': score(c['source'], predictions, per),
             'metric': 'log-loss par note' if binary else 'erreur absolue',
@@ -300,14 +373,18 @@ def reveal(body: Reveal):
 
 @router.get('/inspect')
 def inspect(source: Literal['singpad', 'yousician'] = 'singpad', learner: str = Query('01', max_length=4),
-            cutoff: int = Query(2, ge=1, le=10000)):
+            cutoff: int = Query(2, ge=1, le=MAX_HISTORY)):
     c = cohort(source); li, rows = learner_rows(c, learner)
     if not 1 <= cutoff < len(rows):
         raise HTTPException(422, 'Aucune prévision à inspecter à ce point de coupure')
     served = forecast_at(c, li, rows, cutoff)
     if not served.get('predictions'):
-        return {'available': False, 'reason': served.get('reason'), 'cutoff': cutoff}
-    meta, model = cached_validate(REGISTRY_ROOT/c['model_id']); K = meta['K']
+        return {'available': False, 'reason': served.get('reason'), 'cutoff': cutoff,
+                'source': source, 'learner': learner,
+                'identity': {'generation': c['generation'], 'request_id': request_identity(c, li, rows, cutoff),
+                             'model_id': c['model_id'], 'model_sha256': c['meta']['model_sha256'],
+                             'source': source, 'learner': learner, 'cutoff': cutoff, 'target_index': cutoff}}
+    meta, model = c['validated']; K = meta['K']
     query = query_for(c, rows, cutoff)
     # Same grouping, encoding and window as musical_forecast; the comparison below checks it.
     grouped = {}
@@ -353,6 +430,10 @@ def inspect(source: Literal['singpad', 'yousician'] = 'singpad', learner: str = 
                       'other_nonzero_features': int(sum(1 for i, v in enumerate(row) if v != 0 and i not in target_cols))})
     hidden = captured[0][0].numpy() if len(captured) == 1 else None
     return {'available': True, 'cutoff': cutoff, 'architecture': meta['model'],
+            'source': source, 'learner': learner,
+            'identity': {'generation': c['generation'], 'request_id': request_identity(c, li, rows, cutoff),
+                         'model_id': c['model_id'], 'model_sha256': meta['model_sha256'],
+                         'source': source, 'learner': learner, 'cutoff': cutoff, 'target_index': cutoff},
             'window': {'available_steps': cutoff, 'window_start': left, 'steps_in_window': len(steps),
                        'context': context, 'counts_cover_full_prefix': True},
             'tensors': {'x': [1, len(steps), 4*K], 'previous_item': [1, len(steps)], 'current_item': [1, len(steps)],

@@ -60,13 +60,16 @@ def write(folder, data):
 
 def serve(tmp_path, monkeypatch, model, archive):
     """Installs a tracked model in a tmp registry and serves a fake prepared archive built for its vocabulary."""
-    identifier = registry.install(model, tmp_path/'registry')
+    from scripts.integration_fixture import configure_fixture
+    data = archive(registry.cached_validate(model)[0])
+    fixture = tmp_path/'fixture-bundle'
+    configure_fixture(model, fixture, data)
+    identifier = registry.install(fixture, tmp_path/'registry')
     for module in (musical_api, living):
         monkeypatch.setattr(module, 'REGISTRY_ROOT', tmp_path/'registry')
     monkeypatch.setattr(living, 'DATA_DIR', tmp_path)
-    monkeypatch.setattr(living, 'check_integrity', lambda *a: None)   # fake learners cannot match real split digests
     monkeypatch.setattr(living, '_cohorts', {}); monkeypatch.setattr(living, '_forecasts', {})
-    data = archive(registry.cached_validate(tmp_path/'registry'/identifier)[0]); write(tmp_path, data)
+    write(tmp_path, data)
     app = FastAPI(); app.include_router(living.router)
     return TestClient(app), tmp_path, data
 
@@ -130,7 +133,9 @@ def test_changing_future_outcomes_does_not_change_the_cutoff_view(env):
     for row in rows[4:]: row['obs'][0][1] = 0.999   # target and later outcomes change, definitions unchanged
     write(folder, data); living._forecasts.clear()
     after = state(client, 4)
-    strip = lambda s: {k: v for k, v in s.items() if k != 'reveal_receipt'}
+    # Opaque content identity MUST change; numerical/model-visible content must not.
+    assert before['identity']['generation'] != after['identity']['generation']
+    strip = lambda s: {k: v for k, v in s.items() if k not in ('reveal_receipt', 'identity', 'provenance')}
     assert strip(after) == strip(before)
 
 
@@ -177,7 +182,7 @@ def test_reveal_is_server_mediated_and_bound_to_the_forecast(env):
     personal = sum(row['obs'][0][1] for row in rows[:5])/5
     assert r['references']['learner_concept_history']['error'] == pytest.approx(abs(personal-observed))
     data['sha256'] = 'e'*64; write(folder, data)   # a different archive invalidates old tickets
-    assert client.post('/api/v7/o08/living/reveal', json={'receipt': s['reveal_receipt']}).status_code == 409
+    assert client.post('/api/v7/o08/living/reveal', json={'receipt': s['reveal_receipt']}).status_code == 503
 
 
 def test_inspection_uses_an_isolated_copy_and_matches_the_served_forecast(env):

@@ -1,6 +1,9 @@
 """Import checksummed source-benchmark models; never replace the piano twin."""
 import argparse
+import hashlib
+import io
 import json
+import os
 from pathlib import Path
 import shutil
 import tempfile
@@ -11,22 +14,24 @@ import torch
 
 from .cloud_training import SOURCES, VERSION, PREPROCESSING, atomic_json, digest, model_for
 from .data import ROOT
+from .serving_identity import freeze
 
-REGISTRY_ROOT = ROOT / 'artifacts/models/musical-cloud'
+REGISTRY_ROOT = Path(os.environ.get('DECLIC_MODEL_REGISTRY', ROOT / 'artifacts/models/musical-cloud'))
 
 
 @lru_cache(maxsize=8)
-def _verified_model(path, report_digest, model_digest):
-    # Digests invalidate a cache hit if either file changes, including equal-size writes.
-    return validate(path)
+def _verified_model(path, report_bytes, model_bytes, analysis_bytes):
+    # Validate the SAME bytes used as the cache key. Never reopen mutable paths here.
+    meta, model = validate(path, _assets=(report_bytes, model_bytes, analysis_bytes))
+    meta['_serving_evidence_sha256'] = hashlib.sha256(analysis_bytes or b'').hexdigest()
+    return freeze(meta), model
 
 
 def cached_validate(folder):
     folder = Path(folder)
-    report_digest = digest(folder/'metrics.json')
-    if (folder/'analysis.json').exists():
-        report_digest += digest(folder/'analysis.json')
-    return _verified_model(str(folder.resolve()), report_digest, digest(folder/'model.pt'))
+    return _verified_model(str(folder.resolve()), (folder/'metrics.json').read_bytes(),
+                           (folder/'model.pt').read_bytes(),
+                           (folder/'analysis.json').read_bytes() if (folder/'analysis.json').exists() else None)
 
 
 def validate_comparison(analysis, validation, metric):
@@ -38,9 +43,13 @@ def validate_comparison(analysis, validation, metric):
         raise ValueError('Neural model does not improve the stronger validation control')
 
 
-def validate(folder, *, require_gate=True):
+def validate(folder, *, require_gate=True, _assets=None):
     folder = Path(folder)
-    meta = json.loads((folder/'metrics.json').read_text(encoding='utf-8'))
+    if _assets is None:
+        _assets = ((folder/'metrics.json').read_bytes(), (folder/'model.pt').read_bytes(),
+                   (folder/'analysis.json').read_bytes() if (folder/'analysis.json').exists() else None)
+    report_bytes, model_bytes, analysis_bytes = _assets
+    meta = json.loads(report_bytes)
     source = meta.get('source')
     if source not in SOURCES or meta.get('version') not in (VERSION, 'musical-cloud-v1'):
         raise ValueError('Unknown dataset/implementation')
@@ -55,7 +64,7 @@ def validate(folder, *, require_gate=True):
         raise ValueError('Unknown feature configuration')
     if meta.get('instrument') != SOURCES[source]['instrument'] or meta.get('target') != SOURCES[source]['target']:
         raise ValueError('Incompatible source domain/target')
-    if digest(folder/'model.pt') != meta.get('model_sha256'):
+    if hashlib.sha256(model_bytes).hexdigest() != meta.get('model_sha256'):
         raise ValueError('Model checksum mismatch')
     splits = meta.get('splits', {})
     if set(splits) != {'train', 'validation', 'test'} or not all(splits.values()):
@@ -65,7 +74,7 @@ def validate(folder, *, require_gate=True):
         raise ValueError('Expected public split counts/digests; learner IDs must stay private')
     if len({v['sha256'] for v in splits.values()}) != 3:
         raise ValueError('Split digest collision or learner leakage')
-    payload = torch.load(folder/'model.pt', map_location='cpu', weights_only=True)
+    payload = torch.load(io.BytesIO(model_bytes), map_location='cpu', weights_only=True)
     cfg = payload['config']
     if any(meta.get(k) != v for k, v in cfg.items()):
         raise ValueError('Report/checkpoint config mismatch')
@@ -84,9 +93,9 @@ def validate(folder, *, require_gate=True):
             and val['observed_targets'] >= 30 and test['observed_targets'] >= 30):
         raise ValueError('Benchmark validation gate failed; research metrics retained only')
     if require_gate and source == 'singpad':
-        if not (folder/'analysis.json').exists():
+        if analysis_bytes is None:
             raise ValueError('Corrected SingPAD promotion requires matched historical controls')
-        validate_comparison(json.loads((folder/'analysis.json').read_text(encoding='utf-8')), val, metric)
+        validate_comparison(json.loads(analysis_bytes), val, metric)
     for report in (val, test):
         import math
         if not math.isfinite(report[metric]):
