@@ -61,6 +61,7 @@ def grouped_bootstrap(y,p,users,replicates=300,seed=2026,reference=None):
     return result
 
 def evaluate(records,replicates=300,reference=None):
+    if not records:raise ValueError('evaluation requires at least one held-out observation')
     y=np.array([r['y'] for r in records]);p=np.array([r['p'] for r in records]);users=np.array([r['student'] for r in records])
     metrics=summary(y,p);metrics['bootstrap_95']=grouped_bootstrap(y,p,users,replicates,reference=reference)
     skills=sorted({r['skill'] for r in records})

@@ -39,3 +39,9 @@ def test_calibration_rejects_invalid_temperature(temperature):
 def test_calibration_preserves_probabilities_at_unit_temperature():
     from axis7.metrics import calibrate
     np.testing.assert_allclose(calibrate([.2, .8], 1), [.2, .8])
+
+
+def test_empty_evaluation_fails_with_actionable_error():
+    from axis7.metrics import evaluate
+    with pytest.raises(ValueError, match="held-out observation"):
+        evaluate([])
