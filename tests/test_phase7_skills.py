@@ -43,3 +43,16 @@ def test_no_automatic_expert_approval():
             'supporting_evidence':['Source definition must be examined by teacher.'],'version':'1','status':'pending_review'}
     assert approved_mappings([record])==[]
     with pytest.raises(ValidationError): MappingReview(**{**record,'status':'approved'})
+
+
+@pytest.mark.parametrize("field", ["reviewer", "reviewer_qualification"])
+def test_approved_mapping_rejects_blank_reviewer_credentials(field):
+    from datetime import date
+    record = {"source": "singpad", "source_concept": "0", "proposed_skill": "rhythm",
+              "definition": "Candidate definition requiring source verification.",
+              "supporting_evidence": ["Source definition examined by teacher."],
+              "version": "1", "status": "approved", "reviewer": "Music teacher",
+              "reviewer_qualification": "Qualified music educator", "approval_date": date.today()}
+    MappingReview(**record)
+    with pytest.raises(ValidationError, match="qualified reviewer"):
+        MappingReview(**{**record, field: " \t\n"})
