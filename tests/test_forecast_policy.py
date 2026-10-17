@@ -93,3 +93,9 @@ def test_research_eligible_is_false_with_no_provenance_at_all():
 def test_every_reason_code_has_a_non_empty_french_user_message(reason):
     from axis7.forecast_policy import REASON_MESSAGES
     assert isinstance(REASON_MESSAGES[reason], str) and REASON_MESSAGES[reason]
+
+
+def test_required_item_check_must_have_positive_confirmation():
+    decision = evaluate(base_inputs(requires_item_check=True, item_known=None))
+    assert decision.reason_code == 'unknown_exercise'
+    assert decision.research_eligible is False

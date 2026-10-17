@@ -75,7 +75,7 @@ def evaluate(inputs: PolicyInputs) -> PolicyDecision:
         return _decision('unsupported_instrument', False)
     if inputs.rubrics and not inputs.rubrics <= inputs.supported_rubrics:
         return _decision('unsupported_rubric', False)
-    if inputs.requires_item_check and inputs.item_known is False:
+    if inputs.requires_item_check and inputs.item_known is not True:
         return _decision('unknown_exercise', False)
     if inputs.prefix_count < MIN_HISTORY_ATTEMPTS:
         return _decision('insufficient_history', False)
