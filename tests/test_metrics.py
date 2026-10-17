@@ -45,3 +45,19 @@ def test_empty_evaluation_fails_with_actionable_error():
     from axis7.metrics import evaluate
     with pytest.raises(ValueError, match="held-out observation"):
         evaluate([])
+
+
+def test_calibration_bins_accept_sequences_and_include_endpoint_predictions():
+    from axis7.metrics import calibration_bins
+    bins = calibration_bins([0, 1], [0, 1])
+    assert sum(b["n"] for b in bins) == 2
+    assert bins[0]["observed_frequency"] == 0
+    assert bins[-1]["observed_frequency"] == 1
+    assert bins == calibration_bins(np.array([0, 1]), np.array([0, 1]))
+
+
+@pytest.mark.parametrize("y,p", [([0, 1], [.2]), ([[0, 1]], [[.2, .8]])])
+def test_calibration_bins_reject_misaligned_observations(y, p):
+    from axis7.metrics import calibration_bins
+    with pytest.raises(ValueError, match="aligned"):
+        calibration_bins(y, p)

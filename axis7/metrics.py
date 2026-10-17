@@ -14,6 +14,9 @@ def calibrate(p,temperature):
     return expit(logit(np.clip(p,1e-6,1-1e-6))/temperature)
 
 def calibration_bins(y,p):
+    y=np.asarray(y);p=np.asarray(p)
+    if y.ndim!=1 or p.ndim!=1 or len(y)!=len(p):
+        raise ValueError('calibration inputs must be aligned one-dimensional sequences')
     result=[]
     for i in range(10):
         m=(p>=i/10)&(p<(i+1)/10 if i<9 else p<=1)
