@@ -8,7 +8,10 @@ def temperature_fit(y,p):
     fit=minimize_scalar(lambda t:log_loss(y,expit(logits/t),labels=[0,1]),bounds=(.5,5),method='bounded')
     return float(fit.x)
 
-def calibrate(p,temperature):return expit(logit(np.clip(p,1e-6,1-1e-6))/temperature)
+def calibrate(p,temperature):
+    if not np.isscalar(temperature) or not np.isfinite(temperature) or temperature<=0:
+        raise ValueError('temperature must be a finite positive scalar')
+    return expit(logit(np.clip(p,1e-6,1-1e-6))/temperature)
 
 def calibration_bins(y,p):
     result=[]

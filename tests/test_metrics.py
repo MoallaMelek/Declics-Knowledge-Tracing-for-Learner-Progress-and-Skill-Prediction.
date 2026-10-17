@@ -27,3 +27,15 @@ def test_bootstrap_accepts_sequences_and_matches_arrays():
 def test_bootstrap_rejects_invalid_cohorts(y, p, users, kwargs):
     with pytest.raises(ValueError):
         grouped_bootstrap(y, p, users, **kwargs)
+
+
+@pytest.mark.parametrize("temperature", [0, -1, np.nan, np.inf, -np.inf, [1]])
+def test_calibration_rejects_invalid_temperature(temperature):
+    from axis7.metrics import calibrate
+    with pytest.raises(ValueError, match="temperature"):
+        calibrate([.2, .8], temperature)
+
+
+def test_calibration_preserves_probabilities_at_unit_temperature():
+    from axis7.metrics import calibrate
+    np.testing.assert_allclose(calibrate([.2, .8], 1), [.2, .8])
