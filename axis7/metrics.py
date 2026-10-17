@@ -32,7 +32,9 @@ def summary(y,p):
         "confusion_matrix":confusion_matrix(y,pred,labels=[0,1]).tolist(),"calibration":bins}
 
 def grouped_bootstrap(y,p,users,replicates=300,seed=2026,reference=None):
-    users=np.asarray(users);ids=np.unique(users);groups=[np.flatnonzero(users==u) for u in ids]
+    y=np.asarray(y);p=np.asarray(p);users=np.asarray(users)
+    if reference is not None:reference=np.asarray(reference)
+    ids=np.unique(users);groups=[np.flatnonzero(users==u) for u in ids]
     rng=np.random.default_rng(seed);stats={'auc':[],'log_loss':[],'brier':[]}
     differences=[]
     for _ in range(replicates):
