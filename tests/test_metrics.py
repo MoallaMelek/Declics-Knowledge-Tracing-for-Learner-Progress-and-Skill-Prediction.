@@ -14,3 +14,16 @@ def test_bootstrap_accepts_sequences_and_matches_arrays():
                                  replicates=5, reference=np.array(reference))
     assert actual == expected
     assert "log_loss_difference_vs_prior" in actual
+
+
+@pytest.mark.parametrize("y,p,users,kwargs", [
+    ([], [], [], {}),
+    ([0, 1], [.2], ["a", "b"], {}),
+    ([[0, 1]], [[.2, .8]], [["a", "b"]], {}),
+    ([0, 1], [.2, .8], ["a", "b"], {"reference": [.5]}),
+    ([0, 1], [.2, .8], ["a", "b"], {"replicates": 0}),
+    ([0, 1], [.2, .8], ["a", "b"], {"replicates": True}),
+])
+def test_bootstrap_rejects_invalid_cohorts(y, p, users, kwargs):
+    with pytest.raises(ValueError):
+        grouped_bootstrap(y, p, users, **kwargs)

@@ -34,6 +34,13 @@ def summary(y,p):
 def grouped_bootstrap(y,p,users,replicates=300,seed=2026,reference=None):
     y=np.asarray(y);p=np.asarray(p);users=np.asarray(users)
     if reference is not None:reference=np.asarray(reference)
+    if y.ndim!=1 or p.ndim!=1 or users.ndim!=1 or not (len(y)==len(p)==len(users)):
+        raise ValueError('bootstrap inputs must be aligned one-dimensional sequences')
+    if not len(y):raise ValueError('bootstrap requires at least one observation')
+    if reference is not None and (reference.ndim!=1 or len(reference)!=len(y)):
+        raise ValueError('reference predictions must align with observations')
+    if isinstance(replicates,bool) or not isinstance(replicates,(int,np.integer)) or replicates<1:
+        raise ValueError('replicates must be a positive integer')
     ids=np.unique(users);groups=[np.flatnonzero(users==u) for u in ids]
     rng=np.random.default_rng(seed);stats={'auc':[],'log_loss':[],'brier':[]}
     differences=[]
