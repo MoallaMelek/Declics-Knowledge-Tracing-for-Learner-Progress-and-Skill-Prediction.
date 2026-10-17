@@ -29,7 +29,7 @@ class MappingReview(BaseModel):
     @model_validator(mode='after')
     def actual_review(self):
         if self.status=='approved':
-            if not self.reviewer or not self.reviewer_qualification or not self.approval_date or self.approval_date>date.today():
+            if not (self.reviewer and self.reviewer.strip()) or not (self.reviewer_qualification and self.reviewer_qualification.strip()) or not self.approval_date or self.approval_date>date.today():
                 raise ValueError('Approval requires dated qualified reviewer and evidence')
         elif self.approval_date is not None: raise ValueError('Unapproved mapping cannot have approval date')
         return self

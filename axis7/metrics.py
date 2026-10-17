@@ -8,9 +8,15 @@ def temperature_fit(y,p):
     fit=minimize_scalar(lambda t:log_loss(y,expit(logits/t),labels=[0,1]),bounds=(.5,5),method='bounded')
     return float(fit.x)
 
-def calibrate(p,temperature):return expit(logit(np.clip(p,1e-6,1-1e-6))/temperature)
+def calibrate(p,temperature):
+    if not np.isscalar(temperature) or not np.isfinite(temperature) or temperature<=0:
+        raise ValueError('temperature must be a finite positive scalar')
+    return expit(logit(np.clip(p,1e-6,1-1e-6))/temperature)
 
 def calibration_bins(y,p):
+    y=np.asarray(y);p=np.asarray(p)
+    if y.ndim!=1 or p.ndim!=1 or len(y)!=len(p):
+        raise ValueError('calibration inputs must be aligned one-dimensional sequences')
     result=[]
     for i in range(10):
         m=(p>=i/10)&(p<(i+1)/10 if i<9 else p<=1)
@@ -32,10 +38,16 @@ def summary(y,p):
         "confusion_matrix":confusion_matrix(y,pred,labels=[0,1]).tolist(),"calibration":bins}
 
 def grouped_bootstrap(y,p,users,replicates=300,seed=2026,reference=None):
-    # Fancy resampling indexes require arrays, including an optional prior baseline.
-    y=np.asarray(y);p=np.asarray(p)
+    y=np.asarray(y);p=np.asarray(p);users=np.asarray(users)
     if reference is not None:reference=np.asarray(reference)
-    users=np.asarray(users);ids=np.unique(users);groups=[np.flatnonzero(users==u) for u in ids]
+    if y.ndim!=1 or p.ndim!=1 or users.ndim!=1 or not (len(y)==len(p)==len(users)):
+        raise ValueError('bootstrap inputs must be aligned one-dimensional sequences')
+    if not len(y):raise ValueError('bootstrap requires at least one observation')
+    if reference is not None and (reference.ndim!=1 or len(reference)!=len(y)):
+        raise ValueError('reference predictions must align with observations')
+    if isinstance(replicates,bool) or not isinstance(replicates,(int,np.integer)) or replicates<1:
+        raise ValueError('replicates must be a positive integer')
+    ids=np.unique(users);groups=[np.flatnonzero(users==u) for u in ids]
     rng=np.random.default_rng(seed);stats={'auc':[],'log_loss':[],'brier':[]}
     differences=[]
     for _ in range(replicates):
@@ -52,6 +64,7 @@ def grouped_bootstrap(y,p,users,replicates=300,seed=2026,reference=None):
     return result
 
 def evaluate(records,replicates=300,reference=None):
+    if not records:raise ValueError('evaluation requires at least one held-out observation')
     y=np.array([r['y'] for r in records]);p=np.array([r['p'] for r in records]);users=np.array([r['student'] for r in records])
     metrics=summary(y,p);metrics['bootstrap_95']=grouped_bootstrap(y,p,users,replicates,reference=reference)
     skills=sorted({r['skill'] for r in records})
