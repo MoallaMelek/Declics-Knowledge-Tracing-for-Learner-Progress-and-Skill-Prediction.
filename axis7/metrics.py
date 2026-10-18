@@ -37,8 +37,8 @@ def calibration_bins(y,p):
 
 def summary(y,p):
     y=np.asarray(y);p=np.asarray(p);pred=p>=.5
-    if not len(y):return None
     bins=calibration_bins(y,p)
+    if not len(y):return None
     return {"n":len(y),"positive_rate":float(np.mean(y)),
         "auc":float(roc_auc_score(y,p)) if len(np.unique(y))==2 else None,
         "pr_auc":float(average_precision_score(y,p)) if np.any(y==1) else None,

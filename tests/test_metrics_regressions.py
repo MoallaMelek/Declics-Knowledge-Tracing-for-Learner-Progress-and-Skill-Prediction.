@@ -31,6 +31,13 @@ def test_calibrate_does_not_hide_nonfinite_predictions(probability):
         calibrate([.2, probability], 1)
 
 
+def test_empty_summary_still_validates_prediction_alignment():
+    from axis7.metrics import summary
+    assert summary([], []) is None
+    with pytest.raises(ValueError, match='aligned'):
+        summary([], [.2])
+
+
 def test_bootstrap_accepts_list_reference_probabilities():
     labels = np.array([0, 1, 0, 1])
     probabilities = np.array([.1, .9, .2, .8])
