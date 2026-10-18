@@ -38,6 +38,12 @@ def test_empty_summary_still_validates_prediction_alignment():
         summary([], [.2])
 
 
+@pytest.mark.parametrize('users', [[1., np.nan], [1., np.inf], ['a', None]])
+def test_bootstrap_rejects_missing_learners_instead_of_dropping_rows(users):
+    with pytest.raises(ValueError, match='learner identifiers'):
+        grouped_bootstrap([0, 1], [.2, .8], users, replicates=2)
+
+
 def test_bootstrap_accepts_list_reference_probabilities():
     labels = np.array([0, 1, 0, 1])
     probabilities = np.array([.1, .9, .2, .8])

@@ -53,6 +53,8 @@ def grouped_bootstrap(y,p,users,replicates=300,seed=2026,reference=None):
     if y.ndim!=1 or p.ndim!=1 or users.ndim!=1 or not (len(y)==len(p)==len(users)):
         raise ValueError('bootstrap inputs must be aligned one-dimensional sequences')
     if not len(y):raise ValueError('bootstrap requires at least one observation')
+    if any(u is None or (isinstance(u,(float,np.floating)) and not np.isfinite(u)) for u in users):
+        raise ValueError('bootstrap learner identifiers must not be missing or nonfinite')
     if reference is not None and (reference.ndim!=1 or len(reference)!=len(y)):
         raise ValueError('reference predictions must align with observations')
     if isinstance(replicates,bool) or not isinstance(replicates,(int,np.integer)) or replicates<1:
