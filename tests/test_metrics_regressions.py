@@ -11,6 +11,26 @@ def test_calibration_bins_reject_probabilities_that_would_disappear(probability)
         calibration_bins([0, 1], [.2, probability])
 
 
+@pytest.mark.parametrize('labels,probabilities', [([], []), ([0], [.2, .8]), ([[0, 1]], [[.2, .8]]), ([0, 1], [.2, np.nan]), ([0, 2], [.2, .8])])
+def test_temperature_fit_requires_usable_validation_data(labels, probabilities):
+    from axis7.metrics import temperature_fit
+    with pytest.raises(ValueError, match='temperature fitting'):
+        temperature_fit(labels, probabilities)
+
+
+def test_temperature_fit_returns_finite_positive_temperature():
+    from axis7.metrics import temperature_fit
+    temperature = temperature_fit([0, 1, 0, 1], [.2, .8, .3, .7])
+    assert np.isfinite(temperature) and temperature > 0
+
+
+@pytest.mark.parametrize('probability', [np.nan, np.inf, -np.inf])
+def test_calibrate_does_not_hide_nonfinite_predictions(probability):
+    from axis7.metrics import calibrate
+    with pytest.raises(ValueError, match='probabilities'):
+        calibrate([.2, probability], 1)
+
+
 def test_bootstrap_accepts_list_reference_probabilities():
     labels = np.array([0, 1, 0, 1])
     probabilities = np.array([.1, .9, .2, .8])

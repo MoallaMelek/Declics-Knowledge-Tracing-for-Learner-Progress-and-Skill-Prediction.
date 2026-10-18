@@ -4,6 +4,11 @@ from scipy.special import expit,logit
 from sklearn.metrics import roc_auc_score,average_precision_score,log_loss,brier_score_loss,accuracy_score,f1_score,confusion_matrix
 
 def temperature_fit(y,p):
+    y=np.asarray(y);p=np.asarray(p)
+    if y.ndim!=1 or p.ndim!=1 or len(y)!=len(p) or not len(y):
+        raise ValueError('temperature fitting requires nonempty aligned one-dimensional inputs')
+    if not np.all(np.isin(y,[0,1])) or not np.all(np.isfinite(p)) or np.any((p<0)|(p>1)):
+        raise ValueError('temperature fitting requires binary labels and finite probabilities in [0, 1]')
     logits=logit(np.clip(p,1e-6,1-1e-6))
     fit=minimize_scalar(lambda t:log_loss(y,expit(logits/t),labels=[0,1]),bounds=(.5,5),method='bounded')
     return float(fit.x)
@@ -11,6 +16,9 @@ def temperature_fit(y,p):
 def calibrate(p,temperature):
     if not np.isscalar(temperature) or not np.isfinite(temperature) or temperature<=0:
         raise ValueError('temperature must be a finite positive scalar')
+    p=np.asarray(p)
+    if not np.all(np.isfinite(p)):
+        raise ValueError('calibration probabilities must be finite')
     return expit(logit(np.clip(p,1e-6,1-1e-6))/temperature)
 
 def calibration_bins(y,p):
