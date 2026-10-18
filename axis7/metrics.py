@@ -17,6 +17,8 @@ def calibration_bins(y,p):
     y=np.asarray(y);p=np.asarray(p)
     if y.ndim!=1 or p.ndim!=1 or len(y)!=len(p):
         raise ValueError('calibration inputs must be aligned one-dimensional sequences')
+    if not np.all(np.isfinite(p)) or np.any((p<0)|(p>1)):
+        raise ValueError('calibration probabilities must be finite and within [0, 1]')
     result=[]
     for i in range(10):
         m=(p>=i/10)&(p<(i+1)/10 if i<9 else p<=1)

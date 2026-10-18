@@ -1,6 +1,14 @@
 """Bootstrap accepts the same array-like inputs as summary without resampling misalignment."""
 import numpy as np
+import pytest
 from axis7.metrics import grouped_bootstrap
+
+
+@pytest.mark.parametrize('probability', [np.nan, np.inf, -np.inf, -.1, 1.1])
+def test_calibration_bins_reject_probabilities_that_would_disappear(probability):
+    from axis7.metrics import calibration_bins
+    with pytest.raises(ValueError, match='probabilities'):
+        calibration_bins([0, 1], [.2, probability])
 
 
 def test_bootstrap_accepts_list_reference_probabilities():
