@@ -79,6 +79,14 @@ L'extension Yousician enrichie par le contexte historique n'améliore pas claire
 
 ## Lancer l'application
 
+**Pour la Phase 8 (`living.html`), utiliser `Launch.ps1`** depuis la racine du dépôt après préparation de l’environnement ci-dessous :
+
+```powershell
+.\Launch.ps1
+```
+
+Ouvrir l’URL affichée par le lanceur (port 8781 par défaut). Il vérifie `/api/readiness` et refuse un port occupé ; `-Port 8782` permet de choisir un autre port. Les commandes Uvicorn ci-dessous concernent le parcours O08 sur 8773 et ne démarrent pas le lanceur Phase 8. Voir le [guide Windows](docs/START_WINDOWS.md) pour les données privées requises et les diagnostics.
+
 Python **3.12 ou supérieur**, depuis la racine du dépôt :
 
 ```powershell
