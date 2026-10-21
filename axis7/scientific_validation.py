@@ -45,10 +45,15 @@ def historical_predictions(rows, K, mean, prior):
 
 
 def metrics(y, p, weight, binary):
-    y = np.asarray(y, dtype=float); p = np.clip(np.asarray(p, dtype=float), 1e-7, 1-1e-7)
+    y = np.asarray(y, dtype=float); p = np.asarray(p, dtype=float)
     weight = np.asarray(weight, dtype=float)
-    if not len(y) or weight.sum() <= 0 or not np.isfinite(p).all():
-        raise ValueError('No finite weighted observations')
+    if y.ndim != 1 or p.shape != y.shape or weight.shape != y.shape or not len(y):
+        raise ValueError('Weighted metrics require nonempty aligned one-dimensional inputs')
+    if (not np.isfinite(y).all() or not np.isfinite(p).all() or not np.isfinite(weight).all()
+            or np.any((y < 0) | (y > 1)) or np.any((p < 0) | (p > 1))
+            or np.any(weight < 0) or weight.sum() <= 0):
+        raise ValueError('Weighted metrics require finite unit outcomes and probabilities and nonnegative weights')
+    p = np.clip(p, 1e-7, 1-1e-7)
     avg = lambda a: float(np.average(a, weights=weight))
     result = {'concept_group_targets': len(y), 'label_weight': float(weight.sum()),
               'mae': avg(abs(y-p)), 'rmse': math.sqrt(avg((y-p)**2))}
@@ -65,7 +70,7 @@ def metrics(y, p, weight, binary):
         assignment = np.minimum((p*10).astype(int), 9)
         for index in range(10):
             mask = assignment == index
-            if mask.any():
+            if weight[mask].sum() > 0:
                 bins.append({'lower': index/10, 'label_weight': float(weight[mask].sum()),
                              'prediction': float(np.average(p[mask], weights=weight[mask])),
                              'observed': float(np.average(y[mask], weights=weight[mask]))})
