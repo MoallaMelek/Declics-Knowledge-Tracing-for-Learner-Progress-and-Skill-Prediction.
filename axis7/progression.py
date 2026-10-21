@@ -5,6 +5,7 @@ LEVELS={'needs_work':0,'developing':1,'comfortable':2}
 CONFIDENCE_GATE=0.6  # provisional ingestion safeguard, not a calibrated reliability threshold
 
 def describe(sessions,skills):
+    sessions=sorted(sessions,key=lambda session:session['attempt_sequence'])
     result=[]
     for skill in skills:
         groups=defaultdict(list);omitted=[]

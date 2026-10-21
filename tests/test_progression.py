@@ -29,3 +29,11 @@ def test_notebook_always_abstains_even_with_many_teacher_ratings():
     result=notebook_forecast(rows(['comfortable']*100,source='teacher'))
     assert result['status']=='abstained' and result['probabilities'] is None
     assert result['validated_for_current_learner'] is False
+
+
+def test_import_order_cannot_reverse_a_progress_description():
+    sessions=rows(['needs_work']*3+['comfortable']*3)
+    expected=describe(sessions,[{'id':'pitch'}])
+    shuffled=[sessions[i] for i in [5,1,3,0,4,2]]
+    assert describe(shuffled,[{'id':'pitch'}])==expected
+    assert shuffled[0]['attempt_sequence']==6
