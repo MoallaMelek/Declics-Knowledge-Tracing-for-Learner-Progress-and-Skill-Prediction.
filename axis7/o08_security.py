@@ -10,8 +10,12 @@ class O08BodyLimit:
         if scope['type']!='http' or not scope.get('path','').startswith(('/api/v6/o08','/api/v7/o08')):
             return await self.app(scope,receive,send)
         lengths=[v for k,v in scope.get('headers',[]) if k==b'content-length']
+        if len(lengths)>1:
+            return await JSONResponse({'detail':'Invalid content length'},status_code=400)(scope,receive,send)
         try: length=int(lengths[0]) if lengths else 0
         except ValueError:
+            return await JSONResponse({'detail':'Invalid content length'},status_code=400)(scope,receive,send)
+        if length<0:
             return await JSONResponse({'detail':'Invalid content length'},status_code=400)(scope,receive,send)
         if length>self.max_bytes:
             return await JSONResponse({'detail':'O08 request exceeds 512 KiB'},status_code=413)(scope,receive,send)
