@@ -63,3 +63,11 @@ def test_source_state_uses_chronology_without_reordering_caller_rows():
     shuffled=list(reversed(rows))
     assert skill_states(shuffled,[0],'yousician',query_time=7)==skill_states(rows,[0],'yousician',query_time=7)
     assert shuffled[0]['time']==5
+
+
+@pytest.mark.parametrize('field,value',[('supporting_evidence',[' ']),('supporting_evidence',['Source record','\t']),('definition',' '*20),('source_concept',' ')])
+def test_mapping_cannot_use_blank_content_as_review_evidence(field,value):
+    record={'source':'singpad','source_concept':'0','proposed_skill':'rhythm',
+            'definition':'Candidate definition requiring source verification.',
+            'supporting_evidence':['Source definition'],'version':'1','status':'pending_review'}
+    with pytest.raises(ValidationError,match='blank'):MappingReview(**{**record,field:value})

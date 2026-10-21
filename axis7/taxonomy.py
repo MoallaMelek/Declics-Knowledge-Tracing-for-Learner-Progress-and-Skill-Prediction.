@@ -28,6 +28,10 @@ class MappingReview(BaseModel):
 
     @model_validator(mode='after')
     def actual_review(self):
+        if not self.source_concept.strip() or not self.definition.strip():
+            raise ValueError('Mapping concept and definition must not be blank')
+        if any(not evidence.strip() for evidence in self.supporting_evidence):
+            raise ValueError('Supporting evidence entries must not be blank')
         if self.status=='approved':
             if not (self.reviewer and self.reviewer.strip()) or not (self.reviewer_qualification and self.reviewer_qualification.strip()) or not self.approval_date or self.approval_date>date.today():
                 raise ValueError('Approval requires dated qualified reviewer and evidence')
