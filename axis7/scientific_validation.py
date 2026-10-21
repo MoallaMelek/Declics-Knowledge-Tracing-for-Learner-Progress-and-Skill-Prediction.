@@ -17,6 +17,8 @@ def train_priors(learners, ids, K):
         for row in learners[learner]:
             for k, value, weight in row['obs']:
                 success[k] += value*weight; count[k] += weight
+    if count.sum() <= 0:
+        raise ValueError('Training priors require at least one weighted observation')
     mean = float(success.sum()/count.sum())
     prior = (success+2*mean)/(count+2)
     return mean, prior, count

@@ -13,3 +13,13 @@ def test_zero_weight_calibration_bin_is_omitted():
     assert len(result['calibration'])==1
     assert result['calibration'][0]['label_weight']==1
     assert np.isfinite(result['log_loss'])
+
+
+def test_training_priors_refuse_an_empty_training_partition():
+    for learners,ids in [({},[]),({'empty':[]},['empty'])]:
+        with pytest.raises(ValueError,match='Training priors'):
+            train_priors(learners,ids,2)
+
+def test_unobserved_concepts_use_the_observed_training_mean():
+    mean,prior,counts=train_priors({'a':[{'obs':[[0,.75,4]]}]},['a'],2)
+    assert mean==.75 and prior[1]==.75 and counts.tolist()==[4,0]
