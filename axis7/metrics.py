@@ -17,8 +17,8 @@ def calibrate(p,temperature):
     if not np.isscalar(temperature) or not np.isfinite(temperature) or temperature<=0:
         raise ValueError('temperature must be a finite positive scalar')
     p=np.asarray(p)
-    if not np.all(np.isfinite(p)):
-        raise ValueError('calibration probabilities must be finite')
+    if not np.all(np.isfinite(p)) or np.any((p<0)|(p>1)):
+        raise ValueError('calibration probabilities must be finite and within [0, 1]')
     return expit(logit(np.clip(p,1e-6,1-1e-6))/temperature)
 
 def calibration_bins(y,p):
@@ -27,6 +27,8 @@ def calibration_bins(y,p):
         raise ValueError('calibration inputs must be aligned one-dimensional sequences')
     if not np.all(np.isfinite(p)) or np.any((p<0)|(p>1)):
         raise ValueError('calibration probabilities must be finite and within [0, 1]')
+    if not np.all(np.isin(y,[0,1])):
+        raise ValueError('calibration labels must be binary')
     result=[]
     for i in range(10):
         m=(p>=i/10)&(p<(i+1)/10 if i<9 else p<=1)
@@ -59,6 +61,8 @@ def grouped_bootstrap(y,p,users,replicates=300,seed=2026,reference=None):
         raise ValueError('reference predictions must align with observations')
     if isinstance(replicates,bool) or not isinstance(replicates,(int,np.integer)) or replicates<1:
         raise ValueError('replicates must be a positive integer')
+    calibration_bins(y,p)
+    if reference is not None:calibration_bins(y,reference)
     ids=np.unique(users);groups=[np.flatnonzero(users==u) for u in ids]
     rng=np.random.default_rng(seed);stats={'auc':[],'log_loss':[],'brier':[]}
     differences=[]

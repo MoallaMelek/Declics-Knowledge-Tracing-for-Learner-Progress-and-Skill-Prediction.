@@ -59,3 +59,20 @@ def test_bootstrap_accepts_list_labels_and_predictions():
     expected = grouped_bootstrap(np.array([0, 1]), np.array([.2, .8]),
                                  ['a', 'a'], replicates=8)
     assert grouped_bootstrap([0, 1], [.2, .8], ['a', 'a'], replicates=8) == expected
+
+
+@pytest.mark.parametrize('labels,predictions', [([0,2],[.2,.8]),([0,np.nan],[.2,.8]),([0,1],[-.2,.8]),([0,1],[.2,np.inf])])
+def test_binary_metrics_reject_invalid_measurements(labels,predictions):
+    from axis7.metrics import calibration_bins, summary
+    for metric in [calibration_bins,summary]:
+        with pytest.raises(ValueError):metric(labels,predictions)
+    with pytest.raises(ValueError):grouped_bootstrap(labels,predictions,['a','a'],replicates=2)
+
+@pytest.mark.parametrize('probability',[-.1,1.1])
+def test_calibrate_rejects_out_of_range_predictions(probability):
+    from axis7.metrics import calibrate
+    with pytest.raises(ValueError,match='probabilities'):calibrate([probability],1)
+
+def test_paired_bootstrap_validates_reference_probabilities():
+    with pytest.raises(ValueError,match='probabilities'):
+        grouped_bootstrap([0,1],[.2,.8],['a','a'],replicates=2,reference=[.5,np.nan])
