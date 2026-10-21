@@ -56,3 +56,10 @@ def test_approved_mapping_rejects_blank_reviewer_credentials(field):
     MappingReview(**record)
     with pytest.raises(ValidationError, match="qualified reviewer"):
         MappingReview(**{**record, field: " \t\n"})
+
+
+def test_source_state_uses_chronology_without_reordering_caller_rows():
+    rows=history([.2,.3,.2,.8,.9,.8])
+    shuffled=list(reversed(rows))
+    assert skill_states(shuffled,[0],'yousician',query_time=7)==skill_states(rows,[0],'yousician',query_time=7)
+    assert shuffled[0]['time']==5

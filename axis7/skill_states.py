@@ -13,6 +13,7 @@ POLICY = {'version': 'source-skill-state-v1', 'min_groups': 3, 'min_binary_notes
 
 
 def skill_states(rows, concepts, source, predictions=None, query_time=None):
+    rows = sorted(rows, key=lambda row: row['time'])
     predictions = predictions or {}; states = []
     for k in concepts:
         groups = []
