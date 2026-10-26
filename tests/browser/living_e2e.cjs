@@ -134,6 +134,24 @@ async function views(page,cutoff) {assert.equal(await page.locator('#fp-main .fp
     }
     await page.getByRole('button',{name:'Réessayer le chargement'}).click();await selected(page,'singpad');
   });
+  await test('one navigation across the four destinations, with live data and keyboard access',async()=>{
+    const pages=[['/','Accueil'],['/web/living.html','Parcours'],['/web/carnet.html','Carnet'],['/web/labo.html','Laboratoire']];
+    for(const [url,name] of pages){
+      await page.goto(base+url);
+      const nav=page.getByRole('navigation',{name:'Navigation principale'});
+      assert.deepEqual(await nav.getByRole('link').allInnerTexts(),pages.map(p=>p[1]));
+      assert.equal(await nav.getByRole('link',{name,exact:true}).getAttribute('aria-current'),'page');
+      assert.equal(await page.locator('h1').count(),1);
+    }
+    await page.goto(base+'/web/labo.html');
+    await until(()=>page.locator('#system .verdict').isVisible(),'live system state');
+    await until(async()=>await page.locator('#bench .bench-row').count()===3,'Phase 7 benchmark means');
+    await until(async()=>await page.locator('#models .model').count()>0,'served models');
+    await page.goto(base+'/web/carnet.html');await until(()=>page.locator('#content[aria-busy="false"]').count().then(n=>n===1),'notebook ready');
+    await page.goto(base+'/');await page.keyboard.press('Tab');
+    assert.equal(await page.evaluate(()=>document.activeElement.textContent.trim()),'Aller au contenu');
+    await page.goto(base+'/?page=progress');await page.waitForURL(/\/web\/carnet\.html\?page=progress$/);
+  });
   await test('first visit: home to journey, plain forecast and reveal without the researcher view',async()=>{
     await page.goto(base+'/');await until(()=>page.locator('#system[data-state]').count().then(n=>n===1),'home readiness');
     assert.match(await page.locator('#system').innerText(),/Démonstration prête/);

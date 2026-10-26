@@ -64,6 +64,12 @@ const throws = fn => { try { fn(); return false; } catch (e) { return true; } };
     return n.status === 'ready' && Math.abs(n.value - A.mean(Object.values(s.forecast.predictions))) < 1e-12 && n.index === s.cutoff; }));
   check('next step never carries an observed outcome', states.every(s => !JSON.stringify(A.nextStep(s)).includes('observed')));
 
+  check('the served receipt decodes to the shown forecast and identity, without any outcome', states.filter(s => s.reveal_receipt).every(s => {
+    const r = A.receipt(s); if (!r) return false;
+    return r.payload.cutoff === s.cutoff && r.payload.identity.request_id === s.identity.request_id
+      && JSON.stringify(r.payload.predictions) === JSON.stringify(s.forecast.predictions) && !/observed|outcome|comparison/.test(JSON.stringify(r.payload));
+  }) && states.some(s => s.reveal_receipt));
+
   // Reveal contract and error maths.
   check('the served reveal matches the forecast it was requested for', A.acceptReveal(s5, fx.reveal));
   const forged = clone(fx.reveal); forged.comparison[0].prediction += 0.01;

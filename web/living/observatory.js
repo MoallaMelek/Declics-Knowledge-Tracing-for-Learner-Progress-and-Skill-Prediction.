@@ -76,7 +76,7 @@
           : 'Le réseau lit le score agrégé de chaque jour actif passé. Les jours sans pratique ne sont pas des échecs : ils n’existent pas dans la séquence.'}),
         rows.length ? h('figure', {class: 'mx-fig'}, svg, h('figcaption', {class: 'fine', text: 'Case : part des notes réussies (plus foncé = plus de réussites) · petit point : concept non mesuré à ce pas (absence ≠ échec).'})) : h('p', {class: 'empty', text: 'Aucune cible : fin du parcours.'}),
         h('details', {class: 'alt'}, h('summary', {text: 'Valeurs des derniers pas'}),
-          table([A.stepName(snap.source), 'Jour relatif', 'Exercice', 'Réussite agrégée', singpad ? 'Notes' : 'Mesures'], lastFull.map(p => [p.index + 1, A.num(p.day, singpad ? 1 : 0), p.exercise || '—', A.pct(p.score), A.num(p.weight)])))
+          table([A.stepName(snap.source), 'Jour relatif', 'Exercice', 'Réussite agrégée', singpad ? 'Notes' : 'Mesures'], lastFull.map(p => [p.index + 1, A.num(p.day, singpad ? 1 : 0), p.exercise || '—', A.score(snap.source, p.score), A.num(p.weight)])))
       ];
     }
 
@@ -192,7 +192,24 @@
           ['Apprenants (train / validation / test)', prov.splits ? `${prov.splits.train.count} / ${prov.splits.validation.count} / ${prov.splits.test.count}, disjoints` : '—'],
           ['Point de coupure', `${snap.cutoff} ${A.stepName(snap.source)}(s) observé(s)`], ['Horizon', singpad ? 'prochain groupe d’enregistrements' : 'prochain jour actif'],
           ['Mesure sur le test', singpad ? `log-loss ${A.num(test.log_loss, 4)} (moyenne d’entraînement : ${A.num(ref.log_loss, 4)}) · ROC-AUC ${A.num(test.roc_auc, 3)}` : `erreur absolue ${A.num(test.mae, 4)} (moyenne d’entraînement : ${A.num(ref.mae, 4)})`],
-          ['Domaine', 'Base source uniquement ; aucune validation au piano ni pour un autre instrument'], ['Incertitude individuelle', 'non validée']])];
+          ['Domaine', 'Base source uniquement ; aucune validation au piano ni pour un autre instrument'], ['Incertitude individuelle', 'non validée']]),
+        receiptView(snap)];
+    }
+
+    // The signed receipt exactly as served with this forecast: it binds model, data generation, request and values.
+    function receiptView(snap) {
+      const r = A.receipt(snap); if (!r) return null;
+      const p = r.payload, id = p.identity || {};
+      return h('details', {class: 'alt receipt'}, h('summary', {text: 'Reçu de prévision signé'}),
+        h('p', {text: 'Le serveur joint ce reçu à la prévision. La révélation n’est accordée que pour un reçu valide, non expiré, dont le modèle, la génération de données et la requête correspondent encore. Il ne contient aucun résultat observé.'}),
+        table(['Champ signé', 'Valeur'], [
+          ['Étape', p.stage], ['Base · parcours · point de coupure', `${p.source} · ${p.learner} · ${p.cutoff}`],
+          ['Requête (identité)', id.request_id ? `${String(id.request_id).slice(0, 20)}…` : '—'], ['Génération des données', id.generation ? `${String(id.generation).slice(0, 20)}…` : '—'],
+          ['Empreinte des poids', p.model_sha256 ? `${p.model_sha256.slice(0, 20)}…` : '—'],
+          ['Valeurs prévues', Object.entries(p.predictions || {}).map(([k, v]) => `${snap.source === 'singpad' ? 'C' + k : 'score'} ${A.forecast(snap.source, v)}`).join(' · ')],
+          ['Expiration', p.expires ? new Date(p.expires * 1000).toLocaleTimeString('fr-FR') : '—'],
+          ['Signature HMAC-SHA256', r.signature ? `${r.signature.slice(0, 20)}…` : '—']]),
+        h('p', {class: 'fine', text: 'Décodé dans le navigateur pour lecture ; seule la clé du serveur peut vérifier la signature.'}));
     }
 
     function trailChart(snap) {

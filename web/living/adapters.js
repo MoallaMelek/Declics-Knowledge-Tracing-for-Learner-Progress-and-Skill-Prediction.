@@ -26,6 +26,8 @@
   const num = (v, d = 0) => v === null || v === undefined || !isFinite(v) ? '—' : nf(d).format(v);
   const points = (v, d = 1) => v === null || v === undefined || !isFinite(v) ? '—' : `${v > 0 ? '+' : v < 0 ? '−' : ''}${nf(d).format(Math.abs(100 * v))} pts`;
 
+  // Observed values on the scale of their source: SingPAD a share of notes (%), Yousician a continuous score (/ 100).
+  const score = (source, v, d = 1) => v === null || v === undefined || !isFinite(v) ? '—' : source === 'singpad' ? pct(v, d) : `${nf(d).format(100 * v)} / 100`;
   const forecast = (source, v) => v === null || v === undefined || !isFinite(v) ? '—' : source === 'singpad' ? pct(v) : `${nf(1).format(100 * v)} / 100`;
   function conceptName(source, k) { return source === 'singpad' ? `Concept source ${k}` : 'Score global du jour'; }
   function stepName(source) { return source === 'singpad' ? 'groupe' : 'jour actif'; }
@@ -147,10 +149,10 @@
        display: singpad ? num(states.length) : num(past.length), unit: 'count', scale: singpad ? s.K : s.steps_total,
        definition: singpad ? `Nombre de concepts source ayant au moins une note évaluée, sur les ${s.K} du vocabulaire du modèle.` : 'Nombre de jours actifs déjà observés.',
        formula: singpad ? 'distinct(concepts des pas 1…T)' : 'T', support: `${past.length} ${unit}(s)`, sufficient: true},
-      {id: 'historical', label: 'Réussite sur tout le passé', value: hist, display: pct(hist), unit: 'fraction', scale: 1,
+      {id: 'historical', label: 'Réussite sur tout le passé', value: hist, display: score(s.source, hist), unit: 'fraction', scale: 1,
        definition: singpad ? 'Part des notes réussies, toutes notes évaluées confondues.' : 'Moyenne des scores quotidiens observés.',
        formula: singpad ? 'Σ réussites / Σ notes' : 'moyenne(scores)', support: singpad ? `${num(notes)} notes` : `${past.length} jours`, sufficient: past.length >= 1},
-      {id: 'recent', label: 'Réussite récente', value: rec, display: pct(rec), unit: 'fraction', scale: 1,
+      {id: 'recent', label: 'Réussite récente', value: rec, display: score(s.source, rec), unit: 'fraction', scale: 1,
        definition: `Même calcul sur les trois derniers ${unit}s observés.`, formula: singpad ? 'Σ réussites / Σ notes (3 derniers)' : 'moyenne(3 derniers scores)',
        support: `${Math.min(3, past.length)} ${unit}(s)`, sufficient: past.length >= 3},
       {id: 'change', label: 'Évolution récente', value: rec !== null && before !== null ? rec - before : null,
@@ -168,6 +170,18 @@
        definition: singpad ? 'Concepts avec au moins 3 groupes et 10 notes, parmi les concepts observés.' : 'Le score global dispose-t-il d’au moins 3 jours ?',
        formula: 'suffisants / observés', support: `${states.length} observé(s)`, sufficient: true}
     ];
+  }
+
+  // The served reveal receipt is base64url(JSON) + '.' + HMAC. Decoding it only displays what the server signed;
+  // the signature itself cannot be checked in the browser (the key stays on the server).
+  function receipt(s) {
+    if (!s || typeof s.reveal_receipt !== 'string') return null;
+    const [encoded, signature] = s.reveal_receipt.split('.');
+    try {
+      const b64 = encoded.replace(/-/g, '+').replace(/_/g, '/');
+      const text = typeof atob === 'function' ? decodeURIComponent(escape(atob(b64))) : Buffer.from(b64, 'base64').toString('utf8');
+      return {payload: JSON.parse(text), signature: signature || ''};
+    } catch (e) { return null; }
   }
 
   // Plain-language reading of one cutoff, for the learner view. Every number comes from indicators() or the
@@ -245,7 +259,7 @@
   };
   const reason = r => REASONS[r] || 'Le réseau s’abstient ; aucune valeur n’est inventée.';
 
-  return {STATES, SUFFICIENT, pct, num, forecast, points, nf, conceptName, stepName, slot, hash01, assertCausal, sameRequest, identityKey, sameIdentity, revealKey, acceptReveal,
+  return {STATES, SUFFICIENT, pct, num, score, forecast, points, nf, conceptName, stepName, slot, hash01, assertCausal, sameRequest, identityKey, sameIdentity, revealKey, acceptReveal,
           stateIndex, constellation, neighbours, conceptSeries, fingerprint, indicators, compareIndicators, timeline,
-          logLoss, calibrationBin, reason, mean, digest, nextStep, ATTENTION, STEADY};
+          logLoss, calibrationBin, reason, mean, digest, nextStep, receipt, ATTENTION, STEADY};
 });

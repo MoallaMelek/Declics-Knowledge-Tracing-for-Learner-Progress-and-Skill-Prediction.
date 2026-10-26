@@ -107,7 +107,7 @@
         const n = snap.steps_total;
         for (let i = 0; i < n; i++) {
           const a = -Math.PI / 2 + 2 * Math.PI * i / n, x = 250 * Math.cos(a), y = 250 * Math.sin(a);
-          if (i < snap.cutoff) layers.orbit.append(s('circle', {cx: x, cy: y, r: 11, class: 'day', style: `fill:${L.dom.ramp(snap.past[i].score)}`}, s('title', {text: `Jour actif ${i + 1} : ${A.pct(snap.past[i].score)}`})));
+          if (i < snap.cutoff) layers.orbit.append(s('circle', {cx: x, cy: y, r: 11, class: 'day', style: `fill:${L.dom.ramp(snap.past[i].score)}`}, s('title', {text: `Jour actif ${i + 1} : ${A.score(snap.source, snap.past[i].score)}`})));
           else if (i === snap.cutoff) layers.orbit.append(s('circle', {cx: x, cy: y, r: 13, class: 'day next'}));
           else layers.orbit.append(s('circle', {cx: x, cy: y, r: 3, class: 'day future'}));
         }
@@ -206,7 +206,7 @@
       const n = model.nodes.find(x => x.k === k); if (!n) return;
       const snap = store.get().snapshot, box = host.getBoundingClientRect();
       L.dom.put(tip, h('strong', {text: A.conceptName(snap.source, k)}), h('span', {text: n.meta.label}),
-        h('span', {text: n.observed ? `${n.groups} ${A.stepName(snap.source)}(s) · ${snap.source === 'singpad' ? `${A.num(n.notes)} notes · ` : ''}récent ${A.pct(n.recent)}` : 'Aucune observation avant ce pas'}),
+        h('span', {text: n.observed ? `${n.groups} ${A.stepName(snap.source)}(s) · ${snap.source === 'singpad' ? `${A.num(n.notes)} notes · ` : ''}récent ${A.score(snap.source, n.recent)}` : 'Aucune observation avant ce pas'}),
         n.prediction !== null ? h('span', {class: 'gold', text: `Prévision du réseau : ${A.forecast(snap.source, n.prediction)}`}) : null);
       tip.hidden = false;
       const x = Math.min(box.width - 220, e.clientX - box.left + 14), y = Math.max(8, e.clientY - box.top - 10);
@@ -243,7 +243,7 @@
 
     function renderTable(snap) {
       const rows = model.nodes.map(n => [A.conceptName(snap.source, n.k), n.meta.label, n.groups, snap.source === 'singpad' ? A.num(n.notes) : '—',
-        A.pct(n.historical), A.pct(n.recent), n.target ? 'oui' : 'non', n.prediction !== null ? A.forecast(snap.source, n.prediction) : '—']);
+        A.score(snap.source, n.historical), A.score(snap.source, n.recent), n.target ? 'oui' : 'non', n.prediction !== null ? A.forecast(snap.source, n.prediction) : '—']);
       document.getElementById('sky-table').replaceChildren(table(['Concept', 'État descriptif', 'Pas évalués', 'Notes', 'Réussite passée', 'Récente', 'Évalué au prochain pas', 'Prévision du réseau'], rows));
     }
 
@@ -282,8 +282,8 @@
         h('div', {class: 'stats'},
           stat(`${A.stepName(snap.source)}s évalués`, A.num(o.groups_evaluated)),
           singpad ? stat('Notes observées', A.num(o.evaluated_weight || 0)) : null,
-          stat('Réussite passée', A.pct(o.historical_score)),
-          stat('3 derniers pas', A.pct(o.recent_score)),
+          stat(singpad ? 'Réussite passée' : 'Score moyen passé', A.score(snap.source, o.historical_score)),
+          stat('3 dernières séances', A.score(snap.source, o.recent_score)),
           stat('Évolution', o.recent_minus_prior === null || o.recent_minus_prior === undefined ? 'insuffisant' : A.points(o.recent_minus_prior)),
           stat('Pas sans mesure', A.num(o.groups_without_concept))),
         n.observed ? h('figure', {class: 'spark-fig'}, sparkline(snap, k),

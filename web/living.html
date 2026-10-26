@@ -49,7 +49,8 @@
     <p id="status" class="status" role="status" aria-live="polite">Chargement du parcours…</p>
     <div id="recovery" class="problem" hidden>
       <h2>Le parcours ne peut pas s’afficher pour l’instant</h2>
-      <p>La dernière vue valide reste à l’écran quand il y en a une. Aucune valeur n’est inventée en attendant.</p>
+      <p id="recovery-message"></p>
+      <p>Si vous lancez DÉCLIC vous-même : exécutez <code>Launch.ps1</code>, attendez le message « prêt », puis réessayez. La dernière vue valide reste à l’écran quand il y en a une ; aucune valeur n’est inventée en attendant.</p>
       <div class="actions"><button type="button" id="retry" class="btn btn-primary">Réessayer le chargement</button></div>
       <details><summary>Diagnostic technique</summary><p id="diagnostic" class="mono"></p><p class="fine">Vérifiez l’état avec Launch.ps1 et /api/readiness. Ne fermez pas un autre serveur pour libérer son port.</p></details>
     </div>

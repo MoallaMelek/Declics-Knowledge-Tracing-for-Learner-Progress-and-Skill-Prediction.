@@ -26,25 +26,28 @@
           h('span', {class: 'concept-dot', 'aria-hidden': 'true'}),
           h('span', {class: 'concept-name', text: name(snap, it.k)}),
           h('span', {class: 'concept-state', text: it.meta.label}),
-          h('span', {class: 'concept-proof', text: `${it.groups} ${unitPlural(snap, it.groups)}${snap.source === 'singpad' ? ` · ${A.num(it.notes)} notes` : ''} · récent ${A.pct(it.recent, 0)}`})))),
+          h('span', {class: 'concept-proof', text: `${it.groups} ${unitPlural(snap, it.groups)}${snap.source === 'singpad' ? ` · ${A.num(it.notes)} notes · récent ${A.pct(it.recent, 0)}` : ` · récent ${it.recent === null ? '—' : A.num(100 * it.recent, 0) + ' / 100'}`}`})))),
         items.length > 6 ? h('li', {class: 'more', text: `et ${items.length - 6} autre(s), visibles sur la carte`}) : null);
     }
 
     function renderSummary(st) {
       const snap = st.snapshot, d = A.digest(snap), singpad = snap.source === 'singpad';
+      // Yousician scores are continuous: shown on the same « / 100 » scale as the forecast, never as a percentage of success.
+      const show = ind => singpad || ind.value === null ? ind.display : `${A.num(100 * ind.value, 1)} / 100`;
       const lead = singpad
         ? [`Sur les ${d.steps} ${unitPlural(snap, d.steps)} observés, `, h('strong', {text: d.historical.display}), ' des notes évaluées ont été réussies',
            d.recent.sufficient ? [', et ', h('strong', {text: d.recent.display}), ' sur les trois derniers.'] : '.']
-        : [`Sur les ${d.steps} ${unitPlural(snap, d.steps)} observés, le score quotidien moyen est de `, h('strong', {text: d.historical.display}),
-           d.recent.sufficient ? [', et de ', h('strong', {text: d.recent.display}), ' sur les trois derniers jours.'] : '.'];
+        : [`Sur les ${d.steps} ${unitPlural(snap, d.steps)} observés, le score quotidien moyen est de `, h('strong', {text: show(d.historical)}),
+           d.recent.sufficient ? [', et de ', h('strong', {text: show(d.recent)}), ' sur les trois derniers jours.'] : '.'];
       const change = d.change.sufficient
-        ? `Les trois dernières séances se situent ${A.points(Math.abs(d.change.value)).replace('+', '')} ${d.change.value >= 0 ? 'au-dessus' : 'en dessous'} des précédentes.`
+        ? `Les trois dernières séances se situent ${singpad ? A.points(Math.abs(d.change.value)).replace('+', '') : `${A.num(100 * Math.abs(d.change.value), 1)} points (sur 100)`} ${d.change.value >= 0 ? 'au-dessus' : 'en dessous'} des précédentes.`
         : 'Trop tôt pour parler d’une évolution : il faut au moins trois séances avant les trois dernières.';
       const rec = d.recommendation;
       put(summary,
         h('div', {class: 'chapter-head'}, h('div', {},
           h('h2', {id: 'summary-title', text: 'En bref'}),
-          h('p', {class: 'moment', text: `${moment(snap)} · ce que montrent les séances déjà observées`}))),
+          h('p', {class: 'moment', text: `${moment(snap)} · ce que montrent les séances déjà observées`}),
+          h('p', {class: 'hint', text: `${singpad ? 'Ici, une séance est un groupe d’enregistrements SingPAD' : 'Ici, une séance est un jour de pratique Yousician'}. La frise en bas de l’écran fait avancer ou reculer le moment observé : toute la page suit, et les résultats ultérieurs restent cachés.`}))),
         h('div', {class: 'brief'},
           h('div', {class: 'brief-main'},
             tag('observed', 'Observé'),
@@ -75,7 +78,7 @@
 
     // Échelle 0–100 : prévision en pointillé ocre, résultat révélé en vert, l'écart entre les deux reste visible.
     function measure(snap, n, rv) {
-      const W = 640, H = 92, x = v => 20 + v * (W - 40);
+      const W = 640, H = 104, x = v => 20 + v * (W - 40);
       const svg = s('svg', {viewBox: `0 0 ${W} ${H}`, class: 'measure', role: 'img',
         'aria-label': rv ? `Prévu ${A.forecast(snap.source, n.value)}, observé ${A.pct(rv.observed_mean)}.` : `Prévu ${A.forecast(snap.source, n.value)}. Résultat réel encore caché.`});
       svg.append(s('rect', {x: 20, y: 40, width: W - 40, height: 6, rx: 3, class: 'ms-track'}));
@@ -85,10 +88,10 @@
         s('text', {x: fx, y: 10, 'text-anchor': 'middle', text: 'prévu'})));
       if (rv) {
         const ox = x(rv.observed_mean), fresh = lastRevealKey === A.revealKey(snap);
-        svg.append(s('line', {x1: Math.min(fx, ox), x2: Math.max(fx, ox), y1: 84, y2: 84, class: 'ms-gap'}));
+        svg.append(s('line', {x1: Math.min(fx, ox), x2: Math.max(fx, ox), y1: 82, y2: 82, class: 'ms-gap'}));
         svg.append(s('g', {class: 'ms-revealed' + (fresh ? ' arriving' : ''), style: `--from:${(fx - ox).toFixed(1)}px`},
           s('line', {x1: ox, x2: ox, y1: 26, y2: 60}), s('circle', {cx: ox, cy: 43, r: 9}),
-          s('text', {x: ox, y: 82 - 2, 'text-anchor': 'middle', dy: '-.2em', text: 'révélé'})));
+          s('text', {x: ox, y: 100, 'text-anchor': 'middle', text: 'révélé'})));
       } else svg.append(s('g', {class: 'ms-hidden'}, s('rect', {x: W - 140, y: 26, width: 120, height: 34, rx: 4}),
         s('text', {x: W - 80, y: 48, 'text-anchor': 'middle', text: 'résultat caché'})));
       return svg;

@@ -9,6 +9,7 @@
   function showError(e) {
     status(e.message);
     $('recovery').hidden = false;
+    const detail = $('recovery-message'); if (detail) detail.textContent = e.message;
     $('diagnostic').textContent = e.diagnostic || 'Réponse incohérente ; vérifier la version du serveur.';
     store.set({error: e.message, playing: false});
   }

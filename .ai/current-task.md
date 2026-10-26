@@ -9,3 +9,6 @@ Baseline before changes: 425 pytest passed / 3 skipped; Playwright e2e 13/13 (sy
 Environment notes: download.pytorch.org and cdn.playwright.dev are refused by this session's egress policy; torch installed from PyPI, Chromium from the preinstalled /opt/pw-browsers via DECLIC_BROWSER_EXECUTABLE. Real held-out data is private and not available in the cloud: real-data browser validation must run on the delivery machine.
 
 Plan and audit: docs/PHASE9_UX_REBIRTH.md.
+
+Status 2026-10-26: implementation complete on the branch. After: 425 pytest passed / 3 skipped (unchanged); Node harnesses 49 + 169 + 226 + 20 checks; Playwright 15/15 (synthetic fixture + real copied weights). Pending: real held-out data browser run on the delivery machine (DECLIC_E2E_REAL=1), user review, merge decision (not merged, no PR opened).
+Writer, reviewer and tester for this task: Claude only (no Codex consultation); the review was self-review plus automated harnesses.

@@ -28,3 +28,6 @@
 - 2026-10-26 · Observatory (tensors, GRU, logits) only in the researcher view; a plain-language forecast card is the learner default. Descriptive concept list is the default representation; the constellation stays as the exploratory view.
 - 2026-10-26 · Fonts self-hosted (OFL, from npm @fontsource): Bodoni Moda (display), Atkinson Hyperlegible Next (text), Atkinson Hyperlegible Mono (hashes/tensor shapes only). The repo stays offline at runtime.
 - 2026-10-26 · Design skills read from the user's ~/.agents/skills (impeccable, emil-design-eng, design-taste-frontend, redesign-existing-projects…) without running their scripts or binaries; impeccable's `context` launcher and concept-seed roll were not executed.
+- 2026-10-26 · Yousician observed scores are shown on the same « / 100 » scale as its forecasts everywhere (`adapters.score`); they were shown as percentages next to « / 100 » forecasts, suggesting a probability.
+- 2026-10-26 · The signed reveal receipt is decoded and displayed in the researcher view (stage 05). It holds no outcome; its signature cannot be verified client-side and the page says so.
+- 2026-10-26 · `axis7/launch.py` still prints /web/living.html; printing / would be a launcher change outside the frontend scope, proposed rather than made.

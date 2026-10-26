@@ -10,7 +10,11 @@
     try {
       const response = await fetch('/api/readiness', {signal: guard.signal, cache: 'no-store'});
       const data = await response.json().catch(() => null);
-      if (!data || !data.sources) { say('Le serveur répond, mais sans l’état de démonstration attendu. Le parcours affichera le diagnostic.', 'warn'); return; }
+      if (!data || !data.sources) {
+        say(data ? 'Le serveur répond, mais sans l’état de démonstration attendu. Le Laboratoire affiche le diagnostic.'
+          : 'Le serveur DÉCLIC ne répond pas correctement. Lancez l’application avec Launch.ps1, puis rechargez cette page.', data ? 'warn' : 'down');
+        return;
+      }
       const ready = Object.entries(data.sources).filter(([, s]) => s.ready).map(([k]) => NAMES[k] || k);
       const missing = Object.entries(data.sources).filter(([, s]) => !s.ready).map(([k]) => NAMES[k] || k);
       const mode = data.data_mode === 'synthetic_fixture'

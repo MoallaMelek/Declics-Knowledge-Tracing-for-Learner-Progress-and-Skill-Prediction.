@@ -40,6 +40,7 @@ body.is-research .research-only { display: inline-flex !important; }
 .chapter-head { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--s5); margin-bottom: var(--s5); }
 .chapter-head .sub { margin-top: var(--s3); max-width: 70ch; color: var(--ink-2); }
 .moment { margin-top: var(--s2); color: var(--ink-2); font-weight: 700; }
+.hint { margin-top: var(--s2); max-width: 72ch; color: var(--ink-2); font-size: var(--t-sm); }
 
 /* En bref */
 .brief { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s4); }
@@ -373,4 +374,5 @@ details.alt { margin-top: var(--s3); }
   .readout span:last-child, .readout-k { display: none; }
   .readout strong { font-size: var(--t-md); white-space: nowrap; }
   .dock .icon.play { width: 44px; height: 44px; }
+  .dock .speed { display: none; }
 }

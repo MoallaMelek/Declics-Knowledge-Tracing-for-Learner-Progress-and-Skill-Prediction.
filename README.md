@@ -3,7 +3,7 @@
 # DÉCLIC
 ### Comprendre le passé musical pour prévoir le prochain résultat
 
-**Axe 7 · Objectif O08 · Phase 8 stabilisée**
+**Axe 7 · Objectif O08 · Phase 8 stabilisée · Phase 9 : interface refondue**
 
 [![Validation](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/workflows/validate.yml)
 
@@ -18,6 +18,12 @@
 DÉCLIC aide à lire un parcours d'apprentissage musical : les résultats déjà observés, la prévision d'un réseau entraîné, puis la comparaison avec le résultat réellement obtenu. L'axe 7 reçoit les mesures des autres axes du projet ; l'analyse du son, du rythme ou de la technique reste leur responsabilité.
 
 > **Statut actuel :** démonstration locale et recherche reproductible sur des données musicales réelles. La validation avec un professeur et une nouvelle cohorte reste à réaliser. Aucun bénéfice pédagogique ni transfert automatique au piano n'est démontré.
+
+## Phase 9 · Une seule application, quatre destinations
+
+L’interface a été refondue pour qu’un élève, un enseignant ou un jury s’y retrouve sans aide : une seule navigation, **Accueil · Parcours · Carnet · Laboratoire**. Le Parcours commence par un résumé en langage courant et une prévision expliquée en une phrase, avec révélation du résultat réel ; la carte des concepts, l’empreinte et la machine à remonter le temps restent là, expliquées ; le calcul du réseau (tenseurs, mémoire GRU, reçu signé) est réservé à la vue chercheur et au Laboratoire. Observé, lecture, prévision et révélé ont chacun leur marque visuelle et ne sont jamais fusionnés. Les anciennes pages sont archivées et signalées, la simulation des phases 1 à 5 comprise. [Audit, choix et vérifications](docs/PHASE9_UX_REBIRTH.md).
+
+![Avant / après du Parcours](docs/assets/phase9/before-after-journey.png)
 
 ## Une démonstration en trois gestes
 
@@ -85,7 +91,7 @@ L'extension Yousician enrichie par le contexte historique n'améliore pas claire
 .\Launch.ps1
 ```
 
-Ouvrir l’URL affichée par le lanceur (port 8781 par défaut). Il vérifie `/api/readiness` et refuse un port occupé ; `-Port 8782` permet de choisir un autre port. Les commandes Uvicorn ci-dessous concernent le parcours O08 sur 8773 et ne démarrent pas le lanceur Phase 8. Voir le [guide Windows](docs/START_WINDOWS.md) pour les données privées requises et les diagnostics.
+Ouvrir l’URL affichée par le lanceur (port 8781 par défaut) ; l’accueil est à la racine `http://127.0.0.1:8781/`. Il vérifie `/api/readiness` et refuse un port occupé ; `-Port 8782` permet de choisir un autre port. Les commandes Uvicorn ci-dessous concernent le parcours O08 sur 8773 et ne démarrent pas le lanceur Phase 8. Voir le [guide Windows](docs/START_WINDOWS.md) pour les données privées requises et les diagnostics.
 
 Python **3.12 ou supérieur**, depuis la racine du dépôt :
 

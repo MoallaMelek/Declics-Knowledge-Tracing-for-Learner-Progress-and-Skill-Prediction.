@@ -37,7 +37,7 @@
   }
   function failure(target, what, retry, detail) {
     target.replaceChildren(h('div', {class: 'problem'},
-      h('h3', {text: `${what} indisponible`}),
+      h('h3', {text: what}),
       h('p', {text: detail || 'Le serveur DÉCLIC ne répond pas. Vérifiez qu’il est lancé (Launch.ps1), puis réessayez.'}),
       h('div', {class: 'actions'}, h('button', {type: 'button', class: 'btn btn-primary', text: 'Réessayer', onclick: retry}))));
   }
@@ -47,9 +47,10 @@
 
   async function system() {
     const out = $('system'); loading(out, 'Lecture de l’état du serveur…');
-    let r; try { r = await get('/api/readiness'); } catch (e) { return failure(out, 'L’état du système', system); }
+    let r; try { r = await get('/api/readiness'); } catch (e) { return failure(out, 'État du système indisponible', system); }
     const d = r.body;
-    if (!d || !d.sources) return failure(out, 'L’état du système', system, 'Le serveur a répondu sans l’état attendu : vérifiez qu’il s’agit bien du serveur DÉCLIC Phase 8 ou ultérieure.');
+    if (!d || !d.sources) return failure(out, 'État du système indisponible', system, d ? 'Le serveur a répondu sans l’état attendu : vérifiez qu’il s’agit bien du serveur DÉCLIC Phase 8 ou ultérieure.'
+      : `Le serveur DÉCLIC ne répond pas correctement (HTTP ${r.status}). Vérifiez qu’il est lancé (Launch.ps1), puis réessayez.`);
     put(out,
       h('p', {class: 'verdict ' + (d.ready ? 'is-ok' : 'is-warn'), text: d.ready ? 'Démonstration prête : modèles valides, données préparées et inférence vérifiées.' : 'Démonstration partielle : au moins une base n’est pas prête. Le Parcours affichera un diagnostic pour celle-ci.'}),
       h('dl', {class: 'kv'},
@@ -64,9 +65,9 @@
 
   async function bench() {
     const out = $('bench'), limits = $('limits'); loading(out, 'Chargement des résultats publiés…');
-    let r; try { r = await get('/api/v6/o08/demo/research'); } catch (e) { failure(limits, 'Les limites publiées', bench); return failure(out, 'Les bancs d’essai', bench); }
+    let r; try { r = await get('/api/v6/o08/demo/research'); } catch (e) { failure(limits, 'Limites publiées indisponibles', bench); return failure(out, 'Bancs d’essai indisponibles', bench); }
     const d = r.body;
-    if (!r.ok || !d || !Array.isArray(d.comparisons)) { failure(limits, 'Les limites publiées', bench); return failure(out, 'Les bancs d’essai', bench, 'Les résultats Phase 7 ne sont pas lisibles sur ce serveur (artefacts manquants ?).'); }
+    if (!r.ok || !d || !Array.isArray(d.comparisons)) { failure(limits, 'Limites publiées indisponibles', bench); return failure(out, 'Bancs d’essai indisponibles', bench, 'Les résultats Phase 7 ne sont pas lisibles sur ce serveur (artefacts manquants ?).'); }
     const metricOf = src => (d.comparisons.find(c => c.source === src) || {}).metric;
     const rows = Object.entries(d.means || {}).map(([src, m]) => {
       const metric = metricOf(src), lower = m.neural < m.control ? 'réseau' : m.neural > m.control ? 'contrôle' : 'égalité';
@@ -101,9 +102,9 @@
 
   async function models() {
     const out = $('models'); loading(out, 'Chargement du registre…');
-    let r; try { r = await get('/api/v5/musical/models'); } catch (e) { return failure(out, 'Le registre des modèles', models); }
+    let r; try { r = await get('/api/v5/musical/models'); } catch (e) { return failure(out, 'Registre des modèles indisponible', models); }
     const d = r.body;
-    if (!r.ok || !d || !Array.isArray(d.models)) return failure(out, 'Le registre des modèles', models, 'Le registre n’a pas pu être lu sur ce serveur.');
+    if (!r.ok || !d || !Array.isArray(d.models)) return failure(out, 'Registre des modèles indisponible', models, 'Le registre n’a pas pu être lu sur ce serveur.');
     if (!d.models.length) { out.replaceChildren(h('p', {class: 'empty-state', text: 'Aucun modèle dans le registre de ce serveur.'})); return; }
     put(out, h('ul', {class: 'model-list'}, d.models.map(m => {
       const t = m.test || {}, metric = t.log_loss !== undefined ? ['perte logarithmique', t.log_loss] : ['erreur absolue moyenne', t.mae];
