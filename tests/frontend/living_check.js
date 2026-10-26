@@ -47,6 +47,23 @@ const throws = fn => { try { fn(); return false; } catch (e) { return true; } };
   check('timeline: past, next and future slots', tl.filter(x => x.kind === 'past').length === 5 && tl.filter(x => x.kind === 'next').length === 1 && tl.length === s5.steps_total);
   check('timeline future slots carry no score', tl.filter(x => x.kind === 'future').every(x => x.score === undefined && x.predicted === undefined));
 
+  // Phase 9 plain-language adapters: they regroup served states and reuse indicators(), nothing else.
+  check('digest lists only concepts already observed, each in at most one group', states.every(s => {
+    const d = A.digest(s), seen = new Set(s.past.flatMap(p => Object.keys(p.concepts).map(Number))), all = [...d.attention, ...d.steady, ...d.flat];
+    return all.every(x => seen.has(x.k)) && new Set(all.map(x => x.k)).size === all.length;
+  }));
+  check('digest groups follow the descriptive states, never insufficient evidence', states.every(s => {
+    const d = A.digest(s);
+    return d.attention.every(x => A.ATTENTION.includes(x.state)) && d.steady.every(x => A.STEADY.includes(x.state));
+  }));
+  check('digest numbers are the indicator numbers', states.every(s => { const d = A.digest(s), i = Object.fromEntries(A.indicators(s).map(x => [x.id, x]));
+    return d.historical.value === i.historical.value && d.recent.value === i.recent.value && d.change.value === i.change.value; }));
+  check('next step: a number only when the network produced one', states.every(s => { const n = A.nextStep(s);
+    if (!s.target) return n.status === 'end' && n.value === undefined;
+    if (!s.forecast || !s.forecast.predictions) return n.status === 'abstained' && n.value === undefined && /abstient/.test(n.reason);
+    return n.status === 'ready' && Math.abs(n.value - A.mean(Object.values(s.forecast.predictions))) < 1e-12 && n.index === s.cutoff; }));
+  check('next step never carries an observed outcome', states.every(s => !JSON.stringify(A.nextStep(s)).includes('observed')));
+
   // Reveal contract and error maths.
   check('the served reveal matches the forecast it was requested for', A.acceptReveal(s5, fx.reveal));
   const forged = clone(fx.reveal); forged.comparison[0].prediction += 0.01;

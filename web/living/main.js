@@ -18,6 +18,7 @@
   const timeline = L.timeline.create({store, goTo});
   const fingerprint = L.fingerprint.create({store, api: client, constellation});
   const observatory = L.observatory.create({store, client, onReveal: reveal, onInspect: inspect});
+  const summary = L.summary.create({store, constellation, onReveal: reveal, onResearch: openResearch});
   L.app = {store, client, goTo};   // exposed for the Node harness and debugging; holds no hidden outcome
 
   // One render per frame; the timer fallback keeps background tabs (where frames pause) consistent.
@@ -29,7 +30,8 @@
   });
   function renderAll() {
     const st = store.get(); if (!st.snapshot) return;
-    timeline.render(st); constellation.render(st); fingerprint.render(st); observatory.render(st);
+    timeline.render(st); constellation.render(st); fingerprint.render(st); summary.render(st); observatory.render(st);
+    showResearch(st.research);
     syncUrl();
   }
 
@@ -56,7 +58,7 @@
       clearError();
       const unit = A.stepName(snap.source);
       status(`${now.learners.find(l => l.token === snap.learner)?.label || 'Parcours'} · ${unit} ${snap.cutoff} sur ${snap.steps_total}. `
-        + (snap.target ? `Le résultat du pas ${snap.cutoff + 1} est masqué dans cette vue ; le rejeu peut l’avoir affiché auparavant.` : 'Tout le parcours enregistré est observé.'));
+        + (snap.target ? `Le résultat de la séance ${snap.cutoff + 1} reste caché dans cette vue, même si vous l’avez déjà vu plus loin dans le rejeu.` : 'Tout le parcours enregistré est observé.'));
       syncUrl();
     } catch (e) {
       if (e.name === 'AbortError') return;
@@ -127,7 +129,7 @@
     timeline.stop();
     store.set({source, learner: learner || '01', cutoff: cutoff || 3, snapshot: null, selected: null, compareCutoff: null, compareSnapshot: null,
                inspection: null, reveals: {}, stepsTotal: 0, playing: false, error: null});
-    for (const id of ['stage', 'fingerprint', 'observatory', 'dock']) $(id).hidden = true;
+    showViews(false);
     constellation.reset();
     status('Chargement des parcours de test…');
     try {
@@ -143,17 +145,17 @@
       const total = data.learners.find(l => l.token === token).steps;
       store.set({learners: data.learners, learner: token, stepsTotal: total, provenance: data.provenance, counts: data.counts, selection: data.selection});
       constellation.legend(source);
-      for (const id of ['stage', 'fingerprint', 'observatory', 'dock']) $(id).hidden = false;
+      showViews(true);
       document.body.classList.add('has-dock');
       $('sky-sub').textContent = source === 'singpad'
-        ? `${data.provenance.K} concepts source du vocabulaire SingPAD ; seules les étoiles observées avant le pas choisi s’allument.`
-        : 'Un seul indicateur Yousician : le score agrégé de chaque jour actif.';
+        ? `Chaque point est un concept SingPAD déjà évalué avant la séance choisie (sur les ${data.provenance.K} du vocabulaire du modèle). Sa couleur décrit ses résultats, sa taille le nombre de notes observées. Les points s’allument au fil des séances.`
+        : 'Yousician ne mesure qu’un score global par jour actif : la carte le montre au centre, entouré de chaque jour observé.';
       await goTo(cutoff || Math.min(3, total));
       if (epoch === loadEpoch) await applyDeepLink();
     } catch (e) {
       if (epoch !== loadEpoch) return;
       showError(e);
-      for (const id of ['stage', 'fingerprint', 'observatory', 'dock']) $(id).hidden = true;
+      showViews(false);
     }
   }
 
@@ -166,6 +168,22 @@
   });
   $('retry').addEventListener('click', () => { const st = store.get(); load(st.source, st.learner, st.cutoff); });
   $('research-mode').addEventListener('change', e => store.set({research: e.target.checked}));
+
+  // Simple view by default; the researcher view adds the computation chapter. Neither changes any data.
+  const VIEWS = ['summary', 'ahead', 'chapters', 'stage', 'fingerprint', 'dock'];
+  function showViews(on) {
+    for (const id of VIEWS) $(id).hidden = !on;
+    showResearch(on && store.get().research);
+  }
+  function showResearch(on) {
+    const visible = !!on && !!store.get().snapshot && !$('stage').hidden;
+    $('observatory').hidden = !visible;
+    document.body.classList.toggle('is-research', !!on);
+  }
+  function openResearch() {
+    $('research-mode').checked = true; store.set({research: true});
+    requestAnimationFrame(() => { showResearch(true); $('observatory').scrollIntoView({behavior: L.dom.reducedMotion() ? 'auto' : 'smooth', block: 'start'}); });
+  }
 
   document.addEventListener('keydown', e => {
     if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;

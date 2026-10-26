@@ -273,7 +273,7 @@
       const nb = A.neighbours(snap, k).slice(0, 8);
       L.dom.put(inspector,
         h('div', {class: 'insp-head'},
-          h('button', {type: 'button', class: 'ghost small', text: 'Vue d’ensemble', onclick: () => select(null)}),
+          h('button', {type: 'button', class: 'btn btn-quiet back', text: 'Revenir à la vue d’ensemble', onclick: () => select(null)}),
           h('h2', {id: 'inspector-title', text: A.conceptName(snap.source, k)}),
           h('p', {class: 'chip', style: `--c:${n.meta.color}`, text: n.meta.label})),
         h('p', {class: 'insp-text', text: state.interpretation}),
@@ -308,9 +308,9 @@
       const f = snap.forecast, preds = f && f.predictions ? Object.values(f.predictions) : null;
       const rec = snap.recommendation;
       return [
-        h('h2', {id: 'inspector-title', text: `Ce que le passé permet de dire au pas ${snap.cutoff}`}),
+        h('h2', {id: 'inspector-title', text: 'Lire un concept'}),
         h('p', {class: 'insp-text', text: snap.source === 'singpad'
-          ? `${model.nodes.filter(n => n.observed).length} concepts source ont été évalués dans les ${snap.cutoff} groupe(s) observé(s). Choisissez une étoile pour lire son histoire.`
+          ? `${model.nodes.filter(n => n.observed).length} concepts ont été évalués dans les ${snap.cutoff} groupe(s) observé(s). Choisissez un point sur la carte pour lire son histoire : ses résultats séance par séance, et la prévision s’il est évalué au prochain groupe.`
           : `Un seul indicateur existe pour Yousician : le score agrégé du jour actif. ${snap.cutoff} jour(s) observé(s).`}),
         h('ul', {class: 'counts'}, Object.entries(A.STATES).filter(([key]) => counts[key]).map(([key, m]) =>
           h('li', {}, h('span', {class: 'dot' + (m.hollow ? ' hollow' : ''), style: `--c:${m.color}`}), h('span', {text: m.label}), h('strong', {text: counts[key]})))),
@@ -320,7 +320,7 @@
                 h('strong', {class: 'gold', text: A.forecast(snap.source, A.mean(preds))}), snap.source === 'singpad' ? ' de réussite par note (moyenne simple des concepts).' : ' pour le prochain jour actif.')
             : h('p', {text: A.reason(f && f.reason)}),
           snap.target ? h('p', {class: 'fine', text: snap.target.definition}) : null,
-          h('button', {type: 'button', class: 'ghost small', text: 'Ouvrir l’observatoire', onclick: () => document.getElementById('observatory').scrollIntoView({behavior: reducedMotion() ? 'auto' : 'smooth'})})),
+          h('button', {type: 'button', class: 'btn btn-quiet', text: 'Lire le prochain essai', onclick: () => document.getElementById('ahead').scrollIntoView({behavior: reducedMotion() ? 'auto' : 'smooth'})})),
         h('div', {class: 'insp-rec'}, h('h3', {text: 'Piste de pratique'}),
           rec.status === 'abstained' ? h('p', {class: 'fine', text: rec.reason})
             : rec.suggestions.map(r => h('p', {}, `Reprendre l’exercice source ${r.exercise} : concepts ${r.concepts.map(c => 'C' + c).join(', ')}. `, h('span', {class: 'fine', text: r.caveat}))))
@@ -332,13 +332,13 @@
       L.dom.put(document.getElementById('legend'),
         h('ul', {class: 'legend-states'}, items.map(([, m]) => h('li', {}, h('span', {class: 'dot' + (m.hollow ? ' hollow' : ''), style: `--c:${m.color}`}), m.label))),
         h('ul', {class: 'legend-glyphs'},
-          h('li', {}, h('span', {class: 'g-size'}), source === 'singpad' ? 'Taille : notes observées' : 'Taille : jours observés'),
-          h('li', {}, h('span', {class: 'g-gold'}), 'Anneau doré : évalué au prochain pas ; arc = prévision'),
-          h('li', {}, h('span', {class: 'g-fresh'}), 'Halo : observé au dernier pas'),
-          source === 'singpad' ? h('li', {}, h('span', {class: 'g-edge'}), 'Trait : évalués ensemble dans au moins deux pas (tous les liens du concept choisi)') : null,
-          source === 'singpad' ? h('li', {}, h('span', {class: 'g-dust'}), 'Poussière : concept du vocabulaire non observé') : null),
+          h('li', {}, h('span', {class: 'g-size'}), source === 'singpad' ? 'Plus grand : plus de notes observées' : 'Plus grand : plus de jours observés'),
+          h('li', {}, h('span', {class: 'g-gold'}), 'Anneau ocre pointillé : évalué à la prochaine séance ; l’arc plein donne la prévision'),
+          h('li', {}, h('span', {class: 'g-fresh'}), 'Halo : observé à la dernière séance'),
+          source === 'singpad' ? h('li', {}, h('span', {class: 'g-edge'}), 'Trait : évalués ensemble dans au moins deux séances (tous les liens du concept choisi)') : null,
+          source === 'singpad' ? h('li', {}, h('span', {class: 'g-dust'}), 'Petit point gris : concept du vocabulaire pas encore observé') : null),
         h('p', {class: 'fine', text: source === 'singpad'
-          ? 'La position dépend seulement de l’identifiant du concept dans la source (fixe à tous les pas) ; elle n’a pas de sens musical. Les états suivent la règle descriptive source-skill-state-v1, pas une maîtrise.'
+          ? 'La position d’un point dépend seulement de son numéro dans SingPAD et ne bouge jamais : elle n’a pas de sens musical, et la distance entre deux points ne veut rien dire. Les couleurs décrivent des résultats observés (règle source-skill-state-v1), pas une maîtrise.'
           : 'Yousician ne fournit qu’un score agrégé par jour actif : pas de concepts séparés, donc pas de liens. L’orbite montre chaque jour observé.'}));
       host.setAttribute('aria-label', source === 'singpad' ? 'Constellation des concepts source SingPAD' : 'Indicateur Yousician et ses jours actifs');
     }

@@ -1,0 +1,72 @@
+/* Accueil. La couverture bleue d'une édition de partitions porte la promesse ; la page ouverte, la grammaire. */
+.cover { background: var(--cover); padding: var(--s8) 0 var(--s8); }
+.cover-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: var(--s7); align-items: center; }
+.cover h1 { font-size: clamp(2.6rem, 1.6rem + 3.4vw, 4.5rem); line-height: 1; letter-spacing: -.025em; max-width: 13ch; font-weight: 500; }
+.cover .lede { margin-top: var(--s5); max-width: 46ch; font-size: var(--t-lg); color: var(--ink); }
+.cover .actions { margin-top: var(--s6); }
+.cover .btn-secondary { background: transparent; border-color: var(--ink); }
+.cover .btn-secondary:hover { background: rgba(255, 255, 255, .45); }
+
+.system { margin-top: var(--s5); display: flex; gap: var(--s2); align-items: baseline; max-width: 52ch; font-size: var(--t-sm); color: var(--ink); }
+.system::before { content: ''; flex: none; width: 9px; height: 9px; border-radius: 50%; background: var(--ink-3); transform: translateY(-1px); }
+.system[data-state='ok']::before { background: var(--revealed); }
+.system[data-state='warn']::before { background: var(--forecast); }
+.system[data-state='down']::before { background: var(--danger); }
+
+/* La page ouverte : une portée qui pose les quatre catégories. */
+.score { margin: 0; background: var(--sheet); border-radius: var(--radius); padding: var(--s5) var(--s5) var(--s4); box-shadow: 0 2px 0 rgba(15, 27, 49, .06), 0 28px 48px -32px rgba(15, 27, 49, .55); }
+.score svg { width: 100%; height: auto; }
+.score .staff line { stroke: var(--line-strong); stroke-width: 1.2; }
+.score .staff .barline { stroke: var(--ink-3); stroke-width: 2; }
+.score .observed ellipse { fill: var(--observed); transform-box: fill-box; transform-origin: center; transform: rotate(-20deg); }
+.score .observed line { stroke: var(--observed); stroke-width: 2; }
+.score .reading path { fill: none; stroke: var(--reading); stroke-width: 2; }
+.score .reading text { fill: var(--reading); font: italic 600 15px var(--sans); }
+.score .forecast ellipse { fill: var(--forecast-wash); stroke: var(--forecast); stroke-width: 2.4; stroke-dasharray: 4 3; transform-box: fill-box; transform-origin: center; transform: rotate(-20deg); }
+.score .forecast line { stroke: var(--forecast); stroke-width: 2; stroke-dasharray: 5 4; }
+.score .revealed ellipse { fill: var(--revealed); transform-box: fill-box; transform-origin: center; transform: rotate(-20deg); }
+.score .revealed line { stroke: var(--revealed); stroke-width: 2; }
+.score .revealed .gap { fill: none; stroke: var(--ink-3); stroke-width: 1.5; }
+.score .labels text { fill: var(--ink-2); font: 700 15px var(--sans); }
+.score .labels .small { font-weight: 400; font-size: 13px; }
+.score figcaption { margin-top: var(--s3); font-size: var(--t-sm); color: var(--ink-2); max-width: 60ch; }
+.score figcaption em { color: var(--reading); }
+
+/* Le geste signature, joué une fois : la note révélée vient se poser à côté de la prévision. */
+@media (prefers-reduced-motion: no-preference) {
+  .score .revealed { animation: settle 900ms var(--ease-out) 600ms both; }
+  .score .reading { animation: fade 600ms var(--ease-out) 250ms both; }
+}
+@keyframes settle { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* Trois portes, de poids différents : l'action principale domine. */
+.doors { padding-top: var(--s8); }
+.door-list { list-style: none; margin: var(--s5) 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: var(--s4); }
+.door { display: flex; flex-direction: column; justify-content: space-between; gap: var(--s5); padding: var(--s5); background: var(--sheet); border-radius: var(--radius); }
+.door p { margin-top: var(--s2); color: var(--ink-2); max-width: 58ch; }
+.door .btn { align-self: flex-start; }
+.door-main { grid-row: span 2; padding: var(--s6); background: var(--ink); color: var(--sheet); }
+.door-main h3 { color: var(--sheet); font: 500 var(--t-2xl)/1.1 var(--serif); letter-spacing: -.012em; }
+.door-main p { color: #D4DBE5; font-size: var(--t-lg); }
+.door-main .btn-primary { background: var(--cover); color: var(--ink); }
+.door-main .btn-primary:hover { background: var(--sheet); }
+
+.limits { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: var(--s7); padding-top: var(--s9); }
+.limits h2 { max-width: 14ch; }
+.limits .fine { margin-top: var(--s3); max-width: 36ch; }
+.limits ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s5); }
+.limits li { padding-left: var(--s5); position: relative; color: var(--ink-2); max-width: 64ch; }
+.limits li::before { content: ''; position: absolute; left: 0; top: .6em; width: 10px; height: 3px; background: var(--ink); }
+.limits li strong { display: block; color: var(--ink); }
+
+@media (max-width: 900px) {
+  .cover-grid, .limits { grid-template-columns: 1fr; }
+  .door-list { grid-template-columns: 1fr; }
+  .door-main { grid-row: auto; }
+}
+@media (max-width: 560px) {
+  .cover { padding: var(--s6) 0; }
+  .cover .actions .btn { width: 100%; }
+  .score { padding: var(--s3); }
+}

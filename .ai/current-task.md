@@ -1,7 +1,11 @@
-# Phase 8 stabilization - release validation
+# Phase 9 · Refonte UX de DÉCLIC (frontend)
 
-Writer and local verifier: Codex desktop. Fresh read-only Codex CLI design consultation, source-only final review and one closure pass; not the user’s open Claude conversation. The full private worktree review was rejected; the accepted review used an allowlisted export with no data/models/runtime/logs/screenshots.
+Writer: Claude (claude.ai session, cloud clone of the GitHub repository). No other agent consulted for this task so far.
+Branch `phase9/declic-ux-rebirth` from `main` @ 831ca85, which already contains the Phase 8 stabilization (PR #4) and the 17/10 hardening (PR #5). The previous task (Phase 8 stabilization, writer Codex desktop) is closed and merged.
 
-Baseline6400c7a. Code commits2a2ed69,c10419f,64c78ae,bac46e7. Local350pass; targeted35pass; cloud349pass/1skip +13synthetic browser scenarios; local13real-data browser scenarios; active metrics identical to audit. Original data, weights and CSS/constellation assets unchanged. See docs/STABILIZATION_LEDGER.md and docs/validation/phase8-stabilization.json.
+Scope: frontend only (web/, frontend test harnesses, docs). No change to models, targets, evaluation protocol, datasets or API contracts.
+Baseline before changes: 425 pytest passed / 3 skipped; Playwright e2e 13/13 (synthetic fixture + real copied weights).
 
-User explicitly authorizes final main merge after validation. PR#4 created and attached. Finish integrating main, verify final CI/merge, deliver French PDF and launch instructions. No force push, branch deletion, public deployment or replacement of trained models. F09 requires external rights confirmation; no permission invented.
+Environment notes: download.pytorch.org and cdn.playwright.dev are refused by this session's egress policy; torch installed from PyPI, Chromium from the preinstalled /opt/pw-browsers via DECLIC_BROWSER_EXECUTABLE. Real held-out data is private and not available in the cloud: real-data browser validation must run on the delivery machine.
+
+Plan and audit: docs/PHASE9_UX_REBIRTH.md.

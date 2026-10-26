@@ -74,7 +74,7 @@
         h('p', {text: singpad
           ? `Le réseau lit chaque groupe passé : quels concepts ont été chantés et quelle part des notes a réussi. Le prochain groupe (exercice ${snap.target ? snap.target.exercise : '—'}) n’apporte que sa définition. ${others.size} autre(s) concept(s) observé(s) entrent aussi dans les cumuls.`
           : 'Le réseau lit le score agrégé de chaque jour actif passé. Les jours sans pratique ne sont pas des échecs : ils n’existent pas dans la séquence.'}),
-        rows.length ? h('figure', {class: 'mx-fig'}, svg, h('figcaption', {class: 'fine', text: 'Case colorée : part des notes réussies · point : concept non mesuré à ce pas (absence ≠ échec).'})) : h('p', {class: 'empty', text: 'Aucune cible : fin du parcours.'}),
+        rows.length ? h('figure', {class: 'mx-fig'}, svg, h('figcaption', {class: 'fine', text: 'Case : part des notes réussies (plus foncé = plus de réussites) · petit point : concept non mesuré à ce pas (absence ≠ échec).'})) : h('p', {class: 'empty', text: 'Aucune cible : fin du parcours.'}),
         h('details', {class: 'alt'}, h('summary', {text: 'Valeurs des derniers pas'}),
           table([A.stepName(snap.source), 'Jour relatif', 'Exercice', 'Réussite agrégée', singpad ? 'Notes' : 'Mesures'], lastFull.map(p => [p.index + 1, A.num(p.day, singpad ? 1 : 0), p.exercise || '—', A.pct(p.score), A.num(p.weight)])))
       ];
@@ -94,9 +94,9 @@
         const y = top + rh * i;
         svg.append(s('text', {x: left - 6, y: y + rh * 0.78, 'text-anchor': 'end', class: 'mx-txt' + (r.is_query ? ' gold' : ''), text: r.is_query ? 'requête' : `pas ${r.step + 1}`}));
         concepts.forEach((k, j) => r.features[k].forEach((v, f) => {
-          const t = v / max[f], c = f % 2 === 0 ? [124, 196, 160] : [226, 104, 91];
+          const t = v / max[f], c = f % 2 === 0 ? [30, 122, 80] : [163, 48, 78];
           svg.append(s('rect', {x: left + cw * (4 * j + f) + 0.5, y: y + 0.5, width: cw - 1, height: rh - 1,
-            style: `fill:rgb(${c.map(x => Math.round(22 + (x - 22) * Math.sqrt(t))).join(',')})`}, s('title', {text: `${ins.feature_order[f]} · C${k} · ${A.num(v, 4)}`})));
+            style: `fill:rgb(${c.map(x => Math.round(244 + (x - 244) * Math.sqrt(t))).join(',')})`}, s('title', {text: `${ins.feature_order[f]} · C${k} · ${A.num(v, 4)}`})));
         }));
         svg.append(s('text', {x: left + cw * cols + 6, y: y + rh * 0.78, class: 'mx-txt', text: String(r.other_nonzero_features)}));
       });
@@ -107,7 +107,7 @@
           h('span', {class: 'tensor', text: `x · [${t.x.join(' × ')}]`}), h('span', {class: 'tensor', text: `exercice précédent · [${t.previous_item.join(' × ')}]`}),
           h('span', {class: 'tensor', text: `exercice demandé · [${t.current_item.join(' × ')}]`}), h('span', {class: 'tensor', text: `difficulté · [${t.difficulty.join(' × ')}] (nulle)`})),
         h('p', {text: `La ligne « pas k » contient seulement ce qui était connu avant le pas k. La ligne « requête » est le pas à prévoir : elle ne contient que des valeurs issues des pas antérieurs et l’identifiant de l’exercice demandé. Fenêtre : ${ins.window.steps_in_window} ligne(s) sur un contexte de ${ins.window.context} ; les cumuls couvrent tout le passé.`}),
-        h('figure', {class: 'mx-fig'}, svg, h('figcaption', {class: 'fine', text: `Par concept, 4 colonnes : ${ins.feature_order.join(' · ')}. Vert : réussites, corail : échecs ; intensité normalisée par type de caractéristique. Dernière colonne : caractéristiques non nulles des autres concepts (aussi reçues).`})),
+        h('figure', {class: 'mx-fig'}, svg, h('figcaption', {class: 'fine', text: `Par concept, 4 colonnes : ${ins.feature_order.join(' · ')}. Vert : réussites, framboise : échecs ; intensité normalisée par type de caractéristique. Dernière colonne : caractéristiques non nulles des autres concepts (aussi reçues).`})),
         h('details', {class: 'alt'}, h('summary', {text: 'Exercices encodés (identifiants du vocabulaire)'}),
           table(['Ligne', 'Exercice précédent', 'Exercice demandé'], ins.steps.map(r => [r.is_query ? 'requête' : `pas ${r.step + 1}`, r.previous_exercise ? `${r.previous_exercise} (#${r.previous_item})` : 'aucun (#0)', r.current_exercise ? `${r.current_exercise} (#${r.current_item})` : 'inconnu ou absent (#0)'])))
       ];
@@ -153,7 +153,7 @@
       const last = hs[T - 1], prev = T > 1 ? hs[T - 2] : null;
       const change = prev ? Math.sqrt(last.reduce((a, v, j) => a + (v - prev[j]) ** 2, 0)) : null;
       return parts.concat(
-        h('figure', {class: 'mx-fig'}, svg, h('figcaption', {class: 'fine', text: `${ins.activation_note} Orange : valeur positive, bleu : négative, entre −1 et 1.`})),
+        h('figure', {class: 'mx-fig'}, svg, h('figcaption', {class: 'fine', text: `${ins.activation_note} Orange : valeur positive, bleu : négative, entre −1 et 1 ; blanc : proche de 0.`})),
         h('p', {class: 'fine', text: change === null ? '' : `Variation de l’état caché entre les deux dernières lignes : ${A.num(change, 3)} (norme euclidienne). Une grande variation ne dit pas pourquoi la prévision change.`}));
     }
 
@@ -207,7 +207,7 @@
           s('rect', {x: x(t.index) - 3.2, y: y(t.predicted_mean) - 3.2, width: 6.4, height: 6.4, transform: `rotate(45 ${x(t.index)} ${y(t.predicted_mean)})`, class: 'spark-pred'}, s('title', {text: `Pas ${t.index + 1} · prévu ${A.pct(t.predicted_mean)} · ${t.metric} ${A.num(t.error, 3)}`})));
       }
       const meanErr = A.mean(pts.map(t => t.error));
-      return h('figure', {class: 'trail-fig'}, svg, h('figcaption', {class: 'fine', text: `Toutes les prévisions déjà évaluées de ce parcours, sans sélection : losange doré = prévu, point = observé (moyennes simples des concepts). ${pts[0].metric} moyenne : ${A.num(meanErr, 3)} sur ${pts.length} pas.`}));
+      return h('figure', {class: 'trail-fig'}, svg, h('figcaption', {class: 'fine', text: `Toutes les prévisions déjà évaluées de ce parcours, sans sélection : losange ocre = prévu, point vert = observé (moyennes simples des concepts). ${pts[0].metric} moyenne : ${A.num(meanErr, 3)} sur ${pts.length} pas.`}));
     }
 
     function evaluation(st) {
@@ -250,7 +250,7 @@
           s('rect', {x: x(c.prediction) - 3.6, y: y - 3.6, width: 7.2, height: 7.2, transform: `rotate(45 ${x(c.prediction)} ${y})`, class: 'spark-pred'}, s('title', {text: `Prévu ${A.pct(c.prediction)}`})),
           s('text', {x: W - 6, y: y + 4, 'text-anchor': 'end', class: 'mx-txt', text: singpad ? `${A.num(c.notes)} n.` : ''}));
       });
-      return h('figure', {class: 'mx-fig'}, svg, h('figcaption', {class: 'fine', text: 'Losange doré : prévision faite avant la révélation · point : résultat observé · trait : écart (corail si le réseau surestime, bleu s’il sous-estime). Toutes les cibles sont montrées.'}));
+      return h('figure', {class: 'mx-fig'}, svg, h('figcaption', {class: 'fine', text: 'Losange ocre : prévision faite avant la révélation · point vert : résultat observé · trait : écart (framboise si le réseau surestime, bleu s’il sous-estime). Toutes les cibles sont montrées.'}));
     }
 
     function renderResearch(st) {

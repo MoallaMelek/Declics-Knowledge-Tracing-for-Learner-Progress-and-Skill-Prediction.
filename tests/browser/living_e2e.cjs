@@ -37,6 +37,8 @@ async function views(page,cutoff) {assert.equal(await page.locator('#fp-main .fp
   await test('real readiness, frontend and neural inference, both sources',async()=>{
     for(const source of ['singpad','yousician']) {
       await page.goto(base+`/web/living.html?source=${source}&learner=01&cutoff=3`);await selected(page,source);await views(page,3);
+      assert.equal(await page.locator('#observatory').isVisible(),false);
+      await page.getByRole('switch',{name:'Vue chercheur'}).check();await until(()=>page.locator('#observatory').isVisible(),'researcher view');
       await page.getByRole('button',{name:/03 Mémoire GRU/}).click();
       await until(()=>page.getByRole('heading',{name:'La mémoire du réseau, pas après pas'}).isVisible(),'real GRU inspection');
       const r=await fetch(base+`/api/v7/o08/living/inspect?source=${source}&learner=01&cutoff=3`), i=await r.json();
@@ -56,7 +58,7 @@ async function views(page,cutoff) {assert.equal(await page.locator('#fp-main .fp
     await until(()=>new URL(page.url()).searchParams.get('compare')==='3','comparison URL');
     const before=new URL(page.url()).searchParams;await page.reload();await selected(page,'singpad','01',4);
     await until(()=>page.getByRole('heading',{name:'La mémoire du réseau, pas après pas'}).isVisible(),'restored GRU');
-    assert.equal(await page.getByRole('checkbox',{name:'Mode recherche'}).isChecked(),true);
+    assert.equal(await page.getByRole('switch',{name:'Vue chercheur'}).isChecked(),true);
     assert.equal(new URL(page.url()).searchParams.get('concept'),before.get('concept'));
     await until(()=>page.locator('#fp-compare-figure').isVisible(),'restored comparison');
   });
@@ -67,14 +69,14 @@ async function views(page,cutoff) {assert.equal(await page.locator('#fp-main .fp
     await page.goto(base+'/web/living.html?source=singpad&cutoff=3');await until(()=>captured,'held request');
     await page.getByRole('combobox',{name:'Instrument et base',exact:true}).selectOption('yousician');await selected(page,'yousician');
     await page.getByRole('combobox',{name:'Instrument et base',exact:true}).selectOption('singpad');await selected(page,'singpad');
-    await page.getByRole('combobox',{name:'Parcours réel de test',exact:true}).selectOption('02');await selected(page,'singpad','02');
+    await page.getByRole('combobox',{name:'Profil de démonstration',exact:true}).selectOption('02');await selected(page,'singpad','02');
     release();await delay(300);await selected(page,'singpad','02');await page.unroute(pattern);
   });
   await test('revisiting the same cutoff during pending inspection does not stall',async()=>{
     let release,captured=false;const gate=new Promise(r=>release=r);
     const pattern='**/api/v7/o08/living/inspect?source=singpad&learner=01&cutoff=3';
     await page.route(pattern,async route=>{const response=await route.fetch();captured=true;await gate;await route.fulfill({response});});
-    await page.goto(base+'/web/living.html?source=singpad&learner=01&cutoff=3&stage=gru');await until(()=>captured,'held inspection');
+    await page.goto(base+'/web/living.html?source=singpad&learner=01&cutoff=3&stage=gru&research=1');await until(()=>captured,'held inspection');
     await page.locator('#cutoff').focus();await page.keyboard.press('Home');await selected(page,'singpad','01',1);
     await page.keyboard.press('ArrowRight');await page.keyboard.press('ArrowRight');await selected(page,'singpad','01',3);
     release();await until(()=>page.getByRole('heading',{name:'La mémoire du réseau, pas après pas'}).isVisible(),'inspection after revisit');await page.unroute(pattern);
@@ -89,7 +91,7 @@ async function views(page,cutoff) {assert.equal(await page.locator('#fp-main .fp
   });
   await test('inspection connection failure offers recovery and retry',async()=>{
     const pattern='**/api/v7/o08/living/inspect?*';await page.route(pattern,r=>r.abort('connectionreset'));
-    await page.goto(base+'/web/living.html?source=singpad&learner=01&cutoff=3&stage=gru');await selected(page,'singpad');
+    await page.goto(base+'/web/living.html?source=singpad&learner=01&cutoff=3&stage=gru&research=1');await selected(page,'singpad');
     await until(()=>page.locator('#recovery').isVisible(),'inspection transport error');
     assert.match(await page.locator('#status').innerText(),/Impossible de contacter/);await page.unroute(pattern);
     await page.getByRole('button',{name:'Réessayer le chargement'}).click();
@@ -131,6 +133,20 @@ async function views(page,cutoff) {assert.equal(await page.locator('#fp-main .fp
       assert.match(await page.locator('#status').innerText(),code===404?/API.*absente/:/pas prêts/);await page.unroute(pattern);
     }
     await page.getByRole('button',{name:'Réessayer le chargement'}).click();await selected(page,'singpad');
+  });
+  await test('first visit: home to journey, plain forecast and reveal without the researcher view',async()=>{
+    await page.goto(base+'/');await until(()=>page.locator('#system[data-state]').count().then(n=>n===1),'home readiness');
+    assert.match(await page.locator('#system').innerText(),/Démonstration prête/);
+    await page.getByRole('link',{name:/Explorer un parcours/}).click();await selected(page,'singpad');
+    assert.equal(await page.locator('#observatory').isVisible(),false);assert.equal(await page.getByRole('switch',{name:'Vue chercheur'}).isChecked(),false);
+    await until(()=>page.getByRole('heading',{name:'En bref'}).isVisible(),'summary');await until(()=>page.getByRole('heading',{name:'Le prochain essai'}).isVisible(),'forecast card');
+    assert.equal(await page.locator('#ahead .fc-result').count(),0);
+    await page.getByRole('button',{name:'Révéler le résultat réel'}).click();
+    await until(async()=>await page.locator('#ahead .fc-result').isVisible()&&/révélé après/.test(await page.locator('#status').innerText()),'plain reveal');
+    assert.equal(await page.locator('#observatory').isVisible(),false);
+    await page.getByRole('button',{name:'Voir comment le réseau calcule cette valeur'}).click();await until(()=>page.locator('#observatory').isVisible(),'open researcher view');
+    await page.screenshot({path:path.join(OUT,'first-visit-revealed.png')});
+    await page.getByRole('switch',{name:'Vue chercheur'}).uncheck();await until(()=>page.locator('#observatory').isHidden(),'back to simple view');
   });
   await test('keyboard, mobile and no false never-transmitted statement',async()=>{
     await page.locator('#cutoff').focus();await page.keyboard.press('End');await until(async()=>Number(await page.locator('#cutoff').inputValue())>3,'end');

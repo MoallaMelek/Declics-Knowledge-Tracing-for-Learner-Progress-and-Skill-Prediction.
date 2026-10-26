@@ -3,70 +3,96 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DÉCLIC · Le parcours vivant</title>
-<meta name="description" content="O08 : rejeu causal d’un parcours musical réel de test, constellation des concepts, empreinte musicale et observatoire du réseau GRU.">
-<link rel="stylesheet" href="/web/living.css?v=11">
+<meta name="theme-color" content="#EEF1F4">
+<link rel="icon" href="/web/favicon.svg" type="image/svg+xml">
+<title>DÉCLIC · Parcours</title>
+<meta name="description" content="Lire un parcours d'apprentissage musical réel : ce qui a été observé, ce qu'on peut en dire, ce que le réseau prévoit pour l'essai suivant et le résultat réellement obtenu.">
+<link rel="preload" href="/web/fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/web/declic.css?v=9.0">
+<link rel="stylesheet" href="/web/living.css?v=12">
 </head>
 <body>
 <a class="skip" href="#main">Aller au contenu</a>
-<header class="bar">
-  <a class="brand" href="/">déclic<span>chaque séance compte</span></a>
-  <nav aria-label="Navigation principale">
-    <a href="/web/o08.html">Démonstration O08</a>
-    <a href="/web/living.html" aria-current="page">Parcours vivant</a>
-    <a href="/web/musical-cloud.html">Preuves Phase 6</a>
-  </nav>
-  <label class="mode"><input id="research-mode" type="checkbox"> <span>Mode recherche</span></label>
+<header class="site-bar">
+  <div class="wrap">
+    <a class="wordmark" href="/" aria-label="DÉCLIC, accueil"><b>déclic</b><span>apprentissage musical</span></a>
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a href="/">Accueil</a>
+      <a href="/web/living.html" aria-current="page">Parcours</a>
+      <a href="/web/carnet.html">Carnet</a>
+      <a href="/web/labo.html">Laboratoire</a>
+    </nav>
+  </div>
 </header>
 
 <main id="main" tabindex="-1">
-  <section class="intro" aria-labelledby="title">
-    <div>
-      <p class="kicker">O08 · Compétences et performance future</p>
-      <h1 id="title">Le parcours <em>vivant</em></h1>
-      <p class="lede">Remontez le temps dans un vrai parcours de test. À chaque pas, les vues et la prévision utilisent le passé admis ;
-        les résultats ultérieurs sont masqués, même si le rejeu les a déjà affichés.</p>
+  <section class="wrap intro" aria-labelledby="title">
+    <div class="intro-text">
+      <h1 id="title">Lire un parcours d’apprentissage</h1>
+      <p class="lede">Un vrai parcours musical, rejoué séance après séance. DÉCLIC résume ce qui a été observé, puis montre ce que le réseau prévoit pour l’essai suivant et ce qui s’est réellement passé.</p>
     </div>
     <form class="pickers" aria-label="Choix du parcours" onsubmit="return false">
-      <label for="source">Instrument et base</label>
-      <select id="source"><option value="singpad">Chant · SingPAD</option><option value="yousician">Ukulélé · Yousician</option></select>
-      <label for="learner">Parcours réel de test</label>
-      <select id="learner"></select>
-      <details class="sel"><summary>Comment ces parcours ont été choisis</summary><p id="selection-note" class="fine"></p></details>
+      <div class="field">
+        <label for="source">Instrument et base</label>
+        <select id="source"><option value="singpad">Chant · SingPAD</option><option value="yousician">Ukulélé · Yousician</option></select>
+      </div>
+      <div class="field">
+        <label for="learner">Profil de démonstration</label>
+        <select id="learner"></select>
+      </div>
+      <details class="sel"><summary>D’où viennent ces profils ?</summary><p id="selection-note" class="fine"></p></details>
+      <label class="view-switch"><input id="research-mode" type="checkbox" role="switch"> <span>Vue chercheur</span></label>
     </form>
   </section>
 
-  <p id="status" class="status" role="status" aria-live="polite">Chargement du parcours…</p>
-  <div id="recovery" hidden>
-    <button type="button" id="retry">Réessayer le chargement</button>
-    <details><summary>Diagnostic technique</summary><p id="diagnostic" class="mono"></p><p>Vérifiez l’état avec Launch.ps1 et /api/readiness. Ne fermez pas un autre serveur pour libérer son port.</p></details>
-  </div>
-  <p id="sr-announce" class="sr-only" aria-live="polite"></p>
-
-  <section id="stage" class="stage" aria-labelledby="sky-title" hidden>
-    <div class="sky-card">
-      <div class="card-head">
-        <div><h2 id="sky-title">Constellation vivante</h2>
-          <p id="sky-sub" class="sub"></p></div>
-        <div class="zoom" role="group" aria-label="Zoom de la constellation">
-          <button type="button" id="zoom-in" class="icon" aria-label="Agrandir"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
-          <button type="button" id="zoom-out" class="icon" aria-label="Réduire"><svg aria-hidden="true"><use href="#i-minus"/></svg></button>
-          <button type="button" id="zoom-reset" class="icon" aria-label="Recadrer sur les observations"><svg aria-hidden="true"><use href="#i-target"/></svg></button>
-        </div>
-      </div>
-      <div id="sky" class="sky" tabindex="0" role="group" aria-roledescription="constellation" aria-describedby="sky-help"></div>
-      <p id="sky-help" class="fine">Dans le ciel : flèches pour passer d’un concept à l’autre · Entrée : inspecter · Échap : vue d’ensemble · + / − / 0 ou Ctrl + molette : zoom · glisser : déplacer. Ailleurs : ← / → changent de pas, Espace lance la lecture.</p>
-      <div id="legend" class="legend" aria-label="Légende"></div>
-      <details class="alt"><summary>Lire la constellation sous forme de tableau</summary><div id="sky-table" class="table-scroll"></div></details>
+  <div class="wrap">
+    <p id="status" class="status" role="status" aria-live="polite">Chargement du parcours…</p>
+    <div id="recovery" class="problem" hidden>
+      <h2>Le parcours ne peut pas s’afficher pour l’instant</h2>
+      <p>La dernière vue valide reste à l’écran quand il y en a une. Aucune valeur n’est inventée en attendant.</p>
+      <div class="actions"><button type="button" id="retry" class="btn btn-primary">Réessayer le chargement</button></div>
+      <details><summary>Diagnostic technique</summary><p id="diagnostic" class="mono"></p><p class="fine">Vérifiez l’état avec Launch.ps1 et /api/readiness. Ne fermez pas un autre serveur pour libérer son port.</p></details>
     </div>
-    <aside id="inspector" class="inspector" tabindex="-1" aria-labelledby="inspector-title"></aside>
+    <p id="sr-announce" class="sr-only" aria-live="polite"></p>
+    <nav id="chapters" class="chapters" aria-label="Dans ce parcours" hidden>
+      <a href="#summary">En bref</a><a href="#ahead">Le prochain essai</a><a href="#stage">Carte des concepts</a><a href="#fingerprint">Empreinte des séances</a><a href="#observatory" class="research-only">Calcul du réseau</a>
+    </nav>
+  </div>
+
+  <section id="summary" class="wrap chapter summary" aria-labelledby="summary-title" hidden></section>
+
+  <section id="ahead" class="wrap chapter ahead" aria-labelledby="ahead-title" hidden></section>
+
+  <section id="stage" class="wrap chapter stage" aria-labelledby="sky-title" hidden>
+    <div class="chapter-head">
+      <div>
+        <h2 id="sky-title">Carte des concepts</h2>
+        <p id="sky-sub" class="sub"></p>
+      </div>
+      <div class="zoom" role="group" aria-label="Zoom de la carte">
+        <button type="button" id="zoom-in" class="icon" aria-label="Agrandir"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
+        <button type="button" id="zoom-out" class="icon" aria-label="Réduire"><svg aria-hidden="true"><use href="#i-minus"/></svg></button>
+        <button type="button" id="zoom-reset" class="icon" aria-label="Recadrer sur les observations"><svg aria-hidden="true"><use href="#i-target"/></svg></button>
+      </div>
+    </div>
+    <div class="stage-grid">
+      <div class="sky-card">
+        <div id="sky" class="sky" tabindex="0" role="group" aria-roledescription="carte des concepts" aria-describedby="sky-help"></div>
+        <div id="legend" class="legend" aria-label="Légende"></div>
+        <p id="sky-help" class="fine">Cliquez un point pour lire son histoire. Au clavier, dans la carte : flèches pour passer d’un concept à l’autre, Entrée pour l’inspecter, Échap pour revenir, + / − / 0 pour le zoom. Ailleurs sur la page : ← / → changent de séance, Espace lance la lecture.</p>
+        <details class="alt"><summary>Lire la carte sous forme de tableau</summary><div id="sky-table" class="table-scroll"></div></details>
+      </div>
+      <aside id="inspector" class="inspector" tabindex="-1" aria-labelledby="inspector-title"></aside>
+    </div>
   </section>
 
-  <section id="fingerprint" class="block" aria-labelledby="fp-title" hidden>
-    <div class="card-head">
-      <div><h2 id="fp-title">Empreinte musicale</h2>
-        <p class="sub">Un sillon par pas observé, du centre (le plus ancien) vers l’extérieur. Chaque arc est un concept réellement évalué ; un vide signifie « non mesuré », jamais « échec ».</p></div>
-      <button type="button" id="compare" class="ghost" aria-pressed="false">Comparer deux moments</button>
+  <section id="fingerprint" class="wrap chapter" aria-labelledby="fp-title" hidden>
+    <div class="chapter-head">
+      <div>
+        <h2 id="fp-title">Empreinte des séances</h2>
+        <p class="sub">Chaque anneau est une séance, de la plus ancienne (au centre) à la plus récente. Chaque arc est un concept réellement évalué ce jour-là ; un vide veut dire « non mesuré », jamais « échec ».</p>
+      </div>
+      <button type="button" id="compare" class="btn btn-secondary" aria-pressed="false">Comparer deux moments</button>
     </div>
     <div class="fp-grid">
       <figure class="fp-figure"><div id="fp-main" class="fp-canvas"></div><figcaption id="fp-caption" class="fine"></figcaption></figure>
@@ -75,11 +101,12 @@
     </div>
   </section>
 
-  <section id="observatory" class="block" aria-labelledby="obs-title" hidden>
-    <div class="card-head">
-      <div><h2 id="obs-title">Observatoire de la décision</h2>
-        <p class="sub">Le trajet réel d’une prévision : du passé fourni au réseau jusqu’à la comparaison avec le résultat, révélé à la demande par le serveur.
-          Les poids du GRU sont fixes ; seule son entrée change avec le pas choisi.</p></div>
+  <section id="observatory" class="wrap chapter lab" aria-labelledby="obs-title" hidden>
+    <div class="chapter-head">
+      <div>
+        <h2 id="obs-title">Le calcul du réseau</h2>
+        <p class="sub">Vue chercheur. Le trajet réel d’une prévision : le passé fourni au réseau, les tenseurs construits, la mémoire GRU enregistrée, la sortie servie, puis la comparaison avec le résultat, révélé à la demande par le serveur. Les poids ne changent pas pendant le rejeu ; seule l’entrée change avec la séance choisie.</p>
+      </div>
     </div>
     <ol id="pipeline" class="pipeline" aria-label="Étapes du calcul"></ol>
     <div id="stage-detail" class="stage-detail" tabindex="-1"></div>
@@ -89,7 +116,7 @@
 
 <div id="dock" class="dock" hidden>
   <div class="dock-inner">
-    <div class="transport" role="group" aria-label="Machine à remonter le parcours">
+    <div class="transport" role="group" aria-label="Remonter le temps">
       <button type="button" id="prev" class="icon" aria-label="Pas précédent"><svg aria-hidden="true"><use href="#i-prev"/></svg></button>
       <button type="button" id="play" class="icon play" aria-label="Lecture"><svg aria-hidden="true"><use id="play-icon" href="#i-play"/></svg></button>
       <button type="button" id="next" class="icon" aria-label="Pas suivant"><svg aria-hidden="true"><use href="#i-next"/></svg></button>
@@ -98,14 +125,17 @@
     </div>
     <div class="track-wrap">
       <div id="track" class="track" aria-hidden="true"></div>
-      <input id="cutoff" type="range" min="1" max="2" value="1" step="1" aria-label="Point de coupure : nombre de pas déjà observés">
+      <input id="cutoff" type="range" min="1" max="2" value="1" step="1" aria-label="Moment observé : nombre de séances déjà connues">
     </div>
-    <div class="readout"><strong id="cutoff-label"></strong><span id="cutoff-detail"></span></div>
+    <div class="readout"><span class="readout-k">Moment observé</span><strong id="cutoff-label"></strong><span id="cutoff-detail"></span></div>
   </div>
 </div>
 
-<footer class="foot">
-  <p><strong>déclic · O08</strong> Rejeu rétrospectif de parcours de test, jamais utilisés pour ajuster les poids. Concepts de la source sans correspondance pédagogique approuvée ; aucun transfert au piano ; incertitude individuelle non validée ; suggestions sans effet pédagogique démontré.</p>
+<footer class="site-foot">
+  <div class="wrap">
+    <p><strong>Ce que montre cette page.</strong> Un rejeu rétrospectif de parcours du jeu de test, jamais utilisés pour ajuster le réseau. Les concepts de la source n’ont pas de correspondance pédagogique approuvée ; aucun transfert au piano ; incertitude individuelle non validée ; pistes de pratique sans effet pédagogique démontré.</p>
+    <nav aria-label="Pied de page"><a href="/">Accueil</a><a href="/web/carnet.html">Carnet</a><a href="/web/labo.html">Laboratoire</a></nav>
+  </div>
 </footer>
 
 <svg width="0" height="0" class="sprite" aria-hidden="true">
@@ -118,14 +148,15 @@
   <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/></symbol>
 </svg>
 
-<script src="/web/living/adapters.js?v=11" defer></script>
-<script src="/web/living/dom.js?v=11" defer></script>
-<script src="/web/living/store.js?v=11" defer></script>
-<script src="/web/living/api.js?v=11" defer></script>
-<script src="/web/living/timeline.js?v=11" defer></script>
-<script src="/web/living/constellation.js?v=11" defer></script>
-<script src="/web/living/fingerprint.js?v=11" defer></script>
-<script src="/web/living/observatory.js?v=11" defer></script>
-<script src="/web/living/main.js?v=11" defer></script>
+<script src="/web/living/adapters.js?v=12" defer></script>
+<script src="/web/living/dom.js?v=12" defer></script>
+<script src="/web/living/store.js?v=12" defer></script>
+<script src="/web/living/api.js?v=12" defer></script>
+<script src="/web/living/timeline.js?v=12" defer></script>
+<script src="/web/living/constellation.js?v=12" defer></script>
+<script src="/web/living/fingerprint.js?v=12" defer></script>
+<script src="/web/living/observatory.js?v=12" defer></script>
+<script src="/web/living/summary.js?v=12" defer></script>
+<script src="/web/living/main.js?v=12" defer></script>
 </body>
 </html>

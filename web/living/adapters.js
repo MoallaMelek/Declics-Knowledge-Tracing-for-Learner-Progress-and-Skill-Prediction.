@@ -9,14 +9,14 @@
 
   // Descriptive states from policy source-skill-state-v1 (axis7/skill_states.py). Order = legend order.
   const STATES = {
-    consistently_strong_observed_performance: {label: 'Résultats régulièrement élevés', short: 'Élevés', color: '#7cc4a0'},
-    improving_observed_performance: {label: 'Amélioration observée', short: 'En hausse', color: '#63c7d6'},
-    observed_without_clear_pattern: {label: 'Pas de motif net', short: 'Sans motif', color: '#cfc8b4'},
-    inconsistent_observed_performance: {label: 'Résultats variables', short: 'Variables', color: '#a596e6'},
-    declining_observed_performance: {label: 'Baisse observée', short: 'En baisse', color: '#e8a15a'},
-    repeatedly_weak_observed_performance: {label: 'Résultats faibles répétés', short: 'Faibles répétés', color: '#e2685b'},
-    insufficient_evidence: {label: 'Observations insuffisantes', short: 'Insuffisant', color: '#8a9a94', hollow: true},
-    not_evaluated: {label: 'Pas encore observé', short: 'Non observé', color: '#5d6d68', hollow: true}
+    consistently_strong_observed_performance: {label: 'Résultats régulièrement élevés', short: 'Élevés', color: '#1E7A50'},
+    improving_observed_performance: {label: 'Amélioration observée', short: 'En hausse', color: '#237F86'},
+    observed_without_clear_pattern: {label: 'Pas de motif net', short: 'Sans motif', color: '#7C879A'},
+    inconsistent_observed_performance: {label: 'Résultats variables', short: 'Variables', color: '#6A55AE'},
+    declining_observed_performance: {label: 'Baisse observée', short: 'En baisse', color: '#B45A12'},
+    repeatedly_weak_observed_performance: {label: 'Résultats faibles répétés', short: 'Faibles répétés', color: '#A3304E'},
+    insufficient_evidence: {label: 'Observations insuffisantes', short: 'Insuffisant', color: '#8A95A6', hollow: true},
+    not_evaluated: {label: 'Pas encore observé', short: 'Non observé', color: '#AEB7C4', hollow: true}
   };
   const SUFFICIENT = s => s && s !== 'insufficient_evidence' && s !== 'not_evaluated';
   const FLAGGED = new Set(['repeatedly_weak_observed_performance', 'declining_observed_performance']);
@@ -170,6 +170,36 @@
     ];
   }
 
+  // Plain-language reading of one cutoff, for the learner view. Every number comes from indicators() or the
+  // served skill states; the lists only regroup descriptive states (policy source-skill-state-v1), never rank learners.
+  const ATTENTION = ['repeatedly_weak_observed_performance', 'declining_observed_performance', 'inconsistent_observed_performance'];
+  const STEADY = ['consistently_strong_observed_performance', 'improving_observed_performance'];
+  function digest(s) {
+    const byId = Object.fromEntries(indicators(s).map(i => [i.id, i]));
+    const observed = s.skill_states.states.filter(st => st.observation.groups_evaluated > 0);
+    const item = st => ({k: st.concept, state: st.estimated_state, meta: STATES[st.estimated_state] || STATES.not_evaluated,
+      groups: st.observation.groups_evaluated, notes: st.observation.evaluated_weight || 0,
+      recent: st.observation.recent_score ?? null, historical: st.observation.historical_score ?? null});
+    const order = list => (a, b) => list.indexOf(a.state) - list.indexOf(b.state) || b.groups - a.groups || a.k - b.k;
+    const attention = observed.filter(st => ATTENTION.includes(st.estimated_state)).map(item).sort(order(ATTENTION));
+    const steady = observed.filter(st => STEADY.includes(st.estimated_state)).map(item).sort(order(STEADY));
+    const flat = observed.filter(st => st.estimated_state === 'observed_without_clear_pattern').map(item);
+    const thin = observed.filter(st => !SUFFICIENT(st.estimated_state)).length;
+    return {source: s.source, unit: stepName(s.source), steps: s.cutoff, total: s.steps_total, K: s.K,
+      concepts: observed.length, historical: byId.historical, recent: byId.recent, change: byId.change,
+      sufficiency: byId.sufficiency, attention, steady, flat, thin, recommendation: s.recommendation};
+  }
+
+  // The next-step forecast as one sentence's worth of data. 'end' and 'abstained' never carry a number.
+  function nextStep(s) {
+    if (!s.target) return {status: 'end'};
+    const f = s.forecast;
+    if (!f || !f.predictions) return {status: 'abstained', reason: reason(f && f.reason), index: s.cutoff};
+    const entries = Object.entries(f.predictions).map(([k, v]) => ({k: Number(k), value: v})).sort((a, b) => a.k - b.k);
+    return {status: 'ready', index: s.cutoff, exercise: s.target.exercise, definition: s.target.definition,
+      value: mean(entries.map(e => e.value)), concepts: entries, continuous: s.source !== 'singpad'};
+  }
+
   function compareIndicators(a, b) {
     const ia = indicators(a), ib = indicators(b);
     return ia.map((x, i) => {
@@ -217,5 +247,5 @@
 
   return {STATES, SUFFICIENT, pct, num, forecast, points, nf, conceptName, stepName, slot, hash01, assertCausal, sameRequest, identityKey, sameIdentity, revealKey, acceptReveal,
           stateIndex, constellation, neighbours, conceptSeries, fingerprint, indicators, compareIndicators, timeline,
-          logLoss, calibrationBin, reason, mean};
+          logLoss, calibrationBin, reason, mean, digest, nextStep, ATTENTION, STEADY};
 });
