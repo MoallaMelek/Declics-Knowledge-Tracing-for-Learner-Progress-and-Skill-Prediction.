@@ -1,3 +1,53 @@
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#1d3029"><title>DÉCLIC · Votre pratique musicale</title><link rel="stylesheet" href="/web/musician.css?v=4.0"></head>
-<body><a class="skip" href="#main">Aller au contenu</a><header class="topbar"><a href="/" class="brand" aria-label="DÉCLIC, accueil">déclic<span>chaque séance compte</span></a><nav aria-label="Navigation principale"><button data-page="home" aria-current="page">Accueil</button><button data-page="practice">Pratiquer</button><button data-page="progress">Ma progression</button><button data-page="notebook">Mon carnet</button></nav><a class="research-link" href="/web/research.html">Recherche &amp; intégration ↗</a></header><main id="main" tabindex="-1"><div id="notice" class="notice" role="status">Chargement du carnet…</div><div id="error" class="error" role="alert" hidden></div><div id="content" aria-live="polite" aria-busy="true"></div></main><footer><a href="/web/o08.html">Comprendre une vraie prévision musicale</a><span>DÉCLIC · Piano, une séance à la fois.</span><span>Vos évaluations restent sur cet appareil. Aucun enregistrement audio ou vidéo.</span></footer><div id="toast" role="status" aria-live="polite" hidden></div><script src="/web/musician.js?v=7.0" defer></script></body></html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#EEF1F4">
+<link rel="icon" href="/web/favicon.svg" type="image/svg+xml">
+<title>DÉCLIC · Carnet de piano</title>
+<meta name="description" content="Un carnet local pour noter votre pratique du piano : choisir un court exercice, le jouer, noter comment cela s'est passé.">
+<link rel="stylesheet" href="/web/declic.css?v=9.0">
+<link rel="stylesheet" href="/web/carnet.css?v=9.0">
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<header class="site-bar">
+  <div class="wrap">
+    <a class="wordmark" href="/" aria-label="DÉCLIC, accueil"><b>déclic</b><span>apprentissage musical</span></a>
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a href="/">Accueil</a>
+      <a href="/web/living.html">Parcours</a>
+      <a href="/web/carnet.html" aria-current="page">Carnet</a>
+      <a href="/web/labo.html">Laboratoire</a>
+    </nav>
+  </div>
+</header>
+
+<div class="carnet-bar">
+  <div class="wrap carnet-bar-inner">
+    <nav class="tabs" aria-label="Sections du carnet">
+      <button type="button" data-page="home" aria-current="page">Vue d’ensemble</button>
+      <button type="button" data-page="practice">Nouvelle séance</button>
+      <button type="button" data-page="progress">Ma progression</button>
+      <button type="button" data-page="notebook">Mes séances</button>
+    </nav>
+    <div id="notice" class="notice" role="status">Chargement du carnet…</div>
+  </div>
+</div>
+
+<main id="main" class="wrap carnet" tabindex="-1">
+  <div id="error" class="problem" role="alert" hidden></div>
+  <div id="content" aria-live="polite" aria-busy="true"></div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p><strong>Vos évaluations restent sur cet appareil.</strong> Aucun enregistrement audio ou vidéo. Les critères et exercices de piano sont provisoires et n’ont pas encore été approuvés par un enseignant ; le carnet ne fait aucune prévision au piano.</p>
+    <nav aria-label="Pied de page"><a href="/">Accueil</a><a href="/web/living.html">Comprendre une vraie prévision musicale</a><a href="/web/labo.html">Laboratoire</a></nav>
+  </div>
+</footer>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+<script src="/web/musician.js?v=9.0" defer></script>
+</body>
+</html>
