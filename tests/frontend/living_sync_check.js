@@ -286,9 +286,9 @@ function aspects(c) {
     const newcomers = [...next].filter(k => firstSeen.get(k) === c), star = k => sky.querySelectorAll('g.node').find(g => g.getAttribute('data-k') === String(k));
     const filled = newcomers.filter(k => { const g = star(k); return !g || !g.querySelector('circle.node-core').classList.contains('hollow') || !g.querySelector('circle.node-target').classList.contains('on'); });
     add('concepts first evaluated at the next step are empty target stars', filled.length === 0, `${filled} of ${newcomers}`);
-    const later = [...firstSeen].filter(([, i]) => i > c).map(([k]) => k), named = mentioned($('stage'));
+    const later = [...firstSeen].filter(([, i]) => i > c).map(([k]) => k), named = new Set([...mentioned($('stage')), ...mentioned($('summary')), ...mentioned($('ahead'))]);
     const leaked = later.filter(k => named.has(k)), unknown = [...named].filter(k => !firstSeen.has(k));
-    add('no concept that first appears later is anywhere in the sky (stars, labels, table, inspector)', leaked.length === 0 && unknown.length === 0,
+    add('no concept that first appears later is anywhere in the sky, summary or forecast card (stars, labels, table, inspector, lists)', leaked.length === 0 && unknown.length === 0,
         `later ${leaked}, unknown ${unknown}`);
     const dust = sky.querySelectorAll('circle.dust-dot');
     add('vocabulary dust is fixed and anonymous; no day orbit', dust.length === ref.K && dust.every(d => !d.hasAttribute('data-k') && !d.childNodes.length)
@@ -306,6 +306,11 @@ function aspects(c) {
         && fp.querySelectorAll('g.fp-target').flatMap(g => g.querySelectorAll('path.fp-next')).length === (c < T ? fx.concepts[c].length : 0),
         `${lit} lit for ${pastKs.size}, ${arcs.length} arcs`);
   }
+  // Phase 9 simple view: the plain-language chapters follow the cutoff and never show an outcome without a reveal.
+  add('summary and forecast card follow the cutoff', $('summary').textContent.includes(`${READOUT} ${c} sur ${T}`)
+      && (ref.target ? $('ahead').textContent.includes(`séance ${c + 1}`) : $('ahead').textContent.includes('fin du parcours enregistré')),
+      $('ahead').textContent.slice(0, 120));
+  add('the forecast card shows no outcome before a reveal', !$('ahead').querySelector('.fc-result') && !$('ahead').querySelector('.ms-revealed'));
   const h3 = $('stage-detail').querySelector('h3');
   add('observatory history heading', st.stage === 'history' && h3 && h3.textContent === `${c} ${unit}(s) antérieurs, dans l’ordre`, h3 && h3.textContent);
   const query = new URLSearchParams(location.search);
@@ -354,7 +359,8 @@ async function scenario() {
   // 1. Deep link: ?cutoff=2 opens the page on that cutoff.
   await clock.advance(400);
   check('deep link selects the learner and source', $('learner').value === fx.token && $('source').value === fx.source && store.get().stepsTotal === T);
-  check('the four views are shown', ['stage', 'fingerprint', 'observatory', 'dock'].every(id => !$(id).hidden));
+  check('the simple view shows its chapters and the time machine', ['summary', 'ahead', 'chapters', 'stage', 'fingerprint', 'dock'].every(id => !$(id).hidden));
+  check('the computation chapter waits for the researcher view', $('observatory').hidden && !store.get().research);
   check('opening the page fetches only the linked cutoff', same(stateRequests().map(r => r.cutoff), [START]));
   syncAt(`deep link ${START}`, START);
 
@@ -452,6 +458,13 @@ async function scenario() {
   check('a reveal is never requested without the user', !requests.some(r => r.kind === 'reveal' || r.method === 'POST'));
   check('only known endpoints were called', requests.every(r => ['learners', 'state', 'inspect'].includes(r.kind)) && requests.filter(r => r.kind === 'learners').length === 1,
         requests.map(r => r.kind).join(','));
+
+  // 9. Researcher view (Phase 9): switching it on reveals the computation chapter, keeps every view in step, requests no state.
+  const beforeSwitch = stateRequests().length;
+  $('research-mode').checked = true; fire($('research-mode'), 'change'); await clock.advance(400);
+  check('the researcher view shows the computation chapter', !$('observatory').hidden && store.get().research === true);
+  check('switching view downloads no state', stateRequests().length === beforeSwitch);
+  syncAt(`researcher view at ${T - 1}`, T - 1);
 }
 
 (async () => {

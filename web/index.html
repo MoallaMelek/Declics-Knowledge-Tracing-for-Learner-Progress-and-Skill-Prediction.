@@ -1,3 +1,138 @@
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#1d3029"><title>DÉCLIC · Votre pratique musicale</title><link rel="stylesheet" href="/web/musician.css?v=4.0"></head>
-<body><a class="skip" href="#main">Aller au contenu</a><header class="topbar"><a href="/" class="brand" aria-label="DÉCLIC, accueil">déclic<span>chaque séance compte</span></a><nav aria-label="Navigation principale"><button data-page="home" aria-current="page">Accueil</button><button data-page="practice">Pratiquer</button><button data-page="progress">Ma progression</button><button data-page="notebook">Mon carnet</button></nav><a class="research-link" href="/web/research.html">Recherche &amp; intégration ↗</a></header><main id="main" tabindex="-1"><div id="notice" class="notice" role="status">Chargement du carnet…</div><div id="error" class="error" role="alert" hidden></div><div id="content" aria-live="polite" aria-busy="true"></div></main><footer><a href="/web/o08.html">Comprendre une vraie prévision musicale</a><span>DÉCLIC · Piano, une séance à la fois.</span><span>Vos évaluations restent sur cet appareil. Aucun enregistrement audio ou vidéo.</span></footer><div id="toast" role="status" aria-live="polite" hidden></div><script src="/web/musician.js?v=7.0" defer></script></body></html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#EEF1F4">
+<link rel="icon" href="/web/favicon.svg" type="image/svg+xml">
+<title>DÉCLIC · Du passé musical au prochain essai</title>
+<meta name="description" content="DÉCLIC rejoue de vrais parcours d'apprentissage musical, résume ce qu'ils montrent et compare la prévision d'un réseau entraîné au résultat réellement obtenu.">
+<script>
+  // Anciennes adresses du carnet (/?page=practice…) : elles mènent désormais au Carnet.
+  (function () { var p = new URLSearchParams(location.search).get('page');
+    if (p && ['home', 'practice', 'progress', 'notebook'].indexOf(p) >= 0) location.replace('/web/carnet.html?page=' + p); })();
+</script>
+<link rel="preload" href="/web/fonts/bodoni-moda-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/web/fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/web/declic.css?v=9.0">
+<link rel="stylesheet" href="/web/home.css?v=9.0">
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<header class="site-bar">
+  <div class="wrap">
+    <a class="wordmark" href="/" aria-label="DÉCLIC, accueil"><b>déclic</b><span>apprentissage musical</span></a>
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a href="/" aria-current="page">Accueil</a>
+      <a href="/web/living.html">Parcours</a>
+      <a href="/web/carnet.html">Carnet</a>
+      <a href="/web/labo.html">Laboratoire</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <section class="cover" aria-labelledby="title">
+    <div class="wrap cover-grid">
+      <div class="cover-text">
+        <h1 id="title">Du passé musical au prochain essai.</h1>
+        <p class="lede">DÉCLIC rejoue de vrais parcours d’apprentissage musical, résume ce qu’ils montrent, puis compare la prévision d’un réseau entraîné au résultat réellement obtenu.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="/web/living.html">Explorer un parcours
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn btn-secondary" href="/web/carnet.html">Tenir mon carnet de piano</a>
+        </div>
+        <p id="system" class="system" role="status" aria-live="polite">Vérification de l’état de la démonstration…</p>
+      </div>
+
+      <figure class="score" aria-labelledby="score-cap">
+        <svg viewBox="0 0 560 300" role="img" aria-labelledby="score-title score-desc">
+          <title id="score-title">Les quatre types d’information d’un parcours</title>
+          <desc id="score-desc">Une portée : cinq résultats observés en notes pleines, une lecture entre crochets au-dessus, une note en pointillé pour la prévision, et une note verte pour le résultat révélé, placée à côté de la prévision.</desc>
+          <g class="staff">
+            <line x1="20" x2="540" y1="110" y2="110"/><line x1="20" x2="540" y1="130" y2="130"/>
+            <line x1="20" x2="540" y1="150" y2="150"/><line x1="20" x2="540" y1="170" y2="170"/><line x1="20" x2="540" y1="190" y2="190"/>
+            <line class="barline" x1="380" x2="380" y1="110" y2="190"/>
+          </g>
+          <g class="observed">
+            <ellipse cx="70" cy="170" rx="11" ry="8"/><line x1="80" x2="80" y1="170" y2="118"/>
+            <ellipse cx="130" cy="160" rx="11" ry="8"/><line x1="140" x2="140" y1="160" y2="108"/>
+            <ellipse cx="190" cy="150" rx="11" ry="8"/><line x1="200" x2="200" y1="150" y2="98"/>
+            <ellipse cx="250" cy="160" rx="11" ry="8"/><line x1="260" x2="260" y1="160" y2="108"/>
+            <ellipse cx="310" cy="140" rx="11" ry="8"/><line x1="320" x2="320" y1="140" y2="88"/>
+          </g>
+          <g class="reading">
+            <path d="M120 70 v-14 h200 v14"/>
+            <text x="220" y="44" text-anchor="middle">[ lecture : résultats en hausse ]</text>
+          </g>
+          <g class="forecast">
+            <ellipse cx="430" cy="140" rx="11" ry="8"/><line x1="440" x2="440" y1="140" y2="88"/>
+          </g>
+          <g class="revealed">
+            <ellipse cx="480" cy="150" rx="11" ry="8"/><line x1="490" x2="490" y1="150" y2="98"/>
+            <path class="gap" d="M430 162 V 214 H 480 V 166"/>
+          </g>
+          <g class="labels">
+            <text x="20" y="250">observé</text>
+            <text x="410" y="250">prévu</text>
+            <text x="480" y="250">révélé</text>
+            <text x="455" y="282" text-anchor="middle" class="small">l’écart reste visible</text>
+          </g>
+        </svg>
+        <figcaption id="score-cap">Comme une édition Urtext distingue le texte du compositeur des ajouts de l’éditeur, DÉCLIC ne mélange jamais ce qui a été <strong>observé</strong>, ce qu’on en <em>lit</em>, ce que le réseau <strong>prévoit</strong> et ce qui a été <strong>révélé</strong> ensuite.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="wrap doors" aria-labelledby="doors-title">
+    <h2 id="doors-title">Par où commencer ?</h2>
+    <ol class="door-list">
+      <li class="door door-main">
+        <div>
+          <h3>Comprendre une progression</h3>
+          <p>Pour un élève ou un enseignant. Choisissez un parcours de démonstration : un résumé en langage courant, les concepts qui demandent de l’attention, la prévision du prochain essai et son résultat réel.</p>
+        </div>
+        <a class="btn btn-primary" href="/web/living.html">Ouvrir le parcours</a>
+      </li>
+      <li class="door">
+        <div>
+          <h3>Noter ma propre pratique de piano</h3>
+          <p>Un carnet local : choisir un court exercice, le jouer, noter comment cela s’est passé. Aucun enregistrement audio, aucune prévision inventée sur le piano.</p>
+        </div>
+        <a class="btn btn-secondary" href="/web/carnet.html">Ouvrir le carnet</a>
+      </li>
+      <li class="door">
+        <div>
+          <h3>Inspecter le modèle</h3>
+          <p>Pour un professeur ou un jury. Entrées réelles du réseau, mémoire GRU, reçu de prévision, révélation, bancs d’essai et limites scientifiques.</p>
+        </div>
+        <a class="btn btn-secondary" href="/web/labo.html">Entrer au laboratoire</a>
+      </li>
+    </ol>
+  </section>
+
+  <section class="wrap limits" aria-labelledby="limits-title">
+    <div>
+      <h2 id="limits-title">Ce que DÉCLIC ne prétend pas faire</h2>
+      <p class="fine">Ces limites sont affichées là où elles comptent, dans chaque vue. Les voici réunies.</p>
+    </div>
+    <ul>
+      <li><strong>Pas d’analyse du son ici.</strong> La justesse, le rythme ou la posture relèvent des autres axes du projet ; cet axe reçoit leurs mesures.</li>
+      <li><strong>Une prévision reste dans sa base.</strong> Chant avec SingPAD, ukulélé avec Yousician. Aucun transfert démontré au piano ni à un autre instrument.</li>
+      <li><strong>Des parcours de démonstration.</strong> Ils viennent du jeu de test, jamais utilisé pour ajuster le réseau. Ce ne sont pas vos données.</li>
+      <li><strong>Pas de bénéfice pédagogique démontré.</strong> Les pistes de pratique décrivent des observations ; leur effet n’a pas été évalué avec des enseignants.</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p><strong>DÉCLIC · axe 7 · O08</strong> — compétences de l’apprenant et performance future. Projet académique de Deep Learning, ESPRIT.</p>
+    <nav aria-label="Pied de page">
+      <a href="/web/living.html">Parcours</a><a href="/web/carnet.html">Carnet</a><a href="/web/labo.html">Laboratoire</a><a href="/web/labo.html#archives">Anciennes interfaces</a>
+    </nav>
+  </div>
+</footer>
+<script src="/web/home.js?v=9.0" defer></script>
+</body>
+</html>

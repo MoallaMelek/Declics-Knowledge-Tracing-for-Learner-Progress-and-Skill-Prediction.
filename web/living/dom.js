@@ -11,7 +11,7 @@
       else if (k.startsWith('on')) node.addEventListener(k.slice(2), v);
       else node.setAttribute(k, v === true ? '' : String(v));
     }
-    for (const c of children.flat()) if (c !== null && c !== undefined && c !== false) node.append(c instanceof Node ? c : document.createTextNode(String(c)));
+    for (const c of children.flat(Infinity)) if (c !== null && c !== undefined && c !== false) node.append(c instanceof Node ? c : document.createTextNode(String(c)));
     return node;
   }
   function s(tag, attrs, ...children) {
@@ -35,8 +35,9 @@
   // replaceChildren() would print "null"; optional parts are skipped instead.
   function put(node, ...children) { node.replaceChildren(...children.flat().filter(c => c !== null && c !== undefined && c !== false)); return node; }
   const reducedMotion = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // Success fraction 0..1 → colour (coral → amber → ivory → sage). Missing values never get a colour.
-  const STOPS = [[0, [226, 104, 91]], [0.5, [232, 170, 90]], [0.8, [214, 207, 186]], [1, [124, 196, 160]]];
+  // Success fraction 0..1 → one ink-blue scale (pale = few successes, deep = many). It never reaches the paper
+  // colour, so a low value stays visible and is never confused with a gap (not measured). Missing values get no colour.
+  const STOPS = [[0, [176, 196, 217]], [0.5, [92, 128, 168]], [1, [15, 42, 74]]];
   function ramp(v) {
     const x = Math.max(0, Math.min(1, v));
     for (let i = 1; i < STOPS.length; i++) {
@@ -45,12 +46,12 @@
         return `rgb(${ca.map((c, j) => Math.round(c + (cb[j] - c) * t)).join(',')})`;
       }
     }
-    return 'rgb(124,196,160)';
+    return 'rgb(15,42,74)';
   }
-  // Diverging blue/orange for recorded activations in [-1, 1].
+  // Diverging blue/orange for recorded activations in [-1, 1], from the sheet colour.
   function activation(v) {
     const x = Math.max(-1, Math.min(1, v)), t = Math.abs(x);
-    const base = [24, 34, 34], pos = [233, 168, 92], neg = [99, 170, 214];
+    const base = [246, 247, 249], pos = [180, 90, 18], neg = [31, 74, 114];
     const c = x >= 0 ? pos : neg;
     return `rgb(${base.map((b, j) => Math.round(b + (c[j] - b) * t)).join(',')})`;
   }

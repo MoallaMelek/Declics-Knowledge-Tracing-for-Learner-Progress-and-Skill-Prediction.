@@ -1,0 +1,13 @@
+/* Bandeau commun des anciennes interfaces. Isolé (préfixe .declic-archive) pour ne rien changer à leur présentation d'origine. */
+.declic-archive { position: relative; z-index: 60; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px;
+  padding: 12px max(16px, calc((100% - 1180px) / 2)); background: #0F1B31; color: #FFFFFF;
+  font: 400 15px/1.45 'Atkinson Next', 'Atkinson Hyperlegible', system-ui, -apple-system, 'Segoe UI', sans-serif; }
+.declic-archive p { margin: 0; max-width: 80ch; }
+.declic-archive strong { font-weight: 700; }
+.declic-archive.is-simulation { background: #F6EED7; color: #3B2A03; }
+.declic-archive nav { display: flex; flex-wrap: wrap; gap: 8px; }
+.declic-archive a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 4px; background: #B8CCDF; color: #0F1B31; font-weight: 700; text-decoration: none; }
+.declic-archive a:hover { background: #FFFFFF; }
+.declic-archive a:focus-visible { outline: 3px solid #1F4A72; outline-offset: 2px; }
+.declic-archive.is-simulation a { background: #0F1B31; color: #FFFFFF; }
+@font-face { font-family: 'Atkinson Next'; font-style: normal; font-weight: 200 800; font-display: swap; src: url('/web/fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2') format('woff2'); }

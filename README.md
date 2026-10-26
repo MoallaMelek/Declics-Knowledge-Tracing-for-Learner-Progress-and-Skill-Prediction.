@@ -1,153 +1,278 @@
 <div align="center">
 
 # DÉCLIC
-### Comprendre le passé musical pour prévoir le prochain résultat
+### Du passé musical au prochain essai
 
-**Axe 7 · Objectif O08 · Phase 8 stabilisée**
+**Axe 7 · Objectif O08 — compétences de l’apprenant et performance future**
 
 [![Validation](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/workflows/validate.yml)
 
-**36 entraînements neuronaux terminés** · **3 bases musicales** · **350 tests locaux réussis** · **13 scénarios navigateur en CI**
+**36 entraînements neuronaux** · **3 bases musicales réelles** · **425 tests Python** · **15 scénarios navigateur en CI**
 
-[Lancer la démonstration](docs/START_WINDOWS.md) · [Corrections de l’audit](docs/STABILIZATION_LEDGER.md) · [Préparer la soutenance](docs/PHASE7_PRESENTATION_FR.md) · [Reproduire les expériences](docs/PHASE7_REPRODUCTION.md)
+[Lancer](#lancer-en-deux-minutes) · [Visite guidée](#visite-guidée) · [Ce que montre l’interface](#quatre-types-dinformation-jamais-mélangés) · [Résultats](#ce-qui-a-réellement-été-entraîné) · [Avant / après](#avant--après-la-refonte-phase-9) · [Guides](#guides-pour-léquipe-et-la-soutenance)
 
 </div>
 
-![Démonstration DÉCLIC : historique musical réel et résultat futur masqué](docs/assets/phase7/overview.png)
+<p align="center">
+  <img src="docs/assets/phase9/parcours-anime.gif" width="860" alt="Animation du Parcours : la frise avance séance par séance, la prévision du réseau se met à jour avec le seul passé connu, puis le résultat réel est révélé à côté de la prévision.">
+  <br><sub>Capture réelle de l’application : la frise avance d’une séance à la fois, la prévision n’utilise que le passé, puis le résultat réel est révélé et l’écart reste visible. <em>(Montage d’intégration synthétique avec les vrais poids entraînés.)</em></sub>
+</p>
 
-DÉCLIC aide à lire un parcours d'apprentissage musical : les résultats déjà observés, la prévision d'un réseau entraîné, puis la comparaison avec le résultat réellement obtenu. L'axe 7 reçoit les mesures des autres axes du projet ; l'analyse du son, du rythme ou de la technique reste leur responsabilité.
+DÉCLIC aide à lire un parcours d’apprentissage musical : ce qui a été **observé**, ce qu’on peut en **lire**, ce que **prévoit** un réseau de neurones entraîné pour l’essai suivant, puis le résultat **révélé** après coup. L’axe 7 reçoit les mesures des autres axes du projet ; l’analyse du son, du rythme ou de la technique reste leur responsabilité.
 
-> **Statut actuel :** démonstration locale et recherche reproductible sur des données musicales réelles. La validation avec un professeur et une nouvelle cohorte reste à réaliser. Aucun bénéfice pédagogique ni transfert automatique au piano n'est démontré.
+> **Statut :** démonstration locale et recherche reproductible sur des données musicales réelles. La validation avec un enseignant et une nouvelle cohorte reste à faire. Aucun bénéfice pédagogique ni transfert au piano n’est démontré.
 
-## Une démonstration en trois gestes
+## Lancer en deux minutes
 
-| 1 · Lire le passé | 2 · Calculer la prévision | 3 · Révéler le résultat |
-|---|---|---|
-| Un vrai parcours de test, séparé des apprenants d'entraînement. | Un modèle PyTorch enregistré utilise uniquement les observations antérieures. | Le résultat observé apparaît après le calcul, avec les erreurs de prévision. |
-
-```mermaid
-flowchart LR
-    A[Historique musical réel] --> B[Contrôle du domaine et des dates]
-    B --> C[Réseau PyTorch entraîné]
-    C --> D[Prévision enregistrée]
-    D --> E[Révélation du résultat observé]
-    A --> F[États descriptifs des compétences]
-    F --> G[Suggestions explicites ou abstention]
-```
-
-La page distingue les **observations**, les **prévisions** et les **interprétations descriptives**. Une compétence peu documentée reste indéterminée. Les suggestions utilisent uniquement le catalogue historique disponible et s'abstiennent si aucun exercice adapté n'est connu. Leur efficacité éducative n'a pas été évaluée.
-
-## Phase 8 · Le parcours vivant
-
-[La nouvelle page](http://127.0.0.1:8781/web/living.html) rejoue un vrai parcours de test pas à pas, après le [lancement vérifié](docs/START_WINDOWS.md). À chaque
-point de coupure, ses vues utilisent le passé admis ; les résultats ultérieurs sont masqués, même si le rejeu les a déjà affichés. La **constellation** des concepts source s’allume, l’**empreinte
-musicale** ajoute un sillon, et l’**observatoire** montre l’entrée réelle du GRU, ses activations enregistrées,
-sa prévision et, à la demande, le résultat révélé par le serveur. Les poids ne changent pas pendant le rejeu ;
-aucun modèle classique ne produit de prévision. [Rapport Phase 8](docs/PHASE8_LIVING_LEARNER.md).
-
-La stabilisation lie snapshots, caches, inspections et reçus au contenu préparé et aux poids effectivement chargés. `/api/readiness` distingue serveur vivant et démonstration prête ; le lanceur vérifie le bon backend et ne ferme aucun serveur occupant son port. Les erreurs réseau proposent une reprise manuelle, sans boucle automatique. Les quatre vues de Claude sont conservées.
-
-Les prédicteurs restent des [modèles DL expérimentaux](docs/MODEL_ELIGIBILITY_POLICY.md) : Yousician ne bat pas le meilleur contrôle appris publié sur validation. Les [conditions de réutilisation des données](docs/DATA_PROVENANCE_AND_RIGHTS.md) encore non confirmées restent une décision externe.
-
-![Le parcours vivant : constellation, inspection d’un concept et machine à remonter le parcours](docs/assets/phase8/overview.png)
-
-## Ce qui a réellement été entraîné
-
-| Base | Données longitudinales utilisables | Ce que le modèle cherche à prévoir | Utilisation actuelle |
-|---|---|---|---|
-| **AMME** | 59 apprenants · 212 groupes | Score continu de similarité mélodique du prochain bloc ; ce n'est pas un pourcentage de notes correctes. | Recherche ; pas de promotion du nouveau modèle. |
-| **SingPAD** | 1 042 apprenants · 18 328 groupes | Résultat des concepts du prochain groupe de chant, à partir des annotations de notes. | Démonstration dans le domaine vocal validé. |
-| **Yousician** | 999 apprenants · 12 596 jours actifs | Score agrégé du prochain jour actif à l'ukulélé. | Démonstration ukulélé ; aucun transfert universel aux instruments. |
-
-**33 entraînements principaux + 3 extensions Yousician**, sur CPU local. Les trois séparations d'apprenants utilisent les graines 42, 17 et 83. Le protocole compare GRU, variantes d'historique et attention ; chaque base reçoit les conditions pertinentes. Les contrôles statistiques servent à vérifier les résultats scientifiques ; les prévisions de l'application utilisent des réseaux neuronaux.
-
-### Résultats sans sélection sur le test
-
-Moyennes sur les trois séparations ; **plus bas = meilleur**. Le modèle neuronal et le contrôle de chaque séparation sont choisis sur la validation, avant lecture du test.
-
-| Base · mesure | Réseau sélectionné | Contrôle sélectionné | Conclusion descriptive |
-|---|---:|---:|---|
-| AMME · erreur absolue moyenne | 0,18628 | **0,17245** | Le réseau n'apporte pas de gain moyen. |
-| Yousician · erreur absolue moyenne | 0,09089 | **0,09030** | Pas de supériorité moyenne convaincante. |
-| SingPAD · perte logarithmique | **0,51792** | 0,52419 | Avantage modeste, encore exploratoire. |
-
-L'extension Yousician enrichie par le contexte historique n'améliore pas clairement la moyenne. Le recalibrage des probabilités n'aide pas systématiquement. Les séparations réutilisent la cohorte Phase 6 : elles ne remplacent pas une confirmation sur une nouvelle cohorte.
-
-![Comparaison des représentations sur SingPAD : résultats mesurés sur trois séparations](artifacts/phase7/figures/representations-singpad.png)
-
-[Tableaux complets et limites](docs/PHASE7_RESULTS.md) · [Résumé vérifiable en JSON](artifacts/phase7/summary.json) · [Provenance des exécutions](artifacts/phase7/execution-provenance.json)
-
-## Lancer l'application
-
-**Pour la Phase 8 (`living.html`), utiliser `Launch.ps1`** depuis la racine du dépôt après préparation de l’environnement ci-dessous :
+Depuis la racine du dépôt, une fois l’environnement préparé ([guide Windows](docs/START_WINDOWS.md)) :
 
 ```powershell
 .\Launch.ps1
 ```
 
-Ouvrir l’URL affichée par le lanceur (port 8781 par défaut). Il vérifie `/api/readiness` et refuse un port occupé ; `-Port 8782` permet de choisir un autre port. Les commandes Uvicorn ci-dessous concernent le parcours O08 sur 8773 et ne démarrent pas le lanceur Phase 8. Voir le [guide Windows](docs/START_WINDOWS.md) pour les données privées requises et les diagnostics.
+| Ouvrir | Pour |
+|---|---|
+| `http://127.0.0.1:8781/` | **Accueil** — comprendre DÉCLIC et choisir par où commencer |
+| `http://127.0.0.1:8781/web/living.html` | **Parcours** — l’adresse affichée par le lanceur |
+| `http://127.0.0.1:8781/web/carnet.html` | **Carnet** — noter sa propre pratique du piano |
+| `http://127.0.0.1:8781/web/labo.html` | **Laboratoire** — inspecter le modèle et ses preuves |
 
-Python **3.12 ou supérieur**, depuis la racine du dépôt :
+Le lanceur vérifie `/api/readiness`, refuse un port occupé (`-Port 8782` pour en choisir un autre) et ne ferme jamais un autre serveur.
+
+<details>
+<summary><strong>Première installation, données privées et autres modes de lancement</strong></summary>
+
+Python **3.12 ou supérieur** :
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -e '.[test]' --extra-index-url https://download.pytorch.org/whl/cpu
-.\.venv\Scripts\python.exe -m uvicorn axis7.server:app --host 127.0.0.1 --port 8773
 ```
 
-Ouvrir **[la démonstration O08](http://127.0.0.1:8773/web/o08.html)**, ou [le carnet musical](http://127.0.0.1:8773/). Sur la machine de livraison, le serveur et les exemples réels sont déjà préparés.
-
-**Sur une nouvelle installation**, les poids et rapports publics sont inclus, mais les archives sources et les parcours individuels de démonstration restent privés. Après acquisition autorisée des archives, reconstruire les deux exemples :
+Les poids et rapports publics sont inclus ; les archives sources et les parcours individuels restent privés. Après acquisition autorisée des archives, reconstruire les deux démonstrations :
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/build_musical_demo.py --source singpad --archive 'CHEMIN/singKT-dataset-main.zip'
 .\.venv\Scripts\python.exe scripts/build_musical_demo.py --source yousician --archive 'CHEMIN/yousician_ukulele.json.zip'
 ```
 
-Sans ces fichiers, la démonstration signale leur absence. Les droits de réutilisation et conditions propres à chaque source continuent de s'appliquer ; la présence de ce code ne donne aucun droit supplémentaire sur les données. Voir le [guide de reproduction](docs/PHASE7_REPRODUCTION.md) et les [décisions sur les données musicales](docs/MUSIC_DATA_PHASE4.md).
+Sans ces fichiers, chaque page signale leur absence et propose un diagnostic ; aucune valeur n’est inventée. Les droits propres à chaque source continuent de s’appliquer ([provenance et droits](docs/DATA_PROVENANCE_AND_RIGHTS.md), [décisions sur les données](docs/MUSIC_DATA_PHASE4.md)).
 
-Les modèles actifs antérieurs validés sont conservés. Les 36 poids Phase 7 sont des artefacts de recherche et ne remplacent pas automatiquement le registre actif. Le carnet piano conserve l'abstention lorsque le domaine et la mesure ne sont pas validés.
+Serveur seul, sans le lanceur (port 8773) :
+
+```powershell
+.\.venv\Scripts\python.exe -m uvicorn axis7.server:app --host 127.0.0.1 --port 8773
+```
+
+</details>
+
+## Visite guidée
+
+Une seule barre de navigation, partout : **Accueil · Parcours · Carnet · Laboratoire**. Dépliez une destination pour la voir.
+
+<details open>
+<summary><strong>Accueil</strong> — ce que fait DÉCLIC, en une phrase, et trois portes selon le besoin</summary>
+<br>
+
+<img src="docs/assets/phase9/accueil.png" width="720" alt="Accueil : titre « Du passé musical au prochain essai », bouton « Explorer un parcours », portée illustrant les quatre types d’information, état réel du serveur.">
+
+- Une action principale : **Explorer un parcours**. Les deux autres portes : le carnet de piano et le laboratoire.
+- La portée illustre la règle du produit : notes pleines = observé, crochets = lecture, note en pointillé = prévision, note verte = révélé.
+- La seule information « vivante » est vraie : l’état de la démonstration, lu sur `/api/readiness`.
+- Les limites sont réunies en bas de page, sans petits caractères.
+
+</details>
+
+<details>
+<summary><strong>Parcours</strong> — pour un élève ou un enseignant : lire un vrai parcours, séance après séance</summary>
+<br>
+
+**1. En bref.** Un résumé en langage courant de ce qui a été observé jusqu’au moment choisi, les concepts qui demandent de l’attention ou qui sont réguliers, et une piste de pratique — ou une abstention explicite.
+
+<img src="docs/assets/phase9/parcours-en-bref.png" width="720" alt="Parcours : choix de l’instrument et du profil de démonstration, interrupteur vue chercheur, chapitres et frise temporelle.">
+
+**2. Le prochain essai.** La prévision en une phrase, avec sa cible et son unité, « ce que c’est » et « ce que ce n’est pas ». Le résultat réel reste caché jusqu’au clic sur *Révéler le résultat réel* ; le serveur ne le transmet qu’avec le reçu de la prévision.
+
+<img src="docs/assets/phase9/parcours-prochain-essai.png" width="720" alt="Carte « Le prochain essai » : prévision en pointillé ocre, résultat révélé en vert, écart visible et expliqué.">
+
+**3. Remonter le temps.** La frise en bas de l’écran change le moment observé ; toutes les vues suivent, et les résultats ultérieurs restent cachés même s’ils ont déjà été vus plus loin.
+
+**4. Carte des concepts et empreinte des séances.** Des vues d’exploration, expliquées : chaque point est un concept réellement évalué, sa couleur décrit ses résultats, sa taille le nombre de notes ; un vide dans l’empreinte veut dire « non mesuré », jamais « échec ». Tout est aussi lisible en tableau.
+
+<img src="docs/assets/phase9/parcours-carte.png" width="720" alt="Carte des concepts avec légende et inspecteur d’un concept.">
+
+**5. Vue chercheur (interrupteur).** Ajoute le calcul réel : historique, tenseurs, mémoire GRU enregistrée, logits, prévision servie avec sa provenance et son **reçu signé**, puis l’évaluation face à des références simples.
+
+<img src="docs/assets/phase9/parcours-vue-chercheur.png" width="720" alt="Vue chercheur : pipeline en six étapes et schéma de l’architecture EnhancedGRU avec ses dimensions réelles.">
+
+Deux bases : **Chant · SingPAD** (probabilité de réussir une note, par concept) et **Ukulélé · Yousician** (score continu sur 100 du prochain jour actif, jamais présenté comme une probabilité).
+
+</details>
+
+<details>
+<summary><strong>Carnet</strong> — pour un élève pianiste : noter sa propre pratique, sans prévision inventée</summary>
+<br>
+
+<img src="docs/assets/phase9/carnet-evaluation.png" width="720" alt="Carnet : évaluation d’une séance en trois niveaux, en langage musical courant.">
+
+Choisir un court exercice, le jouer, noter comment cela s’est passé (soi-même ou d’après son professeur), retrouver ses séances. Les évaluations restent sur l’appareil ; aucun son ni vidéo n’est enregistré. Le carnet ne prévoit rien au piano : aucun modèle n’y est validé.
+
+</details>
+
+<details>
+<summary><strong>Laboratoire</strong> — pour un professeur ou un jury : le modèle, ses preuves et ses limites</summary>
+<br>
+
+<img src="docs/assets/phase9/laboratoire.png" width="720" alt="Laboratoire : état du système, trajet d’une prévision, bancs d’essai Phase 7.">
+
+- **État du système** en direct : modèle servi, architecture, génération des données, révision du code.
+- **Le trajet d’une prévision** en six étapes, avec un lien direct vers le calcul réel d’un parcours.
+- **Bancs d’essai Phase 7**, **modèles servis** et **limites publiées**, lus sur l’API, sans chiffre recopié à la main.
+- **Anciennes interfaces** (phases 1 à 7), archivées et signalées ; la simulation des phases 1 à 5 est étiquetée comme telle.
+
+</details>
+
+<details>
+<summary><strong>Sur téléphone</strong></summary>
+<br>
+
+<img src="docs/assets/phase9/mobile.png" width="720" alt="Accueil, résumé, prochain essai et laboratoire sur un écran de 390 pixels.">
+
+</details>
+
+## Quatre types d’information, jamais mélangés
+
+Comme une édition *Urtext* distingue le texte du compositeur des ajouts de l’éditeur, chaque bloc porte la marque de sa catégorie.
+
+| | Catégorie | Ce que c’est | Marque visuelle |
+|---|---|---|---|
+| ▬ | **Observé** | ce qui a réellement été enregistré | encre pleine |
+| ⟦ | **Lecture** | ce que les observations permettent de décrire | crochets, italique bleu |
+| ┄ | **Prévision** | ce qu’estime le réseau entraîné, sans connaître le résultat | pointillé ocre |
+| ● | **Révélé** | le résultat réel, montré après la prévision | vert plein, écart visible |
+
+```mermaid
+flowchart LR
+    A["Séances passées<br/>(observé)"] --> B["États descriptifs<br/>(lecture)"]
+    A --> C["Réseau EnhancedGRU<br/>entraîné, poids fixes"]
+    C --> D["Prévision + reçu signé<br/>(prévision)"]
+    D -- "clic de l’utilisateur" --> E["Résultat réel<br/>et écart (révélé)"]
+    B --> F["Piste de pratique<br/>ou abstention"]
+```
+
+Une compétence peu documentée reste « observations insuffisantes ». Les pistes de pratique n’utilisent que le catalogue déjà observé et s’abstiennent sinon. Les concepts SingPAD n’ont que des numéros dans les données : DÉCLIC ne leur invente pas de nom musical.
+
+```mermaid
+flowchart TD
+    H["Accueil"] -->|Explorer un parcours| P["Parcours · vue simple"]
+    H -->|Tenir mon carnet| K["Carnet de piano"]
+    H -->|Inspecter le modèle| L["Laboratoire"]
+    P -->|interrupteur « Vue chercheur »| R["Calcul du réseau"]
+    L -->|Ouvrir le calcul d’une prévision| R
+    L -.-> X["Anciennes interfaces<br/>(archives signalées)"]
+```
+
+## Ce qui a réellement été entraîné
+
+| Base | Données longitudinales utilisables | Ce que le modèle cherche à prévoir | Utilisation actuelle |
+|---|---|---|---|
+| **AMME** | 59 apprenants · 212 groupes | Score continu de similarité mélodique du prochain bloc ; ce n’est pas un pourcentage de notes correctes. | Recherche ; pas de promotion du nouveau modèle. |
+| **SingPAD** | 1 042 apprenants · 18 328 groupes | Résultat des concepts du prochain groupe de chant, à partir des annotations de notes. | Démonstration dans le domaine vocal. |
+| **Yousician** | 999 apprenants · 12 596 jours actifs | Score agrégé du prochain jour actif à l’ukulélé. | Démonstration ukulélé ; aucun transfert aux autres instruments. |
+
+**33 entraînements principaux + 3 extensions Yousician**, sur CPU local, trois séparations d’apprenants (graines 42, 17 et 83). Le protocole compare GRU, variantes d’historique et attention. Les contrôles statistiques servent à vérifier la science ; les prévisions de l’application viennent uniquement des réseaux neuronaux.
+
+### Résultats sans sélection sur le test
+
+Moyennes sur les trois séparations ; **plus bas = meilleur**. Réseau et contrôle de chaque séparation sont choisis sur la validation, avant lecture du test.
+
+| Base · mesure | Réseau sélectionné | Contrôle sélectionné | Conclusion descriptive |
+|---|---:|---:|---|
+| AMME · erreur absolue moyenne | 0,18628 | **0,17245** | Le réseau n’apporte pas de gain moyen. |
+| Yousician · erreur absolue moyenne | 0,09089 | **0,09030** | Pas de supériorité moyenne convaincante. |
+| SingPAD · perte logarithmique | **0,51792** | 0,52419 | Avantage modeste, encore exploratoire. |
+
+L’extension Yousician enrichie par le contexte n’améliore pas clairement la moyenne ; le recalibrage n’aide pas systématiquement ; les séparations réutilisent la cohorte Phase 6 et ne remplacent pas une nouvelle cohorte. Les prédicteurs restent des [modèles expérimentaux](docs/MODEL_ELIGIBILITY_POLICY.md).
+
+<details>
+<summary>Figure : comparaison des représentations sur SingPAD</summary>
+<br>
+
+![Comparaison des représentations sur SingPAD : résultats mesurés sur trois séparations](artifacts/phase7/figures/representations-singpad.png)
+
+</details>
+
+[Tableaux complets et limites](docs/PHASE7_RESULTS.md) · [Résumé vérifiable en JSON](artifacts/phase7/summary.json) · [Provenance des exécutions](artifacts/phase7/execution-provenance.json)
+
+## Avant / après la refonte (Phase 9)
+
+L’interface comptait sept pages, cinq navigations et quatre identités visuelles ; même ses développeurs s’y perdaient. Elle est devenue une seule application. Le moteur scientifique de la Phase 8 (gardes de causalité, identité des générations, reçus HMAC, cache limité aux séances visitées) est conservé tel quel et reste couvert par ses tests.
+
+<details>
+<summary><strong>Voir les comparaisons</strong></summary>
+<br>
+
+**Entrée.** Avant : `/` ouvrait le carnet piano, sans lien visible vers O08. Après : une page qui explique et oriente.
+
+![Avant / après de l’entrée](docs/assets/phase9/before-after-entry.png)
+
+**Parcours.** Avant : la science d’abord. Après : la lecture simple d’abord, la science en vue chercheur.
+
+![Avant / après du Parcours](docs/assets/phase9/before-after-journey.png)
+
+**Recherche.** Avant : une simulation titrée « Votre progression ». Après : un Laboratoire alimenté par l’API, la simulation archivée et signalée.
+
+![Avant / après de la recherche](docs/assets/phase9/before-after-research.png)
+
+</details>
+
+[Audit complet, système de design, vérifications et limites de la refonte](docs/PHASE9_UX_REBIRTH.md)
 
 ## Ce qui est prêt, ce qui reste à prouver
 
 | Livré et vérifié | Prochaine validation nécessaire |
 |---|---|
-| Prévisions réelles, révélation différée et affichage mobile | Revue d'usage avec un professeur et des élèves |
-| États descriptifs et règles de suggestions testés | Taxonomie, seuils et contenu des exercices approuvés par un enseignant |
-| Collecte locale volontaire, dates de disponibilité, export et suppression | Contrat de mesure commun aux axes et véritable pilote consenti |
-| Contrôles appris, calibration, données manquantes et CV AMME avec Ridge | Nouvelle cohorte, incertitude individuelle et confirmation indépendante |
-| API bornée, tests de causalité et poids vérifiés | Authentification par utilisateur et audit avant mise en ligne |
+| Prévisions réelles, révélation différée, interface unique, affichage mobile | Revue d’usage avec un enseignant et des élèves |
+| États descriptifs et règles de suggestions testés | Taxonomie, seuils et exercices approuvés par un enseignant |
+| Collecte locale volontaire, dates de disponibilité, export et suppression | Contrat de mesure commun aux axes et pilote consenti |
+| Contrôles appris, calibration, données manquantes et CV AMME avec Ridge | Nouvelle cohorte, incertitude individuelle, confirmation indépendante |
+| API bornée, tests de causalité, poids et reçus vérifiés | Authentification par utilisateur et audit avant mise en ligne |
 
-La collecte prospective est désactivée sans jeton administrateur local. Même activée, ses prévisions terrain restent en **abstention** tant qu'aucun contrat de mesure et modèle de domaine n'est validé. Le jeton local ne constitue pas une authentification d'élève ni une solution de déploiement public.
-
-## Guides pour l'équipe et la soutenance
-
-| Besoin | Document |
-|---|---|
-| Comprendre les choix et les limites | [Rapport scientifique et technique](docs/PHASE7_REPORT.md) |
-| Examiner toutes les mesures | [Résultats détaillés](docs/PHASE7_RESULTS.md) |
-| Refaire l'étude et reprendre une interruption | [Reproduction et exploitation](docs/PHASE7_REPRODUCTION.md) |
-| Présenter l'application en classe | [Parcours de démonstration](docs/PHASE7_DEMO_GUIDE.md) |
-| Expliquer le projet en cinq minutes | [Oral en français](docs/PHASE7_PRESENTATION_FR.md) |
-| Préparer les questions du professeur | [Questions et réponses](docs/PHASE7_QA_FR.md) |
-| Partager une synthèse en anglais | [Executive summary](docs/PHASE7_EXECUTIVE_SUMMARY_EN.md) |
-| Vérifier la livraison | [Preuves et vérifications](docs/PHASE7_VERIFICATION.md) |
-| Retrouver l'entraînement Colab | [Guide Phase 5](docs/PHASE5_COLAB.md) |
-| Consulter les anciennes phases | [Archive du README Phases 1 à 5](docs/README_HISTORY_PHASE1_5.md) |
+La collecte prospective est désactivée sans jeton administrateur local ; même activée, ses prévisions terrain restent en **abstention** tant qu’aucun contrat de mesure n’est validé.
 
 ## Vérifier le code
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -q
-node --check web/o08.js
-node --check web/musician.js
+$env:DECLIC_PYTHON = (Resolve-Path .venv\Scripts\python.exe).Path
+npm ci; npx playwright install chromium; npm run test:browser
 ```
 
-**350 tests locaux réussis** · **13 scénarios navigateur en CI** dans la CI de la livraison du code Phase 7 : [exécution vérifiée](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/runs/38801586386), commit `05f2757bc8f6c803fe6886559109923277b9a90d`. Le badge en haut suit la branche et les changements documentaires suivants. Les tests couvrent notamment la causalité temporelle, les partitions d'apprenants, les contrats, la révélation du résultat, la rétention et les reprises d'analyse.
+La CI exécute les 425 tests Python, les harnais Node du moteur (causalité, synchronisation des vues, absence de fuite du futur, carnet) et **15 scénarios Chromium réels** sur le montage d’intégration synthétique avec les vrais poids entraînés : navigation entre les quatre destinations, première visite et révélation, rejeu, reprises après coupure réseau ou arrêt du serveur, réponses obsolètes, reçus expirés, clavier et mobile. Pour rejouer ces scénarios sur les données privées réelles de la machine de livraison : `$env:DECLIC_E2E_REAL='1'` et `$env:DECLIC_PREPARED_DATA` vers le dossier préparé.
+
+## Guides pour l’équipe et la soutenance
+
+| Besoin | Document |
+|---|---|
+| Comprendre la nouvelle interface | [Refonte Phase 9](docs/PHASE9_UX_REBIRTH.md) |
+| Comprendre le rejeu et ses quatre vues | [Parcours vivant Phase 8](docs/PHASE8_LIVING_LEARNER.md) |
+| Lancer sur Windows et diagnostiquer | [Guide Windows](docs/START_WINDOWS.md) |
+| Comprendre les choix et les limites | [Rapport scientifique et technique](docs/PHASE7_REPORT.md) |
+| Examiner toutes les mesures | [Résultats détaillés](docs/PHASE7_RESULTS.md) |
+| Refaire l’étude | [Reproduction et exploitation](docs/PHASE7_REPRODUCTION.md) |
+| Présenter en classe | [Parcours de démonstration](docs/PHASE7_DEMO_GUIDE.md) · [Oral en français](docs/PHASE7_PRESENTATION_FR.md) |
+| Préparer les questions du professeur | [Questions et réponses](docs/PHASE7_QA_FR.md) |
+| Partager une synthèse en anglais | [Executive summary](docs/PHASE7_EXECUTIVE_SUMMARY_EN.md) |
+| Vérifier la livraison | [Preuves et vérifications](docs/PHASE7_VERIFICATION.md) · [Corrections de l’audit](docs/STABILIZATION_LEDGER.md) |
+| Retrouver l’entraînement Colab | [Guide Phase 5](docs/PHASE5_COLAB.md) |
 
 <details>
-<summary>Compatibilité et historique des objectifs</summary>
+<summary>Historique : Phase 8 et anciennes phases</summary>
 
-La Phase 7 désigne la fonction de prévision par **O08**, conformément à son cahier des charges. Les contrats historiques v3 gardent la correspondance de la version d'objectifs 1-1 disponible à l'époque, où l'axe 7 était O09. Cette compatibilité est conservée et ne crée aucune correspondance de compétences approuvée. Les anciennes études FORGET-SE et les simulations musicales restent archivées dans leurs domaines respectifs.
+La Phase 8 a introduit le rejeu causal d’un parcours de test, la constellation des concepts, l’empreinte musicale et l’observatoire du GRU ; sa stabilisation lie snapshots, caches, inspections et reçus au contenu préparé et aux poids effectivement chargés. Ces quatre expériences sont toutes conservées dans le Parcours de la Phase 9. [Rapport Phase 8](docs/PHASE8_LIVING_LEARNER.md) · [Rapport de stabilisation](docs/PHASE8_STABILIZATION_REPORT.md).
+
+![Le parcours vivant de la Phase 8, avant la refonte](docs/assets/phase8/overview.png)
+
+La Phase 7 désigne la fonction de prévision par **O08**, conformément à son cahier des charges ; les contrats historiques v3 gardent la correspondance de l’époque où l’axe 7 était O09, sans créer de correspondance de compétences approuvée. Les anciennes études FORGET-SE et les simulations musicales restent archivées. [Archive du README des phases 1 à 5](docs/README_HISTORY_PHASE1_5.md).
 
 </details>

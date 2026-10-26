@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#EEF1F4">
+<link rel="icon" href="/web/favicon.svg" type="image/svg+xml">
+<title>DÉCLIC · Laboratoire</title>
+<meta name="description" content="Inspecter le modèle O08 : état réel du système, calcul d'une prévision, bancs d'essai Phase 7, modèles évalués, limites et anciennes interfaces.">
+<link rel="stylesheet" href="/web/declic.css?v=9.0">
+<link rel="stylesheet" href="/web/labo.css?v=9.0">
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<header class="site-bar">
+  <div class="wrap">
+    <a class="wordmark" href="/" aria-label="DÉCLIC, accueil"><b>déclic</b><span>apprentissage musical</span></a>
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a href="/">Accueil</a>
+      <a href="/web/living.html">Parcours</a>
+      <a href="/web/carnet.html">Carnet</a>
+      <a href="/web/labo.html" aria-current="page">Laboratoire</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <section class="wrap page-head lab-head">
+    <div>
+      <h1>Inspecter le modèle et ses preuves</h1>
+      <p class="lede">Pour un professeur ou un jury : l’état réel du système, la façon dont une prévision est calculée, ce que montrent les bancs d’essai et ce qui reste à prouver. Rien ici n’est nécessaire pour lire un parcours.</p>
+      <div class="actions"><a class="btn btn-primary" href="/web/living.html?source=singpad&amp;learner=01&amp;cutoff=5&amp;stage=gru&amp;research=1#observatory">Ouvrir le calcul d’une prévision</a></div>
+    </div>
+    <nav class="toc" aria-label="Sur cette page">
+      <a href="#system-title">État du système</a>
+      <a href="#pipeline-title">Le trajet d’une prévision</a>
+      <a href="#bench-title">Bancs d’essai Phase 7</a>
+      <a href="#models-title">Modèles évalués</a>
+      <a href="#limits-title">Limites</a>
+      <a href="#archives">Anciennes interfaces</a>
+    </nav>
+  </section>
+
+  <section class="wrap block" aria-labelledby="system-title">
+    <div class="block-head">
+      <h2 id="system-title">État du système</h2>
+      <p class="sub">Lu en direct sur <code>/api/readiness</code> : ce qui est réellement chargé sur ce serveur, à l’instant.</p>
+    </div>
+    <div id="system" class="sheet pad" aria-live="polite"><p class="loading">Lecture de l’état du serveur…</p></div>
+  </section>
+
+  <section class="wrap block" aria-labelledby="pipeline-title">
+    <div class="block-head">
+      <h2 id="pipeline-title">Le trajet d’une prévision</h2>
+      <p class="sub">Dans le Parcours, la vue chercheur montre chacune de ces étapes pour la séance choisie, à partir des tenseurs réellement construits et des activations enregistrées sur une copie isolée du modèle servi.</p>
+    </div>
+    <ol class="route">
+      <li><h3>Historique</h3><p>Seules les séances antérieures au moment choisi sont lues. La séance à prévoir n’apporte que sa définition (exercice et concepts évalués), jamais son résultat.</p></li>
+      <li><h3>Encodage</h3><p>Pour chaque séance : réussites et échecs du pas précédent, cumuls antérieurs, exercice précédent et exercice demandé.</p></li>
+      <li><h3>Mémoire GRU</h3><p>Le réseau récurrent EnhancedGRU met à jour un état caché pas après pas. Ses poids ne changent pas pendant le rejeu.</p></li>
+      <li><h3>Tête de sortie</h3><p>L’état caché, l’exercice demandé et les cumuls donnent un logit par concept, puis une valeur entre 0 et 1.</p></li>
+      <li><h3>Prévision et reçu</h3><p>La valeur servie est signée dans un reçu lié au modèle, aux données et à la requête. Le résultat réel n’est pas dans la réponse.</p></li>
+      <li><h3>Révélation</h3><p>À la demande, le serveur vérifie le reçu, révèle le résultat observé et le compare à des références simples sur exactement les mêmes notes.</p></li>
+    </ol>
+    <div class="actions">
+      <a class="btn btn-secondary" href="/web/living.html?source=singpad&amp;learner=01&amp;cutoff=5&amp;stage=gru&amp;research=1#observatory">Chant · SingPAD</a>
+      <a class="btn btn-secondary" href="/web/living.html?source=yousician&amp;learner=01&amp;cutoff=5&amp;stage=gru&amp;research=1#observatory">Ukulélé · Yousician</a>
+    </div>
+  </section>
+
+  <section class="wrap block" aria-labelledby="bench-title">
+    <div class="block-head">
+      <h2 id="bench-title">Bancs d’essai Phase 7</h2>
+      <p class="sub">Trois découpages par apprenant (graines 42, 17, 83). Pour chacun, le réseau et le contrôle sont choisis sur la validation, avant toute lecture du test. Plus bas = meilleur.</p>
+    </div>
+    <div id="bench" aria-live="polite"><p class="loading">Chargement des résultats publiés…</p></div>
+  </section>
+
+  <section class="wrap block" aria-labelledby="models-title">
+    <div class="block-head">
+      <h2 id="models-title">Modèles évalués et servis</h2>
+      <p class="sub">Les modèles présents dans le registre de ce serveur, avec la cible exacte qu’ils prévoient.</p>
+    </div>
+    <div id="models" aria-live="polite"><p class="loading">Chargement du registre…</p></div>
+  </section>
+
+  <section class="wrap block" aria-labelledby="limits-title">
+    <div class="block-head">
+      <h2 id="limits-title">Ce qui reste à prouver</h2>
+      <p class="sub">Publié par le serveur avec les résultats ; rien n’est masqué pour la démonstration.</p>
+    </div>
+    <div id="limits" class="limits-grid"><p class="loading">Chargement…</p></div>
+  </section>
+
+  <section id="archives" class="wrap block" aria-labelledby="archives-title">
+    <div class="block-head">
+      <h2 id="archives-title">Anciennes interfaces</h2>
+      <p class="sub">Conservées pour la traçabilité des phases précédentes. Elles gardent leur présentation d’origine et ne sont plus des points d’entrée.</p>
+    </div>
+    <ul class="archive-list">
+      <li><div><h3><a href="/web/o08.html">Démonstration O08 · Phase 7</a></h3><p>Passé, prévision et révélation pour l’apprenant de démonstration 01. Remplacée par le Parcours, qui rejoue le même apprenant séance par séance. Nécessite les données privées préparées.</p></div><span class="label">Remplacée</span></li>
+      <li><div><h3><a href="/web/musical-demo.html">Démonstration · Phase 6</a></h3><p>Première version de la même démonstration. Remplacée par le Parcours.</p></div><span class="label">Remplacée</span></li>
+      <li><div><h3><a href="/web/musical-cloud.html">Modèles musicaux Phase 6 et carnets Colab</a></h3><p>Correction chronologique SingPAD, modèles réentraînés, liens pour relancer les entraînements.</p></div><span class="label">Recherche</span></li>
+      <li><div><h3><a href="/web/case-study.html">Histoires de pratique piano · Rach3 et PianoVAM</a></h3><p>Durées de pratique réellement publiées (CC BY-NC-SA 4.0). Elles décrivent la pratique, pas la qualité du jeu.</p></div><span class="label">Données publiques</span></li>
+      <li class="warn-item"><div><h3><a href="/web/research.html">Jumeau d’apprentissage · Phases 1 à 5</a></h3><p><strong>Simulation.</strong> Les compétences musicales nommées et leurs pourcentages y sont fictifs ; l’autre espace est une étude de génie logiciel (FORGET-SE). Aucune donnée d’apprenant musical réel.</p></div><span class="label label-warn">Simulation</span></li>
+    </ul>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p><strong>Rapports complets</strong> — dans le dépôt : <code>docs/PHASE7_REPORT.md</code>, <code>docs/PHASE7_RESULTS.md</code>, <code>docs/PHASE8_LIVING_LEARNER.md</code>, <code>docs/MODEL_ELIGIBILITY_POLICY.md</code>, <code>docs/DATA_PROVENANCE_AND_RIGHTS.md</code>.</p>
+    <nav aria-label="Pied de page"><a href="/">Accueil</a><a href="/web/living.html">Parcours</a><a href="/web/carnet.html">Carnet</a></nav>
+  </div>
+</footer>
+<script src="/web/labo.js?v=9.0" defer></script>
+</body>
+</html>
