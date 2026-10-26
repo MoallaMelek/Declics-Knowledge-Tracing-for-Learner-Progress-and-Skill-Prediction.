@@ -1,0 +1,20 @@
+Metadata-Version: 2.4
+Name: declic-axis7
+Version: 0.4.0
+Summary: History-conditioned knowledge tracing and musical learning intelligence
+Requires-Python: >=3.12
+Requires-Dist: torch<3,>=2.5
+Requires-Dist: numpy<3,>=2
+Requires-Dist: pandas<4,>=2
+Requires-Dist: scikit-learn<2,>=1.5
+Requires-Dist: scipy<2,>=1.14
+Requires-Dist: threadpoolctl<4,>=3
+Requires-Dist: pydantic<3,>=2.9
+Requires-Dist: fastapi<1,>=0.115
+Requires-Dist: uvicorn<1,>=0.30
+Requires-Dist: matplotlib<4,>=3.9
+Requires-Dist: mido<2,>=1.3
+Provides-Extra: test
+Requires-Dist: pytest<10,>=8; extra == "test"
+Requires-Dist: httpx<1,>=0.27; extra == "test"
+Requires-Dist: jsonschema<5,>=4.26; extra == "test"

@@ -19,3 +19,12 @@
 - Keep liveness distinct from readiness; missing private data is an explicit partial state. Do not stop unrelated listeners.
 - Use identical equal-concept means in the timeline; keep scientific note-weighted loss unchanged.
 - Fixture integration is labeled synthetic and never reported as held-out validation.
+
+
+# Phase 9 UX decisions
+
+- 2026-10-26 · One navigation, four destinations (Accueil, Parcours, Carnet, Laboratoire). `living.html` keeps its URL and becomes *Parcours*; the Phase 8 engine modules are re-hosted, not rewritten, so the causal guards and their three harnesses keep applying.
+- 2026-10-26 · `o08.html`, `musical-demo.html`, `musical-cloud.html`, `case-study.html`, `research.html` become archives reachable from the Laboratoire; the simulated twin is labelled as a simulation everywhere it is linked.
+- 2026-10-26 · Observatory (tensors, GRU, logits) only in the researcher view; a plain-language forecast card is the learner default. Descriptive concept list is the default representation; the constellation stays as the exploratory view.
+- 2026-10-26 · Fonts self-hosted (OFL, from npm @fontsource): Bodoni Moda (display), Atkinson Hyperlegible Next (text), Atkinson Hyperlegible Mono (hashes/tensor shapes only). The repo stays offline at runtime.
+- 2026-10-26 · Design skills read from the user's ~/.agents/skills (impeccable, emil-design-eng, design-taste-frontend, redesign-existing-projects…) without running their scripts or binaries; impeccable's `context` launcher and concept-seed roll were not executed.
