@@ -156,7 +156,7 @@ Contrôles manuels en navigateur : parcours complet du carnet (création démo, 
 ## 7. Ce qui reste incomplet
 
 * **Validation sur les données réelles privées** : à refaire sur la machine de livraison (commande en section 8, puis une visite manuelle). Rien ici n'a été vérifié sur les vrais parcours du jeu de test.
-* `axis7/launch.py` annonce toujours `/web/living.html` ; afficher `/` mettrait l'accueil en premier. Changement côté lanceur, non fait sans accord.
+* ~~Le lanceur annonçait `/web/living.html`~~ : corrigé après accord. Il affiche l'accueil, l'ouvre avec `-Open`, et `Lancer DECLIC.cmd` permet un lancement en double-clic.
 * Les cinq anciennes pages gardent leur présentation d'origine (archives signalées), sans refonte.
 * Pas de thème sombre : la scène d'usage (jour, projecteur) a guidé le choix d'un thème clair unique.
 * Les noms musicaux des concepts SingPAD restent absents tant qu'aucune correspondance n'est publiée ou approuvée.
@@ -167,10 +167,10 @@ Contrôles manuels en navigateur : parcours complet du carnet (création démo, 
 Depuis la racine du dépôt, après préparation de l'environnement (voir `docs/START_WINDOWS.md`) :
 
 ```powershell
-.\Launch.ps1
+.\Launch.ps1 -Open
 ```
 
-Le lanceur ouvre le Parcours (`http://127.0.0.1:8781/web/living.html`) ; l'accueil est à `http://127.0.0.1:8781/`, le Laboratoire à `/web/labo.html`, le carnet à `/web/carnet.html`.
+Avec `-Open` (ou en double-cliquant `Lancer DECLIC.cmd`), le lanceur ouvre l'accueil `http://127.0.0.1:8781/` ; le Parcours est à `/web/living.html`, le Laboratoire à `/web/labo.html`, le carnet à `/web/carnet.html`.
 
 Vérifier :
 

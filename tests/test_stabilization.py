@@ -197,3 +197,26 @@ def test_windows_launcher_two_working_directories(tmp_path,outside):
     assert '"ready": true' in run.stdout and '"application": "declic-phase8"' in run.stdout
     assert sys.executable in run.stdout
     assert not __import__('axis7.launch',fromlist=['occupied']).occupied('127.0.0.1',port)
+
+
+def test_launcher_announces_the_home_page_and_opens_it_only_on_request(monkeypatch, capsys):
+    """Phase 9: once ready, the launcher names the home page; --open alone triggers the browser."""
+    import types
+    from axis7 import launch
+    opened, report = [], {}
+    monkeypatch.setattr(launch, 'occupied', lambda *a: False)
+    monkeypatch.setattr(launch.secrets, 'token_hex', lambda n: 'instance')
+    class Child:
+        def poll(self): return None
+        def wait(self, timeout=None): return 0
+        def terminate(self): pass
+    monkeypatch.setattr(launch.subprocess, 'Popen', lambda *a, **k: Child())
+    from axis7.readiness import REVISION
+    report.update(identity_contract=launch.CONTRACT, revision=REVISION, application='declic-phase8', instance_id='instance', ready=True)
+    monkeypatch.setattr(launch, 'read_status', lambda url: dict(report))
+    monkeypatch.setattr(__import__('webbrowser'), 'open', lambda url: opened.append(url))
+    base = dict(host='127.0.0.1', port=8781, prepared_data=None, timeout=5, allow_partial=False)
+    assert launch.run(types.SimpleNamespace(**base, check=False, open=False)) == 0 and opened == []
+    assert launch.run(types.SimpleNamespace(**base, check=False, open=True)) == 0 and opened == ['http://127.0.0.1:8781/']
+    out = capsys.readouterr().out
+    assert 'Ouvrir : http://127.0.0.1:8781/' in out and '"home": "http://127.0.0.1:8781/"' in out

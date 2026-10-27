@@ -7,7 +7,7 @@
 
 [![Validation](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/workflows/validate.yml)
 
-**36 entraînements neuronaux** · **3 bases musicales réelles** · **425 tests Python** · **15 scénarios navigateur en CI**
+**36 entraînements neuronaux** · **3 bases musicales réelles** · **426 tests Python** · **15 scénarios navigateur en CI**
 
 [Lancer](#lancer-en-deux-minutes) · [Visite guidée](#visite-guidée) · [Ce que montre l’interface](#quatre-types-dinformation-jamais-mélangés) · [Résultats](#ce-qui-a-réellement-été-entraîné) · [Avant / après](#avant--après-la-refonte-phase-9) · [Guides](#guides-pour-léquipe-et-la-soutenance)
 
@@ -27,13 +27,15 @@ DÉCLIC aide à lire un parcours d’apprentissage musical : ce qui a été **ob
 Depuis la racine du dépôt, une fois l’environnement préparé ([guide Windows](docs/START_WINDOWS.md)) :
 
 ```powershell
-.\Launch.ps1
+.\Launch.ps1 -Open
 ```
+
+Ou double-cliquer **`Lancer DECLIC.cmd`** à la racine du dépôt : le lanceur démarre, vérifie que la démonstration est prête et ouvre l’accueil dans le navigateur.
 
 | Ouvrir | Pour |
 |---|---|
 | `http://127.0.0.1:8781/` | **Accueil** — comprendre DÉCLIC et choisir par où commencer |
-| `http://127.0.0.1:8781/web/living.html` | **Parcours** — l’adresse affichée par le lanceur |
+| `http://127.0.0.1:8781/web/living.html` | **Parcours** — lire un parcours séance après séance |
 | `http://127.0.0.1:8781/web/carnet.html` | **Carnet** — noter sa propre pratique du piano |
 | `http://127.0.0.1:8781/web/labo.html` | **Laboratoire** — inspecter le modèle et ses preuves |
 
@@ -248,7 +250,7 @@ $env:DECLIC_PYTHON = (Resolve-Path .venv\Scripts\python.exe).Path
 npm ci; npx playwright install chromium; npm run test:browser
 ```
 
-La CI exécute les 425 tests Python, les harnais Node du moteur (causalité, synchronisation des vues, absence de fuite du futur, carnet) et **15 scénarios Chromium réels** sur le montage d’intégration synthétique avec les vrais poids entraînés : navigation entre les quatre destinations, première visite et révélation, rejeu, reprises après coupure réseau ou arrêt du serveur, réponses obsolètes, reçus expirés, clavier et mobile. Pour rejouer ces scénarios sur les données privées réelles de la machine de livraison : `$env:DECLIC_E2E_REAL='1'` et `$env:DECLIC_PREPARED_DATA` vers le dossier préparé.
+La CI exécute les 426 tests Python, les harnais Node du moteur (causalité, synchronisation des vues, absence de fuite du futur, carnet) et **15 scénarios Chromium réels** sur le montage d’intégration synthétique avec les vrais poids entraînés : navigation entre les quatre destinations, première visite et révélation, rejeu, reprises après coupure réseau ou arrêt du serveur, réponses obsolètes, reçus expirés, clavier et mobile. Pour rejouer ces scénarios sur les données privées réelles de la machine de livraison : `$env:DECLIC_E2E_REAL='1'` et `$env:DECLIC_PREPARED_DATA` vers le dossier préparé.
 
 ## Guides pour l’équipe et la soutenance
 

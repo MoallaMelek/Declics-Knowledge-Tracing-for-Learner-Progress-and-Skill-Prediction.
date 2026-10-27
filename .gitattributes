@@ -5,3 +5,6 @@ artifacts/phase3/** -text
 scripts/evaluate_phase3_robustness.py -text
 data/music-phase4/** -text
 artifacts/phase4/** -text
+
+# Windows launcher shortcut must keep CRLF line endings.
+*.cmd text eol=crlf

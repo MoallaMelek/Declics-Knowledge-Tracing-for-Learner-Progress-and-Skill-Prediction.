@@ -1,4 +1,4 @@
-param([string]$Python, [ValidateRange(1,65535)][int]$Port = 8781, [string]$PreparedData, [switch]$AllowPartial, [switch]$Check)
+param([string]$Python, [ValidateRange(1,65535)][int]$Port = 8781, [string]$PreparedData, [switch]$AllowPartial, [switch]$Check, [switch]$Open)
 $ErrorActionPreference = 'Stop'
 $taskCommon = & git -C $PSScriptRoot rev-parse --path-format=absolute --git-common-dir 2>$null
 $taskPrimary = if ($LASTEXITCODE -eq 0) { Split-Path -Parent $taskCommon } else { $PSScriptRoot }
@@ -23,6 +23,7 @@ if (-not $PreparedData) {
 $taskArgs = @('-X','utf8','-B','-m','axis7.launch','--port',"$Port",'--prepared-data',$PreparedData)
 if ($AllowPartial) { $taskArgs += '--allow-partial' }
 if ($Check) { $taskArgs += '--check' }
+if ($Open) { $taskArgs += '--open' }
 $taskPreviousPath = $env:PYTHONPATH
 try {
     $env:PYTHONPATH = $PSScriptRoot + [IO.Path]::PathSeparator + $taskPreviousPath
