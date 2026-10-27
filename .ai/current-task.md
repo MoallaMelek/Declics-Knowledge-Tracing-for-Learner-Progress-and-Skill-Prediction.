@@ -10,5 +10,5 @@ Environment notes: download.pytorch.org and cdn.playwright.dev are refused by th
 
 Plan and audit: docs/PHASE9_UX_REBIRTH.md.
 
-Status 2026-10-26: implementation complete on the branch. After: 425 pytest passed / 3 skipped (unchanged); Node harnesses 49 + 169 + 226 + 20 checks; Playwright 15/15 (synthetic fixture + real copied weights). Pending: real held-out data browser run on the delivery machine (DECLIC_E2E_REAL=1), user review, merge decision (not merged, no PR opened).
-Writer, reviewer and tester for this task: Claude only (no Codex consultation); the review was self-review plus automated harnesses.
+Status 2026-10-27: merged to main (PR #6 UX, #7 launcher, #8 independent-review fixes). After: 428 pytest passed / 2 skipped with the private data present; Node harnesses 49 + 180 + 226 + 20; Playwright 16/16 on the synthetic fixture and 16/16 on the real held-out data. Delivery machine: primary clone switched to local branch `latest` (tracks origin/main) and launched with "Lancer DECLIC.cmd"; manual visit done.
+Writer and tester: Claude. Reviewer: a fresh read-only Claude subagent (not Codex); all its findings fixed in PR #8.
