@@ -76,8 +76,9 @@
       const chips = levels.map(m => {
         const next = f.level === m.level;
         const locked = next && !f.available;
-        const state = m.status === 'en_cours' ? `${m.recent.successes}/${m.recent.count}` : LABEL[m.status];
-        return h('li', {}, h('a', {class: `lvl lvl-${m.status}${next ? ' lvl-next' : ''}${locked ? ' lvl-locked' : ''}`, href: `/web/seance.html?exercise=${encodeURIComponent(ex)}&level=${m.level}`,
+        const placed = f.placed_by_threshold && m.level < f.placed_by_threshold && m.status !== 'maitrise';
+        const state = placed ? 'validé par la mesure' : m.status === 'en_cours' ? `${m.recent.successes}/${m.recent.count}` : LABEL[m.status];
+        return h('li', {}, h('a', {class: `lvl lvl-${placed ? 'placed' : m.status}${next ? ' lvl-next' : ''}${locked ? ' lvl-locked' : ''}`, href: `/web/seance.html?exercise=${encodeURIComponent(ex)}&level=${m.level}`,
           title: `${m.label} · ${m.attempts} réponse(s)`, 'aria-label': `Niveau ${m.level}, ${m.label} : ${state}${next ? ', prochaine étape' : ''}${locked ? ' (prérequis non atteints)' : ''}. S’entraîner.`},
           m.status === 'maitrise' ? '✓ ' : '', `N${m.level}`, h('span', {class: 'fine', text: ` ${state}`})));
       });

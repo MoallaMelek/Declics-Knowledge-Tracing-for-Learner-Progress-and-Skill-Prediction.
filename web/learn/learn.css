@@ -128,6 +128,7 @@
   font-size: var(--t-sm); font-weight: 700; border: 1px solid var(--line-strong); color: var(--ink-2); background: var(--sheet); text-decoration: none;
 }
 .lvl-maitrise { background: var(--revealed-wash); border-color: var(--revealed); color: var(--revealed-text); }
+.lvl-placed { background: var(--paper-2); border-color: var(--revealed); color: var(--revealed-text); border-style: dotted; }
 .lvl-en_cours { border-color: var(--cover-deep); color: var(--cover-deep); }
 .lvl-next { box-shadow: 0 0 0 2px var(--forecast); }
 .lvl-locked { border-style: dashed; }
