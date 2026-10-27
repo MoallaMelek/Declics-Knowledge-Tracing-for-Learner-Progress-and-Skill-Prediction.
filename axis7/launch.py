@@ -69,12 +69,17 @@ def run(args):
                 if not matches_instance(report, REVISION, instance):
                     print('Échec : le service ne correspond pas à cette version de DÉCLIC.', flush=True)
                     return 3
-                print(json.dumps({'readiness': report, 'url': url+'/web/living.html'}, ensure_ascii=False), flush=True)
+                # 'url' keeps the Phase 8 journey address for existing tooling; 'home' is the Phase 9 entry point.
+                print(json.dumps({'readiness': report, 'url': url+'/web/living.html', 'home': url+'/'}, ensure_ascii=False), flush=True)
                 if not report.get('ready') and not args.allow_partial:
                     print('DÉCLIC non prêt : vérifiez les données/modèles indiqués. --allow-partial permet un diagnostic sans données.', flush=True)
                     return 3
                 print('DÉCLIC prêt.' if report['ready'] else 'DÉCLIC partiellement disponible, démonstration non prête.', flush=True)
+                print(f'Ouvrir : {url}/  (Parcours : {url}/web/living.html)', flush=True)
                 if args.check: return 0
+                if getattr(args, 'open', False):
+                    import webbrowser
+                    webbrowser.open(url+'/')
                 return child.wait()
             time.sleep(.2)
         print('Échec du démarrage backend ou délai dépassé ; aucune disponibilité annoncée.', flush=True)
@@ -96,6 +101,7 @@ def main():
     p.add_argument('--timeout', type=float, default=45)
     p.add_argument('--allow-partial', action='store_true')
     p.add_argument('--check', action='store_true', help='Start, verify own readiness, then cleanly stop child')
+    p.add_argument('--open', action='store_true', help='Open the home page in the default browser once ready')
     args = p.parse_args()
     def terminate(signum, frame): raise KeyboardInterrupt
     signal.signal(signal.SIGTERM, terminate)
