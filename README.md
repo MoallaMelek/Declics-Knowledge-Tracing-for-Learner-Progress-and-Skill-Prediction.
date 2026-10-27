@@ -7,7 +7,7 @@
 
 [![Validation](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/workflows/validate.yml)
 
-**36 entraînements neuronaux** · **3 bases musicales réelles** · **426 tests Python** · **15 scénarios navigateur en CI**
+**36 entraînements neuronaux** · **3 bases musicales réelles** · **427 tests Python** · **16 scénarios navigateur en CI**
 
 [Lancer](#lancer-en-deux-minutes) · [Visite guidée](#visite-guidée) · [Ce que montre l’interface](#quatre-types-dinformation-jamais-mélangés) · [Résultats](#ce-qui-a-réellement-été-entraîné) · [Avant / après](#avant--après-la-refonte-phase-9) · [Guides](#guides-pour-léquipe-et-la-soutenance)
 
@@ -250,7 +250,7 @@ $env:DECLIC_PYTHON = (Resolve-Path .venv\Scripts\python.exe).Path
 npm ci; npx playwright install chromium; npm run test:browser
 ```
 
-La CI exécute les 426 tests Python, les harnais Node du moteur (causalité, synchronisation des vues, absence de fuite du futur, carnet) et **15 scénarios Chromium réels** sur le montage d’intégration synthétique avec les vrais poids entraînés : navigation entre les quatre destinations, première visite et révélation, rejeu, reprises après coupure réseau ou arrêt du serveur, réponses obsolètes, reçus expirés, clavier et mobile. Pour rejouer ces scénarios sur les données privées réelles de la machine de livraison : `$env:DECLIC_E2E_REAL='1'` et `$env:DECLIC_PREPARED_DATA` vers le dossier préparé.
+La CI exécute les 427 tests Python, les harnais Node du moteur (causalité, synchronisation des vues, absence de fuite du futur, carnet) et **16 scénarios Chromium réels** sur le montage d’intégration synthétique avec les vrais poids entraînés : navigation entre les quatre destinations, première visite et révélation au clavier, comparaison épinglée, rejeu, reprises après coupure réseau ou arrêt du serveur, réponses obsolètes, reçus expirés, clavier et mobile. Pour rejouer ces scénarios sur les données privées réelles de la machine de livraison : `$env:DECLIC_E2E_REAL='1'` et `$env:DECLIC_PREPARED_DATA` vers le dossier préparé.
 
 ## Guides pour l’équipe et la soutenance
 

@@ -143,6 +143,7 @@
       $('learner').replaceChildren(...data.learners.map(l => L.dom.h('option', {value: l.token, text: `${l.label} · ${l.steps} ${unit}s`})));
       $('learner').value = token;
       $('selection-note').textContent = `${data.provenance.data_mode === 'synthetic_fixture' ? 'TEST SYNTHÉTIQUE D’INTÉGRATION — aucune validation sur apprenants réels. ' : ''}${data.selection} ${data.counts.shown} affichés sur ${data.counts.eligible} éligibles (${data.counts.test_learners} au test). ${data.replay}`;
+      $('data-mode').hidden = data.provenance.data_mode !== 'synthetic_fixture';
       const total = data.learners.find(l => l.token === token).steps;
       store.set({learners: data.learners, learner: token, stepsTotal: total, provenance: data.provenance, counts: data.counts, selection: data.selection});
       constellation.legend(source);
@@ -209,7 +210,8 @@
     const k = Number(p.get('concept'));
     if (p.has('concept') && Number.isInteger(k) && st.snapshot && st.snapshot.skill_states.states.some(x => x.concept === k)) constellation.select(k);
     const compare = Number(p.get('compare')), epoch = loadEpoch, compareEpoch = st.comparisonEpoch;
-    if (p.has('compare') && Number.isInteger(compare) && compare >= 1 && compare <= st.stepsTotal) {
+    // A link may only pin a moment at or before the one it opens: a later moment would load outcomes the user never reached.
+    if (p.has('compare') && Number.isInteger(compare) && compare >= 1 && st.snapshot && compare <= st.snapshot.cutoff) {
       try {
         const other = A.assertCausal(await client.state(st.source, st.learner, compare));
         if (epoch === loadEpoch && compareEpoch === store.get().comparisonEpoch && other.identity.generation === store.get().snapshot?.identity.generation)

@@ -27,6 +27,7 @@ body.has-dock { padding-bottom: 132px; }
 
 .status { margin: 0; padding: var(--s3) var(--s4); background: var(--paper-2); border-radius: var(--radius); color: var(--ink-2); font-size: var(--t-sm); min-height: 44px; }
 #recovery { margin-top: var(--s3); }
+#data-mode { margin-bottom: var(--s3); }
 #recovery details { margin-top: var(--s3); }
 
 .chapters { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s2); margin-top: var(--s4); }
@@ -215,6 +216,8 @@ details.alt { margin-top: var(--s3); }
 .fp-grid:has(#fp-compare-figure:not([hidden])) { grid-template-columns: repeat(2, minmax(240px, 400px)) minmax(0, 1fr); }
 .fp-figure { margin: 0; padding: var(--s4); background: var(--sheet); border-radius: var(--radius); }
 .fp-figure figcaption { margin-top: var(--s2); }
+.fp-figure.is-later { box-shadow: inset 0 0 0 2px var(--forecast); }
+.fp-figure.is-later figcaption { color: var(--forecast-text); font-weight: 700; }
 .fp-canvas { aspect-ratio: 1 / 1; width: 100%; }
 .fp-svg { width: 100%; height: 100%; display: block; }
 .fp-disc { fill: var(--paper); }
@@ -323,7 +326,8 @@ details.alt { margin-top: var(--s3); }
 .track { position: absolute; inset: 0; }
 .track-svg { width: 100%; height: 56px; display: block; }
 .tl-base { stroke: rgba(255, 255, 255, .25); vector-effect: non-scaling-stroke; }
-.tl-bar { stroke: rgba(15, 27, 49, .6); stroke-width: .5; }
+/* On the dark dock the bar height carries the score; one light fill keeps every bar visible (inline ramp colours are for light surfaces). */
+.tl-bar { fill: var(--cover) !important; }
 .tl-pred { stroke: #E2B84A; stroke-width: 2; stroke-dasharray: 4 2; vector-effect: non-scaling-stroke; }
 .tl-next { fill: rgba(226, 184, 74, .15); stroke: #E2B84A; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
 .tl-future { stroke: rgba(255, 255, 255, .35); stroke-width: 1.5; vector-effect: non-scaling-stroke; }

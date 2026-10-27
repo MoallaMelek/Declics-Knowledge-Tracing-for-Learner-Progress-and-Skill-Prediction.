@@ -46,6 +46,13 @@ def run(args):
     url = f'http://{args.host}:{args.port}'
     if occupied(args.host, args.port):
         current = read_status(url+'/api/readiness')
+        if (getattr(args, 'open', False) and current and current.get('application') == 'declic-phase8'
+                and current.get('revision') == REVISION and current.get('identity_contract') == CONTRACT):
+            # Same DÉCLIC revision already serving this port: show it rather than fail; nothing is stopped or started.
+            print(f'DÉCLIC tourne déjà sur ce port (même révision). Ouvrir : {url}/', flush=True)
+            import webbrowser
+            webbrowser.open(url+'/')
+            return 0
         print(json.dumps({'error': 'occupied_port', 'port': args.port,
                           'existing_application': current.get('application') if current else 'unknown_or_old',
                           'existing_revision': current.get('revision') if current else None,

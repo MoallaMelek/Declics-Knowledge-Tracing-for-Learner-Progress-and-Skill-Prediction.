@@ -6,7 +6,7 @@
     {id: 'history', n: '01', label: 'Historique', hint: 'Pas antérieurs fournis'},
     {id: 'encoding', n: '02', label: 'Encodage', hint: 'Tenseurs réellement construits'},
     {id: 'gru', n: '03', label: 'Mémoire GRU', hint: 'Activations enregistrées'},
-    {id: 'head', n: '04', label: 'Tête de sortie', hint: 'Logits → probabilités'},
+    {id: 'head', n: '04', label: 'Tête de sortie', hint: 'Logits → valeurs 0 à 1'},
     {id: 'forecast', n: '05', label: 'Prévision', hint: 'Valeur servie et provenance'},
     {id: 'evaluation', n: '06', label: 'Évaluation', hint: 'Révélation à la demande'}
   ];
@@ -64,7 +64,7 @@
         svg.append(s('text', {x: left - 6, y: 18 + rh * r + rh * 0.75, 'text-anchor': 'end', class: 'mx-txt', text: singpad ? `C${k}` : 'score'}));
         snap.past.forEach((p, i) => {
           const v = p.concepts[String(k)];
-          svg.append(v ? s('rect', {x: left + cw * i + 1, y: 18 + rh * r + 1, width: cw - 2, height: rh - 2, rx: 1.5, style: `fill:${ramp(v[0] / v[1])}`}, s('title', {text: `${A.conceptName(snap.source, k)} · ${unit} ${i + 1} : ${A.pct(v[0] / v[1])}${singpad ? ` (${A.num(v[1])} notes)` : ''}`}))
+          svg.append(v ? s('rect', {x: left + cw * i + 1, y: 18 + rh * r + 1, width: cw - 2, height: rh - 2, rx: 1.5, style: `fill:${ramp(v[0] / v[1])}`}, s('title', {text: `${A.conceptName(snap.source, k)} · ${unit} ${i + 1} : ${A.score(snap.source, v[0] / v[1])}${singpad ? ` (${A.num(v[1])} notes)` : ''}`}))
                        : s('rect', {x: left + cw * i + cw / 2 - 1, y: 18 + rh * r + rh / 2 - 1, width: 2, height: 2, class: 'mx-gap'}));
         });
       });
@@ -160,8 +160,11 @@
     function headStage(st) {
       const snap = st.snapshot, blocked = needsForecast(snap) || inspectionOr(st); if (blocked) return blocked;
       const ins = st.inspection, entries = Object.entries(ins.head.logits);
-      return [h('h3', {text: 'De l’état caché à une probabilité'}),
-        h('p', {text: `La tête combine : ${ins.head.inputs.join(', ')}. Elle produit un logit par concept ; la sigmoïde le transforme en probabilité.`}),
+      const singpad = snap.source === 'singpad';
+      return [h('h3', {text: singpad ? 'De l’état caché à une probabilité' : 'De l’état caché à un score'}),
+        h('p', {text: singpad
+          ? `La tête combine : ${ins.head.inputs.join(', ')}. Elle produit un logit par concept ; la sigmoïde le transforme en probabilité de réussite d’une note.`
+          : `La tête combine : ${ins.head.inputs.join(', ')}. Elle produit un logit ; la sigmoïde le ramène entre 0 et 1, lu comme un score sur 100 (pas une probabilité).`}),
         h('ul', {class: 'logits'}, entries.map(([k, z]) => {
           const p = ins.head.probabilities[k];
           return h('li', {}, h('span', {class: 'lg-name', text: snap.source === 'singpad' ? `C${k}` : 'score'}),
@@ -170,7 +173,7 @@
             h('strong', {class: 'gold', text: A.forecast(snap.source, p)}));
         })),
         h('p', {class: ins.matches_served_forecast ? 'ok' : 'warn', text: ins.matches_served_forecast
-          ? `Contrôle : ces probabilités recalculées sur une copie isolée du modèle sont identiques à la prévision servie (écart maximal ${A.num(ins.max_abs_difference, 7)}).`
+          ? `Contrôle : ces valeurs recalculées sur une copie isolée du modèle sont identiques à la prévision servie (écart maximal ${A.num(ins.max_abs_difference, 7)}).`
           : 'Attention : la recomposition ne correspond pas à la prévision servie ; elle n’est pas utilisée.'})];
     }
 
@@ -220,8 +223,8 @@
       for (const v of [0, 0.5, 1]) svg.append(s('line', {x1: 24, x2: W - 16, y1: y(v), y2: y(v), class: 'spark-grid'}), s('text', {x: 2, y: y(v) + 4, class: 'spark-txt', text: `${100 * v}`}));
       for (const t of pts) {
         svg.append(s('line', {x1: x(t.index), x2: x(t.index), y1: y(t.predicted_mean), y2: y(t.observed_mean), class: 'trail-err'}),
-          s('circle', {cx: x(t.index), cy: y(t.observed_mean), r: 3.6, class: 'trail-obs'}, s('title', {text: `Pas ${t.index + 1} · observé ${A.pct(t.observed_mean)}`})),
-          s('rect', {x: x(t.index) - 3.2, y: y(t.predicted_mean) - 3.2, width: 6.4, height: 6.4, transform: `rotate(45 ${x(t.index)} ${y(t.predicted_mean)})`, class: 'spark-pred'}, s('title', {text: `Pas ${t.index + 1} · prévu ${A.pct(t.predicted_mean)} · ${t.metric} ${A.num(t.error, 3)}`})));
+          s('circle', {cx: x(t.index), cy: y(t.observed_mean), r: 3.6, class: 'trail-obs'}, s('title', {text: `Pas ${t.index + 1} · observé ${A.score(snap.source, t.observed_mean)}`})),
+          s('rect', {x: x(t.index) - 3.2, y: y(t.predicted_mean) - 3.2, width: 6.4, height: 6.4, transform: `rotate(45 ${x(t.index)} ${y(t.predicted_mean)})`, class: 'spark-pred'}, s('title', {text: `Pas ${t.index + 1} · prévu ${A.forecast(snap.source, t.predicted_mean)} · ${t.metric} ${A.num(t.error, 3)}`})));
       }
       const meanErr = A.mean(pts.map(t => t.error));
       return h('figure', {class: 'trail-fig'}, svg, h('figcaption', {class: 'fine', text: `Toutes les prévisions déjà évaluées de ce parcours, sans sélection : losange ocre = prévu, point vert = observé (moyennes simples des concepts). ${pts[0].metric} moyenne : ${A.num(meanErr, 3)} sur ${pts.length} pas.`}));
@@ -241,8 +244,8 @@
         dumbbell(rv, singpad),
         h('details', {class: 'alt'}, h('summary', {text: 'Valeurs par concept'}),
           table([singpad ? 'Concept' : 'Cible', 'Prévu', 'Observé', singpad ? 'Notes' : 'Mesure', 'Écart', singpad ? 'Log-loss par note' : 'Erreur absolue'],
-            rv.comparison.map(c => [singpad ? `C${c.concept}` : 'Score global', A.pct(c.prediction), A.pct(c.observed), A.num(c.notes), A.points(c.prediction - c.observed), singpad ? A.num(c.log_loss, 3) : A.num(c.absolute_error, 3)]))),
-        h('p', {}, `${rv.metric} de ce pas : `, h('strong', {text: A.num(rv.error, 4)}), ` · moyenne prévue ${A.pct(rv.predicted_mean)}, observée ${A.pct(rv.observed_mean)}.`),
+            rv.comparison.map(c => [singpad ? `C${c.concept}` : 'Score global', A.forecast(snap.source, c.prediction), A.score(snap.source, c.observed), A.num(c.notes), A.points(c.prediction - c.observed), singpad ? A.num(c.log_loss, 3) : A.num(c.absolute_error, 3)]))),
+        h('p', {}, `${rv.metric} de ce pas : `, h('strong', {text: A.num(rv.error, 4)}), ` · moyenne prévue ${A.forecast(snap.source, rv.predicted_mean)}, observée ${A.score(snap.source, rv.observed_mean)}.`),
         h('h3', {text: 'Références simples sur exactement les mêmes notes'}),
         table(['Méthode', rv.metric, 'Cibles'], [
           ['Réseau EnhancedGRU (servi)', A.num(rv.error, 4), String(rv.comparison.length)],
@@ -258,13 +261,13 @@
       const rows = rv.comparison, rh = 20, left = 62, W = 640, H = 26 + rh * rows.length, x = v => left + v * (W - left - 70);
       const svg = s('svg', {viewBox: `0 0 ${W} ${H}`, class: 'dumbbell', role: 'img', style: `max-width:${W}px`,
         'aria-label': `Prévu et observé pour ${rows.length} cible(s). Valeurs détaillées dans le tableau ci-dessous.`});
-      for (const v of [0, 0.5, 1]) svg.append(s('line', {x1: x(v), x2: x(v), y1: 14, y2: H - 6, class: 'spark-grid'}), s('text', {x: x(v), y: 10, 'text-anchor': 'middle', class: 'mx-txt', text: `${100 * v} %`}));
+      for (const v of [0, 0.5, 1]) svg.append(s('line', {x1: x(v), x2: x(v), y1: 14, y2: H - 6, class: 'spark-grid'}), s('text', {x: x(v), y: 10, 'text-anchor': 'middle', class: 'mx-txt', text: singpad ? `${100 * v} %` : `${100 * v}`}));
       rows.forEach((c, i) => {
         const y = 24 + rh * i;
         svg.append(s('text', {x: left - 8, y: y + 4, 'text-anchor': 'end', class: 'mx-txt', text: singpad ? `C${c.concept}` : 'score'}),
           s('line', {x1: x(c.prediction), x2: x(c.observed), y1: y, y2: y, class: 'db-err' + (c.prediction > c.observed ? ' over' : ' under')}),
-          s('circle', {cx: x(c.observed), cy: y, r: 4.2, class: 'trail-obs'}, s('title', {text: `Observé ${A.pct(c.observed)}${singpad ? ` sur ${A.num(c.notes)} note(s)` : ''}`})),
-          s('rect', {x: x(c.prediction) - 3.6, y: y - 3.6, width: 7.2, height: 7.2, transform: `rotate(45 ${x(c.prediction)} ${y})`, class: 'spark-pred'}, s('title', {text: `Prévu ${A.pct(c.prediction)}`})),
+          s('circle', {cx: x(c.observed), cy: y, r: 4.2, class: 'trail-obs'}, s('title', {text: `Observé ${A.score(rv.source, c.observed)}${singpad ? ` sur ${A.num(c.notes)} note(s)` : ''}`})),
+          s('rect', {x: x(c.prediction) - 3.6, y: y - 3.6, width: 7.2, height: 7.2, transform: `rotate(45 ${x(c.prediction)} ${y})`, class: 'spark-pred'}, s('title', {text: `Prévu ${A.forecast(rv.source, c.prediction)}`})),
           s('text', {x: W - 6, y: y + 4, 'text-anchor': 'end', class: 'mx-txt', text: singpad ? `${A.num(c.notes)} n.` : ''}));
       });
       return h('figure', {class: 'mx-fig'}, svg, h('figcaption', {class: 'fine', text: 'Losange ocre : prévision faite avant la révélation · point vert : résultat observé · trait : écart (framboise si le réseau surestime, bleu s’il sous-estime). Toutes les cibles sont montrées.'}));

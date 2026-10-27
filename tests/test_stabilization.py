@@ -220,3 +220,23 @@ def test_launcher_announces_the_home_page_and_opens_it_only_on_request(monkeypat
     assert launch.run(types.SimpleNamespace(**base, check=False, open=True)) == 0 and opened == ['http://127.0.0.1:8781/']
     out = capsys.readouterr().out
     assert 'Ouvrir : http://127.0.0.1:8781/' in out and '"home": "http://127.0.0.1:8781/"' in out
+
+
+def test_launcher_opens_an_identical_running_instance_only_with_open(monkeypatch):
+    """--open on a port already served by the same DÉCLIC revision opens it; anything else still refuses (exit 2)."""
+    import types
+    from axis7 import launch
+    from axis7.readiness import REVISION
+    opened = []
+    monkeypatch.setattr(launch, 'occupied', lambda *a: True)
+    monkeypatch.setattr(__import__('webbrowser'), 'open', lambda url: opened.append(url))
+    monkeypatch.setattr(launch.subprocess, 'Popen', lambda *a, **k: (_ for _ in ()).throw(AssertionError('must not start')))
+    same = dict(application='declic-phase8', revision=REVISION, identity_contract=launch.CONTRACT)
+    base = dict(host='127.0.0.1', port=8781, prepared_data=None, timeout=5, allow_partial=False, check=False)
+    monkeypatch.setattr(launch, 'read_status', lambda url: dict(same))
+    assert launch.run(types.SimpleNamespace(**base, open=False)) == 2 and opened == []
+    assert launch.run(types.SimpleNamespace(**base, open=True)) == 0 and opened == ['http://127.0.0.1:8781/']
+    monkeypatch.setattr(launch, 'read_status', lambda url: dict(same, revision='older'))
+    assert launch.run(types.SimpleNamespace(**base, open=True)) == 2 and opened == ['http://127.0.0.1:8781/']
+    monkeypatch.setattr(launch, 'read_status', lambda url: None)
+    assert launch.run(types.SimpleNamespace(**base, open=True)) == 2

@@ -35,9 +35,9 @@
   // replaceChildren() would print "null"; optional parts are skipped instead.
   function put(node, ...children) { node.replaceChildren(...children.flat().filter(c => c !== null && c !== undefined && c !== false)); return node; }
   const reducedMotion = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // Success fraction 0..1 → one ink-blue scale (pale = few successes, deep = many). It never reaches the paper
-  // colour, so a low value stays visible and is never confused with a gap (not measured). Missing values get no colour.
-  const STOPS = [[0, [176, 196, 217]], [0.5, [92, 128, 168]], [1, [15, 42, 74]]];
+  // Success fraction 0..1 → one ink-blue scale (lighter = fewer successes, deep = more). Its lightest end is still
+  // ≥ 3:1 against the paper and the sheet, so a 0 % mark stays visible and is never confused with a gap (not measured).
+  const STOPS = [[0, [104, 136, 174]], [0.5, [47, 86, 132]], [1, [15, 42, 74]]];
   function ramp(v) {
     const x = Math.max(0, Math.min(1, v));
     for (let i = 1; i < STOPS.length; i++) {

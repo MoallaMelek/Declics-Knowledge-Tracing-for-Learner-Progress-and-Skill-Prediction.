@@ -46,6 +46,7 @@ async function views(page,cutoff) {assert.equal(await page.locator('#fp-main .fp
       await page.getByRole('button',{name:/06 Évaluation/}).click();
       await page.getByRole('button',{name:'Révéler le résultat du pas 4'}).click();
       await until(async()=>/révélé après/.test(await page.locator('#status').innerText()),'real reveal');
+      if(source==='yousician'){const t=await page.locator('#ahead').innerText()+' '+await page.locator('#observatory').innerText();assert.doesNotMatch(t,/\d(?:,\d+)?\s?%/,'Yousician shown as a percentage');}
       await page.screenshot({path:path.join(OUT,source+'-desktop.png'),fullPage:false});
     }
   });
@@ -159,12 +160,25 @@ async function views(page,cutoff) {assert.equal(await page.locator('#fp-main .fp
     assert.equal(await page.locator('#observatory').isVisible(),false);assert.equal(await page.getByRole('switch',{name:'Vue chercheur'}).isChecked(),false);
     await until(()=>page.getByRole('heading',{name:'En bref'}).isVisible(),'summary');await until(()=>page.getByRole('heading',{name:'Le prochain essai'}).isVisible(),'forecast card');
     assert.equal(await page.locator('#ahead .fc-result').count(),0);
-    await page.getByRole('button',{name:'Révéler le résultat réel'}).click();
+    await page.getByRole('button',{name:'Révéler le résultat réel'}).focus();await page.keyboard.press('Enter');
     await until(async()=>await page.locator('#ahead .fc-result').isVisible()&&/révélé après/.test(await page.locator('#status').innerText()),'plain reveal');
+    await until(()=>page.evaluate(()=>document.activeElement&&document.activeElement.classList.contains('fc-result')),'keyboard focus moves to the revealed result');
     assert.equal(await page.locator('#observatory').isVisible(),false);
     await page.getByRole('button',{name:'Voir comment le réseau calcule cette valeur'}).click();await until(()=>page.locator('#observatory').isVisible(),'open researcher view');
     await page.screenshot({path:path.join(OUT,'first-visit-revealed.png')});
     await page.getByRole('switch',{name:'Vue chercheur'}).uncheck();await until(()=>page.locator('#observatory').isHidden(),'back to simple view');
+  });
+  await test('a link cannot pin a later moment, and a later pinned moment is labelled',async()=>{
+    const asked=[];const log=r=>{const u=new URL(r.url());if(u.pathname.endsWith('/living/state'))asked.push(Number(u.searchParams.get('cutoff')));};
+    page.on('request',log);
+    await page.goto(base+'/web/living.html?source=singpad&learner=01&cutoff=3&compare=6');await selected(page,'singpad','01',3);await delay(400);
+    assert.equal(asked.includes(6),false,'cutoff 6 requested from a link');assert.equal(new URL(page.url()).searchParams.get('compare'),null);
+    assert.equal(await page.locator('#fp-compare-figure').isVisible(),false);page.off('request',log);
+    await page.getByRole('button',{name:'Pas suivant',exact:true}).click();await selected(page,'singpad','01',4);
+    await page.getByRole('button',{name:'Comparer deux moments',exact:true}).click();
+    await page.getByRole('button',{name:'Pas précédent',exact:true}).click();await selected(page,'singpad','01',3);
+    await until(()=>page.locator('#fp-compare-figure.is-later').isVisible(),'later pinned moment labelled');
+    assert.match(await page.locator('#fp-compare-caption').innerText(),/après le moment observé/);
   });
   await test('keyboard, mobile and no false never-transmitted statement',async()=>{
     await page.locator('#cutoff').focus();await page.keyboard.press('End');await until(async()=>Number(await page.locator('#cutoff').inputValue())>3,'end');
