@@ -171,12 +171,20 @@ Un agent neuf, sans accès à la conversation de conception, a relu le diff en l
 
 ## 7. Ce qui reste incomplet
 
-* **Validation sur les données réelles privées** : à refaire sur la machine de livraison (commande en section 8, puis une visite manuelle). Rien ici n'a été vérifié sur les vrais parcours du jeu de test.
+* ~~Validation sur les données réelles privées~~ : faite le 27/10/2026 à partir des parcours préparés de la machine de livraison (voir ci-dessous).
 * ~~Le lanceur annonçait `/web/living.html`~~ : corrigé après accord. Il affiche l'accueil, l'ouvre avec `-Open`, et `Lancer DECLIC.cmd` permet un lancement en double-clic.
 * Les cinq anciennes pages gardent leur présentation d'origine (archives signalées), sans refonte.
 * Pas de thème sombre : la scène d'usage (jour, projecteur) a guidé le choix d'un thème clair unique.
 * Les noms musicaux des concepts SingPAD restent absents tant qu'aucune correspondance n'est publiée ou approuvée.
 * Aucune évaluation avec de vrais élèves ou enseignants : les visites ci-dessus sont simulées.
+
+## 7 bis. Validation sur les données réelles (27/10/2026)
+
+* Données : les deux fichiers préparés de la machine de livraison (`runtime/musical-demo`, SingPAD et Yousician), lus avec les poids actifs du registre, sans modification.
+* `pytest` avec ces données présentes : **428 réussis**, 2 ignorés (intégration PowerShell, Windows seulement). Le test Phase 8 qui exige les données privées passe.
+* Playwright en mode `real_held_out_data` : **16/16 scénarios**.
+* Machine de livraison : clone principal passé sur `main` (branche locale `latest`, qui suit `origin/main` ; aucun fichier non suivi touché), lancé par double-clic. Le lanceur annonce « DÉCLIC prêt », données privées, 8 parcours par base. Visite manuelle : accueil (« Démonstration prête… parcours réels du jeu de test »), Parcours SingPAD au groupe 8 sur 28 avec révélation (prévu 77,8 %, observé 91,7 %, écart affiché), Laboratoire (modèles servis, génération, révision `b4c5cd0`).
+* La copie temporaire des données utilisée pour les tests a été supprimée ensuite ; elle n'a jamais été versionnée.
 
 ## 8. Lancer
 
