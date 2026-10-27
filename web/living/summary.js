@@ -16,12 +16,15 @@
     function focusConcept(k) {
       constellation.select(k);
       document.getElementById('stage').scrollIntoView({behavior: reducedMotion() ? 'auto' : 'smooth', block: 'start'});
+      // Keyboard users land where the concept is described, not on <body>.
+      document.getElementById('inspector').focus({preventScroll: true});
     }
+    let pendingFocus = null;   // set by the reveal button: where focus goes once the result is on screen
 
     function conceptList(snap, items, empty) {
       if (!items.length) return h('p', {class: 'empty-line', text: empty});
       return h('ul', {class: 'concepts'}, items.slice(0, 6).map(it => h('li', {},
-        h('button', {type: 'button', class: 'concept', style: `--c:${it.meta.color}`, onclick: () => focusConcept(it.k),
+        h('button', {type: 'button', class: 'concept', 'data-focus': `concept-${it.k}`, style: `--c:${it.meta.color}`, onclick: () => focusConcept(it.k),
           'aria-label': `${name(snap, it.k)} : ${it.meta.label}. Voir sur la carte.`},
           h('span', {class: 'concept-dot', 'aria-hidden': 'true'}),
           h('span', {class: 'concept-name', text: name(snap, it.k)}),
@@ -47,7 +50,7 @@
         h('div', {class: 'chapter-head'}, h('div', {},
           h('h2', {id: 'summary-title', text: 'En bref'}),
           h('p', {class: 'moment', text: `${moment(snap)} · ce que montrent les séances déjà observées`}),
-          h('p', {class: 'hint', text: `${singpad ? 'Ici, une séance est un groupe d’enregistrements SingPAD' : 'Ici, une séance est un jour de pratique Yousician'}. La frise en bas de l’écran fait avancer ou reculer le moment observé : toute la page suit, et les résultats ultérieurs restent cachés.`}))),
+          h('p', {class: 'hint', text: `${singpad ? 'Ici, une séance est un groupe d’enregistrements SingPAD' : 'Ici, une séance est un jour de pratique Yousician'}. La frise en bas de l’écran fait avancer ou reculer le moment observé : toute la page suit, et les résultats ultérieurs restent cachés, sauf dans un moment que vous épinglez vous-même pour comparer.`}))),
         h('div', {class: 'brief'},
           h('div', {class: 'brief-main'},
             tag('observed', 'Observé'),
@@ -60,6 +63,7 @@
           h('div', {class: 'brief-reading'},
             tag('reading', 'Lecture des observations'),
             h('h3', {text: 'À surveiller'}),
+            h('p', {class: 'fine', text: 'Résultats faibles répétés, en baisse ou variables, parmi les concepts assez observés.'}),
             conceptList(snap, d.attention, d.thin === d.concepts
               ? 'Rien à signaler pour l’instant : aucun concept n’a encore assez d’observations pour être qualifié.'
               : 'Aucun concept suffisamment observé ne montre de résultats faibles, en baisse ou variables.'),
@@ -80,7 +84,7 @@
     function measure(snap, n, rv) {
       const W = 640, H = 104, x = v => 20 + v * (W - 40);
       const svg = s('svg', {viewBox: `0 0 ${W} ${H}`, class: 'measure', role: 'img',
-        'aria-label': rv ? `Prévu ${A.forecast(snap.source, n.value)}, observé ${A.pct(rv.observed_mean)}.` : `Prévu ${A.forecast(snap.source, n.value)}. Résultat réel encore caché.`});
+        'aria-label': rv ? `Prévu ${A.forecast(snap.source, n.value)}, observé ${A.score(snap.source, rv.observed_mean)}.` : `Prévu ${A.forecast(snap.source, n.value)}. Résultat réel encore caché.`});
       svg.append(s('rect', {x: 20, y: 40, width: W - 40, height: 6, rx: 3, class: 'ms-track'}));
       for (const v of [0, .25, .5, .75, 1]) svg.append(s('line', {x1: x(v), x2: x(v), y1: 36, y2: 50, class: 'ms-tick'}), s('text', {x: x(v), y: 70, 'text-anchor': 'middle', class: 'ms-txt', text: `${100 * v}`}));
       const fx = x(n.value);
@@ -112,7 +116,7 @@
         put(ahead, head, h('div', {class: 'forecast-card is-empty'},
           tag('forecast', 'Prévision'),
           h('p', {class: 'big', text: 'Pas de prévision à ce moment.'}),
-          h('p', {text: `${n.reason} Avancez d’une séance pour lui donner plus d’historique.`})));
+          h('p', {text: snap.forecast && snap.forecast.reason === 'insufficient_atomic_history' ? `${n.reason} Avancez d’une séance pour lui donner plus d’historique.` : `${n.reason} DÉCLIC n’affiche aucune valeur à la place.`})));
         return;
       }
       const rv = st.reveals[A.revealKey(snap)] || null;
@@ -127,21 +131,23 @@
             tag('forecast', 'Prévision du réseau'),
             h('p', {class: 'big'}, sentence),
             measure(snap, n, rv),
-            rv ? h('div', {class: 'fc-result', role: 'status'},
+            rv ? h('div', {class: 'fc-result', role: 'status', tabindex: '-1', 'data-focus': 'result'},
               tag('revealed', 'Résultat révélé'),
               h('p', {}, singpad ? 'Réellement : ' : 'Score réel : ', h('strong', {class: 'rv', text: singpad ? `${A.pct(rv.observed_mean)} des notes réussies` : `${A.num(100 * rv.observed_mean, 1)} / 100`}),
                 singpad ? ` (moyenne des ${rv.comparison.length} concepts).` : '.'),
               h('p', {class: 'fine', text: Math.abs(gap) < 0.005 ? 'La prévision tombe presque exactement sur le résultat. Une seule séance ne permet pourtant aucune conclusion.'
                 : `Écart de ${A.points(Math.abs(gap)).replace('+', '')} : le réseau a ${gap > 0 ? 'surestimé' : 'sous-estimé'} ce résultat. Une seule séance ne permet aucune conclusion ; la vue chercheur compare à des références simples.`}))
               : h('div', {class: 'actions'},
-                  h('button', {type: 'button', class: 'btn btn-forecast', text: 'Révéler le résultat réel', onclick: e => { e.currentTarget.disabled = true; lastRevealKey = A.revealKey(snap); onReveal(); }}),
+                  h('button', {type: 'button', class: 'btn btn-forecast', text: 'Révéler le résultat réel', 'data-focus': 'reveal', onclick: e => { e.currentTarget.disabled = true; lastRevealKey = A.revealKey(snap); pendingFocus = 'result'; onReveal(); }}),
                   h('span', {class: 'fine', text: 'Le serveur ne le transmet qu’après la prévision, avec un reçu qui les lie.'}))),
           h('div', {class: 'fc-notes'},
             h('h3', {text: 'Ce que c’est'}),
             h('p', {text: singpad
               ? `La probabilité qu’une note chantée soit juste, pour chacun des ${n.concepts.length} concepts évalués à ce groupe (exercice source ${n.exercise || 'non précisé'}), puis leur moyenne simple.`
               : 'Un score continu entre 0 et 100 pour le prochain jour de pratique, prévu sans connaître ce jour ni ses exercices.'}),
-            h('p', {text: `Il ne s’appuie que sur les séances 1 à ${snap.cutoff}. Le réseau entraîné (un GRU) n’a jamais vu ce parcours pendant son apprentissage.`}),
+            h('p', {text: singpad
+              ? `Il s’appuie sur les résultats des séances 1 à ${snap.cutoff} et sur la définition du groupe suivant (son exercice et les concepts qu’il évalue), jamais sur son résultat. Le réseau entraîné (un GRU) n’a jamais vu ce parcours pendant son apprentissage.`
+              : `Il s’appuie uniquement sur les résultats des séances 1 à ${snap.cutoff}. Le réseau entraîné (un GRU) n’a jamais vu ce parcours pendant son apprentissage.`}),
             h('h3', {text: 'Ce que ce n’est pas'}),
             h('p', {text: singpad
               ? 'Ni une certitude, ni une note de niveau. Une probabilité de réussite n’est pas la confiance du modèle, et aucune incertitude individuelle n’a été validée.'
@@ -151,12 +157,20 @@
                 const r = rv && rv.comparison.find(x => x.concept === c.k);
                 return h('li', {}, h('span', {text: `C${c.k}`}), h('span', {class: 'fc', text: `prévu ${A.pct(c.value)}`}), r ? h('span', {class: 'rv', text: `réel ${A.pct(r.observed)} sur ${A.num(r.notes)} note(s)`}) : null);
               }))) : null,
-            h('button', {type: 'button', class: 'btn btn-quiet', text: 'Voir comment le réseau calcule cette valeur', onclick: onResearch}))));
+            h('button', {type: 'button', class: 'btn btn-quiet', 'data-focus': 'research', text: 'Voir comment le réseau calcule cette valeur', onclick: onResearch}))));
     }
 
+    // Both chapters are rebuilt on every state change; focus inside them is carried over to the rebuilt control.
     function render(st) {
       if (!st.snapshot) return;
+      const active = document.activeElement, inside = !!(active && active.closest && (active.closest('#summary') || active.closest('#ahead')));
+      const key = pendingFocus || (inside && active.getAttribute && active.getAttribute('data-focus'));
       renderSummary(st); renderAhead(st);
+      if (key) {
+        const target = summary.querySelector(`[data-focus="${key}"]`) || ahead.querySelector(`[data-focus="${key}"]`);
+        if (target && !target.disabled) { target.focus({preventScroll: true}); if (key === pendingFocus) pendingFocus = null; }
+      }
+      if (pendingFocus && st.error) pendingFocus = null;   // a failed reveal: focus stays with the recovery controls
       if (lastRevealKey && st.reveals[lastRevealKey]) requestAnimationFrame(() => { lastRevealKey = null; });
     }
     return {render};

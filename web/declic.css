@@ -58,8 +58,8 @@
   --st-variable: #6A55AE;
   --st-declining: #B45A12;
   --st-weak: #A3304E;
-  --st-thin: #9AA4B2;
-  --st-unseen: #C3CAD4;
+  --st-thin: #6F7B8E;
+  --st-unseen: #808A9A;   /* every state colour, hollow ones included, is ≥ 3:1 on --paper */
 
   --danger: #A3304E;
   --danger-wash: #F7E4E9;

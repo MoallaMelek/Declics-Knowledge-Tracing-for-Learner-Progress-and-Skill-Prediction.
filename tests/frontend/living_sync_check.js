@@ -311,6 +311,12 @@ function aspects(c) {
       && (ref.target ? $('ahead').textContent.includes(`séance ${c + 1}`) : $('ahead').textContent.includes('fin du parcours enregistré')),
       $('ahead').textContent.slice(0, 120));
   add('the forecast card shows no outcome before a reveal', !$('ahead').querySelector('.fc-result') && !$('ahead').querySelector('.ms-revealed'));
+  // Yousician scores are continuous (/ 100): no rendered text, tooltip or label may present one as a percentage.
+  if (fx.source === 'yousician') {
+    const shown = ['summary', 'ahead', 'stage', 'fingerprint', 'observatory', 'dock'].map(id => $(id).textContent).join(' ');
+    const pctText = shown.match(/\d+(?:,\d+)?\s?%/g);
+    add('Yousician values are never shown as percentages', !pctText, pctText && pctText.slice(0, 5).join(' | '));
+  }
   const h3 = $('stage-detail').querySelector('h3');
   add('observatory history heading', st.stage === 'history' && h3 && h3.textContent === `${c} ${unit}(s) antérieurs, dans l’ordre`, h3 && h3.textContent);
   const query = new URLSearchParams(location.search);

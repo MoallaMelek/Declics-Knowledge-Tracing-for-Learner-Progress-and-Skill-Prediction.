@@ -106,7 +106,7 @@ Fichier : `web/declic.css`, chargé en premier par toutes les pages. Les pages a
 
 **Typographie.** Bodoni Moda (titres, à partir de 1,5 rem : les pages de titre des partitions du XIXᵉ siècle) et Atkinson Hyperlegible Next (texte, chiffres, interface : conçue pour la lisibilité ; son zéro barré est volontaire). Atkinson Hyperlegible Mono uniquement pour les empreintes, identifiants et formes de tenseurs. Les trois polices sont sous licence OFL, auto-hébergées dans `web/fonts/` (aucun appel réseau, le dépôt reste hors ligne).
 
-**Couleur.** Stratégie retenue : sobre (neutres teintés + couleurs qui portent une donnée), avec un champ de couleur assumé sur la couverture de l'accueil. Tous les textes ≥ 4,5:1 sur le papier et la feuille ; tous les traits de données ≥ 3:1 (calcul WCAG fait avant de figer la palette). Les valeurs observées utilisent une seule échelle bleue qui ne rejoint jamais la couleur du papier : une valeur faible reste visible et ne se confond pas avec « non mesuré ». Les états descriptifs gardent chacun une couleur distincte, toujours accompagnée de leur nom.
+**Couleur.** Stratégie retenue : sobre (neutres teintés + couleurs qui portent une donnée), avec un champ de couleur assumé sur la couverture de l'accueil. Tous les textes ≥ 4,5:1 sur le papier et la feuille ; toutes les marques qui portent une valeur, états « insuffisant » et « non observé » compris, ≥ 3:1 (calcul WCAG). Seuls les repères de fond sans valeur (grille, petits points du vocabulaire non observé) restent volontairement pâles. *(Corrigé après la relecture indépendante : l'extrémité claire de l'échelle et deux états creux étaient sous 3:1.)* Les valeurs observées utilisent une seule échelle bleue qui ne rejoint jamais la couleur du papier : une valeur faible reste visible et ne se confond pas avec « non mesuré ». Les états descriptifs gardent chacun une couleur distincte, toujours accompagnée de leur nom.
 
 **Composants.** Barre de navigation unique, en-tête de page (titre, phrase, action), boutons (principal, secondaire, discret, prévision), étiquettes de catégorie, interrupteur de vue, message d'état, bloc d'erreur avec reprise, divulgation progressive, tableaux à chiffres tabulaires, dock de la frise temporelle.
 
@@ -138,14 +138,30 @@ Environnement cloud de la session (Linux, Python 3.13, torch 2.14 depuis PyPI, C
 
 | Contrôle | Avant | Après |
 |---|---|---|
-| `pytest` complet | 425 réussis · 3 ignorés | 425 réussis · 3 ignorés |
+| `pytest` complet | 425 réussis · 3 ignorés | 427 réussis · 3 ignorés (+ 2 tests du lanceur) |
 | Adaptateurs et client (Node) | 43 contrôles | 49 contrôles (+ résumé, prévision simple, reçu) |
-| Synchronisation des vues, Yousician | 133 | 169 (+ chapitres simples, absence de fuite et de résultat, vue chercheur) |
+| Synchronisation des vues, Yousician | 133 | 180 (+ chapitres simples, absence de fuite et de résultat, vue chercheur, aucune valeur en %) |
 | Synchronisation des vues, SingPAD | 185 | 226 |
 | Carnet (Node) | 20 | 20 |
-| Playwright, vrai Chromium + vrai HTTP | 13 scénarios | 15 scénarios (+ quatre destinations, + premier visiteur) |
+| Playwright, vrai Chromium + vrai HTTP | 13 scénarios | 16 scénarios (+ quatre destinations, + premier visiteur au clavier, + comparaison épinglée) |
 
 Contrôles manuels en navigateur : parcours complet du carnet (création démo, exercice, évaluation, enregistrement, progression, séances) ; Parcours SingPAD et Yousician en vue simple puis chercheur, révélation, sélection d'un concept ; Laboratoire ; anciennes pages ; serveur coupé (accueil, parcours, laboratoire, carnet) ; largeur 390 px sans défilement horizontal ; clavier (lien d'évitement, frise au clavier). Une assertion du harnais de synchronisation a été réécrite : « les quatre vues sont affichées » devient « vue simple affichée, calcul masqué jusqu'à la vue chercheur, puis affiché sans requête supplémentaire ».
+
+### Relecture indépendante
+
+Un agent neuf, sans accès à la conversation de conception, a relu le diff en lecture seule. Ses constats, tous traités :
+
+| Constat | Gravité | Correction |
+|---|---|---|
+| Des valeurs Yousician (score sur 100) restaient affichées en « % » ou appelées probabilité : info-bulles, panneau du concept, vue chercheur, libellé accessible | intégrité | Formatage selon la source partout (`adapters.score` / `forecast`), textes de la tête de sortie selon la source ; contrôle de harnais qui échoue si un « % » apparaît pour Yousician (il échouait 12 fois avant la correction) |
+| Un lien `?compare=` pouvait charger une séance future jamais visitée | intégrité | Un lien ne peut épingler qu'un moment antérieur ou égal ; un moment épinglé plus loin à la main est signalé comme tel ; scénario navigateur |
+| Le focus clavier tombait sur la page après « Révéler » ou un clic de concept | accessibilité | Le focus passe au résultat révélé, ou au panneau du concept, et survit aux reconstructions ; scénario navigateur au clavier |
+| Échelle et deux états sous 3:1 | contraste | Couleurs recalculées ; les barres de la frise (fond sombre) ont une teinte claire unique, la hauteur portant la valeur |
+| Conseil « Avancez d'une séance » donné pour toutes les abstentions | mineur | Seulement quand l'historique manque |
+| SingPAD : la prévision dépend aussi de la définition du groupe suivant | mineur | Texte « Ce que c'est » précisé |
+| « À surveiller » et « Fragilités récurrentes » ne comptent pas les mêmes états | mineur | Critère affiché sous « À surveiller » |
+| Texte « vrais parcours » en mode synthétique | mineur | Bandeau « données synthétiques » sur le Parcours quand c'est le cas |
+| Le lanceur échouait si DÉCLIC tournait déjà sur le port | mineur | Avec `-Open`, il ouvre l'instance si c'est la même révision ; sinon il refuse comme avant |
 
 ### Visites simulées
 

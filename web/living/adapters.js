@@ -15,8 +15,8 @@
     inconsistent_observed_performance: {label: 'Résultats variables', short: 'Variables', color: '#6A55AE'},
     declining_observed_performance: {label: 'Baisse observée', short: 'En baisse', color: '#B45A12'},
     repeatedly_weak_observed_performance: {label: 'Résultats faibles répétés', short: 'Faibles répétés', color: '#A3304E'},
-    insufficient_evidence: {label: 'Observations insuffisantes', short: 'Insuffisant', color: '#8A95A6', hollow: true},
-    not_evaluated: {label: 'Pas encore observé', short: 'Non observé', color: '#AEB7C4', hollow: true}
+    insufficient_evidence: {label: 'Observations insuffisantes', short: 'Insuffisant', color: '#6F7B8E', hollow: true},
+    not_evaluated: {label: 'Pas encore observé', short: 'Non observé', color: '#808A9A', hollow: true}
   };
   const SUFFICIENT = s => s && s !== 'insufficient_evidence' && s !== 'not_evaluated';
   const FLAGGED = new Set(['repeatedly_weak_observed_performance', 'declining_observed_performance']);

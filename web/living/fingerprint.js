@@ -29,7 +29,7 @@
       const r = R0 + band * (ring.index + 0.5), g = s('g', {class: 'fp-ring' + (ring.index === lastIndex ? ' enter' : '')});
       for (const a of ring.arcs) {
         g.append(s('path', {d: arc(r, a.a0, a.a1), class: 'fp-arc', 'data-k': a.k, style: `stroke:${ramp(a.value)};stroke-width:${Math.max(1.2, band * 0.8).toFixed(2)}`},
-          s('title', {text: `${A.conceptName(snap.source, a.k)} · ${unit} ${ring.index + 1} : ${A.pct(a.value)}${snap.source === 'singpad' ? ` sur ${A.num(a.notes)} note(s)` : ''}`})));
+          s('title', {text: `${A.conceptName(snap.source, a.k)} · ${unit} ${ring.index + 1} : ${A.score(snap.source, a.value)}${snap.source === 'singpad' ? ` sur ${A.num(a.notes)} note(s)` : ''}`})));
       }
       svg.append(g);
     }
@@ -87,7 +87,11 @@
       cmpFig.hidden = !a;
       if (a) {
         cmp.replaceChildren(draw(a, {selected: st.selected, onSelect, small: true}));
-        document.getElementById('fp-compare-caption').textContent = `Moment A épinglé : ${unit} ${a.cutoff}. Déplacez la machine pour choisir le moment B.`;
+        const later = a.cutoff > snap.cutoff;
+        document.getElementById('fp-compare-caption').textContent = later
+          ? `Moment A épinglé : ${unit} ${a.cutoff}, après le moment observé. Il montre des résultats déjà vus plus loin que le reste de la page garde cachés.`
+          : `Moment A épinglé : ${unit} ${a.cutoff}. Déplacez la machine pour choisir le moment B.`;
+        cmpFig.classList.toggle('is-later', later);
       }
       const inds = A.indicators(snap);
       const head = h('div', {class: 'ind-head'}, h('h3', {text: a ? `Indicateurs : A (pas ${a.cutoff}) et B (pas ${snap.cutoff})` : `Indicateurs au pas ${snap.cutoff}`}),

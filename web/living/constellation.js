@@ -293,8 +293,8 @@
           n.prediction !== null
             ? h('p', {}, 'Le réseau prévoit ', h('strong', {class: 'gold', text: A.forecast(snap.source, n.prediction)}), singpad ? ' de réussite pour une note de ce concept.' : ' comme score du prochain jour actif.')
             : h('p', {text: snap.forecast ? A.reason(snap.forecast.reason) : 'Aucune prévision.'}),
-          revealed ? h('p', {}, 'Observé après révélation : ', h('strong', {text: A.pct(revealed.observed)}), ` sur ${A.num(revealed.notes)} note(s) · écart ${A.points(revealed.prediction - revealed.observed)}`) : null,
-          h('p', {class: 'fine', text: 'Probabilité de réussite d’une note, pas une confiance du modèle ; incertitude individuelle non validée.'})) : null,
+          revealed ? h('p', {}, 'Observé après révélation : ', h('strong', {text: A.score(snap.source, revealed.observed)}), `${singpad ? ` sur ${A.num(revealed.notes)} note(s)` : ''} · écart ${singpad ? A.points(revealed.prediction - revealed.observed) : `${A.num(100 * Math.abs(revealed.prediction - revealed.observed), 1)} points sur 100`}`) : null,
+          h('p', {class: 'fine', text: singpad ? 'Probabilité de réussite d’une note, pas une confiance du modèle ; incertitude individuelle non validée.' : 'Score continu sur 100, pas une probabilité ; incertitude individuelle non validée.'})) : null,
         nb.length ? h('div', {class: 'insp-nb'}, h('h3', {text: 'Évalués dans les mêmes pas'}),
           h('p', {class: 'fine', text: 'Lien observé : les deux concepts apparaissent dans un même enregistrement passé. Ce n’est pas une relation pédagogique.'}),
           h('div', {class: 'nb-list'}, nb.map(x => h('button', {type: 'button', class: 'nb', onclick: () => select(x.k), text: `C${x.k} · ${x.n}×`})))) : null,
