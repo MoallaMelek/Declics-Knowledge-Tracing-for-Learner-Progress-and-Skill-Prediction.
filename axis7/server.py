@@ -260,7 +260,12 @@ from .living_learner import router as _living_router
 app.include_router(_living_router)
 from .readiness import router as _readiness_router
 app.include_router(_readiness_router)
+from .learning import router as _learning_router
+app.include_router(_learning_router)
 from .o08_security import O08BodyLimit
 app.add_middleware(O08BodyLimit)
+app.add_middleware(O08BodyLimit,max_bytes=65536,prefixes=('/api/learn',),label='Learner loop')
+from .web_cache import RevalidateWeb
+app.add_middleware(RevalidateWeb)
 
 app.mount('/web',StaticFiles(directory=ROOT/'web'),name='web')

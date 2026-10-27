@@ -136,11 +136,12 @@ async function views(page,cutoff) {assert.equal(await page.locator('#fp-main .fp
     await page.getByRole('button',{name:'Réessayer le chargement'}).click();await selected(page,'singpad');
   });
   await test('one navigation across the four destinations, with live data and keyboard access',async()=>{
-    const pages=[['/','Accueil'],['/web/living.html','Parcours'],['/web/carnet.html','Carnet'],['/web/labo.html','Laboratoire']];
+    const NAV=['Accueil','Séance','Parcours','Exercices','Laboratoire'];
+    const pages=[['/','Accueil'],['/web/living.html','Laboratoire'],['/web/carnet.html','Laboratoire'],['/web/labo.html','Laboratoire']];
     for(const [url,name] of pages){
       await page.goto(base+url);
       const nav=page.getByRole('navigation',{name:'Navigation principale'});
-      assert.deepEqual(await nav.getByRole('link').allInnerTexts(),pages.map(p=>p[1]));
+      assert.deepEqual(await nav.getByRole('link').allInnerTexts(),NAV);
       assert.equal(await nav.getByRole('link',{name,exact:true}).getAttribute('aria-current'),'page');
       assert.equal(await page.locator('h1').count(),1);
     }
@@ -155,8 +156,9 @@ async function views(page,cutoff) {assert.equal(await page.locator('#fp-main .fp
   });
   await test('first visit: home to journey, plain forecast and reveal without the researcher view',async()=>{
     await page.goto(base+'/');await until(()=>page.locator('#system[data-state]').count().then(n=>n===1),'home readiness');
-    assert.match(await page.locator('#system').innerText(),/Démonstration prête/);
-    await page.getByRole('link',{name:/Explorer un parcours/}).click();await selected(page,'singpad');
+    assert.match(await page.locator('#system').innerText(),/DÉCLIC est prêt/);
+    await page.getByRole('link',{name:'Entrer au laboratoire'}).click();
+    await page.getByRole('link',{name:'Ouvrir le rejeu O08'}).click();await selected(page,'singpad');
     assert.equal(await page.locator('#observatory').isVisible(),false);assert.equal(await page.getByRole('switch',{name:'Vue chercheur'}).isChecked(),false);
     await until(()=>page.getByRole('heading',{name:'En bref'}).isVisible(),'summary');await until(()=>page.getByRole('heading',{name:'Le prochain essai'}).isVisible(),'forecast card');
     assert.equal(await page.locator('#ahead .fc-result').count(),0);

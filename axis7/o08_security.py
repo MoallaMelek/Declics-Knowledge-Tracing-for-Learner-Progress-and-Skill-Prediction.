@@ -3,11 +3,11 @@ from starlette.responses import JSONResponse
 
 
 class O08BodyLimit:
-    def __init__(self,app,max_bytes=524288):
-        self.app=app;self.max_bytes=max_bytes
+    def __init__(self,app,max_bytes=524288,prefixes=('/api/v6/o08','/api/v7/o08'),label='O08'):
+        self.app=app;self.max_bytes=max_bytes;self.prefixes=tuple(prefixes);self.label=label
 
     async def __call__(self,scope,receive,send):
-        if scope['type']!='http' or not scope.get('path','').startswith(('/api/v6/o08','/api/v7/o08')):
+        if scope['type']!='http' or not scope.get('path','').startswith(self.prefixes):
             return await self.app(scope,receive,send)
         lengths=[v for k,v in scope.get('headers',[]) if k==b'content-length']
         if len(lengths)>1:
@@ -18,7 +18,7 @@ class O08BodyLimit:
         if length<0:
             return await JSONResponse({'detail':'Invalid content length'},status_code=400)(scope,receive,send)
         if length>self.max_bytes:
-            return await JSONResponse({'detail':'O08 request exceeds 512 KiB'},status_code=413)(scope,receive,send)
+            return await JSONResponse({'detail':f'{self.label} request exceeds {self.max_bytes//1024} KiB'},status_code=413)(scope,receive,send)
         # Bound memory before framework JSON parsing; works without Content-Length.
         chunks=[];total=0
         while True:
@@ -26,7 +26,7 @@ class O08BodyLimit:
             if message['type']=='http.disconnect':return
             chunk=message.get('body',b'');total+=len(chunk)
             if total>self.max_bytes:
-                return await JSONResponse({'detail':'O08 request exceeds 512 KiB'},status_code=413)(scope,receive,send)
+                return await JSONResponse({'detail':f'{self.label} request exceeds {self.max_bytes//1024} KiB'},status_code=413)(scope,receive,send)
             chunks.append(chunk)
             if not message.get('more_body',False):break
         replayed=False

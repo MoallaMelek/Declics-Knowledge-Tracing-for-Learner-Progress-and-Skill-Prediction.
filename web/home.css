@@ -13,32 +13,16 @@
 .system[data-state='warn']::before { background: var(--forecast); }
 .system[data-state='down']::before { background: var(--danger); }
 
-/* La page ouverte : une portée qui pose les quatre catégories. */
-.score { margin: 0; background: var(--sheet); border-radius: var(--radius); padding: var(--s5) var(--s5) var(--s4); box-shadow: 0 2px 0 rgba(15, 27, 49, .06), 0 28px 48px -32px rgba(15, 27, 49, .55); }
-.score svg { width: 100%; height: auto; }
-.score .staff line { stroke: var(--line-strong); stroke-width: 1.2; }
-.score .staff .barline { stroke: var(--ink-3); stroke-width: 2; }
-.score .observed ellipse { fill: var(--observed); transform-box: fill-box; transform-origin: center; transform: rotate(-20deg); }
-.score .observed line { stroke: var(--observed); stroke-width: 2; }
-.score .reading path { fill: none; stroke: var(--reading); stroke-width: 2; }
-.score .reading text { fill: var(--reading); font: italic 600 15px var(--sans); }
-.score .forecast ellipse { fill: var(--forecast-wash); stroke: var(--forecast); stroke-width: 2.4; stroke-dasharray: 4 3; transform-box: fill-box; transform-origin: center; transform: rotate(-20deg); }
-.score .forecast line { stroke: var(--forecast); stroke-width: 2; stroke-dasharray: 5 4; }
-.score .revealed ellipse { fill: var(--revealed); transform-box: fill-box; transform-origin: center; transform: rotate(-20deg); }
-.score .revealed line { stroke: var(--revealed); stroke-width: 2; }
-.score .revealed .gap { fill: none; stroke: var(--ink-3); stroke-width: 1.5; }
-.score .labels text { fill: var(--ink-2); font: 700 15px var(--sans); }
-.score .labels .small { font-weight: 400; font-size: 13px; }
-.score figcaption { margin-top: var(--s3); font-size: var(--t-sm); color: var(--ink-2); max-width: 60ch; }
-.score figcaption em { color: var(--reading); }
-
-/* Le geste signature, joué une fois : la note révélée vient se poser à côté de la prévision. */
-@media (prefers-reduced-motion: no-preference) {
-  .score .revealed { animation: settle 900ms var(--ease-out) 600ms both; }
-  .score .reading { animation: fade 600ms var(--ease-out) 250ms both; }
-}
-@keyframes settle { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
-@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+/* Comment ça marche : cinq étapes, la boucle de l'apprenant. */
+.steps { list-style: none; margin: 0; padding: var(--s5); display: grid; gap: var(--s3); background: var(--sheet); border-radius: var(--radius);
+  box-shadow: 0 2px 0 rgba(15, 27, 49, .06), 0 28px 48px -32px rgba(15, 27, 49, .55); }
+.steps li { display: grid; grid-template-columns: 36px 1fr; gap: var(--s3); align-items: start; }
+.steps b { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--paper-2); font: 600 var(--t-lg)/1 var(--serif); }
+.steps h2 { font: 700 var(--t-md)/1.3 var(--sans); }
+.steps p { color: var(--ink-2); font-size: var(--t-sm); }
+.steps li:last-child b { background: var(--forecast-wash); color: var(--forecast-text); }
+.me { margin-top: var(--s4); font-weight: 700; }
+.me:empty { display: none; }
 
 /* Trois portes, de poids différents : l'action principale domine. */
 .doors { padding-top: var(--s8); }
@@ -68,5 +52,5 @@
 @media (max-width: 560px) {
   .cover { padding: var(--s6) 0; }
   .cover .actions .btn { width: 100%; }
-  .score { padding: var(--s3); }
+  .steps { padding: var(--s4); }
 }

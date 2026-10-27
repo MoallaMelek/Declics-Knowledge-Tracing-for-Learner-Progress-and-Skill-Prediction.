@@ -1,31 +1,34 @@
 'use strict';
-// Accueil : une seule information vivante, l'état réel de la démonstration (/api/readiness). Rien n'est simulé.
+// Accueil : l'état réel du serveur (/api/readiness) et, si un profil existe, l'action qui le concerne.
 (function () {
+  window.DECLIC_BOOTED = true;
   const out = document.getElementById('system');
-  const NAMES = {singpad: 'chant (SingPAD)', yousician: 'ukulélé (Yousician)'};
-  function say(text, kind) { out.textContent = text; out.dataset.state = kind; }
+  const say = (text, kind) => { out.textContent = text; out.dataset.state = kind; };
 
-  async function check() {
+  async function readiness() {
     const guard = new AbortController(), timer = setTimeout(() => guard.abort(), 8000);
     try {
       const response = await fetch('/api/readiness', {signal: guard.signal, cache: 'no-store'});
       const data = await response.json().catch(() => null);
-      if (!data || !data.sources) {
-        say(data ? 'Le serveur répond, mais sans l’état de démonstration attendu. Le Laboratoire affiche le diagnostic.'
-          : 'Le serveur DÉCLIC ne répond pas correctement. Lancez l’application avec Launch.ps1, puis rechargez cette page.', data ? 'warn' : 'down');
-        return;
-      }
-      const ready = Object.entries(data.sources).filter(([, s]) => s.ready).map(([k]) => NAMES[k] || k);
-      const missing = Object.entries(data.sources).filter(([, s]) => !s.ready).map(([k]) => NAMES[k] || k);
-      const mode = data.data_mode === 'synthetic_fixture'
-        ? ' Données synthétiques d’intégration : elles vérifient la mécanique, pas l’apprentissage réel.'
-        : data.data_mode === 'private_research_data' ? ' Parcours réels du jeu de test.' : '';
-      if (ready.length && !missing.length) say(`Démonstration prête : ${ready.join(' et ')}.${mode}`, 'ok');
-      else if (ready.length) say(`Prête pour ${ready.join(' et ')} ; indisponible pour ${missing.join(' et ')}.${mode}`, 'warn');
-      else say('Le serveur fonctionne, mais aucun modèle ou parcours n’est prêt. Le Laboratoire détaille le diagnostic.', 'warn');
+      if (!data) return say('Le serveur DÉCLIC répond mal. Relancez « Lancer DECLIC », puis rechargez cette page.', 'down');
+      const ready = data.sources && Object.values(data.sources).some(s => s.ready);
+      say(ready ? 'DÉCLIC est prêt : séances, parcours et laboratoire disponibles.'
+        : 'DÉCLIC est prêt pour les séances. Le rejeu des réseaux O08 du laboratoire attend ses données de recherche.', ready ? 'ok' : 'warn');
     } catch (e) {
-      say('Le serveur DÉCLIC ne répond pas. Lancez l’application avec Launch.ps1, puis rechargez cette page.', 'down');
+      say('Le serveur DÉCLIC ne répond pas. Lancez « Lancer DECLIC », puis rechargez cette page.', 'down');
     } finally { clearTimeout(timer); }
   }
-  check();
+
+  async function me() {
+    const L = window.Learn; if (!L) return;
+    try {
+      const {id} = await L.profile.resolve(); if (!id) return;
+      const learner = await L.api.learner(id);
+      const cta = document.getElementById('cta');
+      const label = learner.active_session ? `Reprendre ma séance (${learner.active_session.progress.answered} / ${learner.active_session.progress.total})` : 'Commencer une séance';
+      cta.firstChild.textContent = label + ' ';
+      document.getElementById('me').textContent = `Bonjour ${learner.name} · dernière activité ${L.fmt.ago(learner.last_activity)}.`;
+    } catch (e) { /* the readiness line already says if the server is down */ }
+  }
+  readiness(); me();
 })();

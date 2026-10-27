@@ -17,8 +17,9 @@
     <a class="wordmark" href="/" aria-label="DÉCLIC, accueil"><b>déclic</b><span>apprentissage musical</span></a>
     <nav class="site-nav" aria-label="Navigation principale">
       <a href="/">Accueil</a>
-      <a href="/web/living.html">Parcours</a>
-      <a href="/web/carnet.html">Carnet</a>
+      <a href="/web/seance.html">Séance</a>
+      <a href="/web/parcours.html">Parcours</a>
+      <a href="/web/exercices.html">Exercices</a>
       <a href="/web/labo.html" aria-current="page">Laboratoire</a>
     </nav>
   </div>
@@ -28,8 +29,8 @@
   <section class="wrap page-head lab-head">
     <div>
       <h1>Inspecter le modèle et ses preuves</h1>
-      <p class="lede">Pour un professeur ou un jury : l’état réel du système, la façon dont une prévision est calculée, ce que montrent les bancs d’essai et ce qui reste à prouver. Rien ici n’est nécessaire pour lire un parcours.</p>
-      <div class="actions"><a class="btn btn-primary" href="/web/living.html?source=singpad&amp;learner=01&amp;cutoff=5&amp;stage=gru&amp;research=1#observatory">Ouvrir le calcul d’une prévision</a></div>
+      <p class="lede">Pour un professeur ou un jury : l’état réel du système, le rejeu des réseaux O08 entraînés sur de vrais parcours, ce que montrent les bancs d’essai et ce qui reste à prouver. Rien ici n’est nécessaire pour apprendre avec DÉCLIC.</p>
+      <div class="actions"><a class="btn btn-primary" href="/web/living.html">Ouvrir le rejeu O08</a><a class="btn btn-secondary" href="/web/living.html?source=singpad&amp;learner=01&amp;cutoff=5&amp;stage=gru&amp;research=1#observatory">Le calcul d’une prévision</a></div>
     </div>
     <nav class="toc" aria-label="Sur cette page">
       <a href="#system-title">État du système</a>
@@ -37,6 +38,7 @@
       <a href="#bench-title">Bancs d’essai Phase 7</a>
       <a href="#models-title">Modèles évalués</a>
       <a href="#limits-title">Limites</a>
+      <a href="#tools-title">Outils de recherche</a>
       <a href="#archives">Anciennes interfaces</a>
     </nav>
   </section>
@@ -92,14 +94,26 @@
     <div id="limits" class="limits-grid"><p class="loading">Chargement…</p></div>
   </section>
 
+  <section class="wrap block" aria-labelledby="tools-title">
+    <div class="block-head">
+      <h2 id="tools-title">Outils de recherche</h2>
+      <p class="sub">Ce qui sert à tester les modèles plutôt qu’à apprendre.</p>
+    </div>
+    <ul class="archive-list">
+      <li><div><h3><a href="/web/living.html">Rejeu O08 · réseaux entraînés sur données réelles</a></h3><p>Le réseau EnhancedGRU servi rejoue des parcours du jeu de test SingPAD (chant) et Yousician (ukulélé) : prévision, reçu signé, révélation, calcul couche par couche. C’est la vérification des modèles O08 sur des données compatibles. Nécessite les données privées préparées.</p></div><span class="label">Données réelles</span></li>
+      <li><div><h3>Requête directe aux modèles</h3><p><code>POST /api/v5/musical/forecast</code> accepte un historique au format exact de chaque base (voir <code>docs/PHASE10_MODEL_AUDIT.md</code>, section « Tester vos modèles ») ; tout autre instrument ou domaine est refusé par abstention.</p></div><span class="label">API</span></li>
+      <li><div><h3><a href="/web/carnet.html">Carnet piano · auto-évaluation</a></h3><p>Le carnet de la Phase 4 : exercices à jouer sur un vrai piano et noter soi-même. Il demande un instrument ; sans piano, utilisez les Séances.</p></div><span class="label">Nécessite un piano</span></li>
+    </ul>
+  </section>
+
   <section id="archives" class="wrap block" aria-labelledby="archives-title">
     <div class="block-head">
       <h2 id="archives-title">Anciennes interfaces</h2>
       <p class="sub">Conservées pour la traçabilité des phases précédentes. Elles gardent leur présentation d’origine et ne sont plus des points d’entrée.</p>
     </div>
     <ul class="archive-list">
-      <li><div><h3><a href="/web/o08.html">Démonstration O08 · Phase 7</a></h3><p>Passé, prévision et révélation pour l’apprenant de démonstration 01. Remplacée par le Parcours, qui rejoue le même apprenant séance par séance. Nécessite les données privées préparées.</p></div><span class="label">Remplacée</span></li>
-      <li><div><h3><a href="/web/musical-demo.html">Démonstration · Phase 6</a></h3><p>Première version de la même démonstration. Remplacée par le Parcours.</p></div><span class="label">Remplacée</span></li>
+      <li><div><h3><a href="/web/o08.html">Démonstration O08 · Phase 7</a></h3><p>Passé, prévision et révélation pour l’apprenant de démonstration 01. Remplacée par le Rejeu O08, qui rejoue le même apprenant séance par séance. Nécessite les données privées préparées.</p></div><span class="label">Remplacée</span></li>
+      <li><div><h3><a href="/web/musical-demo.html">Démonstration · Phase 6</a></h3><p>Première version de la même démonstration. Remplacée par le Rejeu O08.</p></div><span class="label">Remplacée</span></li>
       <li><div><h3><a href="/web/musical-cloud.html">Modèles musicaux Phase 6 et carnets Colab</a></h3><p>Correction chronologique SingPAD, modèles réentraînés, liens pour relancer les entraînements.</p></div><span class="label">Recherche</span></li>
       <li><div><h3><a href="/web/case-study.html">Histoires de pratique piano · Rach3 et PianoVAM</a></h3><p>Durées de pratique réellement publiées (CC BY-NC-SA 4.0). Elles décrivent la pratique, pas la qualité du jeu.</p></div><span class="label">Données publiques</span></li>
       <li class="warn-item"><div><h3><a href="/web/research.html">Jumeau d’apprentissage · Phases 1 à 5</a></h3><p><strong>Simulation.</strong> Les compétences musicales nommées et leurs pourcentages y sont fictifs ; l’autre espace est une étude de génie logiciel (FORGET-SE). Aucune donnée d’apprenant musical réel.</p></div><span class="label label-warn">Simulation</span></li>
@@ -110,7 +124,7 @@
 <footer class="site-foot">
   <div class="wrap">
     <p><strong>Rapports complets</strong> — dans le dépôt : <code>docs/PHASE7_REPORT.md</code>, <code>docs/PHASE7_RESULTS.md</code>, <code>docs/PHASE8_LIVING_LEARNER.md</code>, <code>docs/MODEL_ELIGIBILITY_POLICY.md</code>, <code>docs/DATA_PROVENANCE_AND_RIGHTS.md</code>.</p>
-    <nav aria-label="Pied de page"><a href="/">Accueil</a><a href="/web/living.html">Parcours</a><a href="/web/carnet.html">Carnet</a></nav>
+    <nav aria-label="Pied de page"><a href="/">Accueil</a><a href="/web/living.html">Rejeu O08</a><a href="/web/carnet.html">Carnet piano</a></nav>
   </div>
 </footer>
 <script src="/web/labo.js?v=9.0" defer></script>
