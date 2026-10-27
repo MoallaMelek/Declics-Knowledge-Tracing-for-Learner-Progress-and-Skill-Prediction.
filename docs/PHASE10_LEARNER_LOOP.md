@@ -77,7 +77,7 @@ Aucune dépendance externe : tout fonctionne hors ligne.
 
 | Suite | Contenu | Résultat (cloud, 27/10/2026) |
 |---|---|---|
-| `pytest` (toute la suite) | dont 73 tests `test_learning.py` et 7 tests `test_o08_leakage_audit.py` | **507 réussis, 3 ignorés** (données privées absentes du cloud) |
+| `pytest` (toute la suite) | dont 78 tests `test_learning.py` et 7 tests `test_o08_leakage_audit.py` | **512 réussis, 3 ignorés** (données privées absentes du cloud) |
 | `tests/browser/learner_e2e.cjs` (Chromium réel + serveur réel + base neuve) | 12 scénarios (détail ci-dessous) | **12/12** |
 | `tests/browser/living_e2e.cjs` | Rejeu O08, poids réels, données synthétiques | **16/16** |
 
@@ -119,7 +119,30 @@ Voir la section ajoutée après le déploiement, plus bas.
 
 ## 7. Revue indépendante
 
-Voir plus bas.
+Elle a été menée par une session Claude neuve, en lecture seule, sans l'historique de la conversation. Cette session a relancé les tests et sondé l'API avec ses propres scripts.
+
+**Aucun bloquant.** Toutes les remarques ont été corrigées, avec un test de régression pour chacune.
+
+Les quatre remarques majeures :
+1. **Maîtrise.** Elle était acquise pour toujours alors que l'interface parlait des « 10 dernières réponses ». Elle est désormais jugée sur les W dernières réponses. Le nouvel état « à consolider » couvre un niveau maîtrisé puis en baisse : le planificateur y revient, mais les prérequis débloqués restent acquis.
+2. **Mesure du seuil.** Elle affichait une correction. Elle montre désormais « Réponse enregistrée », sans verdict ni prévision ; le seuil n'apparaît que dans le bilan.
+3. **Raccourcis clavier.** Ils ne pouvaient pas atteindre les réponses 10 à 12, et taper « 1 » validait la première réponse. Seules les réponses 1 à 9 ont désormais un raccourci.
+4. **Seuil de hauteur.** Il mélangeait toutes les séances et fixait un niveau à partir d'un seul changement de sens. Il est désormais calculé sur la dernière mesure seulement, et ne place un niveau qu'avec au moins 4 changements de sens (ou une mesure sans aucune erreur).
+
+Les remarques mineures :
+- avertissement avant qu'un exercice de la bibliothèque n'interrompe la séance en cours ;
+- une évaluation initiale arrêtée avant 15 réponses ne compte pas ;
+- une erreur 409 renvoie à l'écran de départ ;
+- une mélodie « contour changé » n'introduit plus de note répétée ;
+- l'écho chromatique respecte l'amplitude des sauts ;
+- les réponses aux champs inattendus sont refusées ;
+- le nombre de réécoutes est plafonné ;
+- un nom fait d'espaces est refusé ;
+- la base naïve tient compte du hasard (moyenne a priori (1 + c) / 2) ;
+- les items de mesure sont exclus des forces et faiblesses ;
+- le verdict est annoncé aux lecteurs d'écran.
+
+Limite assumée, signalée par la revue : pour dessiner la note, la page de lecture reçoit sa position sur la portée. Un utilisateur qui lit le trafic réseau peut donc en déduire la réponse. Pour les exercices d'écoute, les notes jouées sont elles aussi forcément transmises au navigateur. C'est sans conséquence pour un outil d'entraînement personnel, mais cela exclut un usage d'examen surveillé.
 
 ## 8. Lancer
 

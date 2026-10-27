@@ -6,7 +6,7 @@
   const SVG = 'http://www.w3.org/2000/svg';
   const s = (tag, attrs, ...kids) => { const n = document.createElementNS(SVG, tag); for (const [k, v] of Object.entries(attrs || {})) n.setAttribute(k, v); n.append(...kids.filter(Boolean)); return n; };
   const txt = (x, y, t, attrs = {}) => { const n = s('text', {x, y, ...attrs}); n.textContent = t; return n; };
-  const LABEL = {maitrise: 'maîtrisé', en_cours: 'en cours', non_commence: 'à venir', mesure: 'mesure'};
+  const LABEL = {maitrise: 'maîtrisé', a_consolider: 'à consolider', en_cours: 'en cours', non_commence: 'à venir', mesure: 'mesure'};
 
   async function boot() {
     try {
@@ -71,13 +71,13 @@
       if (!f) {
         const t = p.pitch_threshold;
         return h('div', {class: 'map-row'}, h('div', {}, h('h3', {text: levels[0].title}), h('span', {class: 'fine', text: 'Mesure, sans niveaux'})),
-          h('p', {text: t ? (t.threshold_cents ? `Dernière estimation de votre seuil : ${t.threshold_cents} cents (${t.reversals} changements de sens).` : `Seuil non estimé : ${t.reliability}.`) : 'Pas encore mesuré (fait partie de l’évaluation initiale).'}));
+          h('p', {text: t ? (t.threshold_cents ? `Dernière mesure (${fmt.date(t.measured_at)}) : environ ${t.threshold_cents} cents, ${t.reversals} changements de sens${t.reversals < 4 ? ' (indicatif, pas utilisé pour fixer votre niveau)' : ''}.` : `Seuil non estimé : ${t.reliability}.`) : 'Pas encore mesuré (fait partie de l’évaluation initiale).'}));
       }
       const chips = levels.map(m => {
         const next = f.level === m.level;
         const locked = next && !f.available;
         const placed = f.placed_by_threshold && m.level < f.placed_by_threshold && m.status !== 'maitrise';
-        const state = placed ? 'validé par la mesure' : m.status === 'en_cours' ? `${m.recent.successes}/${m.recent.count}` : LABEL[m.status];
+        const state = placed ? 'validé par la mesure' : m.status === 'en_cours' ? `${m.recent.successes}/${m.recent.count}` : m.status === 'a_consolider' ? `à consolider ${m.recent.successes}/${m.recent.count}` : LABEL[m.status];
         return h('li', {}, h('a', {class: `lvl lvl-${placed ? 'placed' : m.status}${next ? ' lvl-next' : ''}${locked ? ' lvl-locked' : ''}`, href: `/web/seance.html?exercise=${encodeURIComponent(ex)}&level=${m.level}`,
           title: `${m.label} · ${m.attempts} réponse(s)`, 'aria-label': `Niveau ${m.level}, ${m.label} : ${state}${next ? ', prochaine étape' : ''}${locked ? ' (prérequis non atteints)' : ''}. S’entraîner.`},
           m.status === 'maitrise' ? '✓ ' : '', `N${m.level}`, h('span', {class: 'fine', text: ` ${state}`})));
@@ -93,7 +93,7 @@
       h('h2', {id: 'map-title', text: 'Où j’en suis'}),
       h('p', {class: 'sub', text: 'Un niveau est maîtrisé quand au moins 80 % de vos 10 dernières réponses à ce niveau sont justes (6 pour le clavier et le tapotement) et que ce score est très improbable au hasard. La prochaine étape est entourée. Cliquez un niveau pour vous y entraîner.'}),
       h('div', {class: 'legend-row'}, h('span', {class: 'lvl lvl-maitrise', text: '✓ maîtrisé'}), h('span', {class: 'lvl lvl-en_cours', text: 'en cours : réussites / réponses récentes'}),
-        h('span', {class: 'lvl lvl-next', text: 'prochaine étape'}), h('span', {class: 'lvl lvl-locked', text: 'prérequis non atteints'})),
+        h('span', {class: 'lvl lvl-a_consolider', text: 'maîtrisé puis en baisse : à consolider'}), h('span', {class: 'lvl lvl-next', text: 'prochaine étape'}), h('span', {class: 'lvl lvl-locked', text: 'prérequis non atteints'})),
       h('div', {class: 'map'}, rows));
   }
 

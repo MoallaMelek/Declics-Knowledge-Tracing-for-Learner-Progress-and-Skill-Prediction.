@@ -383,3 +383,76 @@ def test_staircase_follows_two_down_one_up():
         cents = cat.staircase_threshold(trials)['next_cents']
     est = cat.staircase_threshold(trials)
     assert est['reversals'] >= 4 and 15 <= est['threshold_cents'] <= 40
+
+
+# ---- regressions from the independent review -------------------------------------------------
+def _h(ex, level, skill, results, start=0, session='s1'):
+    t = datetime(2026, 10, 20, 9, tzinfo=timezone.utc)
+    return [{'exercise': ex, 'level': level, 'skill': skill, 'correct': ok, 'session': session, 'cents': None,
+             'answered_at': learning._iso(t + timedelta(seconds=start + i))} for i, ok in enumerate(results)]
+
+
+def test_mastery_is_judged_on_the_last_answers_and_a_slump_asks_for_consolidation():
+    hist = _h('lecture', 1, 'lecture', [True] * 10 + [False] * 10)
+    m = learning.mastery(hist)[('lecture', 1)]
+    assert m['status'] == 'a_consolider' and m['mastered_at'] and m['recent'] == {'count': 10, 'successes': 0}
+    assert learning.frontier(hist)['lecture']['level'] == 1
+    plan = learning.plan_session(hist, 'seance', now=datetime(2026, 10, 21, tzinfo=timezone.utc))
+    assert any(b['exercise'] == 'lecture' and b['level'] == 1 for b in plan)
+
+
+def test_pitch_threshold_uses_the_latest_measurement_only_and_needs_four_reversals_to_place():
+    def run(session, true_threshold, start):
+        trials, cents, out = [], 200.0, []
+        for k in range(12):
+            ok = cents > true_threshold
+            trials.append((cents, ok))
+            out.append({'exercise': 'hauteur-seuil', 'level': 1, 'skill': 'hauteur', 'correct': ok, 'cents': cents, 'session': session,
+                        'answered_at': learning._iso(datetime(2026, 10, 20, tzinfo=timezone.utc) + timedelta(seconds=start + k))})
+            cents = cat.staircase_threshold(trials)['next_cents']
+        return out
+    first, second = run('a', 80, 0), run('b', 8, 100)
+    alone = learning.pitch_threshold(second)
+    both = learning.pitch_threshold(first + second)
+    assert both['threshold_cents'] == alone['threshold_cents'] and both['session'] == 'b'
+    few = learning.pitch_threshold(second[:7])
+    if few['reversals'] < 4:
+        assert few['placement_cents'] is None and learning.frontier(second[:7])['hauteur-comparaison']['placed_by_threshold'] is None
+
+
+def test_initial_assessment_stopped_early_is_not_considered_done(env):
+    client, clock, db = env
+    learner = new_learner(client)
+    sid = client.post(f'/api/learn/learners/{learner}/sessions', json={'kind': 'auto'}).json()['session']['id']
+    play(client, db, sid, limit=3)
+    client.post(f'/api/learn/sessions/{sid}/finish')
+    assert client.get(f'/api/learn/learners/{learner}').json()['initial_assessment_done'] is False
+    assert client.post(f'/api/learn/learners/{learner}/sessions', json={'kind': 'auto'}).json()['session']['kind'] == 'evaluation'
+
+
+def test_responses_with_unexpected_fields_blank_names_and_inflated_replays_are_handled(env):
+    client, clock, db = env
+    assert client.post('/api/learn/learners', json={'name': '   '}).status_code == 422
+    learner = new_learner(client)
+    sid = client.post(f'/api/learn/learners/{learner}/sessions', json={'kind': 'ciblee', 'exercise': 'intervalles', 'level': 1}).json()['session']['id']
+    item = client.post(f'/api/learn/sessions/{sid}/next').json()['item']
+    bad = {**response_for(db, item, True), 'junk': 'x' * 1000}
+    assert client.post(f"/api/learn/items/{item['id']}/answer", json={'response': bad}).status_code == 422
+    assert client.post(f"/api/learn/items/{item['id']}/answer", json={'response': response_for(db, item, True), 'replays': 40}).status_code == 200
+    with sqlite3.connect(db) as c:
+        assert c.execute('SELECT replays FROM items WHERE id=?', (item['id'],)).fetchone()[0] == item['served']['replays']
+
+
+def test_generated_stimuli_match_their_level_description():
+    rng = random.Random(11)
+    for level in (1, 2):
+        _, lv = cat.level_spec('melodies', level)
+        for _ in range(500):
+            first = cat._melody(rng, lv['params']['length'], True, 60, 74, 5)
+            second, _ = cat._alter(rng, first, 'violate', True)
+            assert 0 not in cat._contour(second) and any(a == -b for a, b in zip(cat._contour(first), cat._contour(second)) if a)
+    for level in (4, 5):
+        _, lv = cat.level_spec('echo', level)
+        for _ in range(800):
+            served, a = cat.generate('echo', level, rng)
+            assert all(0 < abs(y - x) <= lv['params']['max_leap'] for x, y in zip(a['notes'], a['notes'][1:]))

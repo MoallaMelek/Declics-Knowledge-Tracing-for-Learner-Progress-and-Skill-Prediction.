@@ -26,7 +26,7 @@ import uuid
 from typing import Literal
 
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from . import learning_catalog as cat
 from . import learning_model as lm
@@ -107,6 +107,14 @@ class Strict(BaseModel):
 
 class NewLearner(Strict):
     name: str = Field(min_length=1, max_length=40)
+
+    @field_validator('name')
+    @classmethod
+    def visible(cls, v):
+        v = v.strip()
+        if not v:
+            raise ValueError('Le nom ne peut pas être vide.')
+        return v
     instrument: Literal['aucun', 'piano', 'voix', 'guitare', 'autre'] = 'aucun'
 
 
@@ -159,8 +167,17 @@ def _binomial_tail(k, n, p):
     return sum(math.comb(n, i) * p ** i * (1 - p) ** (n - i) for i in range(k, n + 1))
 
 
+def _meets(items, window, chance_level):
+    k = sum(h['correct'] for h in items)
+    return len(items) == window and k / window >= 0.8 and _binomial_tail(k, window, chance_level) < 0.05
+
+
 def mastery(history):
-    """Per (exercise, level): status from the last W answers at that level (Bloom-style criterion)."""
+    """Per (exercise, level), Bloom-style criterion on the LAST W answers at that level.
+
+    'maitrise'    the last W answers meet the criterion now;
+    'a_consolider' the criterion was met once (mastered_at) but the last W answers no longer meet it;
+    'en_cours'    started, criterion never met."""
     out = {}
     for ex in cat.EXERCISES:
         window = ex['mastery_window']
@@ -171,15 +188,10 @@ def mastery(history):
             if window is None:
                 entry['status'] = 'mesure'
             elif items:
-                entry['status'] = 'en_cours'
                 c = cat.chance(ex['id'], lv['level'])
-                for i in range(window, len(items) + 1):
-                    last = items[i - window:i]
-                    k = sum(h['correct'] for h in last)
-                    if k / window >= 0.8 and _binomial_tail(k, window, c) < 0.05:
-                        entry['status'] = 'maitrise'
-                        entry['mastered_at'] = last[-1]['answered_at']
-                        break
+                first = next((items[i - 1]['answered_at'] for i in range(window, len(items) + 1) if _meets(items[i - window:i], window, c)), None)
+                entry['mastered_at'] = first
+                entry['status'] = 'maitrise' if _meets(items[-window:], window, c) else 'a_consolider' if first else 'en_cours'
                 recent = items[-window:]
                 entry['recent'] = {'count': len(recent), 'successes': sum(h['correct'] for h in recent)}
             out[(ex['id'], lv['level'])] = entry
@@ -187,14 +199,30 @@ def mastery(history):
 
 
 def _mastered(m, exercise, level):
-    return any(m[(exercise, l)]['status'] == 'maitrise' for l in range(level, 10) if (exercise, l) in m)
+    # Prerequisites count a level mastered once (a later slump sends you back to consolidate it,
+    # it does not re-lock what was unlocked).
+    return any(m[(exercise, l)]['mastered_at'] for l in range(level, 10) if (exercise, l) in m)
 
 
 def pitch_threshold(history):
-    trials = [(h['cents'], h['correct']) for h in history if h['exercise'] == 'hauteur-seuil' and h['cents']]
-    if not trials:
+    """Threshold of the LATEST measurement session only (a staircase is never pooled across sessions)."""
+    sessions = [h['session'] for h in history if h['exercise'] == 'hauteur-seuil' and h['cents']]
+    if not sessions:
         return None
-    return cat.staircase_threshold(trials)
+    latest = sessions[-1]
+    trials = [(h['cents'], h['correct']) for h in history if h['exercise'] == 'hauteur-seuil' and h['cents'] and h['session'] == latest]
+    out = cat.staircase_threshold(trials)
+    out['session'] = latest
+    out['measured_at'] = next(h['answered_at'] for h in reversed(history) if h['session'] == latest and h['exercise'] == 'hauteur-seuil')
+    # Placement only from a reliable estimate (>= 4 reversals), or from a run without any error
+    # (then the threshold is below the smallest gap tested; the lowest correct gap is a safe bound).
+    if out['reversals'] >= 4:
+        out['placement_cents'] = out['threshold_cents']
+    elif out['trials'] >= 8 and all(ok for _, ok in trials):
+        out['placement_cents'] = out['lowest_correct_cents']
+    else:
+        out['placement_cents'] = None
+    return out
 
 
 def frontier(history, m=None):
@@ -208,7 +236,7 @@ def frontier(history, m=None):
         levels = [lv['level'] for lv in ex['levels']]
         level = next((l for l in levels if m[(ex['id'], l)]['status'] != 'maitrise'), None)
         placed = None
-        reference = threshold and (threshold['threshold_cents'] or (threshold['lowest_correct_cents'] if threshold['trials'] >= 8 else None))
+        reference = threshold and threshold['placement_cents']
         if ex['id'] == 'hauteur-comparaison' and reference:
             fitting = [lv['level'] for lv in ex['levels'] if lv['params']['cents'] >= 1.5 * reference]
             placed = max(fitting) if fitting else 1
@@ -290,6 +318,15 @@ def plan_session(history, kind, exercise=None, level=None, now=None):
     return blocks
 
 
+ASSESSMENT_MIN_ANSWERS = sum(n for _, _, n, _ in ASSESSMENT) // 2
+
+
+def _assessment_done(conn, learner_id):
+    # An initial assessment stopped before half of its questions does not count as done.
+    return conn.execute("""SELECT COUNT(*) FROM sessions s WHERE s.learner=? AND s.kind='evaluation' AND
+        (SELECT COUNT(*) FROM items i WHERE i.session=s.id AND i.answered_at IS NOT NULL) >= ?""", (learner_id, ASSESSMENT_MIN_ANSWERS)).fetchone()[0] > 0
+
+
 def _block_of(plan, seq):
     total = 0
     for i, b in enumerate(plan):
@@ -359,7 +396,7 @@ def get_learner(learner_id: str):
     with connect() as conn:
         learner = _learner(conn, learner_id)
         active = conn.execute("SELECT * FROM sessions WHERE learner=? AND status='active' ORDER BY created_at DESC LIMIT 1", (learner_id,)).fetchone()
-        evaluated = conn.execute("SELECT COUNT(*) FROM sessions WHERE learner=? AND kind='evaluation' AND status='terminee'", (learner_id,)).fetchone()[0]
+        evaluated = _assessment_done(conn, learner_id)
         last = conn.execute('SELECT MAX(answered_at) FROM items WHERE learner=?', (learner_id,)).fetchone()[0]
         active_public = None
         if active:
@@ -386,8 +423,7 @@ def start_session(learner_id: str, body: NewSession):
             return {'resumed': True, 'session': _session_public(conn, s)}
         kind = body.kind
         if kind == 'auto':
-            done = conn.execute("SELECT COUNT(*) FROM sessions WHERE learner=? AND kind='evaluation' AND status='terminee'", (learner_id,)).fetchone()[0]
-            kind = 'seance' if done else 'evaluation'
+            kind = 'seance' if _assessment_done(conn, learner_id) else 'evaluation'
         if kind == 'ciblee' and (body.exercise is None or body.level is None):
             raise HTTPException(422, 'Choisissez un exercice et un niveau.')
         plan = plan_session(_history(conn, learner_id), kind, body.exercise, body.level)
@@ -476,7 +512,7 @@ def answer_item(item_id: str, body: Answer):
                                 'n_skill': prediction.get('n_skill'), 'needed': prediction.get('needed')}
         conn.execute('UPDATE items SET answered_at=?, response=?, correct=?, score=?, result=?, response_ms=?, replays=? WHERE id=?',
                      (_iso(answered), stored_response, int(result['correct']), result['score'], json.dumps(result, ensure_ascii=False),
-                      body.response_ms, body.replays, item_id))
+                      body.response_ms, min(body.replays, served.get('replays', 0)), item_id))
         row = conn.execute('SELECT * FROM items WHERE id=?', (item_id,)).fetchone()
         progress = _progress_of(conn, s)
         if progress['answered'] >= progress['total']:
@@ -533,8 +569,9 @@ def session_summary(session_id: str):
 
 def _skill_summary(history):
     out = []
+    practice = [h for h in history if cat.EXERCISE_BY_ID[h['exercise']]['mastery_window']]  # measures converge on ~71 % by design
     for skill in cat.SKILLS:
-        items = [h for h in history if h['skill'] == skill['id']]
+        items = [h for h in practice if h['skill'] == skill['id']]
         entry = {'id': skill['id'], 'label': skill['label'], 'attempts': len(items), 'status': 'pas_assez_de_donnees'}
         if items:
             recent = items[-20:]
@@ -596,7 +633,7 @@ def progress(learner_id: str):
     for h in history:
         p = h['prediction']
         if p['status'] == 'ok':
-            scored.append({'p': p['p'], 'baseline': p['baseline'], 'y': 1 if h['correct'] else 0, 'at': h['answered_at'],
+            scored.append({'p': p['p'], 'baseline': p['baseline'], 'y': 1 if h['correct'] else 0, 'at': h['answered_at'], 'chance': p.get('chance'),
                            'exercise': h['exercise'], 'title': cat.EXERCISE_BY_ID[h['exercise']]['title'], 'level': h['level'], 'skill': h['skill'], 'n_skill': p['n_skill']})
         elif p['status'] == 'abstained':
             abstained += 1

@@ -404,8 +404,11 @@ def _alter(rng, seq, mode, tonal, low=55, high=79):
         rng.shuffle(cands)
         for n in cands:
             new = seq[:i] + [n] + seq[i + 1:]
-            same_contour = _contour(new) == base
-            if (mode == 'preserve' and same_contour) or (mode == 'violate' and not same_contour):
+            contour = _contour(new)
+            if mode == 'preserve' and contour == base:
+                return new, i
+            # 'violate' = a rise becomes a fall or the reverse; never a flat (repeated) note
+            if mode == 'violate' and 0 not in contour and any(a == -b != 0 for a, b in zip(base, contour)):
                 return new, i
     raise RuntimeError('no alteration found')
 
@@ -538,7 +541,9 @@ def generate(exercise_id, level, rng: random.Random, *, cents=None):
                 seq.append(rng.choice(options))
             if p['chromatic']:
                 i = rng.randrange(1, len(seq))
-                cand = [seq[i] + d for d in (-1, 1) if low <= seq[i] + d <= high and (seq[i] + d - tonic) % 12 not in MAJOR]
+                neighbours = [seq[j] for j in (i - 1, i + 1) if 0 <= j < len(seq)]
+                cand = [seq[i] + d for d in (-1, 1) if low <= seq[i] + d <= high and (seq[i] + d - tonic) % 12 not in MAJOR
+                        and all(0 < abs(seq[i] + d - n) <= p['max_leap'] for n in neighbours)]
                 if not cand:
                     continue
                 seq[i] = rng.choice(cand)
@@ -641,6 +646,9 @@ def evaluate(exercise_id, level, served, answer, response):
     if not isinstance(response, dict):
         raise InvalidResponse('Réponse illisible.')
     kind = ex['response']
+    allowed = {'choice': {'choice'}, 'staff': {'choice', 'accidental'}, 'keyboard': {'notes'}, 'tap': {'taps'}}[kind]
+    if set(response) - allowed:
+        raise InvalidResponse('Réponse illisible : champ inattendu.')
     if kind == 'choice':
         choice = response.get('choice')
         valid = {o['value'] for o in served['options']}

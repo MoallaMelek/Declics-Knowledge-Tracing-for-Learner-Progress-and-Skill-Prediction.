@@ -13,7 +13,8 @@ c is the chance level of the item (1/number of choices; 0 for keyboard/tapping),
 fixed a priori from the level index (not estimated: one learner cannot identify item
 difficulty), theta starts at 0. Every prediction is computed from answers given BEFORE the
 item was created and stored with the item, so it can be scored honestly afterwards.
-A naive comparator (Laplace success rate at the same exercise and level) is stored beside it.
+A naive comparator (smoothed success rate at the same exercise and level, prior mean halfway
+between chance and certainty) is stored beside it.
 """
 from __future__ import annotations
 
@@ -58,8 +59,11 @@ def replay(history):
 
 
 def baseline(history, exercise_id, level):
+    """Naive comparator: success rate at the same exercise and level, with a weak prior whose mean
+    is halfway between chance and certainty, (1 + c) / 2 (0.5 when there is no chance level)."""
     same = [h for h in history if h['exercise'] == exercise_id and h['level'] == level]
-    return (sum(h['correct'] for h in same) + 1) / (len(same) + 2), len(same)
+    prior = (1 + item_chance(exercise_id, level)) / 2
+    return (sum(h['correct'] for h in same) + 2 * prior) / (len(same) + 2), len(same)
 
 
 def predict(history, skill, exercise_id, level, cents=None):

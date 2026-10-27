@@ -64,6 +64,8 @@ Ces modèles n'ont jamais vu de données d'apprenants musicaux réels. Ils reste
 |---|---|---|---|
 | `declic-elo-v1` (`axis7/learning_model.py`) | P(réussite) à la prochaine question d'une séance DÉCLIC, par compétence | **Pas un réseau de neurones**. Elo avec terme de hasard (Pelánek 2016) : P = c + (1 − c)·σ(θ − d), mise à jour en ligne, difficulté d fixée par le niveau | I ✓ · E : sans objet (en ligne, aucun paramètre appris hors θ) · Év : mesuré **par apprenant**, en direct (Brier contre un taux de réussite naïf, calibration à partir de 30 prévisions) · In ✓ `/api/learn` · T ✓ (`tests/browser/learner_e2e.cjs`) |
 
+Comparateur : taux de réussite au même exercice et niveau, lissé par un a priori de moyenne (1 + c)/2, à mi-chemin entre le hasard et la certitude. Battre ce comparateur n'est pas une preuve de validité, seulement un premier contrôle.
+
 Ce modèle **s'abstient** tant qu'une compétence a moins de 5 réponses. Sa prévision est écrite *avant* l'affichage de la question ; c'est vérifié par `tests/test_learning.py::test_insufficient_data_abstains_and_enough_data_gives_preregistered_predictions`. Si le modèle plante, la question reste servie et l'échec est enregistré, jamais remplacé par une valeur (`test_reference_model_failure_is_recorded_not_replaced`).
 
 ## 3. Matrice de compatibilité des entrées

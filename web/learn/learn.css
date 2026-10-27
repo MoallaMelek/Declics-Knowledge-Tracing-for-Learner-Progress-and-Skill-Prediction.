@@ -44,7 +44,7 @@
   background: var(--paper-2); color: var(--ink-2); font: 700 var(--t-xs)/1 var(--mono);
 }
 .acc-row { display: flex; flex-wrap: wrap; gap: var(--s2); }
-.acc[aria-checked='true'] { background: var(--ink); color: var(--sheet); border-color: var(--ink); }
+.acc[aria-pressed='true'] { background: var(--ink); color: var(--sheet); border-color: var(--ink); }
 
 /* Portée */
 .staff { background: var(--sheet); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s3); max-width: 420px; }
@@ -129,6 +129,7 @@
 }
 .lvl-maitrise { background: var(--revealed-wash); border-color: var(--revealed); color: var(--revealed-text); }
 .lvl-placed { background: var(--paper-2); border-color: var(--revealed); color: var(--revealed-text); border-style: dotted; }
+.lvl-a_consolider { border-color: var(--forecast); color: var(--forecast-text); }
 .lvl-en_cours { border-color: var(--cover-deep); color: var(--cover-deep); }
 .lvl-next { box-shadow: 0 0 0 2px var(--forecast); }
 .lvl-locked { border-style: dashed; }

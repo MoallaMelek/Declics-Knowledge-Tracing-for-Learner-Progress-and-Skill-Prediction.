@@ -101,9 +101,15 @@ async function next(page) { await page.locator('.next button').click(); await pa
   await test('first session: success and failure are scored, feedback and prediction note shown', async () => {
     for (let i = 0; i < 10; i++) {
       const ex = await answer(page, i % 4 !== 3);
-      assert.equal(await page.locator('.verdict').innerText(), i % 4 !== 3 ? 'Juste' : 'Pas encore', `${ex} #${i}`);
+      if (ex === 'hauteur-seuil') {
+        // a measurement shows no correction during the run
+        assert.equal(await page.locator('.verdict').innerText(), 'Réponse enregistrée');
+        assert.equal(await page.locator('.forecast-note').count(), 0);
+      } else {
+        assert.equal(await page.locator('.verdict').innerText(), i % 4 !== 3 ? 'Juste' : 'Pas encore', `${ex} #${i}`);
+        assert.ok(await page.locator('.forecast-note').count() === 1, 'every answer shows the prediction or its abstention');
+      }
       if (!kinds.has(ex)) { kinds.add(ex); await page.screenshot({path: path.join(OUT, `02-feedback-${ex}.png`)}); }
-      assert.ok(await page.locator('.forecast-note').count() === 1, 'every answer shows the prediction or its abstention');
       await next(page);
     }
   });

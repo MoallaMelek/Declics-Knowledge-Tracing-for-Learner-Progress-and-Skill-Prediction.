@@ -58,7 +58,9 @@
     let primary, primaryLabel, intro;
     if (focusEx && focusLevel) {
       primaryLabel = 'Commencer cet exercice';
-      intro = h('p', {class: 'lede', text: `Séance ciblée choisie dans la bibliothèque : ${focusEx}, niveau ${focusLevel}. Elle compte dans votre parcours comme les autres.`});
+      intro = h('div', {}, h('p', {class: 'lede', text: `Séance ciblée choisie dans la bibliothèque : ${TITLES[focusEx] || focusEx}, niveau ${focusLevel}. Elle compte dans votre parcours comme les autres.`}),
+        active ? h('p', {class: 'notice-inline', text: `Attention : votre séance en cours (${active.progress.answered} / ${active.progress.total}) sera interrompue et ne pourra plus être reprise. Ses réponses restent enregistrées.`}) : null,
+        active ? h('div', {class: 'actions'}, h('button', {type: 'button', class: 'btn btn-secondary', text: 'Reprendre plutôt ma séance en cours', onclick: () => begin({kind: 'auto'})})) : null);
       primary = () => begin({kind: 'ciblee', exercise: focusEx, level: focusLevel});
     } else if (active) {
       primaryLabel = `Reprendre ma séance (${active.progress.answered} / ${active.progress.total})`;
@@ -168,6 +170,7 @@
       } catch (e) {
         busy = false;
         if (e.status === 422) { message.textContent = e.message; if (onInvalid) onInvalid(); }
+        else if (e.status === 409) fail(e, boot);
         else fail(e, () => submit(response));
       }
     }
@@ -176,17 +179,17 @@
     if (item.response_type === 'choice') {
       const options = h('div', {class: 'options', role: 'group', 'aria-label': 'Réponses possibles'},
         s.options.map((o, i) => h('button', {type: 'button', class: 'btn btn-option', 'data-value': o.value, onclick: () => submit({choice: o.value})},
-          h('kbd', {text: String(i + 1)}), h('span', {text: o.label}))));
+          i < 9 ? h('kbd', {text: String(i + 1)}) : null, h('span', {text: o.label}))));
       body.append(h('div', {class: 'actions'}, listenButton()), options);
-      const onKey = e => { const n = Number(e.key); if (n >= 1 && n <= s.options.length && !e.repeat) submit({choice: s.options[n - 1].value}); };
+      const onKey = e => { const n = Number(e.key); if (n >= 1 && n <= Math.min(9, s.options.length) && !e.repeat) submit({choice: s.options[n - 1].value}); };
       document.addEventListener('keydown', onKey); cleanup.push(() => document.removeEventListener('keydown', onKey));
       listen(true);
     } else if (item.response_type === 'staff') {
       const box = h('div', {class: 'staff'}); L.widgets.staff(box, s.staff);
       let accidental = 'natural';
-      const accs = s.accidentals ? h('div', {class: 'acc-row', role: 'radiogroup', 'aria-label': 'Altération'},
-        [['flat', '♭ bémol'], ['natural', 'aucune'], ['sharp', '♯ dièse']].map(([v, label]) => h('button', {type: 'button', class: 'btn btn-secondary acc', role: 'radio',
-          'aria-checked': String(v === 'natural'), 'data-acc': v, text: label, onclick: e => { accidental = v; accs.querySelectorAll('.acc').forEach(b => b.setAttribute('aria-checked', String(b.dataset.acc === v))); }}))) : null;
+      const accs = s.accidentals ? h('div', {class: 'acc-row', role: 'group', 'aria-label': 'Altération (choisir avant le nom de la note)'},
+        [['flat', '♭ bémol'], ['natural', 'aucune'], ['sharp', '♯ dièse']].map(([v, label]) => h('button', {type: 'button', class: 'btn btn-secondary acc',
+          'aria-pressed': String(v === 'natural'), 'data-acc': v, text: label, onclick: () => { accidental = v; accs.querySelectorAll('.acc').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.acc === v))); }}))) : null;
       const options = h('div', {class: 'options options-notes', role: 'group', 'aria-label': 'Nom de la note'},
         s.options.map((o, i) => h('button', {type: 'button', class: 'btn btn-option', onclick: () => submit({choice: o.value, accidental})}, h('kbd', {text: String(i + 1)}), h('span', {text: o.label}))));
       body.append(...[box, accs, options].filter(Boolean));
@@ -259,6 +262,7 @@
 
   function feedbackScreen(item, r) {
     const res = r.result, ok = res.correct;
+    if (item.exercise === 'hauteur-seuil') return measureScreen(item, r);
     const extra = [];
     if (item.response_type === 'keyboard') {
       extra.push(h('button', {type: 'button', class: 'btn btn-secondary', text: 'Écouter la bonne mélodie', onclick: () => L.audio.play(res.details.expected.map((m, i) => ({t: i * 0.55, d: 0.5, midi: m})))}));
@@ -278,7 +282,7 @@
     screen(bar(r.progress, true),
       h('article', {class: `sheet item feedback ${ok ? 'is-ok' : 'is-ko'}`},
         h('p', {class: 'kicker', text: `${item.title} · niveau ${item.level}`}),
-        h('h1', {class: 'verdict', text: ok ? 'Juste' : 'Pas encore'}),
+        h('h1', {class: 'verdict', role: 'status', text: ok ? 'Juste' : 'Pas encore'}),
         h('p', {class: 'verdict-text', text: res.feedback}),
         metrics.length ? h('p', {class: 'fine', text: metrics.join(' · ')}) : null,
         extra.length ? h('div', {class: 'actions'}, extra) : null,
@@ -288,12 +292,25 @@
     document.addEventListener('keydown', onKey); cleanup.push(() => document.removeEventListener('keydown', onKey));
   }
 
+  // A measurement gives no correction during the run (the result is in the summary).
+  function measureScreen(item, r) {
+    const done = r.progress.answered >= r.progress.total;
+    const next = h('button', {type: 'button', class: 'btn btn-primary', 'data-autofocus': true, text: done ? 'Voir le bilan de la séance' : 'Question suivante',
+      onclick: () => done ? summaryScreen(session.id) : nextItem()});
+    screen(bar(r.progress, true), h('article', {class: 'sheet item feedback'},
+      h('p', {class: 'kicker', text: item.title}),
+      h('h1', {class: 'verdict', role: 'status', text: 'Réponse enregistrée'}),
+      h('p', {class: 'verdict-text', text: 'Mesure en cours : pas de correction pendant la mesure, pour ne pas l’influencer. L’écart s’adapte à vos réponses ; votre seuil s’affiche dans le bilan.'}),
+      h('div', {class: 'actions next'}, next)));
+  }
+
   // ---------------------------------------------------------------- summary
   async function summaryScreen(sid) {
     let s;
     try { s = await api.summary(sid); } catch (e) { return fail(e, () => summaryScreen(sid)); }
     learner = await api.learner(learner.id).catch(() => learner);
     const scored = s.predictions.filter(p => p.status === 'ok');
+    const abstained = s.predictions.filter(p => p.status === 'abstained').length, errored = s.predictions.filter(p => p.status === 'error').length;
     const meanP = scored.length ? scored.reduce((a, p) => a + p.p, 0) / scored.length : null;
     const obs = scored.length ? scored.filter(p => p.outcome).length / scored.length : null;
     const rows = s.blocks.map(b => h('tr', {}, h('td', {text: b.title}), h('td', {text: `niveau ${b.level}`}),
@@ -319,7 +336,7 @@
         h('ul', {}, s.errors.slice(0, 6).map(e => h('li', {text: `${e.title} : ${e.error} (${e.count}×)`})))) : null,
       h('section', {class: 'sheet pad'}, h('h2', {class: 'h3', text: 'Les prévisions de cette séance'}),
         h('p', {text: scored.length
-          ? `${scored.length} prévision(s) enregistrée(s) avant vos réponses : ${fmt.pct(meanP)} de réussite prévue en moyenne, ${fmt.pct(obs)} observée. ${s.predictions.length - scored.length} question(s) sans prévision (données insuffisantes).`
+          ? `${scored.length} prévision(s) enregistrée(s) avant vos réponses : ${fmt.pct(meanP)} de réussite prévue en moyenne, ${fmt.pct(obs)} observée. ${abstained} question(s) sans prévision (données insuffisantes)${errored ? `, ${errored} prévision(s) indisponible(s) (erreur du modèle de référence)` : ''}.`
           : 'Aucune prévision : le modèle de référence attend au moins 5 réponses dans une compétence avant de prévoir. C’est normal en début de parcours.'}),
         h('p', {class: 'fine'}, 'Le détail, et la façon dont la qualité des prévisions évolue avec vos données, est dans ', h('a', {href: '/web/parcours.html#o08', text: 'Mon parcours · O08'}), '.')),
       h('section', {class: 'sheet pad'}, h('h2', {class: 'h3', text: 'Prochaine séance proposée'}),
