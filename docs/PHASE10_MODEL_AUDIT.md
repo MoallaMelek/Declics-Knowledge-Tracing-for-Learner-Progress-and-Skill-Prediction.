@@ -18,6 +18,23 @@ Ici, ils n'existent que sous forme de **contrats et de producteurs factices** :
 
 **Aucun modèle d'un autre axe n'est implémenté, entraîné ni chargé dans ce dépôt.** Les statuts ci-dessous ne concernent donc que les modèles de l'axe 7.
 
+
+### 1 bis. Les sept axes : ce que chacun doit produire
+
+D'après les fiches de recherche de l'équipe (`Declic_Axis_1.pdf` à `Declic_Axis_7.pdf`, 6 octobre 2026). Ce sont des **propositions de projet**, pas des résultats.
+
+| Axe | Tâche | Entrée prévue | Sortie prévue | Dans ce dépôt |
+|---|---|---|---|---|
+| 1 · Notes et hauteur | Transcription audio → notes (début, fin, hauteur) | Forme d'onde mono, piano | Événements MIDI, piano roll | Contrat seulement (producteur factice) |
+| 2 · Rythme | Battue, tempo, écarts d'attaque | Audio (+ partition ou clic) | Temps, BPM, écarts signés | Contrat seulement |
+| 3 · Suivi de partition | Alignement exécution ↔ partition | Audio ou MIDI + partition | Correspondances note à note, position | Contrat seulement |
+| 4 · Qualité | Notes ordinales par critère | Enregistrement d'exercice standardisé | Distributions de notes + incertitude | Contrat seulement |
+| 5 · Main et doigté | Vision : touches, doigts | Vidéo du clavier vue de dessus | Repères de la main, doigt par note | Contrat seulement |
+| 6 · Instrument | Classification multi-étiquette | Extrait audio de 5 à 10 s | Probabilité par instrument + abstention | Contrat seulement |
+| 7 · O08 (ce dépôt) | Knowledge tracing | Tentatives ordonnées, item/compétence, résultat | P(réussite) suivante, maîtrise | **Implémenté, entraîné, évalué, intégré, testé** |
+
+**Les entrées audio et vidéo, y compris un extrait YouTube, relèvent des axes 1 à 6.** L'axe 7 ne reçoit que leurs résultats déjà notés. Tant que ces modèles n'existent pas dans l'application, aucune performance jouée ou chantée ne peut être corrigée automatiquement. C'est pourquoi les exercices DÉCLIC sans instrument produisent eux-mêmes des réponses directement notables : boutons, clavier virtuel, frappes.
+
 ## 2. Cartographie et statuts
 
 Statuts :

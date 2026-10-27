@@ -23,6 +23,8 @@ Il vous faut un ordinateur, du son et dix minutes. Pas de piano, pas de micro, p
    - l'historique de vos séances ;
    - **O08 sur mes données** : les prévisions comparées à vos résultats, et leur qualité qui évolue avec vos données. On peut aussi y exporter ses tentatives au format O08.
 
+**Après une mise à jour de DÉCLIC :** double-cliquez **Redemarrer DECLIC** (dans le dossier du projet ou sur le bureau). Le script arrête l'ancien serveur DÉCLIC, et seulement lui, puis lance la nouvelle version.
+
 **En cas de problème :**
 - Pas de son : vérifiez le volume, cliquez « Réécouter ».
 - Message « DÉCLIC ne répond pas » ou page bloquée : la fenêtre du serveur est fermée. Relancez, puis rechargez la page ; vos réponses sont conservées.

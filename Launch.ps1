@@ -1,4 +1,4 @@
-param([string]$Python, [ValidateRange(1,65535)][int]$Port = 8781, [string]$PreparedData, [switch]$AllowPartial, [switch]$Check, [switch]$Open)
+param([string]$Python, [ValidateRange(1,65535)][int]$Port = 8781, [string]$PreparedData, [switch]$AllowPartial, [switch]$Check, [switch]$Open, [switch]$Restart)
 $ErrorActionPreference = 'Stop'
 $taskCommon = & git -C $PSScriptRoot rev-parse --path-format=absolute --git-common-dir 2>$null
 $taskPrimary = if ($LASTEXITCODE -eq 0) { Split-Path -Parent $taskCommon } else { $PSScriptRoot }
@@ -19,6 +19,22 @@ if (-not $PreparedData) {
     $taskLocalData = Join-Path $PSScriptRoot 'runtime\musical-demo'
     $taskSharedData = Join-Path $taskPrimary 'runtime\musical-demo'
     $PreparedData = if (Test-Path -LiteralPath $taskLocalData) { $taskLocalData } else { $taskSharedData }
+}
+if ($Restart) {
+    # Stops ONLY a DÉCLIC server (uvicorn axis7.server:app) listening on this port, and its launcher.
+    # Any other program on the port is left untouched and the restart is refused.
+    $taskListeners = @(Get-NetTCPConnection -LocalPort $Port -State Listen -ErrorAction SilentlyContinue)
+    foreach ($taskListener in $taskListeners) {
+        $taskProcess = Get-CimInstance Win32_Process -Filter "ProcessId=$($taskListener.OwningProcess)"
+        if (-not $taskProcess -or $taskProcess.CommandLine -notmatch 'axis7\.server:app') {
+            throw "Le port $Port est utilisé par un autre programme que DÉCLIC ; rien n'a été arrêté. Choisissez un autre port avec -Port."
+        }
+        $taskParent = Get-CimInstance Win32_Process -Filter "ProcessId=$($taskProcess.ParentProcessId)"
+        Stop-Process -Id $taskProcess.ProcessId -Force
+        if ($taskParent -and $taskParent.CommandLine -match 'axis7\.launch') { Stop-Process -Id $taskParent.ProcessId -Force -ErrorAction SilentlyContinue }
+        Write-Host "Ancien serveur DÉCLIC arrêté (processus $($taskProcess.ProcessId))."
+    }
+    if ($taskListeners.Count) { Start-Sleep -Seconds 1 }
 }
 $taskArgs = @('-X','utf8','-B','-m','axis7.launch','--port',"$Port",'--prepared-data',$PreparedData)
 if ($AllowPartial) { $taskArgs += '--allow-partial' }
