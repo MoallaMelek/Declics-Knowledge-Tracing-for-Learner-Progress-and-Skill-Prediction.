@@ -31,3 +31,14 @@
 - 2026-10-26 · Yousician observed scores are shown on the same « / 100 » scale as its forecasts everywhere (`adapters.score`); they were shown as percentages next to « / 100 » forecasts, suggesting a probability.
 - 2026-10-26 · The signed reveal receipt is decoded and displayed in the researcher view (stage 05). It holds no outcome; its signature cannot be verified client-side and the page says so.
 - 2026-10-26 · `axis7/launch.py` still prints /web/living.html; printing / would be a launcher change outside the frontend scope, proposed rather than made.
+
+
+# Phase 10 learner-loop decisions
+
+- 2026-10-27 · The brief asks to implement what is missing; backend work is **additive** (`axis7/learning*.py`, `/api/learn`, `axis7/web_cache.py`). No trained model, target, evaluation protocol, dataset or existing API contract changed. `O08BodyLimit` gained optional prefixes/label (defaults unchanged).
+- 2026-10-27 · The trained O08 networks are NOT fed DÉCLIC learner answers: their inputs (SingPAD binary note outcomes on 270 opaque concepts with voice; Yousician daily ukulele score) do not match, and the serving contract abstains on other instruments. Doing so would be relabelling, forbidden by the Phase 9 constraints. Learner predictions come from a documented Elo reference model (`declic-elo-v1`, Pelánek 2016), labelled as non-neural, pre-registered before each item, abstaining under 5 answers per skill, compared with a naive baseline.
+- 2026-10-27 · No network was retrained. A DÉCLIC-native network needs a consented multi-learner collection; the export already matches `cloud_training.encode` (checked at export time).
+- 2026-10-27 · Sounds are synthesised in the browser from server-generated parameters; answers stay on the server. Tapping is scored only on latency-invariant quantities (tempo, CV, proportions) because keyboard/browser latency is 60–100 ms and variable (Anglada-Tort et al. 2022). The 8 % and 45 % thresholds are labelled provisional.
+- 2026-10-27 · Mastery = ≥80 % of the last W answers AND one-sided binomial p < 0.05 vs chance (W = 10 choice, 6 keyboard/tap). Prerequisites guide the planner but never lock a level.
+- 2026-10-27 · Navigation becomes Accueil · Séance · Parcours · Exercices · Laboratoire. The Phase 8 replay page keeps its URL, is renamed « Rejeu O08 » and lives under Laboratoire; the piano notebook is a research tool there.
+- 2026-10-27 · YouTube media is not ingested (no audio model in this axis; ToS restrict downloading). Documented options instead (embed for listening, licensed/public-domain sources, own recordings later, synthetic stimuli).
