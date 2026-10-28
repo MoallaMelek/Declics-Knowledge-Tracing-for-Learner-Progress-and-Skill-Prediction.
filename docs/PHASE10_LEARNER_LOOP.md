@@ -7,7 +7,7 @@ Documents associés :
 - [PHASE10_PEDAGOGY.md](PHASE10_PEDAGOGY.md) : recherche, architecture pédagogique, 12 fiches ;
 - [GUIDE_SANS_INSTRUMENT.md](GUIDE_SANS_INSTRUMENT.md).
 
-Auteur et testeur : Claude (session cloud et PC relié). Revue indépendante : voir la section 7.
+Auteur et testeur : Claude (session cloud et PC relié). Revue indépendante : section 7. Vérification sur le PC : section 6.
 
 ## 1. Audit des blocages avant la Phase 10
 
@@ -115,7 +115,32 @@ Les réponses du « learner » scripté sont lues dans la base de test : ce sont
 
 ## 6. Vérification sur le PC (scénario d'acceptation)
 
-Voir la section ajoutée après le déploiement, plus bas.
+Faite le 28/10/2026, vers 3 h du matin, sur le PC de Melek (Windows) :
+- dans le navigateur intégré de l'app Claude ;
+- version `main` 8cd6e3c, avec les vraies données de recherche (`private_research_data`, prêt) ;
+- serveur redémarré par **Redemarrer DECLIC**. Le script a arrêté l'ancien serveur (révision b4c5cd0), et seulement lui.
+
+Le profil de test « Verification Claude » a été supprimé ensuite, pour que le premier vrai profil parte de zéro.
+
+| Étape du critère d'acceptation | Résultat observé sur le PC |
+|---|---|
+| Lancer DÉCLIC | Accueil : « DÉCLIC est prêt : séances, parcours et laboratoire disponibles » |
+| Créer son profil | Pseudonyme tapé au clavier, puis **Créer mon profil** → « Bienvenue » |
+| Cliquer « Commencer une séance » | Évaluation initiale, question 1 sur 30 ; contexte audio actif (48 kHz, latence de sortie annoncée 48 ms) |
+| Faire de vrais exercices sans instrument | Mesure de seuil, mélodies, intervalles, rythmes, pulsation (barre d'espace), lecture sur portée (clé de sol bien rendue), écho au clavier virtuel. Une note lue à la main (« mi ») a été corrigée « Juste. C'était bien mi. » |
+| Recevoir une évaluation | Verdict, bonne réponse et métriques à chaque question ; « Réponse enregistrée » pendant la mesure |
+| Interruption puis reprise | Page rechargée à 10/30 → « Reprendre ma séance (10 / 30) » → reprise à la question 11 |
+| Terminer la séance | Bilan « 16 réponses justes sur 30 » : seuil indicatif, détail, erreurs, prévisions, prochaine séance |
+| Recommencer | « Commencer une autre séance » : séance de 12 questions composée à partir du bilan |
+| O08 | Les prévisions apparaissent dès la 5ᵉ réponse d'une compétence (44 % puis 38 % puis 33 % après des échecs en lecture). 17 prévisions évaluées au total ; le modèle était **moins bon** que le taux simple (Brier 0,220 contre 0,211), et la page le dit |
+| Historique | Parcours : 42 réponses, 2 séances terminées, carte des niveaux, erreurs récurrentes, historique avec liens « Bilan » |
+
+**Défauts trouvés sur le PC, corrigés dans la foulée** (PR suivante) :
+- Avec seulement deux compétences notées, le classement mettait « point fort » sur 38 % de réussite à 2 choix. Désormais, un point fort exige une réussite nettement au-dessus du hasard ((taux − hasard)/(1 − hasard) ≥ 0,6), et un point faible correspond à moins de 0,4. Un test a été ajouté.
+- Le seuil s'affichait « 317.5 cents » au lieu de « 317,5 cents » (format français).
+- Les accents de la console du lanceur s'affichaient mal : `Launch.ps1` est maintenant en UTF-8 avec BOM, comme l'attend Windows PowerShell 5.1.
+
+Les réponses de cette vérification ont été données par un script (choix au hasard, frappes régulières), sauf la note lue à la main. C'est une preuve de fonctionnement, pas une mesure d'apprentissage.
 
 ## 7. Revue indépendante
 

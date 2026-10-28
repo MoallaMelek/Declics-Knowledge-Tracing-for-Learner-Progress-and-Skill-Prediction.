@@ -456,3 +456,13 @@ def test_generated_stimuli_match_their_level_description():
         for _ in range(800):
             served, a = cat.generate('echo', level, rng)
             assert all(0 < abs(y - x) <= lv['params']['max_leap'] for x, y in zip(a['notes'], a['notes'][1:]))
+
+
+def test_strengths_and_weaknesses_are_relative_to_chance_not_just_a_ranking():
+    hist = (_h('rythmes', 1, 'rythme', [True, False, False, True, False, False, True, False])
+            + _h('lecture', 1, 'lecture', [False] * 7 + [True], start=100))
+    skills, strengths, weaknesses = learning._skill_summary(hist)
+    assert strengths == [] and set(weaknesses) == {'rythme', 'lecture'}
+    good = _h('lecture', 1, 'lecture', [True] * 9 + [False], start=200)
+    _, strengths, weaknesses = learning._skill_summary(good)
+    assert strengths == ['lecture'] and weaknesses == []

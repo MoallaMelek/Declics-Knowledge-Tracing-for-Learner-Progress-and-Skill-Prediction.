@@ -71,7 +71,7 @@
       if (!f) {
         const t = p.pitch_threshold;
         return h('div', {class: 'map-row'}, h('div', {}, h('h3', {text: levels[0].title}), h('span', {class: 'fine', text: 'Mesure, sans niveaux'})),
-          h('p', {text: t ? (t.threshold_cents ? `Dernière mesure (${fmt.date(t.measured_at)}) : environ ${t.threshold_cents} cents, ${t.reversals} changements de sens${t.reversals < 4 ? ' (indicatif, pas utilisé pour fixer votre niveau)' : ''}.` : `Seuil non estimé : ${t.reliability}.`) : 'Pas encore mesuré (fait partie de l’évaluation initiale).'}));
+          h('p', {text: t ? (t.threshold_cents ? `Dernière mesure (${fmt.date(t.measured_at)}) : environ ${fmt.num(t.threshold_cents)} cents, ${t.reversals} changements de sens${t.reversals < 4 ? ' (indicatif, pas utilisé pour fixer votre niveau)' : ''}.` : `Seuil non estimé : ${t.reliability}.`) : 'Pas encore mesuré (fait partie de l’évaluation initiale).'}));
       }
       const chips = levels.map(m => {
         const next = f.level === m.level;
@@ -100,12 +100,13 @@
   function skillsSection(p) {
     const rows = p.skills.map(sk => {
       if (!sk.attempts) return h('div', {class: 'skill-row'}, h('strong', {text: sk.label}), h('div', {class: 'meter'}), h('span', {class: 'tag', text: 'pas encore travaillé'}));
-      const tag = p.strengths.includes(sk.id) ? h('span', {class: 'tag tag-good', text: 'point fort'}) : p.weaknesses.includes(sk.id) ? h('span', {class: 'tag tag-work', text: 'à travailler'}) :
-        sk.status === 'evalue' ? h('span', {class: 'tag', text: 'intermédiaire'}) : h('span', {class: 'tag', text: `${sk.attempts} réponse(s) : trop peu`});
+      const tag = sk.status !== 'evalue' ? null : p.strengths.includes(sk.id) ? h('span', {class: 'tag tag-good', text: 'point fort'}) : p.weaknesses.includes(sk.id) ? h('span', {class: 'tag tag-work', text: 'à travailler'}) :
+        h('span', {class: 'tag', text: 'intermédiaire'});
+      const shown = tag || h('span', {class: 'tag', text: `${sk.attempts} réponse(s) : trop peu`});
       const meter = h('div', {class: 'meter', role: 'img', 'aria-label': `${fmt.pct(sk.recent_rate)} de réponses justes récemment, hasard ${fmt.pct(sk.chance)}`},
         h('i', {style: `width:${(sk.recent_rate * 100).toFixed(0)}%`}), h('b', {style: `left:${(sk.chance * 100).toFixed(0)}%`, title: 'niveau du hasard'}));
       const trend = sk.trend ? ` · début ${fmt.pct(sk.trend.first_rate)} (niveau moyen ${sk.trend.first_mean_level}) → récemment ${fmt.pct(sk.trend.second_rate)} (niveau ${sk.trend.second_mean_level})` : '';
-      return h('div', {class: 'skill-row'}, h('div', {}, h('strong', {text: sk.label}), h('span', {class: 'fine', text: ` ${fmt.pct(sk.recent_rate)} sur ${sk.recent_count}${trend}`})), meter, tag);
+      return h('div', {class: 'skill-row'}, h('div', {}, h('strong', {text: sk.label}), h('span', {class: 'fine', text: ` ${fmt.pct(sk.recent_rate)} sur ${sk.recent_count}${trend}`})), meter, shown);
     });
     return h('section', {class: 'section', 'aria-labelledby': 'sk-title'},
       h('h2', {id: 'sk-title', text: 'Forces et points à travailler'}),
