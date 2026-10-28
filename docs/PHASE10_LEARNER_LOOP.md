@@ -120,7 +120,7 @@ Faite le 28/10/2026, vers 3 h du matin, sur le PC de Melek (Windows) :
 - version `main` 8cd6e3c, avec les vraies données de recherche (`private_research_data`, prêt) ;
 - serveur redémarré par **Redemarrer DECLIC**. Le script a arrêté l'ancien serveur (révision b4c5cd0), et seulement lui.
 
-Le profil de test « Verification Claude » est **resté sur le PC** : la liaison avec l'ordinateur s'est coupée avant que je puisse le supprimer. Pour l'enlever, page Séance → « Changer de profil », puis créez le vôtre. Le profil de test n'apparaîtra plus que dans la liste « reprendre un profil existant ». Le PC tourne encore sur `main` 8cd6e3c ; pour obtenir les corrections de la PR #11, il faut mettre le clone à jour (`git pull`), puis double-cliquer **Redemarrer DECLIC**.
+À la demande de Melek, le profil de test a ensuite été renommé « Melek ». Ses 42 réponses, données pour la plupart par le script, restent donc dans son historique. Le PC a été mis à jour sur `main` b2eefe0 (corrections de la PR #11) et relancé par **Redemarrer DECLIC**. Résultat vérifié ensuite : aucun point fort, et « rythme » et « lecture » classés à travailler, conformément à la nouvelle règle.
 
 | Étape du critère d'acceptation | Résultat observé sur le PC |
 |---|---|
