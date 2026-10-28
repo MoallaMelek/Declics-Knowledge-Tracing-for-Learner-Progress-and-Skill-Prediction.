@@ -19,7 +19,7 @@ from .storage import append_event,EventConflict
 from .recommendations import EXERCISES
 from .responses import ForecastV2
 
-log=logging.getLogger('axis7.api');app=FastAPI(title='DÉCLIC Axis 7',version='3.0.0')
+log=logging.getLogger('axis7.api');app=FastAPI(title='DÉCLIC Axis 7',version='4.0.0')
 engines={};lock=threading.RLock();DB=ROOT/'runtime/events.sqlite'
 
 def engine(domain):
@@ -243,7 +243,9 @@ def figure(domain:str,name:str):
 
 from .practice import router as _practice_router
 from .team_v3 import router as _team_v3_router
+from .forecast_v4 import router as _forecast_v4_router
 app.include_router(_practice_router)
 app.include_router(_team_v3_router)
+app.include_router(_forecast_v4_router)
 
 app.mount('/web',StaticFiles(directory=ROOT/'web'),name='web')
