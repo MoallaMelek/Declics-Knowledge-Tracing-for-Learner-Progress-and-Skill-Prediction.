@@ -202,3 +202,18 @@ def test_registered_real_model_roundtrip_domain_and_future_exclusion(tmp_path,mo
     (destination/identifier/'metrics.json').write_text(json.dumps(meta))
     with pytest.raises(ValueError,match='leakage'):
         registry.validate(destination/identifier)
+
+
+def test_results_notebook_is_executed_and_reads_only_served_exports():
+    root = Path(__file__).resolve().parents[1]
+    nb = json.loads((root/'notebooks'/'DECLIC_resultats.ipynb').read_text(encoding='utf-8'))
+    code = [c for c in nb['cells'] if c['cell_type'] == 'code']
+    assert code and all(c['execution_count'] for c in code)
+    outputs = [o for c in code for o in c['outputs']]
+    assert not [o for o in outputs if o['output_type'] == 'error']
+    assert sum('image/png' in o.get('data', {}) for o in outputs) >= 3
+    source = '\n'.join(''.join(c['source']) for c in code)
+    assert 'musical_registry.validate' in source and 'active.json' in source
+    assert 'train(' not in source and 'drive.mount' not in source
+    text = json.dumps(nb)
+    assert '/home/' not in text and 'C:\\\\Users' not in text
