@@ -227,4 +227,5 @@
   $('source').value = source;
   const cutoff = Number(params.get('cutoff'));
   load(source, params.get('learner') || '01', Number.isInteger(cutoff) && cutoff > 0 ? cutoff : null);
+  window.DECLIC_BOOTED = true;   // read by the inline boot guard in living.html (set only once wiring succeeded)
 })(window.Living);

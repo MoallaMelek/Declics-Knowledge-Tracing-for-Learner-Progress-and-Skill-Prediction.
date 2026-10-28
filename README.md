@@ -1,15 +1,15 @@
 <div align="center">
 
 # DÉCLIC
-### Du passé musical au prochain essai
+### Entraîner son oreille sans instrument, et vérifier ce que le modèle prévoit
 
 **Axe 7 · Objectif O08 — compétences de l’apprenant et performance future**
 
 [![Validation](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/MoallaMelek/Declics-Knowledge-Tracing-for-Learner-Progress-and-Skill-Prediction./actions/workflows/validate.yml)
 
-**36 entraînements neuronaux** · **3 bases musicales réelles** · **427 tests Python** · **16 scénarios navigateur en CI**
+**12 exercices sans instrument · 53 niveaux** · **36 entraînements neuronaux** · **3 bases musicales réelles** · **507 tests Python** · **28 scénarios navigateur en CI**
 
-[Lancer](#lancer-en-deux-minutes) · [Visite guidée](#visite-guidée) · [Ce que montre l’interface](#quatre-types-dinformation-jamais-mélangés) · [Résultats](#ce-qui-a-réellement-été-entraîné) · [Avant / après](#avant--après-la-refonte-phase-9) · [Guides](#guides-pour-léquipe-et-la-soutenance)
+[Apprendre sans instrument](#apprendre-sans-instrument-phase-10) · [Lancer](#lancer-en-deux-minutes) · [Visite guidée](#visite-guidée) · [Ce que montre l’interface](#quatre-types-dinformation-jamais-mélangés) · [Résultats](#ce-qui-a-réellement-été-entraîné) · [Avant / après](#avant--après-la-refonte-phase-9) · [Guides](#guides-pour-léquipe-et-la-soutenance)
 
 </div>
 
@@ -17,6 +17,43 @@
   <img src="docs/assets/phase9/parcours-anime.gif" width="860" alt="Animation du Parcours : la frise avance séance par séance, la prévision du réseau se met à jour avec le seul passé connu, puis le résultat réel est révélé à côté de la prévision.">
   <br><sub>Capture réelle de l’application : la frise avance d’une séance à la fois, la prévision n’utilise que le passé, puis le résultat réel est révélé et l’écart reste visible. <em>(Montage d’intégration synthétique avec les vrais poids entraînés.)</em></sub>
 </p>
+
+## Apprendre sans instrument (Phase 10)
+
+Ouvrez DÉCLIC, créez votre profil, cliquez **Commencer une séance** :
+- les sons sont joués par le navigateur ;
+- vous répondez à la souris, au clavier de l’ordinateur ou à la barre d’espace ;
+- le serveur corrige chaque réponse ;
+- **Parcours** suit vos niveaux, jour après jour.
+
+Avant chaque question, une prévision O08 de votre réussite est enregistrée, puis comparée au résultat réel.
+
+<p align="center">
+  <img src="docs/assets/phase10/seance-depart.png" width="49%" alt="Écran de départ de la séance : profil, bouton Commencer une séance, ce qu’il faut (du son, aucun instrument, pas de micro).">
+  <img src="docs/assets/phase10/correction-pulsation.png" width="49%" alt="Correction d’un exercice de pulsation : Juste, écart de tempo et variation, et note sur la prévision O08.">
+</p>
+<p align="center">
+  <img src="docs/assets/phase10/bilan.png" width="49%" alt="Bilan de l’évaluation initiale : score, seuil de hauteur, détail par exercice, erreurs, prévisions et prochaine séance.">
+  <img src="docs/assets/phase10/parcours-o08.png" width="49%" alt="Section O08 sur mes données : modèle de référence, abstention des réseaux entraînés expliquée, prévisions contre résultats réels.">
+</p>
+
+| Page | Pour |
+|---|---|
+| **Séance** | Évaluation initiale (30 questions), puis séances d’environ 10 minutes composées à partir de vos résultats ; reprise si vous quittez en cours |
+| **Parcours** | Carte de maîtrise des 53 niveaux, forces et points à travailler, erreurs récurrentes, historique, **O08 sur mes données** |
+| **Exercices** | 12 fiches en 10 champs : objectif, compétence, niveaux à difficulté vérifiable, prérequis, consignes, entrées, résultat, correction, métriques, références |
+| **Laboratoire** | Rejeu O08 des réseaux entraînés sur données réelles, bancs d’essai, limites |
+
+**Ce qu’il faut savoir :**
+- Les réseaux O08 entraînés (SingPAD, Yousician) **ne reçoivent pas** vos réponses : leur contrat d’entrée ne les accepte pas, et c’est voulu.
+- Vos prévisions viennent d’un modèle de référence transparent, présenté comme tel, qui s’abstient tant que les données sont insuffisantes.
+- Rapports :
+  - [boucle de l’apprenant et blocages](docs/PHASE10_LEARNER_LOOP.md) ;
+  - [audit des modèles, matrice des entrées, YouTube](docs/PHASE10_MODEL_AUDIT.md) ;
+  - [recherche pédagogique et fiches](docs/PHASE10_PEDAGOGY.md) ;
+  - [guide sans instrument](docs/GUIDE_SANS_INSTRUMENT.md).
+
+## La recherche O08
 
 DÉCLIC aide à lire un parcours d’apprentissage musical : ce qui a été **observé**, ce qu’on peut en **lire**, ce que **prévoit** un réseau de neurones entraîné pour l’essai suivant, puis le résultat **révélé** après coup. L’axe 7 reçoit les mesures des autres axes du projet ; l’analyse du son, du rythme ou de la technique reste leur responsabilité.
 
@@ -34,10 +71,13 @@ Ou double-cliquer **`Lancer DECLIC.cmd`** à la racine du dépôt : le lanceur d
 
 | Ouvrir | Pour |
 |---|---|
-| `http://127.0.0.1:8781/` | **Accueil** — comprendre DÉCLIC et choisir par où commencer |
-| `http://127.0.0.1:8781/web/living.html` | **Parcours** — lire un parcours séance après séance |
-| `http://127.0.0.1:8781/web/carnet.html` | **Carnet** — noter sa propre pratique du piano |
-| `http://127.0.0.1:8781/web/labo.html` | **Laboratoire** — inspecter le modèle et ses preuves |
+| `http://127.0.0.1:8781/` | **Accueil** — commencer ou reprendre |
+| `http://127.0.0.1:8781/web/seance.html` | **Séance** — exercices sans instrument, corrigés |
+| `http://127.0.0.1:8781/web/parcours.html` | **Parcours** — votre progression et O08 sur vos données |
+| `http://127.0.0.1:8781/web/exercices.html` | **Exercices** — la bibliothèque et ses références |
+| `http://127.0.0.1:8781/web/labo.html` | **Laboratoire** — Rejeu O08 sur données réelles, bancs d’essai, limites |
+| `http://127.0.0.1:8781/web/living.html` | **Rejeu O08** — un parcours de recherche rejoué séance après séance |
+| `http://127.0.0.1:8781/web/carnet.html` | **Carnet piano** — auto-évaluation, nécessite un piano |
 
 Le lanceur vérifie `/api/readiness`, refuse un port occupé (`-Port 8782` pour en choisir un autre) et ne ferme jamais un autre serveur.
 
@@ -70,7 +110,7 @@ Serveur seul, sans le lanceur (port 8773) :
 
 ## Visite guidée
 
-Une seule barre de navigation, partout : **Accueil · Parcours · Carnet · Laboratoire**. Dépliez une destination pour la voir.
+Depuis la Phase 10, la navigation est **Accueil · Séance · Parcours · Exercices · Laboratoire** ; la page ci-dessous appelée « Parcours » en Phase 9 s’appelle désormais **Rejeu O08** et se trouve dans le Laboratoire. Captures de la Phase 9 :
 
 <details open>
 <summary><strong>Accueil</strong> — ce que fait DÉCLIC, en une phrase, et trois portes selon le besoin</summary>
@@ -86,7 +126,7 @@ Une seule barre de navigation, partout : **Accueil · Parcours · Carnet · Labo
 </details>
 
 <details>
-<summary><strong>Parcours</strong> — pour un élève ou un enseignant : lire un vrai parcours, séance après séance</summary>
+<summary><strong>Rejeu O08</strong> (« Parcours » en Phase 9) — lire un vrai parcours de recherche, séance après séance</summary>
 <br>
 
 **1. En bref.** Un résumé en langage courant de ce qui a été observé jusqu’au moment choisi, les concepts qui demandent de l’attention ou qui sont réguliers, et une piste de pratique — ou une abstention explicite.

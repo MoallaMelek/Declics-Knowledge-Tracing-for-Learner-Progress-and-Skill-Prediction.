@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#EEF1F4">
 <link rel="icon" href="/web/favicon.svg" type="image/svg+xml">
-<title>DÉCLIC · Parcours</title>
+<title>DÉCLIC · Rejeu O08</title>
 <meta name="description" content="Lire un parcours d'apprentissage musical réel : ce qui a été observé, ce qu'on peut en dire, ce que le réseau prévoit pour l'essai suivant et le résultat réellement obtenu.">
 <link rel="preload" href="/web/fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/web/declic.css?v=9.0">
@@ -18,9 +18,10 @@
     <a class="wordmark" href="/" aria-label="DÉCLIC, accueil"><b>déclic</b><span>apprentissage musical</span></a>
     <nav class="site-nav" aria-label="Navigation principale">
       <a href="/">Accueil</a>
-      <a href="/web/living.html" aria-current="page">Parcours</a>
-      <a href="/web/carnet.html">Carnet</a>
-      <a href="/web/labo.html">Laboratoire</a>
+      <a href="/web/seance.html">Séance</a>
+      <a href="/web/parcours.html">Parcours</a>
+      <a href="/web/exercices.html">Exercices</a>
+      <a href="/web/labo.html" aria-current="page">Laboratoire</a>
     </nav>
   </div>
 </header>
@@ -28,8 +29,8 @@
 <main id="main" tabindex="-1">
   <section class="wrap intro" aria-labelledby="title">
     <div class="intro-text">
-      <h1 id="title">Lire un parcours d’apprentissage</h1>
-      <p class="lede">Un parcours musical du jeu de test, rejoué séance après séance. DÉCLIC résume ce qui a été observé, puis montre ce que le réseau prévoit pour l’essai suivant et ce qui s’est réellement passé.</p>
+      <h1 id="title">Rejouer un parcours de recherche</h1>
+      <p class="lede">Laboratoire · le réseau O08 entraîné (EnhancedGRU) rejoue un parcours réel du jeu de test, séance après séance : ce qui a été observé, ce que le réseau prévoit pour l’essai suivant et ce qui s’est réellement passé. Ce n’est pas votre parcours : le vôtre est dans <a href="/web/parcours.html">Parcours</a>.</p>
     </div>
     <form class="pickers" aria-label="Choix du parcours" onsubmit="return false">
       <div class="field">
@@ -136,7 +137,7 @@
 <footer class="site-foot">
   <div class="wrap">
     <p><strong>Ce que montre cette page.</strong> Un rejeu rétrospectif de parcours du jeu de test, jamais utilisés pour ajuster le réseau. Les concepts de la source n’ont pas de correspondance pédagogique approuvée ; aucun transfert au piano ; incertitude individuelle non validée ; pistes de pratique sans effet pédagogique démontré.</p>
-    <nav aria-label="Pied de page"><a href="/">Accueil</a><a href="/web/carnet.html">Carnet</a><a href="/web/labo.html">Laboratoire</a></nav>
+    <nav aria-label="Pied de page"><a href="/">Accueil</a><a href="/web/parcours.html">Mon parcours</a><a href="/web/labo.html">Laboratoire</a></nav>
   </div>
 </footer>
 
@@ -150,6 +151,23 @@
   <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/></symbol>
 </svg>
 
+<script>
+/* Boot guard: if the page scripts never run (server stopped, tab restored from the browser
+   cache, script error), say so instead of leaving "Chargement…" on screen forever. */
+(function () {
+  var firstError = '';
+  window.addEventListener('error', function (e) { if (!firstError) firstError = (e.message || 'erreur de script') + (e.filename ? ' · ' + e.filename.split('/').pop() : ''); }, true);
+  setTimeout(function () {
+    if (window.DECLIC_BOOTED) return;
+    var box = document.getElementById('recovery'), status = document.getElementById('status');
+    if (status) status.textContent = 'La page n’a pas pu démarrer.';
+    document.getElementById('recovery-message').textContent = 'Les scripts de la page ne se sont pas exécutés. Le plus souvent, DÉCLIC était arrêté quand l’onglet a été ouvert ou restauré par le navigateur. Relancez DÉCLIC, puis rechargez la page.';
+    document.getElementById('diagnostic').textContent = firstError || 'Aucun script chargé (serveur injoignable ou page servie depuis le cache).';
+    var retry = document.getElementById('retry'); retry.textContent = 'Recharger la page'; retry.onclick = function () { location.reload(); };
+    box.hidden = false;
+  }, 8000);
+})();
+</script>
 <script src="/web/living/adapters.js?v=12" defer></script>
 <script src="/web/living/dom.js?v=12" defer></script>
 <script src="/web/living/store.js?v=12" defer></script>

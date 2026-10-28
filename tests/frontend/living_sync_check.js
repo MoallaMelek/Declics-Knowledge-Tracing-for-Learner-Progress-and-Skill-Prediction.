@@ -352,7 +352,7 @@ const stageButton = id => $('pipeline').querySelectorAll('.stage-btn').find(b =>
 
 async function scenario() {
   // Load the scripts exactly as the page lists them.
-  const scripts = document.querySelectorAll('script').map(s => s.getAttribute('src').split('?')[0]);
+  const scripts = document.querySelectorAll('script').filter(s => s.getAttribute('src')).map(s => s.getAttribute('src').split('?')[0]);
   const files = fs.readdirSync(path.join(WEB, 'living')).filter(f => f.endsWith('.js')).map(f => `/web/living/${f}`).sort();
   check('the page loads every web/living script, main.js last', same([...scripts].sort(), files) && scripts[scripts.length - 1] === '/web/living/main.js', scripts.join(' '));
   for (const src of scripts) vm.runInContext(fs.readFileSync(path.join(WEB, src.replace(/^\/web\//, '')), 'utf8'), ctx, {filename: src});

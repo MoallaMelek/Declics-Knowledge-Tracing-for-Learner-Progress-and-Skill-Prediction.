@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#EEF1F4">
+<link rel="icon" href="/web/favicon.svg" type="image/svg+xml">
+<title>DÉCLIC · Séance</title>
+<meta name="description" content="Faire une séance d'exercices d'oreille, de rythme et de lecture, sans instrument : chaque réponse est corrigée et enregistrée dans votre parcours.">
+<link rel="preload" href="/web/fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/web/declic.css?v=10.0">
+<link rel="stylesheet" href="/web/learn/learn.css?v=10.0">
+</head>
+<body class="learn-page">
+<a class="skip" href="#main">Aller au contenu</a>
+<header class="site-bar">
+  <div class="wrap">
+    <a class="wordmark" href="/" aria-label="DÉCLIC, accueil"><b>déclic</b><span>apprentissage musical</span></a>
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a href="/">Accueil</a>
+      <a href="/web/seance.html" aria-current="page">Séance</a>
+      <a href="/web/parcours.html">Parcours</a>
+      <a href="/web/exercices.html">Exercices</a>
+      <a href="/web/labo.html">Laboratoire</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1" class="wrap seance">
+  <div id="app" aria-live="polite"><p class="status-line" id="boot-status">Chargement de la séance…</p></div>
+  <div id="recovery" class="problem" hidden role="alert">
+    <h2>La page n’a pas pu démarrer</h2>
+    <p id="recovery-message"></p>
+    <div class="actions"><button type="button" class="btn btn-primary" onclick="location.reload()">Recharger la page</button></div>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p><strong>Sans instrument.</strong> Les sons sont produits par votre navigateur ; vos réponses se donnent avec la souris, le clavier de l’ordinateur ou la barre d’espace. Exercices non validés par un enseignant ; seuils marqués « provisoires » choisis par DÉCLIC.</p>
+    <nav aria-label="Pied de page"><a href="/web/parcours.html">Mon parcours</a><a href="/web/exercices.html">Bibliothèque d’exercices</a><a href="/web/guide.html">Guide sans instrument</a></nav>
+  </div>
+</footer>
+<script>
+(function () {
+  var firstError = '';
+  window.addEventListener('error', function (e) { if (!firstError) firstError = (e.message || 'erreur de script'); }, true);
+  setTimeout(function () {
+    if (window.DECLIC_BOOTED) return;
+    document.getElementById('boot-status').hidden = true;
+    document.getElementById('recovery-message').textContent = 'Les scripts de la page ne se sont pas exécutés (DÉCLIC arrêté, page restaurée depuis le cache du navigateur ou erreur). Relancez DÉCLIC puis rechargez. ' + (firstError ? 'Détail : ' + firstError : '');
+    document.getElementById('recovery').hidden = false;
+  }, 8000);
+})();
+</script>
+<script src="/web/learn/core.js?v=10.0" defer></script>
+<script src="/web/learn/audio.js?v=10.0" defer></script>
+<script src="/web/learn/widgets.js?v=10.0" defer></script>
+<script src="/web/learn/seance.js?v=10.0" defer></script>
+</body>
+</html>
