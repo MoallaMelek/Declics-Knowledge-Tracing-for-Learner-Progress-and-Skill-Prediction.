@@ -246,6 +246,8 @@ L’extension Yousician enrichie par le contexte n’améliore pas clairement la
 
 [Tableaux complets et limites](docs/PHASE7_RESULTS.md) · [Résumé vérifiable en JSON](artifacts/phase7/summary.json) · [Provenance des exécutions](artifacts/phase7/execution-provenance.json)
 
+**Notebook exécuté des modèles servis :** [`notebooks/DECLIC_resultats.ipynb`](notebooks/DECLIC_resultats.ipynb) relit les exports des entraînements Colab (checkpoint vérifié par le registre, architecture, courbes de validation, test contre contrôles, bootstrap, calibration, comparaison DKT / GRU / attention, sous-groupes). Ses sorties sont enregistrées ; il ne réentraîne rien. Les notebooks `DECLIC_<base>.ipynb` restent des modèles vides à lancer sur Colab, car leurs sorties brutes sont privées. Régénérer : `python scripts/build_results_notebook.py`.
+
 ## Avant / après la refonte (Phase 9)
 
 L’interface comptait sept pages, cinq navigations et quatre identités visuelles ; même ses développeurs s’y perdaient. Elle est devenue une seule application. Le moteur scientifique de la Phase 8 (gardes de causalité, identité des générations, reçus HMAC, cache limité aux séances visitées) est conservé tel quel et reste couvert par ses tests.
