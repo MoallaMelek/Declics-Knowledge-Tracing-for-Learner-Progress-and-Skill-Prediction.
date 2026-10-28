@@ -567,6 +567,10 @@ def session_summary(session_id: str):
             'next_plan': plan_session(history_all, 'seance')}
 
 
+STRENGTH_ABOVE_CHANCE = 0.6  # (rate - chance) / (1 - chance): 0 = chance, 1 = perfect
+WEAKNESS_ABOVE_CHANCE = 0.4
+
+
 def _skill_summary(history):
     out = []
     practice = [h for h in history if cat.EXERCISE_BY_ID[h['exercise']]['mastery_window']]  # measures converge on ~71 % by design
@@ -593,7 +597,11 @@ def _skill_summary(history):
         out.append(entry)
     rated = [s for s in out if s['status'] == 'evalue']
     rated.sort(key=lambda s: (s['above_chance'] if s['above_chance'] is not None else 0))
-    return out, [s['id'] for s in rated[::-1][:3]], [s['id'] for s in rated[:3]]
+    # A strength must be clearly above chance, a weakness clearly not; a middle skill is neither.
+    # (Ranking alone would call 38 % on a 2-choice task a "strength" when only two skills are rated.)
+    strengths = [s['id'] for s in rated[::-1] if (s['above_chance'] or 0) >= STRENGTH_ABOVE_CHANCE][:3]
+    weaknesses = [s['id'] for s in rated if (s['above_chance'] or 0) < WEAKNESS_ABOVE_CHANCE][:3]
+    return out, strengths, weaknesses
 
 
 @router.get('/learners/{learner_id}/progress')

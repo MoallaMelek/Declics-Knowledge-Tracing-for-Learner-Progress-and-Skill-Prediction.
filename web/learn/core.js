@@ -74,6 +74,7 @@
     },
   };
 
+  const num = (v, d = 1) => v == null ? '—' : Number(v).toLocaleString('fr-FR', {maximumFractionDigits: d});
   const pct = v => v == null ? '—' : `${Math.round(v * 100)} %`;
   function ago(iso) {
     if (!iso) return 'jamais';
@@ -96,7 +97,7 @@
   }
 
   Learn.h = h; Learn.api = api; Learn.profile = profile; Learn.ApiError = ApiError;
-  Learn.fmt = {pct, ago, date, dateTime, KIND, STATUS};
+  Learn.fmt = {pct, num, ago, date, dateTime, KIND, STATUS};
   Learn.problem = problem;
   Learn.booted = () => { root.DECLIC_BOOTED = true; };
 })(window);

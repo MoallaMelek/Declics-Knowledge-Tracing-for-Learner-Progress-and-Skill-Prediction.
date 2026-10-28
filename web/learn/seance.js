@@ -277,7 +277,7 @@
     const next = h('button', {type: 'button', class: 'btn btn-primary', 'data-autofocus': true, text: done ? 'Voir le bilan de la séance' : 'Question suivante',
       onclick: () => done ? summaryScreen(session.id) : nextItem()});
     const metrics = [];
-    if (res.details.cents != null) metrics.push(`écart joué : ${res.details.cents} cents`);
+    if (res.details.cents != null) metrics.push(`écart joué : ${fmt.num(res.details.cents)} cents`);
     if (res.details.max_error_beats != null) metrics.push(`erreur maximale ${res.details.max_error_beats} temps (tolérance ${res.details.tolerance_beats})`);
     screen(bar(r.progress, true),
       h('article', {class: `sheet item feedback ${ok ? 'is-ok' : 'is-ko'}`},
@@ -328,8 +328,8 @@
       s.newly_mastered.length ? h('section', {class: 'sheet pad mastered'}, h('h2', {class: 'h3', text: 'Niveaux maîtrisés pendant cette séance'}),
         h('ul', {}, s.newly_mastered.map(m => h('li', {text: `${m.title} · niveau ${m.level}`})))) : null,
       t ? h('section', {class: 'sheet pad'}, h('h2', {class: 'h3', text: 'Votre seuil de hauteur'}),
-        h('p', {text: t.threshold_cents ? `Environ ${t.threshold_cents} cents (100 cents = un demi-ton). Estimation ${t.reliability.startsWith('indicatif') ? 'indicative (moins de 4 changements de sens)' : 'sur 4 changements de sens'}, ${t.trials} essais.` :
-          `Pas d’estimation fiable : ${t.reliability}. Plus petit écart réussi : ${t.lowest_correct_cents ?? '—'} cents.`})) : null,
+        h('p', {text: t.threshold_cents ? `Environ ${fmt.num(t.threshold_cents)} cents (100 cents = un demi-ton). Estimation ${t.reliability.startsWith('indicatif') ? 'indicative (moins de 4 changements de sens)' : 'sur 4 changements de sens'}, ${t.trials} essais.` :
+          `Pas d’estimation fiable : ${t.reliability}. Plus petit écart réussi : ${fmt.num(t.lowest_correct_cents)} cents.`})) : null,
       h('section', {class: 'sheet pad'}, h('h2', {class: 'h3', text: 'Détail par exercice'}),
         h('div', {class: 'table-scroll'}, h('table', {}, h('thead', {}, h('tr', {}, ['Exercice', 'Niveau', 'Réussite', 'Pourquoi'].map(x => h('th', {text: x})))), h('tbody', {}, rows)))),
       s.errors.length ? h('section', {class: 'sheet pad'}, h('h2', {class: 'h3', text: 'Erreurs de la séance'}),
