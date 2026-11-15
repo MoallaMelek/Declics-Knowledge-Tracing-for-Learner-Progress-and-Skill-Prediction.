@@ -32,7 +32,7 @@ living.html
  ├─ api.js          fetch, AbortController, stale-response guard, visited-only cache
  ├─ timeline.js     Feature 2 · Machine à remonter le parcours (controls every view)
  ├─ constellation.js Feature 1 · Constellation vivante
- ├─ fingerprint.js  Feature 3 · Empreinte musicale
+ ├─ empreinte.js    Feature 3 · Empreinte musicale
  ├─ observatory.js  Feature 4 · Observatoire de la décision
  └─ main.js         wiring, keyboard shortcuts, reduced motion
 ```
