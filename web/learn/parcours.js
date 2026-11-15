@@ -76,8 +76,13 @@
       const chips = levels.map(m => {
         const next = f.level === m.level;
         const locked = next && !f.available;
-        const placed = f.placed_by_threshold && m.level < f.placed_by_threshold && m.status !== 'maitrise';
-        const state = placed ? 'validé par la mesure' : m.status === 'en_cours' ? `${m.recent.successes}/${m.recent.count}` : m.status === 'a_consolider' ? `à consolider ${m.recent.successes}/${m.recent.count}` : LABEL[m.status];
+        const covered = m.covered_by && m.status !== 'maitrise';
+        const placed = covered || (f.placed_by_threshold && m.level < f.placed_by_threshold && m.status !== 'maitrise');
+        // Before W answers the level cannot be judged yet: say how many answers are still needed.
+        const missing = m.window && m.recent ? m.window - m.recent.count : 0;
+        const state = covered ? `validé par N${m.covered_by}` : placed ? 'validé par la mesure'
+          : m.status === 'en_cours' ? `${m.recent.successes}/${m.recent.count}${missing > 0 ? ` · encore ${missing} question${missing > 1 ? 's' : ''}` : m.required ? ` · il en faut ${m.required}` : ''}`
+          : m.status === 'a_consolider' ? `à consolider ${m.recent.successes}/${m.recent.count}` : LABEL[m.status];
         return h('li', {}, h('a', {class: `lvl lvl-${placed ? 'placed' : m.status}${next ? ' lvl-next' : ''}${locked ? ' lvl-locked' : ''}`, href: `/web/seance.html?exercise=${encodeURIComponent(ex)}&level=${m.level}`,
           title: `${m.label} · ${m.attempts} réponse(s)`, 'aria-label': `Niveau ${m.level}, ${m.label} : ${state}${next ? ', prochaine étape' : ''}${locked ? ' (prérequis non atteints)' : ''}. S’entraîner.`},
           m.status === 'maitrise' ? '✓ ' : '', `N${m.level}`, h('span', {class: 'fine', text: ` ${state}`})));
@@ -91,8 +96,8 @@
     });
     return h('section', {class: 'section', 'aria-labelledby': 'map-title'},
       h('h2', {id: 'map-title', text: 'Où j’en suis'}),
-      h('p', {class: 'sub', text: 'Un niveau est maîtrisé quand au moins 80 % de vos 10 dernières réponses à ce niveau sont justes (6 pour le clavier et le tapotement) et que ce score est très improbable au hasard. La prochaine étape est entourée. Cliquez un niveau pour vous y entraîner.'}),
-      h('div', {class: 'legend-row'}, h('span', {class: 'lvl lvl-maitrise', text: '✓ maîtrisé'}), h('span', {class: 'lvl lvl-en_cours', text: 'en cours : réussites / réponses récentes'}),
+      h('p', {class: 'sub', text: 'Un niveau est maîtrisé quand au moins 80 % de vos 10 dernières réponses à ce niveau sont justes (6 pour le clavier et le tapotement) et que ce score est très improbable au hasard : une séance choisie dans la bibliothèque compte exactement ce nombre de questions. Maîtriser un niveau valide aussi les niveaux plus faciles. « encore 2 questions » : réponses qui manquent avant de pouvoir juger le niveau ; « il en faut 9 » : réussites nécessaires sur 10 (avec 2 choix, 8 sur 10 peut encore venir du hasard). La prochaine étape est entourée. Cliquez un niveau pour vous y entraîner.'}),
+      h('div', {class: 'legend-row'}, h('span', {class: 'lvl lvl-maitrise', text: '✓ maîtrisé'}), h('span', {class: 'lvl lvl-en_cours', text: 'en cours : réussites / réponses récentes'}), h('span', {class: 'lvl lvl-placed', text: 'validé par un niveau supérieur ou par la mesure'}),
         h('span', {class: 'lvl lvl-a_consolider', text: 'maîtrisé puis en baisse : à consolider'}), h('span', {class: 'lvl lvl-next', text: 'prochaine étape'}), h('span', {class: 'lvl lvl-locked', text: 'prérequis non atteints'})),
       h('div', {class: 'map'}, rows));
   }

@@ -189,12 +189,19 @@ def mastery(history):
                 entry['status'] = 'mesure'
             elif items:
                 c = cat.chance(ex['id'], lv['level'])
+                entry['required'] = cat.mastery_min(window, c)   # correct answers needed out of W (9/10 with 2 choices)
                 first = next((items[i - 1]['answered_at'] for i in range(window, len(items) + 1) if _meets(items[i - window:i], window, c)), None)
                 entry['mastered_at'] = first
                 entry['status'] = 'maitrise' if _meets(items[-window:], window, c) else 'a_consolider' if first else 'en_cours'
                 recent = items[-window:]
                 entry['recent'] = {'count': len(recent), 'successes': sum(h['correct'] for h in recent)}
             out[(ex['id'], lv['level'])] = entry
+        # Levels are ordered by difficulty: mastering a level validates every easier level of the
+        # same exercise, even one never practised (you do not have to go back and redo it).
+        top = max((lv['level'] for lv in ex['levels'] if out[(ex['id'], lv['level'])]['status'] == 'maitrise'), default=None)
+        for lv in ex['levels']:
+            e = out[(ex['id'], lv['level'])]
+            e['covered_by'] = top if top is not None and lv['level'] < top and e['status'] != 'maitrise' else None
     return out
 
 
@@ -234,7 +241,7 @@ def frontier(history, m=None):
         if ex['mastery_window'] is None:
             continue
         levels = [lv['level'] for lv in ex['levels']]
-        level = next((l for l in levels if m[(ex['id'], l)]['status'] != 'maitrise'), None)
+        level = next((l for l in levels if m[(ex['id'], l)]['status'] != 'maitrise' and not m[(ex['id'], l)].get('covered_by')), None)
         placed = None
         reference = threshold and threshold['placement_cents']
         if ex['id'] == 'hauteur-comparaison' and reference:
@@ -266,7 +273,10 @@ def plan_session(history, kind, exercise=None, level=None, now=None):
             raise HTTPException(422, 'Exercice ou niveau inconnu.')
         if exercise == 'hauteur-seuil':
             return [{'exercise': exercise, 'level': 1, 'count': 12, 'reason': 'Mesure choisie dans la bibliothèque'}]
-        return [{'exercise': exercise, 'level': level, 'count': 4 if exercise in SLOW else 8, 'reason': 'Exercice choisi dans la bibliothèque'}]
+        # One chosen session holds exactly the answers the mastery rule looks at: a perfect session
+        # can validate the level by itself.
+        return [{'exercise': exercise, 'level': level, 'count': cat.EXERCISE_BY_ID[exercise]['mastery_window'],
+                 'reason': 'Exercice choisi dans la bibliothèque'}]
     m = mastery(history)
     f = frontier(history, m)
     last_seen = {}
@@ -367,7 +377,7 @@ def _session_public(conn, s):
 def catalog():
     return {'schema': SCHEMA, 'skills': cat.SKILLS, 'exercises': [cat.card(e) for e in cat.EXERCISES],
             'references': cat.REFERENCES, 'prerequisites': {k: [{'exercise': e, 'level': l} for e, l in v] for k, v in PREREQUISITES.items()},
-            'mastery_rule': "Un niveau est maîtrisé quand, sur les W dernières réponses à ce niveau, au moins 80 % sont justes ET ce score est très improbable au hasard (test binomial, p < 0,05). W = 10 pour les exercices à choix, 6 pour clavier et tapotement.",
+            'mastery_rule': "Un niveau est maîtrisé quand, sur les W dernières réponses à ce niveau, au moins 80 % sont justes ET ce score est très improbable au hasard (test binomial, p < 0,05). W = 10 pour les exercices à choix, 6 pour clavier et tapotement ; une séance choisie dans la bibliothèque compte exactement W questions. Maîtriser un niveau valide aussi les niveaux plus faciles du même exercice.",
             'teacher_approved': False}
 
 
