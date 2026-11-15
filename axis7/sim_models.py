@@ -107,7 +107,7 @@ def train_gru(data, splits, out_dir, *, seed=42, hidden=48, context=64, batch_si
             if not torch.isfinite(loss):
                 raise ValueError('Non-finite training loss')
             optimizer.zero_grad(); loss.backward(); nn.utils.clip_grad_norm_(model.parameters(), 1.)
-            optimizer.step(); losses.append(float(loss))
+            optimizer.step(); losses.append(float(loss.detach()))
         metrics = ct.measure(model, 'enhanced_gru', sets['validation'], device, True, batch_size)
         epoch += 1
         records.append({'epoch': epoch, 'train_loss': float(np.mean(losses)), 'validation': {k: v for k, v in metrics.items() if k != 'calibration_bins'}})
