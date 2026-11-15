@@ -1,0 +1,74 @@
+/* Élèves virtuels · étude de simulation. Same Urtext world as the Laboratoire; one extra role:
+   the hidden truth (only a simulation has it) is drawn in plain ink, the models in their own hues. */
+:root {
+  --m-truth: var(--ink);
+  --m-elo: var(--cover-deep);
+  --m-gru: var(--forecast);
+  --m-naive: #8A93A3;
+  --m-good: var(--revealed);
+  --m-bad: var(--danger);
+}
+.sim-head { padding-bottom: var(--s4); }
+.synthetic-flag { display: inline-flex; flex-wrap: wrap; gap: var(--s2) var(--s3); align-items: baseline; padding: var(--s2) var(--s4);
+  background: var(--forecast-wash); color: var(--forecast-text); border-radius: var(--radius); font-size: var(--t-sm); margin-bottom: var(--s4); }
+.synthetic-flag b { text-transform: uppercase; letter-spacing: .06em; }
+.sim-status { margin-top: var(--s3); color: var(--ink-2); font-size: var(--t-sm); }
+
+.sim-tabs { display: flex; flex-wrap: wrap; gap: var(--s1); border-bottom: 1px solid var(--line); margin-top: var(--s3); }
+.sim-tabs button { font: inherit; font-weight: 700; color: var(--ink-2); background: transparent; border: 0; border-bottom: 3px solid transparent;
+  padding: var(--s3) var(--s4); cursor: pointer; min-height: 44px; transition: color var(--d-ui) var(--ease-out), border-color var(--d-ui) var(--ease-out); }
+.sim-tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--cover-deep); }
+.sim-tabs button:hover { color: var(--ink); }
+.sim-tabs button:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; }
+
+.sim-view { padding-top: var(--s6); }
+.sim-view h2 { font-size: var(--t-2xl); }
+.sim-view h3 { font-family: var(--sans); font-size: var(--t-lg); font-weight: 700; margin-top: var(--s6); }
+.sim-view .sub { color: var(--ink-2); margin-top: var(--s2); max-width: 74ch; }
+.sim-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--s3); margin-top: var(--s5); }
+.kpi { background: var(--sheet); border-radius: var(--radius); padding: var(--s4); }
+.kpi b { display: block; font-family: var(--serif); font-size: var(--t-xl); font-variant-numeric: tabular-nums; }
+.kpi span { color: var(--ink-2); font-size: var(--t-sm); }
+.sim-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: var(--s5); margin-top: var(--s4); }
+.sim-stack { display: grid; gap: var(--s5); margin-top: var(--s4); }
+.panel { background: var(--sheet); border-radius: var(--radius); padding: var(--s5); min-width: 0; }
+.panel > p { color: var(--ink-2); font-size: var(--t-sm); margin-top: var(--s2); }
+.panel h3 { margin-top: 0; }
+.controls { display: flex; flex-wrap: wrap; gap: var(--s3) var(--s5); align-items: end; margin-top: var(--s4); }
+.controls label { display: grid; gap: var(--s1); font-weight: 700; font-size: var(--t-sm); color: var(--ink-2); }
+.controls select, .controls input { font: inherit; padding: var(--s2) var(--s3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--sheet); color: var(--ink); min-height: 44px; }
+
+svg.chart { display: block; width: 100%; height: auto; margin-top: var(--s3); color: var(--ink-2); }
+svg.chart text { fill: var(--ink-2); font: 12px var(--sans); }
+svg.chart .grid { stroke: var(--line); stroke-width: 1; }
+svg.chart .axis { stroke: var(--line-strong); }
+.legend { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s4); margin-top: var(--s3); font-size: var(--t-sm); color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: var(--s2); }
+.legend i { width: 22px; height: 0; border-top: 3px solid currentColor; display: inline-block; }
+.legend i.dash { border-top-style: dashed; }
+.legend i.dot { width: 10px; height: 10px; border: 0; border-radius: 50%; background: currentColor; }
+.c-truth { color: var(--m-truth); } .c-elo { color: var(--m-elo); } .c-gru { color: var(--m-gru); } .c-naive { color: var(--m-naive); }
+.c-good { color: var(--m-good); } .c-bad { color: var(--m-bad); }
+
+.table-scroll { overflow-x: auto; margin-top: var(--s3); }
+table.sim { width: 100%; border-collapse: collapse; font-size: var(--t-sm); font-variant-numeric: tabular-nums; }
+table.sim th, table.sim td { text-align: left; padding: var(--s2) var(--s3); border-bottom: 1px solid var(--line); vertical-align: top; }
+table.sim th { color: var(--ink-2); font-weight: 700; }
+table.sim td.num, table.sim th.num { text-align: right; white-space: nowrap; }
+table.sim tr.best td.num.win { font-weight: 700; color: var(--ink); }
+td .ci { display: block; color: var(--ink-3); font-size: var(--t-xs); }
+.win-mark { font-weight: 700; }
+.verdict { margin-top: var(--s4); padding: var(--s4); background: var(--paper-2); border-radius: var(--radius); max-width: 80ch; }
+.verdict b { color: var(--ink); }
+.tag { display: inline-block; padding: 2px var(--s2); border-radius: var(--radius); font-size: var(--t-xs); font-weight: 700; background: var(--paper-2); color: var(--ink-2); }
+.tag-inspired { background: var(--revealed-wash); color: var(--revealed-text); }
+.tag-hypothesis { background: var(--forecast-wash); color: var(--forecast-text); }
+.heat td.cell { text-align: right; font-variant-numeric: tabular-nums; }
+.muted { color: var(--ink-3); }
+pre.cmd { background: var(--ink); color: var(--sheet); padding: var(--s4); border-radius: var(--radius); overflow-x: auto; font: 13px/1.5 var(--mono); margin-top: var(--s3); }
+.empty { padding: var(--s5); background: var(--paper-2); border-radius: var(--radius); color: var(--ink-2); }
+@media (max-width: 640px) {
+  .sim-tabs button { padding: var(--s2) var(--s3); }
+  .panel { padding: var(--s4); }
+}
+@media (prefers-reduced-motion: reduce) { .sim-tabs button { transition: none; } }

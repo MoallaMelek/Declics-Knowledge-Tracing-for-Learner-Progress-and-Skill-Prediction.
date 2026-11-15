@@ -1,0 +1,399 @@
+{
+ "A1": {
+  "synthetic": true,
+  "variant": "A",
+  "seed": 1,
+  "n": 200,
+  "weeks": 8,
+  "noise_scale": 1.0,
+  "elapsed_seconds": 839.5,
+  "counters": {
+   "sessions": 4354,
+   "sessions_finished": 4109,
+   "answers": 48263,
+   "correct": 33665,
+   "invalid": 0,
+   "stopped_early": 704,
+   "left_open": 245,
+   "dropouts": 58,
+   "returns": 14,
+   "exports_accepted": 200,
+   "active_end": 134
+  },
+  "learners_with_answers": 197,
+  "questions": 48263,
+  "answers_per_learner": {
+   "min": 20,
+   "median": 251.0,
+   "max": 550
+  },
+  "correct_rate": 0.6975322710979425,
+  "active_end": 134,
+  "dropouts": 58,
+  "returns": 14,
+  "breaks": 198,
+  "weekly": [
+   {
+    "week": 1,
+    "active_learners": 154,
+    "answers": 6377,
+    "correct_rate": 0.710835816214521
+   },
+   {
+    "week": 2,
+    "active_learners": 177,
+    "answers": 7158,
+    "correct_rate": 0.6800782341436156
+   },
+   {
+    "week": 3,
+    "active_learners": 171,
+    "answers": 6608,
+    "correct_rate": 0.6716101694915254
+   },
+   {
+    "week": 4,
+    "active_learners": 157,
+    "answers": 5909,
+    "correct_rate": 0.6980876628871213
+   },
+   {
+    "week": 5,
+    "active_learners": 159,
+    "answers": 5721,
+    "correct_rate": 0.6969061352910331
+   },
+   {
+    "week": 6,
+    "active_learners": 144,
+    "answers": 5357,
+    "correct_rate": 0.7059921597909278
+   },
+   {
+    "week": 7,
+    "active_learners": 144,
+    "answers": 5547,
+    "correct_rate": 0.716423291869479
+   },
+   {
+    "week": 8,
+    "active_learners": 146,
+    "answers": 5586,
+    "correct_rate": 0.7085571070533476
+   }
+  ],
+  "exercises": {
+   "accords": {
+    "questions": 1059,
+    "correct_rate": 0.6128423040604344,
+    "mean_level": 1.1199244570349387,
+    "max_level": 3
+   },
+   "cadences": {
+    "questions": 4,
+    "correct_rate": 1.0,
+    "mean_level": 1.0,
+    "max_level": 1
+   },
+   "degres": {
+    "questions": 133,
+    "correct_rate": 0.8120300751879699,
+    "mean_level": 1.2706766917293233,
+    "max_level": 2
+   },
+   "echo": {
+    "questions": 3155,
+    "correct_rate": 0.6028526148969889,
+    "mean_level": 1.41743264659271,
+    "max_level": 5
+   },
+   "hauteur-comparaison": {
+    "questions": 4232,
+    "correct_rate": 0.9612476370510397,
+    "mean_level": 1.7866257088846882,
+    "max_level": 6
+   },
+   "hauteur-seuil": {
+    "questions": 2364,
+    "correct_rate": 0.7923011844331641,
+    "mean_level": 1.0,
+    "max_level": 1
+   },
+   "intervalles": {
+    "questions": 2127,
+    "correct_rate": 0.8692994828396803,
+    "mean_level": 1.3300423131170662,
+    "max_level": 4
+   },
+   "lecture": {
+    "questions": 10913,
+    "correct_rate": 0.6262256024924402,
+    "mean_level": 1.3706588472464034,
+    "max_level": 5
+   },
+   "melodies": {
+    "questions": 9440,
+    "correct_rate": 0.6840042372881356,
+    "mean_level": 1.221822033898305,
+    "max_level": 4
+   },
+   "pulsation": {
+    "questions": 4933,
+    "correct_rate": 0.7265355767281573,
+    "mean_level": 1.4478005270626393,
+    "max_level": 5
+   },
+   "rythme-echo": {
+    "questions": 751,
+    "correct_rate": 0.8402130492676432,
+    "mean_level": 1.4314247669773634,
+    "max_level": 4
+   },
+   "rythmes": {
+    "questions": 9152,
+    "correct_rate": 0.6234702797202797,
+    "mean_level": 1.0997596153846154,
+    "max_level": 4
+   }
+  },
+  "families": {
+   "musicien_experimente": {
+    "label": "Musicien expérimenté",
+    "learners": 28,
+    "weekly_ability_mean": [
+     0.8248,
+     0.8275,
+     0.8302,
+     0.8329,
+     0.835,
+     0.8366,
+     0.8383,
+     0.8402
+    ],
+    "weekly_ability_sd": [
+     0.0633,
+     0.0621,
+     0.0615,
+     0.0608,
+     0.0601,
+     0.0598,
+     0.0594,
+     0.0587
+    ],
+    "gain_mean": 0.015436522108843541,
+    "gain_sd": 0.0072439170160992225
+   },
+   "oreille_forte_rythme_faible": {
+    "label": "Bonne oreille, rythme faible",
+    "learners": 32,
+    "weekly_ability_mean": [
+     0.4482,
+     0.4604,
+     0.4734,
+     0.4845,
+     0.4909,
+     0.4971,
+     0.5009,
+     0.5032
+    ],
+    "weekly_ability_sd": [
+     0.0509,
+     0.0507,
+     0.0488,
+     0.0494,
+     0.0503,
+     0.05,
+     0.0508,
+     0.0509
+    ],
+    "gain_mean": 0.055019349371693144,
+    "gain_sd": 0.024720104409327037
+   },
+   "irregulier": {
+    "label": "Irrégulier, longues pauses",
+    "learners": 32,
+    "weekly_ability_mean": [
+     0.3448,
+     0.3522,
+     0.3556,
+     0.3574,
+     0.3585,
+     0.3582,
+     0.3565,
+     0.3562
+    ],
+    "weekly_ability_sd": [
+     0.0578,
+     0.0582,
+     0.0583,
+     0.0579,
+     0.0581,
+     0.0577,
+     0.0584,
+     0.0586
+    ],
+    "gain_mean": 0.011412128802910041,
+    "gain_sd": 0.010177392371084504
+   },
+   "rythme_fort_melodie_faible": {
+    "label": "Bon rythme, difficultés mélodiques",
+    "learners": 32,
+    "weekly_ability_mean": [
+     0.3162,
+     0.3281,
+     0.3383,
+     0.3467,
+     0.354,
+     0.3599,
+     0.3656,
+     0.3697
+    ],
+    "weekly_ability_sd": [
+     0.0602,
+     0.0595,
+     0.0595,
+     0.0614,
+     0.062,
+     0.0626,
+     0.0616,
+     0.0621
+    ],
+    "gain_mean": 0.05345134837962962,
+    "gain_sd": 0.025980583743383783
+   },
+   "en_difficulte": {
+    "label": "En difficulté, progresse lentement",
+    "learners": 32,
+    "weekly_ability_mean": [
+     -0.1468,
+     -0.1396,
+     -0.1336,
+     -0.1299,
+     -0.127,
+     -0.1252,
+     -0.1234,
+     -0.1222
+    ],
+    "weekly_ability_sd": [
+     0.0726,
+     0.0741,
+     0.0737,
+     0.075,
+     0.0762,
+     0.0765,
+     0.0766,
+     0.0761
+    ],
+    "gain_mean": 0.02457976851851852,
+    "gain_sd": 0.01517995729004715
+   },
+   "debutant_motive": {
+    "label": "Débutant motivé",
+    "learners": 44,
+    "weekly_ability_mean": [
+     0.1245,
+     0.1534,
+     0.1784,
+     0.1973,
+     0.2114,
+     0.2243,
+     0.2365,
+     0.2477
+    ],
+    "weekly_ability_sd": [
+     0.0655,
+     0.0629,
+     0.0605,
+     0.0627,
+     0.0622,
+     0.0622,
+     0.0642,
+     0.0654
+    ],
+    "gain_mean": 0.12322535834535836,
+    "gain_sd": 0.04137207828366995
+   }
+  },
+  "skill_gain_by_family": {
+   "musicien_experimente": {
+    "hauteur": 0.017025000000000005,
+    "intervalles": 0.009764285714285708,
+    "accords": 0.0068749999999999966,
+    "memoire": 0.027049999999999994,
+    "reproduction": 0.024971428571428568,
+    "pulsation": 0.02063928571428571,
+    "rythme": 0.02901071428571429,
+    "lecture": 0.014403571428571432,
+    "tonalite": 0.0019357142857142887
+   },
+   "oreille_forte_rythme_faible": {
+    "hauteur": 0.025009375,
+    "intervalles": 0.0038812499999999962,
+    "accords": 0.0019750000000000097,
+    "memoire": 0.057965625,
+    "reproduction": 0.024021875,
+    "pulsation": 0.130140625,
+    "rythme": 0.187375,
+    "lecture": 0.10911562500000001,
+    "tonalite": 0.000409375
+   },
+   "irregulier": {
+    "hauteur": 0.0041968750000000036,
+    "intervalles": 0.00012187499999999829,
+    "accords": 0.00016874999999999508,
+    "memoire": 0.029425,
+    "reproduction": 0.010237500000000009,
+    "pulsation": 0.0175375,
+    "rythme": 0.036671875,
+    "lecture": 0.026490625000000004,
+    "tonalite": 2.8125000000000372e-05
+   },
+   "rythme_fort_melodie_faible": {
+    "hauteur": 0.04529062500000001,
+    "intervalles": 0.031978124999999996,
+    "accords": 0.045034375,
+    "memoire": 0.15219375000000002,
+    "reproduction": 0.088928125,
+    "pulsation": 0.013153124999999998,
+    "rythme": 0.040775000000000006,
+    "lecture": 0.11676874999999999,
+    "tonalite": 0.01621875
+   },
+   "en_difficulte": {
+    "hauteur": 0.006518750000000002,
+    "intervalles": 0.0016249999999999984,
+    "accords": 0.00021250000000000321,
+    "memoire": 0.03925312500000001,
+    "reproduction": 0.010574999999999998,
+    "pulsation": 0.054821875,
+    "rythme": 0.059525,
+    "lecture": 0.0793375,
+    "tonalite": 1.5625000000000122e-05
+   },
+   "debutant_motive": {
+    "hauteur": 0.04250227272727273,
+    "intervalles": 0.03988181818181818,
+    "accords": 0.05665227272727273,
+    "memoire": 0.2338659090909091,
+    "reproduction": 0.14982500000000004,
+    "pulsation": 0.1461909090909091,
+    "rythme": 0.28559318181818183,
+    "lecture": 0.25152272727272734,
+    "tonalite": 0.010393181818181815
+   }
+  },
+  "diversity": {
+   "learners": 200,
+   "distinct_weekly_curves": 200,
+   "gain_sd_all": 0.048289596695715864,
+   "gain_min": -0.0020861111111111774,
+   "gain_max": 0.21423333333333333,
+   "share_identical_curves": 0.0
+  },
+  "mastered_levels": {
+   "mean": 4.65,
+   "max": 26
+  },
+  "exports_accepted": 200
+ }
+}

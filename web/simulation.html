@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#EEF1F4">
+<link rel="icon" href="/web/favicon.svg" type="image/svg+xml">
+<title>DÉCLIC · Élèves virtuels</title>
+<meta name="description" content="Étude de simulation : élèves virtuels sur les vrais exercices DÉCLIC, comparaison Elo, GRU et méthode naïve. Données synthétiques.">
+<link rel="stylesheet" href="/web/declic.css?v=9.0">
+<link rel="stylesheet" href="/web/labo.css?v=9.0">
+<link rel="stylesheet" href="/web/simulation/sim.css?v=11.1">
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<header class="site-bar">
+  <div class="wrap">
+    <a class="wordmark" href="/" aria-label="DÉCLIC, accueil"><b>déclic</b><span>apprentissage musical</span></a>
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a href="/">Accueil</a>
+      <a href="/web/seance.html">Séance</a>
+      <a href="/web/parcours.html">Parcours</a>
+      <a href="/web/exercices.html">Exercices</a>
+      <a href="/web/labo.html" aria-current="page">Laboratoire</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <section class="wrap page-head sim-head">
+    <p class="synthetic-flag" role="note"><b>Données synthétiques</b> Élèves simulés, pas des humains. Rien ici ne valide un modèle sur de vrais élèves.</p>
+    <h1>Élèves virtuels</h1>
+    <p class="lede">Des centaines d’élèves simulés font les vrais exercices de DÉCLIC pendant huit semaines. Leur niveau caché est connu : on peut vérifier ce que prévoient le modèle Elo, un GRU entraîné sur ces élèves et une méthode naïve.</p>
+    <p id="status" class="sim-status" role="status" aria-live="polite">Chargement de l’étude…</p>
+  </section>
+
+  <nav class="wrap sim-tabs" role="tablist" aria-label="Vues de l’étude">
+    <button type="button" role="tab" id="tab-population" aria-controls="view-population" aria-selected="true">Population</button>
+    <button type="button" role="tab" id="tab-eleve" aria-controls="view-eleve" aria-selected="false" tabindex="-1">Un élève</button>
+    <button type="button" role="tab" id="tab-comparaison" aria-controls="view-comparaison" aria-selected="false" tabindex="-1">Elo, GRU, naïf</button>
+    <button type="button" role="tab" id="tab-experiences" aria-controls="view-experiences" aria-selected="false" tabindex="-1">Expériences</button>
+    <button type="button" role="tab" id="tab-technique" aria-controls="view-technique" aria-selected="false" tabindex="-1">Technique</button>
+  </nav>
+
+  <section class="wrap sim-view" id="view-population" role="tabpanel" aria-labelledby="tab-population"></section>
+  <section class="wrap sim-view" id="view-eleve" role="tabpanel" aria-labelledby="tab-eleve" hidden></section>
+  <section class="wrap sim-view" id="view-comparaison" role="tabpanel" aria-labelledby="tab-comparaison" hidden></section>
+  <section class="wrap sim-view" id="view-experiences" role="tabpanel" aria-labelledby="tab-experiences" hidden></section>
+  <section class="wrap sim-view" id="view-technique" role="tabpanel" aria-labelledby="tab-technique" hidden></section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p><strong>Ce que montre cette page.</strong> Une étude de simulation : le simulateur a ses propres règles, et un modèle entraîné sur ces élèves peut apprendre ces règles plutôt que de vraies habitudes d’apprentissage. Les profils et les données sont entièrement séparés de votre parcours.</p>
+    <nav aria-label="Liens de bas de page"><a href="/">Accueil</a><a href="/web/parcours.html">Mon parcours</a><a href="/web/labo.html">Laboratoire</a></nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var firstError = '';
+  window.addEventListener('error', function (e) {
+    var t = e.target;
+    if (t && t.tagName === 'SCRIPT' && t.src) { if (!firstError) firstError = 'fichier non chargé · ' + t.src.split('/').pop().split('?')[0] + ' (bloqueur de publicité ou extension ? autorisez 127.0.0.1)'; return; }
+    if (!firstError) firstError = (e.message || 'erreur de script');
+  }, true);
+  setTimeout(function () {
+    if (window.DECLIC_BOOTED) return;
+    document.getElementById('status').textContent = 'La page n’a pas pu démarrer : ' + (firstError || 'scripts non exécutés (DÉCLIC arrêté ?)') + '. Relancez DÉCLIC puis rechargez.';
+  }, 8000);
+})();
+</script>
+<script src="/web/simulation/sim.js?v=11.1" defer></script>
+</body>
+</html>

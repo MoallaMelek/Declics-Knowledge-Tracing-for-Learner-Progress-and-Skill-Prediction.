@@ -1,0 +1,19 @@
+{
+  "study": "sim-2026-11",
+  "synthetic": true,
+  "description": "Étude de simulation DÉCLIC : élèves virtuels sur les vrais exercices, comparaison Elo / GRU / naïf. Données SYNTHÉTIQUES, jamais une validation sur des humains.",
+  "oracle_samples": 100,
+  "weeks": 8,
+  "campaigns": {
+    "A1": {"variant": "A", "n": 200, "seed": 1, "role": "campagne principale (200 élèves, 8 semaines)"},
+    "A2": {"variant": "A", "n": 200, "seed": 2, "role": "réplication, autre graine de population"},
+    "A3": {"variant": "A", "n": 200, "seed": 3, "role": "réplication, autre graine de population"},
+    "B1": {"variant": "B", "n": 200, "seed": 1, "role": "deuxième simulateur (lois puissance, bruit logistique, famille atypique)"},
+    "N1": {"variant": "A", "n": 200, "seed": 5, "noise_scale": 1.5, "role": "réponses plus bruyantes (bruit ×1,5, inattention ×1,5)"},
+    "L1": {"variant": "A", "n": 1000, "seed": 4, "role": "grande cohorte pour les tailles 50 / 200 / 1000 et les familles absentes"}
+  },
+  "workers": [["A1", "A2", "A3", "B1", "N1"], ["L1"]],
+  "gru": {"model": "enhanced_gru", "hidden": 48, "context": 64, "batch_size": 16, "epochs": 12, "patience": 4,
+          "lr": 0.001, "weight_decay": 0.001, "split": "learner_disjoint_70_15_15", "split_seed": 42, "seeds": [42, 17, 83]},
+  "bootstrap": {"replicates": 1000, "unit": "learner", "seed": 2026}
+}
