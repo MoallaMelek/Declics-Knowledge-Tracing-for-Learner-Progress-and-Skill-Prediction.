@@ -174,19 +174,38 @@ def test_melody_changes_respect_the_announced_contour_rule():
 def test_several_attempts_lead_to_mastery_and_unlock_the_next_step(env):
     client, clock, db = env
     learner = new_learner(client)
-    for _ in range(2):
-        sid = client.post(f'/api/learn/learners/{learner}/sessions', json={'kind': 'ciblee', 'exercise': 'hauteur-comparaison', 'level': 1}).json()['session']['id']
-        play(client, db, sid)
+    # One perfect session chosen in the library holds exactly the W answers the rule looks at.
+    sid = client.post(f'/api/learn/learners/{learner}/sessions', json={'kind': 'ciblee', 'exercise': 'hauteur-comparaison', 'level': 1}).json()['session']['id']
+    play(client, db, sid)
     p = client.get(f'/api/learn/learners/{learner}/progress').json()
     level1 = next(m for m in p['mastery'] if m['exercise'] == 'hauteur-comparaison' and m['level'] == 1)
-    assert level1['status'] == 'maitrise' and level1['attempts'] == 16
+    assert level1['status'] == 'maitrise' and level1['attempts'] == level1['window'] == 10
     assert p['frontier']['hauteur-comparaison']['level'] == 2
+
+
+def test_a_chosen_session_is_as_long_as_the_mastery_window():
+    for ex in cat.EXERCISES:
+        if ex['mastery_window']:
+            plan = learning.plan_session([], 'ciblee', exercise=ex['id'], level=ex['levels'][-1]['level'])
+            assert plan[0]['count'] == ex['mastery_window'], ex['id']
+
+
+def test_mastering_a_level_validates_the_easier_levels():
+    # Level 3 mastered without ever touching level 2: level 2 is validated, the next step is level 4.
+    hist = _h('melodies', 1, 'memoire', [True] * 10) + _h('melodies', 3, 'memoire', [True] * 10, start=100)
+    m = learning.mastery(hist)
+    assert m[('melodies', 2)]['status'] == 'non_commence' and m[('melodies', 2)]['covered_by'] == 3
+    assert m[('melodies', 1)]['covered_by'] is None          # mastered on its own
+    assert learning.frontier(hist)['melodies']['level'] == 4
+    # an unfinished harder level validates nothing
+    assert learning.mastery(_h('melodies', 4, 'memoire', [True] * 8))[('melodies', 2)]['covered_by'] is None
 
 
 def test_two_choice_mastery_needs_more_than_chance(env):
     hist = [{'exercise': 'hauteur-comparaison', 'level': 1, 'skill': 'hauteur', 'correct': i not in (0, 5), 'answered_at': f'2026-10-20T09:00:{i:02d}.000000+00:00'} for i in range(10)]
     # 8/10 on a 2-choice task is not significant (p = 0.055): not mastered yet
     assert learning.mastery(hist)[('hauteur-comparaison', 1)]['status'] == 'en_cours'
+    assert learning.mastery(hist)[('hauteur-comparaison', 1)]['required'] == 9      # shown on the parcours
     hist[0]['correct'] = True
     assert learning.mastery(hist)[('hauteur-comparaison', 1)]['status'] == 'maitrise'
 
@@ -243,7 +262,7 @@ def test_return_after_several_days_keeps_history_and_schedules_spaced_review(env
         play(client, db, sid)
     clock.jump(days=4)
     p = client.get(f'/api/learn/learners/{learner}/progress').json()
-    assert p['days_since_last'] >= 4 and p['totals']['answers'] == 16
+    assert p['days_since_last'] >= 4 and p['totals']['answers'] == 20
     assert (p['next_plan'][0]['exercise'], p['next_plan'][0]['level']) == ('lecture', 2)
 
 
@@ -270,7 +289,7 @@ def test_insufficient_data_abstains_and_enough_data_gives_preregistered_predicti
             assert json.loads(prediction)['created_at'] == created and created < answered
     p = client.get(f'/api/learn/learners/{learner}/progress').json()
     q = p['o08']['quality']
-    assert q['scored'] == 3 and q['brier_model'] is not None and q['calibration'] is None
+    assert q['scored'] == 5 and q['brier_model'] is not None and q['calibration'] is None
     assert p['o08']['abstained'] == 5
     assert all(m['status'] == 'abstained' for m in p['o08']['neural_models'])
 
@@ -282,7 +301,7 @@ def test_profile_with_long_history_reports_quality_trend_and_calibration(env):
         sid = client.post(f'/api/learn/learners/{learner}/sessions', json={'kind': 'ciblee', 'exercise': 'accords', 'level': 1 + (k > 2)}).json()['session']['id']
         play(client, db, sid, correct=lambda i, item: (i * 7 + k) % 5 != 0)
     q = client.get(f'/api/learn/learners/{learner}/progress').json()['o08']['quality']
-    assert q['scored'] == 35 and q['calibration'] and len(q['rolling']) == 3
+    assert q['scored'] == 45 and q['calibration'] and len(q['rolling']) == 4   # complete blocks of 10
     assert {'brier_model', 'brier_baseline', 'skill_vs_baseline'} <= set(q)
 
 
@@ -349,8 +368,8 @@ def test_history_persists_on_disk_across_server_restarts(env):
     sid = client.post(f'/api/learn/learners/{learner}/sessions', json={'kind': 'ciblee', 'exercise': 'lecture', 'level': 1}).json()['session']['id']
     play(client, db, sid)
     fresh = TestClient(app)
-    assert fresh.get('/api/learn/learners').json()['learners'][0]['answers'] == 8
-    assert fresh.get(f'/api/learn/learners/{learner}/progress').json()['totals']['answers'] == 8
+    assert fresh.get('/api/learn/learners').json()['learners'][0]['answers'] == 10
+    assert fresh.get(f'/api/learn/learners/{learner}/progress').json()['totals']['answers'] == 10
 
 
 def test_export_is_accepted_by_the_o08_encoder_and_contains_no_hidden_answers(env):
@@ -359,8 +378,8 @@ def test_export_is_accepted_by_the_o08_encoder_and_contains_no_hidden_answers(en
     sid = client.post(f'/api/learn/learners/{learner}/sessions', json={'kind': 'ciblee', 'exercise': 'intervalles', 'level': 1}).json()['session']['id']
     play(client, db, sid)
     e = client.get(f'/api/learn/learners/{learner}/export').json()
-    assert e['encode_check']['accepted'] is True and e['encode_check']['features_shape'] == [8, 4 * len(cat.SKILLS)]
-    assert len(e['o08_prepared_rows']) == 8 and all(len(r['obs']) == 1 for r in e['o08_prepared_rows'])
+    assert e['encode_check']['accepted'] is True and e['encode_check']['features_shape'] == [10, 4 * len(cat.SKILLS)]
+    assert len(e['o08_prepared_rows']) == 10 and all(len(r['obs']) == 1 for r in e['o08_prepared_rows'])
 
 
 def test_catalog_cards_have_the_ten_fields_and_verifiable_difficulty():
