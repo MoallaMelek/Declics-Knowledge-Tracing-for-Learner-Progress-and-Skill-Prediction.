@@ -53,6 +53,27 @@ Avant chaque question, une prévision O08 de votre réussite est enregistrée, p
   - [recherche pédagogique et fiches](docs/PHASE10_PEDAGOGY.md) ;
   - [guide sans instrument](docs/GUIDE_SANS_INSTRUMENT.md).
 
+## Élèves virtuels : Elo vs GRU (Phase 11, étude de simulation)
+
+2 000 élèves **simulés** font les vrais exercices de DÉCLIC par les vraies routes, pendant huit semaines, dans des bases synthétiques séparées. Leur base réelle n’est jamais touchée.
+
+- **Les élèves :** chacun a un niveau caché (perception, mémoire, rythme, apprentissage, oubli, fatigue, motivation). Ses erreurs viennent de sa perception du son joué, jamais de la bonne réponse.
+- **La comparaison :** on compare, sur les mêmes questions, Elo (`declic-elo-v1`), un GRU DÉCLIC entraîné sur ces élèves et une méthode naïve.
+- **Le résultat :**
+  - le GRU fait un peu mieux qu’Elo à partir de 200 élèves d’entraînement ;
+  - Elo gagne avec 50 élèves, après les longues pauses et sur des réponses plus bruyantes que celles de l’entraînement.
+
+**Ce ne sont pas de vrais élèves : cela ne valide aucun modèle dans la réalité.**
+
+<p align="center">
+  <img src="docs/assets/phase11/eleve-virtuel.png" width="49%" alt="Un élève virtuel : vraie probabilité cachée de réussite question par question, prévisions d’Elo, du GRU et de la méthode naïve faites avant chaque réponse.">
+  <img src="docs/assets/phase11/cohorte-elo-gru.png" width="49%" alt="Elo moins GRU selon la taille de la cohorte d’entraînement : Elo meilleur avec 50 élèves, GRU meilleur avec 200 et 1 000, pour trois graines.">
+</p>
+
+Laboratoire → **Élèves virtuels**. Rapports :
+- [étude et conclusions](docs/PHASE11_SIMULATION_REPORT.md) ;
+- [tous les chiffres, générés depuis les fichiers de résultats](docs/PHASE11_SIMULATION_RESULTS.md).
+
 ## La recherche O08
 
 DÉCLIC aide à lire un parcours d’apprentissage musical : ce qui a été **observé**, ce qu’on peut en **lire**, ce que **prévoit** un réseau de neurones entraîné pour l’essai suivant, puis le résultat **révélé** après coup. L’axe 7 reçoit les mesures des autres axes du projet ; l’analyse du son, du rythme ou de la technique reste leur responsabilité.
