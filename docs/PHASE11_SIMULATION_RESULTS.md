@@ -96,6 +96,13 @@ Brier de la vraie probabilité cachée (le minimum atteignable en moyenne) : **0
 | 17 | 0,1879 | 0,1864 | 0,1931 | 0,0015 | [-0,0012 ; 0,0039] |
 | 83 | 0,1879 | 0,1879 | 0,1931 | 0,0000 | [-0,0036 ; 0,0033] |
 
+### 3.4 Autres populations du même simulateur
+
+| Campagne | Élèves test | Questions | Brier Elo | Brier GRU | Brier naïf | Elo − GRU | IC 95 % |
+|---|---|---|---|---|---|---|---|
+| A2 | 30 | 5547 | 0,1941 | 0,1894 | 0,1982 | 0,0047 | [0,0027 ; 0,0068] |
+| A3 | 30 | 7213 | 0,1836 | 0,1810 | 0,1879 | 0,0026 | [0,0002 ; 0,0047] |
+
 ### 3.5 Sensibilité : entraînement plus long (A1, même partition, même test)
 
 Le réglage O08 (12 époques) s’arrêtait parfois alors que la validation progressait encore. Même chose avec au plus 40 époques et une patience de 6 :
