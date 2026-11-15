@@ -42,7 +42,7 @@ Avant chaque question, une prévision O08 de votre réussite est enregistrée, p
 | **Séance** | Évaluation initiale (30 questions), puis séances d’environ 10 minutes composées à partir de vos résultats ; reprise si vous quittez en cours |
 | **Parcours** | Carte de maîtrise des 53 niveaux, forces et points à travailler, erreurs récurrentes, historique, **O08 sur mes données** |
 | **Exercices** | 12 fiches en 10 champs : objectif, compétence, niveaux à difficulté vérifiable, prérequis, consignes, entrées, résultat, correction, métriques, références |
-| **Laboratoire** | Rejeu O08 des réseaux entraînés sur données réelles, bancs d’essai, limites |
+| **Laboratoire** | Rejeu O08 des réseaux entraînés sur données réelles, bancs d’essai, limites, élèves virtuels (simulation) |
 
 **Ce qu’il faut savoir :**
 - Les réseaux O08 entraînés (SingPAD, Yousician) **ne reçoivent pas** vos réponses : leur contrat d’entrée ne les accepte pas, et c’est voulu.
@@ -52,6 +52,27 @@ Avant chaque question, une prévision O08 de votre réussite est enregistrée, p
   - [audit des modèles, matrice des entrées, YouTube](docs/PHASE10_MODEL_AUDIT.md) ;
   - [recherche pédagogique et fiches](docs/PHASE10_PEDAGOGY.md) ;
   - [guide sans instrument](docs/GUIDE_SANS_INSTRUMENT.md).
+
+## Élèves virtuels : Elo vs GRU (Phase 11, étude de simulation)
+
+2 000 élèves **simulés** font les vrais exercices de DÉCLIC par les vraies routes, pendant huit semaines, dans des bases synthétiques séparées. Leur base réelle n’est jamais touchée.
+
+- **Les élèves :** chacun a un niveau caché (perception, mémoire, rythme, apprentissage, oubli, fatigue, motivation). Ses erreurs viennent de sa perception du son joué, jamais de la bonne réponse.
+- **La comparaison :** on compare, sur les mêmes questions, Elo (`declic-elo-v1`), un GRU DÉCLIC entraîné sur ces élèves et une méthode naïve.
+- **Le résultat :**
+  - le GRU fait un peu mieux qu’Elo à partir de 200 élèves d’entraînement ;
+  - Elo gagne avec 50 élèves, après les longues pauses et sur des réponses plus bruyantes que celles de l’entraînement.
+
+**Ce ne sont pas de vrais élèves : cela ne valide aucun modèle dans la réalité.**
+
+<p align="center">
+  <img src="docs/assets/phase11/eleve-virtuel.png" width="49%" alt="Un élève virtuel : vraie probabilité cachée de réussite question par question, prévisions d’Elo, du GRU et de la méthode naïve faites avant chaque réponse.">
+  <img src="docs/assets/phase11/cohorte-elo-gru.png" width="49%" alt="Elo moins GRU selon la taille de la cohorte d’entraînement : Elo meilleur avec 50 élèves, GRU meilleur avec 200 et 1 000, pour trois graines.">
+</p>
+
+Laboratoire → **Élèves virtuels**. Rapports :
+- [étude et conclusions](docs/PHASE11_SIMULATION_REPORT.md) ;
+- [tous les chiffres, générés depuis les fichiers de résultats](docs/PHASE11_SIMULATION_RESULTS.md).
 
 ## La recherche O08
 

@@ -1,0 +1,15 @@
+{
+ "synthetic": true,
+ "study": "sim-2026-11",
+ "config": "configs/simulation-study.json",
+ "code_revision": "f0e030362789ffafdcc9da1cda931ba2a01e65bd",
+ "commands": [
+  "python scripts/run_simulation_campaigns.py --worker 0   # A1, A2, A3, B1, N1",
+  "python scripts/run_simulation_campaigns.py --worker 1   # L1 (1000 élèves)",
+  "python scripts/run_simulation_study.py inspect main sensitivity replicate shift size families ui",
+  "python -m pytest tests/test_simulation_learners.py tests/test_simulation_models.py"
+ ],
+ "campaign_outputs": "runtime/simulation/<étude>/campaigns/<nom>/ (base synthetic-*.sqlite, hidden/, campaign.json ; non versionnés)",
+ "real_learner_db_sha256": "afdb962a11fa4145dade1688f4382ad07eb794967f4c1e0fd26fb2c5326ae5e1",
+ "note": "L’empreinte de runtime/learning.sqlite permet de vérifier qu’aucune campagne ne l’a modifiée."
+}

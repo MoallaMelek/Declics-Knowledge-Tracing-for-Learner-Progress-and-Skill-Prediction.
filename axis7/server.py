@@ -262,6 +262,8 @@ from .readiness import router as _readiness_router
 app.include_router(_readiness_router)
 from .learning import router as _learning_router
 app.include_router(_learning_router)
+from .sim_api import router as _sim_router
+app.include_router(_sim_router)
 from .o08_security import O08BodyLimit
 app.add_middleware(O08BodyLimit)
 app.add_middleware(O08BodyLimit,max_bytes=65536,prefixes=('/api/learn',),label='Learner loop')

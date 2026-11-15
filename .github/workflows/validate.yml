@@ -27,6 +27,8 @@ jobs:
           node --check web/labo.js
           for f in web/living/*.js web/learn/*.js; do node --check "$f"; done
           node --check tests/browser/learner_e2e.cjs
+          node --check web/simulation/sim.js
+          node --check tests/browser/simulation_e2e.cjs
       - name: Validate contracts and models
         run: python -B -m pytest -q -p no:cacheprovider
   real-http-and-browser:
@@ -60,3 +62,5 @@ jobs:
             runtime/e2e/*.png
             runtime/e2e-learner/results.json
             runtime/e2e-learner/*.png
+            runtime/e2e-simulation/results.json
+            runtime/e2e-simulation/*.png
