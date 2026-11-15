@@ -222,10 +222,14 @@ async function next(page) { await page.locator('.next button').click(); await pa
     await p2.route('**/web/learn/*.js*', r => r.abort());
     await p2.goto(base + '/web/seance.html');
     await until(() => p2.getByRole('heading', {name: 'La page n’a pas pu démarrer'}).isVisible(), 'seance guard', 15000);
+    assert.match(await p2.locator('#recovery-message').innerText(), /fichier non chargé · core\.js/);
     await p2.route('**/web/living/*.js*', r => r.abort());
     await p2.goto(base + '/web/living.html');
     await until(() => p2.locator('#recovery').isVisible(), 'living guard', 15000);
     assert.match(await p2.locator('#recovery-message').innerText(), /scripts de la page/);
+    // A blocked file is named, with the ad-blocker hint (uBlock blocked a file called fingerprint.js in Edge).
+    assert.match(await p2.locator('#recovery-message').innerText(), /n’a pas pu être chargé \(adapters\.js\).*bloqueur/);
+    assert.match(await p2.locator('#diagnostic').textContent(), /fichier non chargé · adapters\.js/);
     await p2.close();
   });
 

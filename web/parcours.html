@@ -44,7 +44,11 @@
 <script>
 (function () {
   var firstError = '';
-  window.addEventListener('error', function (e) { if (!firstError) firstError = (e.message || 'erreur de script'); }, true);
+  window.addEventListener('error', function (e) {
+    var t = e.target;   // a script that fails to load (blocked by an extension, server stopped) has no message: name the file
+    if (t && t.tagName === 'SCRIPT' && t.src) { if (!firstError) firstError = 'fichier non chargé · ' + t.src.split('/').pop().split('?')[0] + ' (bloqueur de publicité ou extension ? autorisez 127.0.0.1)'; return; }
+    if (!firstError) firstError = (e.message || 'erreur de script');
+  }, true);
   setTimeout(function () {
     if (window.DECLIC_BOOTED) return;
     document.getElementById('boot-status').hidden = true;

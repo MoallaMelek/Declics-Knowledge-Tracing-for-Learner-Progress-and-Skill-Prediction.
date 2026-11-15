@@ -155,28 +155,35 @@
 /* Boot guard: if the page scripts never run (server stopped, tab restored from the browser
    cache, script error), say so instead of leaving "Chargement…" on screen forever. */
 (function () {
-  var firstError = '';
-  window.addEventListener('error', function (e) { if (!firstError) firstError = (e.message || 'erreur de script') + (e.filename ? ' · ' + e.filename.split('/').pop() : ''); }, true);
+  var firstError = '', missing = '';
+  // A script that fails to load fires an error on its <script> element, without a message: name the file.
+  window.addEventListener('error', function (e) {
+    var t = e.target;
+    if (t && t.tagName === 'SCRIPT' && t.src) { var f = t.src.split('/').pop().split('?')[0]; if (!missing) missing = f; if (!firstError) firstError = 'fichier non chargé · ' + f; return; }
+    if (!firstError) firstError = (e.message || 'erreur de script') + (e.filename ? ' · ' + e.filename.split('/').pop() : '');
+  }, true);
   setTimeout(function () {
     if (window.DECLIC_BOOTED) return;
     var box = document.getElementById('recovery'), status = document.getElementById('status');
     if (status) status.textContent = 'La page n’a pas pu démarrer.';
-    document.getElementById('recovery-message').textContent = 'Les scripts de la page ne se sont pas exécutés. Le plus souvent, DÉCLIC était arrêté quand l’onglet a été ouvert ou restauré par le navigateur. Relancez DÉCLIC, puis rechargez la page.';
+    document.getElementById('recovery-message').textContent = missing
+      ? 'Un des scripts de la page n’a pas pu être chargé (' + missing + '). Si un bloqueur de publicité ou une extension est actif (uBlock, AdBlock…), autorisez 127.0.0.1 puis rechargez. Sinon, DÉCLIC était peut-être arrêté : relancez-le, puis rechargez la page.'
+      : 'Les scripts de la page ne se sont pas exécutés. Le plus souvent, DÉCLIC était arrêté quand l’onglet a été ouvert ou restauré par le navigateur. Relancez DÉCLIC, puis rechargez la page.';
     document.getElementById('diagnostic').textContent = firstError || 'Aucun script chargé (serveur injoignable ou page servie depuis le cache).';
     var retry = document.getElementById('retry'); retry.textContent = 'Recharger la page'; retry.onclick = function () { location.reload(); };
     box.hidden = false;
   }, 8000);
 })();
 </script>
-<script src="/web/living/adapters.js?v=12" defer></script>
-<script src="/web/living/dom.js?v=12" defer></script>
-<script src="/web/living/store.js?v=12" defer></script>
-<script src="/web/living/api.js?v=12" defer></script>
-<script src="/web/living/timeline.js?v=12" defer></script>
-<script src="/web/living/constellation.js?v=12" defer></script>
-<script src="/web/living/fingerprint.js?v=12" defer></script>
-<script src="/web/living/observatory.js?v=12" defer></script>
-<script src="/web/living/summary.js?v=12" defer></script>
-<script src="/web/living/main.js?v=12" defer></script>
+<script src="/web/living/adapters.js?v=13" defer></script>
+<script src="/web/living/dom.js?v=13" defer></script>
+<script src="/web/living/store.js?v=13" defer></script>
+<script src="/web/living/api.js?v=13" defer></script>
+<script src="/web/living/timeline.js?v=13" defer></script>
+<script src="/web/living/constellation.js?v=13" defer></script>
+<script src="/web/living/empreinte.js?v=13" defer></script>
+<script src="/web/living/observatory.js?v=13" defer></script>
+<script src="/web/living/summary.js?v=13" defer></script>
+<script src="/web/living/main.js?v=13" defer></script>
 </body>
 </html>
