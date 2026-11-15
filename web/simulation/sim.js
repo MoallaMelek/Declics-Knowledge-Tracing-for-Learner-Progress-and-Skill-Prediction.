@@ -314,7 +314,9 @@
     const box = $('view-comparaison');
     const main = overview.main;
     if (!main) { put(box, h('div', {class: 'empty', text: 'Comparaison pas encore calculée.'})); return Promise.resolve(); }
-    const seeds = Object.keys(main.seeds);
+    // JS orders numeric keys ascending; the primary seed is the first one of the configuration (42)
+    const first = String(overview.config.gru.seeds[0]);
+    const seeds = [first, ...Object.keys(main.seeds).filter(k => k !== first)];
     const t = main.seeds[seeds[0]];
     const cf = main.crossfit;
     const tr = res => table(['Écart à la vraie probabilité', 'Elo', 'GRU', 'Naïf'], [
@@ -367,16 +369,17 @@
     const size = overview.size;
     if (size) {
       const cohorts = Object.keys(size.cohorts);
-      const mean = (c, k) => { const v = Object.values(size.cohorts[c]).map(r => r.common.metrics[k].brier); return v.reduce((a, b) => a + b, 0) / v.length; };
-      const spread = c => { const v = Object.values(size.cohorts[c]).map(r => r.common.metrics.gru.brier); return [Math.min(...v), Math.max(...v)]; };
+      const seedOrder = c => [String(overview.config.gru.seeds[0]), ...Object.keys(size.cohorts[c]).filter(k => k !== String(overview.config.gru.seeds[0]))].filter(k => size.cohorts[c][k]);
+      const dRows = cohorts.flatMap(c => seedOrder(c).map(sd => ({label: `${int(Number(c))} élèves · graine ${sd}`, d: size.cohorts[c][sd].common.bootstrap.differences['elo-gru:brier']})));
       parts.push(h('h3', {text: 'Le GRU s’améliore-t-il avec plus d’élèves ?'}),
-        h('p', {class: 'sub', text: `Cohorte L1 (1 000 élèves). Test fixe de ${size.layout.test} élèves, validation fixe de ${size.layout.validation} ; entraînement sur 70 % d’une cohorte de 50, 200 ou 1 000 élèves, trois graines chacune. Elo et le naïf ne dépendent pas de la cohorte.`}),
-        barsChart({groups: cohorts.map(c => ({label: `${c} élèves`, values: {elo: mean(c, 'elo'), gru: mean(c, 'gru'), naive: mean(c, 'naive')}, ci: {gru: spread(c)}})), keys: MODELS.map(([k]) => [k, COLOR[k]]), ylabel: 'Brier', fmt: v => fr(v, 3)}),
-        legend([['Elo', 'c-elo'], ['GRU (barre noire : écart entre graines)', 'c-gru'], ['Naïf', 'c-naive']]),
-        table(['Cohorte', 'Élèves d’entraînement', 'Brier GRU par graine', 'Brier Elo', 'Brier naïf', 'Elo − GRU, graine 42 (IC 95 %)'], cohorts.map(c => {
-          const r = size.cohorts[c], s0 = Object.values(r)[0], d = s0.common.bootstrap.differences['elo-gru:brier'];
-          return [c, int(s0.train_learners), Object.values(r).map(x => fr(x.common.metrics.gru.brier, 4)).join(' · '), fr(s0.common.metrics.elo.brier, 4), fr(s0.common.metrics.naive.brier, 4), `${fr(d.point, 4)} (${fr(d.ci95[0], 4)} – ${fr(d.ci95[1], 4)})`];
-        }), [1, 3, 4]));
+        h('p', {class: 'sub', text: `Cohorte L1 (1 000 élèves). Test fixe de ${size.layout.test} élèves, validation fixe de ${size.layout.validation} ; entraînement sur 70 % d’une cohorte de 50, 200 ou 1 000 élèves, trois graines chacune. Elo et le naïf ne dépendent pas de la cohorte. Ci-dessous : Elo − GRU (Brier) et son intervalle à 95 % par tirage d’élèves.`}),
+        h('div', {class: 'panel'}, diffChart(dRows),
+          table(['Cohorte', 'Élèves d’entraînement', 'Brier GRU par graine', 'Brier Elo', 'Brier naïf', 'Lecture'], cohorts.map(c => {
+            const r = size.cohorts[c], ds = seedOrder(c).map(sd => r[sd].common.bootstrap.differences['elo-gru:brier'].ci95);
+            const verdictC = ds.every(([, hi]) => hi < 0) ? 'Elo meilleur (3 graines)' : ds.every(([lo]) => lo > 0) ? 'GRU meilleur (3 graines)' : 'variable selon la graine';
+            const any = r[seedOrder(c)[0]];
+            return [int(Number(c)), int(any.train_learners), seedOrder(c).map(sd => `${fr(r[sd].common.metrics.gru.brier, 4)} (${sd})`).join(' · '), fr(any.common.metrics.elo.brier, 4), fr(any.common.metrics.naive.brier, 4), verdictC];
+          }), [1, 3, 4])));
     }
     const sens = overview.sensitivity, mainRes = overview.main;
     if (sens && mainRes) {

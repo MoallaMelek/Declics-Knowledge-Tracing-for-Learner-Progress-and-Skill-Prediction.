@@ -75,11 +75,12 @@ const fr = (v, d) => Number(v).toLocaleString('fr-FR', {minimumFractionDigits: d
   await test('Elo vs GRU vs naive: the table matches the measured results', async () => {
     await page.getByRole('tab', {name: 'Elo, GRU, naïf'}).click();
     await until(() => page.locator('#view-comparaison table.sim').first().isVisible(), 'comparison');
-    const seed = Object.keys(overview.main.seeds)[0];
+    const seed = String(overview.config.gru.seeds[0]);   // the primary seed shown first
     const m = overview.main.seeds[seed].common.metrics;
     const text = await page.locator('#view-comparaison .panel').first().innerText();
     for (const k of ['elo', 'gru', 'naive']) assert.ok(text.includes(fr(m[k].brier, 4)), `${k} Brier ${fr(m[k].brier, 4)} on screen`);
     assert.match(text, /Lecture\./);
+    assert.match(text, new RegExp(`GRU graine ${seed}`));
     await page.screenshot({path: path.join(OUT, '03-comparison.png'), fullPage: true});
   });
 

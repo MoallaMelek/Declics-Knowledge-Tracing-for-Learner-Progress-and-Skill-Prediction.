@@ -2,11 +2,11 @@
  "synthetic": true,
  "study": "sim-2026-11",
  "config": "configs/simulation-study.json",
- "code_revision": "a15235d9ac1073d48014fb4e5a3abca852295d78",
+ "code_revision": "f0e030362789ffafdcc9da1cda931ba2a01e65bd",
  "commands": [
   "python scripts/run_simulation_campaigns.py --worker 0   # A1, A2, A3, B1, N1",
   "python scripts/run_simulation_campaigns.py --worker 1   # L1 (1000 élèves)",
-  "python scripts/run_simulation_study.py inspect main replicate shift size families ui",
+  "python scripts/run_simulation_study.py inspect main sensitivity replicate shift size families ui",
   "python -m pytest tests/test_simulation_learners.py tests/test_simulation_models.py"
  ],
  "campaign_outputs": "runtime/simulation/<étude>/campaigns/<nom>/ (base synthetic-*.sqlite, hidden/, campaign.json ; non versionnés)",

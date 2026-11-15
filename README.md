@@ -42,7 +42,7 @@ Avant chaque question, une prévision O08 de votre réussite est enregistrée, p
 | **Séance** | Évaluation initiale (30 questions), puis séances d’environ 10 minutes composées à partir de vos résultats ; reprise si vous quittez en cours |
 | **Parcours** | Carte de maîtrise des 53 niveaux, forces et points à travailler, erreurs récurrentes, historique, **O08 sur mes données** |
 | **Exercices** | 12 fiches en 10 champs : objectif, compétence, niveaux à difficulté vérifiable, prérequis, consignes, entrées, résultat, correction, métriques, références |
-| **Laboratoire** | Rejeu O08 des réseaux entraînés sur données réelles, bancs d’essai, limites |
+| **Laboratoire** | Rejeu O08 des réseaux entraînés sur données réelles, bancs d’essai, limites, élèves virtuels (simulation) |
 
 **Ce qu’il faut savoir :**
 - Les réseaux O08 entraînés (SingPAD, Yousician) **ne reçoivent pas** vos réponses : leur contrat d’entrée ne les accepte pas, et c’est voulu.

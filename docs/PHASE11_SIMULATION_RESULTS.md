@@ -7,6 +7,11 @@
 | Campagne | Simulateur | Élèves | Actifs ≥ 1 fois | Séances | Terminées | Questions | Justes | Abandons | Retours | Pauses | Actifs à la fin | Exports O08 acceptés | Durée (s) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | A1 | A | 200 | 197 | 4354 | 4109 | 48263 | 70 % | 58 | 14 | 198 | 134 | 200 | 840 |
+| A2 | A | 200 | 198 | 4293 | 4067 | 47864 | 69 % | 55 | 14 | 217 | 137 | 200 | 877 |
+| A3 | A | 200 | 194 | 4446 | 4214 | 49767 | 70 % | 48 | 14 | 201 | 141 | 200 | 788 |
+| B1 | B | 200 | 199 | 4171 | 3969 | 46581 | 68 % | 43 | 11 | 258 | 143 | 200 | 765 |
+| N1 | A ×1.5 | 200 | 198 | 4049 | 3817 | 43472 | 57 % | 58 | 17 | 232 | 137 | 200 | 648 |
+| L1 | A | 1000 | 990 | 21693 | 20550 | 243162 | 70 % | 263 | 78 | 1053 | 716 | 1000 | 4180 |
 
 ### Campagne principale A1 : courbes des familles (niveau caché moyen, 0 = débutant typique, 1 = expert typique)
 
@@ -195,6 +200,20 @@ GRU − naïf : -0,0170 [-0,0198 ; -0,0142]. Elo ne prévoit pas ces questions :
 
 ## 5. Expériences de robustesse
 
+### 5.1 Taille de la cohorte (L1 : test fixe de 150 élèves)
+
+| Cohorte | Élèves d’entraînement | Graine | Brier GRU | Brier Elo | Brier naïf | Elo − GRU | IC 95 % | Époques |
+|---|---|---|---|---|---|---|---|---|
+| 50 | 35 | 42 | 0,1890 | 0,1858 | 0,1905 | -0,0032 | [-0,0053 ; -0,0013] | 12 |
+| 50 | 35 | 17 | 0,1890 | 0,1858 | 0,1905 | -0,0032 | [-0,0056 ; -0,0011] | 12 |
+| 50 | 35 | 83 | 0,1887 | 0,1858 | 0,1905 | -0,0029 | [-0,0049 ; -0,0012] | 12 |
+| 200 | 140 | 42 | 0,1838 | 0,1858 | 0,1905 | 0,0020 | [0,0003 ; 0,0034] | 12 |
+| 200 | 140 | 17 | 0,1842 | 0,1858 | 0,1905 | 0,0016 | [0,0001 ; 0,0029] | 12 |
+| 200 | 140 | 83 | 0,1836 | 0,1858 | 0,1905 | 0,0022 | [0,0008 ; 0,0034] | 12 |
+| 1000 | 700 | 42 | 0,1816 | 0,1858 | 0,1905 | 0,0042 | [0,0031 ; 0,0053] | 12 |
+| 1000 | 700 | 17 | 0,1814 | 0,1858 | 0,1905 | 0,0044 | [0,0033 ; 0,0054] | 12 |
+| 1000 | 700 | 83 | 0,1814 | 0,1858 | 0,1905 | 0,0044 | [0,0033 ; 0,0054] | 12 |
+
 ### 5.2 Autre simulateur (B1) et réponses plus bruyantes (N1)
 
 | Population | GRU | Questions | Brier Elo | Brier GRU | Brier naïf | Elo − GRU | IC 95 % | GRU → vérité | Elo → vérité |
@@ -225,4 +244,15 @@ Où Elo fait mieux que le GRU transféré, N1 (tous les élèves, intervalle ent
 |---|---|---|---|
 | Même sens que la vraie évolution | 61 % | 57 % | 66 % |
 | Corrélation avec la vraie évolution | 0,562 | 0,472 | 0,272 |
+
+### 5.4 Une famille absente de l’entraînement (L1)
+
+| Famille testée | Élèves testés | Brier GRU sans la famille | Brier GRU avec (même taille) | Brier Elo | Brier naïf |
+|---|---|---|---|---|---|
+| Débutant motivé | 30 | 0,2079 | 0,2065 | 0,2116 | 0,2131 |
+| Musicien expérimenté | 19 | 0,0913 | 0,0838 | 0,0899 | 0,1036 |
+| Bonne oreille, rythme faible | 31 | 0,2006 | 0,1951 | 0,1982 | 0,2015 |
+| Bon rythme, difficultés mélodiques | 24 | 0,1838 | 0,1821 | 0,1847 | 0,1889 |
+| Irrégulier, longues pauses | 27 | 0,1954 | 0,1952 | 0,1996 | 0,2077 |
+| En difficulté, progresse lentement | 19 | 0,2291 | 0,2251 | 0,2329 | 0,2346 |
 
