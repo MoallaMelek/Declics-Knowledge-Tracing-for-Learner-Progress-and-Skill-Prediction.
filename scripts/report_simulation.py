@@ -171,14 +171,33 @@ def main():
     if shift:
         rows = []
         for n in ('B1', 'N1'):
-            for k, lab in (('trained_on_A1', 'GRU entraîné sur A1 (transfert)'), ('trained_on_same_population', f'GRU entraîné sur {n}')):
-                r = shift[n][k]
+            for k, lab in (('trained_on_A1', 'GRU entraîné sur A1 (transfert), 30 élèves test'), ('trained_on_same_population', f'GRU entraîné sur {n}, 30 élèves test'),
+                           ('all_learners_A1_gru', 'GRU entraîné sur A1 (transfert), tous les élèves')):
+                r = shift[n].get(k)
+                if not r:
+                    continue
                 rows.append([n, lab, r['common']['questions'], f(r['common']['metrics']['elo']['brier']), f(r['common']['metrics']['gru']['brier']), f(r['common']['metrics']['naive']['brier']),
                              f(r['common']['bootstrap']['differences']['elo-gru:brier']['point']), ci(r['common']['bootstrap']['differences']['elo-gru:brier']['ci95']),
                              f(r['truth_recovery']['gru']['mse_to_truth']), f(r['truth_recovery']['elo']['mse_to_truth'])])
         out += ['### 5.2 Autre simulateur (B1) et réponses plus bruyantes (N1)', '',
                 table(['Population', 'GRU', 'Questions', 'Brier Elo', 'Brier GRU', 'Brier naïf', 'Elo − GRU', 'IC 95 %', 'GRU → vérité', 'Elo → vérité'], rows), '']
-        at = shift['B1'].get('atypical_family')
+        for n in ('B1', 'N1'):
+            r = shift[n].get('all_learners_A1_gru')
+            eb = elo_better(r) if r else []
+            if eb:
+                out += [f'Où Elo fait mieux que le GRU transféré, {n} (tous les élèves, intervalle entièrement sous zéro) :', '',
+                        table(['Découpage', 'Tranche', 'Questions', 'Élèves', 'Brier Elo', 'Brier GRU', 'Brier naïf', 'Elo − GRU', 'IC 95 %'], eb), '']
+        aa = shift['B1'].get('atypical_all_learners_A1_gru')
+        if aa and aa['common']['questions']:
+            d = aa['common']['bootstrap']['differences']['elo-gru:brier']; tr = aa['trend']
+            out += ['### 5.3 Progression atypique (famille de B1, jamais vue par le GRU entraîné sur A1)', '',
+                    table(['Élèves', 'Questions', 'Brier Elo', 'Brier GRU', 'Brier naïf', 'Elo − GRU', 'IC 95 %'],
+                          [[aa['common']['learners'], aa['common']['questions'], f(aa['common']['metrics']['elo']['brier']), f(aa['common']['metrics']['gru']['brier']),
+                            f(aa['common']['metrics']['naive']['brier']), f(d['point']), ci(d['ci95'])]]), '',
+                    table([f'Tendance ({tr["trajectories"]} trajectoires élève × compétence)', *[l for _, l in M]],
+                          [['Même sens que la vraie évolution', *[pct(tr[k]['same_direction']) for k, _ in M]],
+                           ['Corrélation avec la vraie évolution', *[f(tr[k]['corr_with_true_change'], 3) for k, _ in M]]]), '']
+        at = None
         if at and at['trained_on_A1']['common']['questions']:
             out += ['### 5.3 Progression atypique (famille de B1 absente de A)', '',
                     table(['GRU', 'Élèves', 'Questions', 'Brier Elo', 'Brier GRU', 'Brier naïf', 'Tendance GRU (même sens)', 'Tendance Elo (même sens)'],

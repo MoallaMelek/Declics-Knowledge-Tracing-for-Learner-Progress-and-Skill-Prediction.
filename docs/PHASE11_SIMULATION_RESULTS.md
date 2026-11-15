@@ -193,3 +193,36 @@ GRU − naïf : -0,0170 [-0,0198 ; -0,0142]. Elo ne prévoit pas ces questions :
 | rythme-echo | 751 | 83 | 84 % | 0,1789 | **0,1237** | 0,1736 | 0,0552 | [0,0312 ; 0,0841] | GRU meilleur |
 | rythmes | 8178 | 192 | 63 % | 0,2198 | **0,2187** | 0,2203 | 0,0011 | [-0,0010 ; 0,0031] | pas de différence nette |
 
+## 5. Expériences de robustesse
+
+### 5.2 Autre simulateur (B1) et réponses plus bruyantes (N1)
+
+| Population | GRU | Questions | Brier Elo | Brier GRU | Brier naïf | Elo − GRU | IC 95 % | GRU → vérité | Elo → vérité |
+|---|---|---|---|---|---|---|---|---|---|
+| B1 | GRU entraîné sur A1 (transfert), 30 élèves test | 6290 | 0,1876 | 0,1854 | 0,1933 | 0,0022 | [-0,0003 ; 0,0048] | 0,0671 | 0,0703 |
+| B1 | GRU entraîné sur B1, 30 élèves test | 6290 | 0,1876 | 0,1864 | 0,1933 | 0,0013 | [-0,0021 ; 0,0044] | 0,0678 | 0,0703 |
+| B1 | GRU entraîné sur A1 (transfert), tous les élèves | 40123 | 0,1899 | 0,1875 | 0,1938 | 0,0024 | [0,0014 ; 0,0034] | 0,0714 | 0,0739 |
+| N1 | GRU entraîné sur A1 (transfert), 30 élèves test | 5497 | 0,2108 | 0,2115 | 0,2137 | -0,0007 | [-0,0050 ; 0,0030] | 0,0768 | 0,0769 |
+| N1 | GRU entraîné sur N1, 30 élèves test | 5497 | 0,2108 | 0,2084 | 0,2137 | 0,0024 | [-0,0007 ; 0,0055] | 0,0754 | 0,0769 |
+| N1 | GRU entraîné sur A1 (transfert), tous les élèves | 37274 | 0,2105 | 0,2092 | 0,2122 | 0,0013 | [-0,0001 ; 0,0026] | 0,0817 | 0,0825 |
+
+Où Elo fait mieux que le GRU transféré, N1 (tous les élèves, intervalle entièrement sous zéro) :
+
+| Découpage | Tranche | Questions | Élèves | Brier Elo | Brier GRU | Brier naïf | Elo − GRU | IC 95 % |
+|---|---|---|---|---|---|---|---|---|
+| compétence | pulsation | 4644 | 177 | 0,1729 | 0,1899 | 0,1747 | -0,0170 | [-0,0237 ; -0,0109] |
+| exercice | pulsation | 4644 | 177 | 0,1729 | 0,1899 | 0,1747 | -0,0170 | [-0,0237 ; -0,0109] |
+| pause avant la question | moins de 2 jours | 2250 | 187 | 0,2052 | 0,2170 | 0,2064 | -0,0119 | [-0,0188 ; -0,0047] |
+| pause avant la question | 2 à 6 jours | 1025 | 182 | 0,1936 | 0,2081 | 0,1968 | -0,0145 | [-0,0248 ; -0,0048] |
+
+### 5.3 Progression atypique (famille de B1, jamais vue par le GRU entraîné sur A1)
+
+| Élèves | Questions | Brier Elo | Brier GRU | Brier naïf | Elo − GRU | IC 95 % |
+|---|---|---|---|---|---|---|
+| 28 | 6203 | 0,2266 | 0,2248 | 0,2265 | 0,0017 | [-0,0006 ; 0,0039] |
+
+| Tendance (152 trajectoires élève × compétence) | Elo (declic-elo-v1) | GRU DÉCLIC | Naïf |
+|---|---|---|---|
+| Même sens que la vraie évolution | 61 % | 57 % | 66 % |
+| Corrélation avec la vraie évolution | 0,562 | 0,472 | 0,272 |
+

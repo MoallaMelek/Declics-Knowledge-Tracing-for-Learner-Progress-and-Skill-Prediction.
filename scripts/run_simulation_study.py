@@ -250,9 +250,15 @@ def shift():
         own_model, own_cfg = gru(f'{name}-s{G["seeds"][0]}', data, splits, G['seeds'][0])
         own = rows_for(data, splits['test'], own_model, own_cfg, items, learners)
         moved = rows_for(data, splits['test'], a1_model, a1_cfg, items, learners)
+        # The A1 GRU never saw any learner of this population: all 200 can be its test set.
+        moved_all = rows_for(data, sorted(data), a1_model, a1_cfg, items, learners)
         out[name] = {'trained_on_same_population': evaluate(own, f'{name} · GRU entraîné sur {name}'),
-                     'trained_on_A1': evaluate(moved, f'{name} · GRU entraîné sur A1 (transfert)')}
+                     'trained_on_A1': evaluate(moved, f'{name} · GRU entraîné sur A1 (transfert)'),
+                     'all_learners_A1_gru': evaluate(moved_all, f'{name} · les {len(data)} élèves · GRU entraîné sur A1 (transfert)')}
         if name == 'B1':
+            atyp_all = [r for r in moved_all if r['family'] == 'progression_atypique']
+            out[name]['atypical_all_learners_A1_gru'] = {**sm.compare(atyp_all, replicates=B['replicates'], seed=B['seed']),
+                                                         'trend': sm.trend_recovery(atyp_all, min_items=8)}
             atyp = [r for r in moved if r['family'] == 'progression_atypique']
             atyp_own = [r for r in own if r['family'] == 'progression_atypique']
             out[name]['atypical_family'] = {'trained_on_A1': sm.compare(atyp, replicates=B['replicates'], seed=B['seed']),

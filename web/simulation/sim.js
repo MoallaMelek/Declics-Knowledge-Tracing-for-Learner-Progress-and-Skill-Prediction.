@@ -394,8 +394,21 @@
         h('p', {class: 'sub', text: 'B1 : lois d’apprentissage et d’oubli en puissance, bruit logistique, autres proportions de familles et une famille atypique (plateau puis décollage). N1 : même simulateur que A, bruit et inattention ×1,5. Le GRU entraîné sur A1 est évalué sans réentraînement (transfert), à côté d’un GRU entraîné sur la population elle-même.'}),
         table(['Évaluation', 'Questions', 'Brier Elo', 'Brier GRU', 'Brier naïf', 'Elo − GRU (IC 95 %)', 'GRU → vérité'], [
           row('B1 · GRU entraîné sur A1 (transfert)', shift.B1.trained_on_A1), row('B1 · GRU entraîné sur B1', shift.B1.trained_on_same_population),
-          row('N1 · GRU entraîné sur A1 (transfert)', shift.N1.trained_on_A1), row('N1 · GRU entraîné sur N1', shift.N1.trained_on_same_population)], [1, 2, 3, 4, 6]));
-      const at = shift.B1.atypical_family;
+          row('N1 · GRU entraîné sur A1 (transfert)', shift.N1.trained_on_A1), row('N1 · GRU entraîné sur N1', shift.N1.trained_on_same_population),
+          ...['B1', 'N1'].filter(n => shift[n].all_learners_A1_gru).map(n => row(`${n} · tous les élèves · GRU entraîné sur A1`, shift[n].all_learners_A1_gru))], [1, 2, 3, 4, 6]),
+        h('p', {class: 'sub', text: 'Le GRU entraîné sur A1 n’a vu aucun élève de B1 ni de N1 : tous leurs élèves peuvent lui servir de test, d’où des intervalles plus étroits.'}));
+      const aa = shift.B1.atypical_all_learners_A1_gru;
+      if (aa && aa.common.questions) {
+        const d = aa.common.bootstrap.differences['elo-gru:brier'];
+        parts.push(h('h3', {text: 'Élèves à progression inhabituelle'}),
+          h('p', {class: 'sub', text: `Famille « plateau puis décollage » de B1, absente de A : ${int(aa.common.learners)} élèves, ${int(aa.common.questions)} questions, prévus par le GRU entraîné sur A1.`}),
+          table(['', 'Elo', 'GRU', 'Naïf'], [
+            ['Brier', ...MODELS.map(([k]) => fr(aa.common.metrics[k].brier, 4))],
+            ['Tendance : même sens que la vraie évolution', ...MODELS.map(([k]) => pct(aa.trend[k] && aa.trend[k].same_direction))],
+            ['Tendance : corrélation avec la vraie évolution', ...MODELS.map(([k]) => fr(aa.trend[k] && aa.trend[k].corr_with_true_change, 3))]], [1, 2, 3]),
+          h('p', {class: 'sub', text: `Elo − GRU (Brier) : ${fr(d.point, 4)} (IC 95 % ${fr(d.ci95[0], 4)} – ${fr(d.ci95[1], 4)}). ${aa.trend.trajectories} trajectoires élève × compétence.`}));
+      }
+      const at = aa ? null : shift.B1.atypical_family;
       if (at && at.trained_on_A1.common.questions) {
         const r1 = at.trained_on_A1, r2 = at.trained_on_B1;
         parts.push(h('h3', {text: 'Élèves à progression inhabituelle'}),
